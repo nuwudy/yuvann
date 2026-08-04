@@ -1,0 +1,62 @@
+{
+    "name": "Yuvann Wellness Concepts",
+    "short_name": "Yuvann",
+    "description": "Premium Ayurvedic & Herbal Products by Dr. Sajeev Dev. Shop oils, syrups, superfoods and more.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#faf9f6",
+    "theme_color": "#1a3d2b",
+    "lang": "en",
+    "categories": ["shopping", "health", "wellness"],
+    "icons": [
+        {
+            "src": "/icons/icon-72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icons/icon-96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icons/icon-144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Yuvann Wellness Storefront"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Shop All Products",
+            "short_name": "Shop",
+            "url": "/products",
+            "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
+        }
+    ]
+}

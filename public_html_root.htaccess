@@ -1,0 +1,10 @@
+# This file goes into /home/yuvann.com/public_html/ (the ROOT, NOT the /public subfolder)
+# It redirects all traffic into the Laravel /public directory
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # If the request is NOT already pointing into /public
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ /public/$1 [L,QSA]
+</IfModule>
