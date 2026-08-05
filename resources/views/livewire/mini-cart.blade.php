@@ -79,14 +79,14 @@
                                                 <div class="flex flex-1 items-end justify-between text-xs">
                                                     <!-- Quantity Controls -->
                                                     <div class="flex items-center border border-brand-green-200 rounded-full bg-white px-2 py-1 gap-2.5">
-                                                        <button wire:click="decrementQuantity({{ $item['id'] }})" class="text-brand-green-800 hover:text-brand-gold-600 focus:outline-none font-bold px-1 text-sm">-</button>
+                                                        <button wire:click="decrementQuantity('{{ $item['cart_id'] }}')" class="text-brand-green-800 hover:text-brand-gold-600 focus:outline-none font-bold px-1 text-sm">-</button>
                                                         <span class="font-medium text-brand-green-900 w-4 text-center">{{ $item['quantity'] }}</span>
-                                                        <button wire:click="incrementQuantity({{ $item['id'] }})" class="text-brand-green-800 hover:text-brand-gold-600 focus:outline-none font-bold px-1 text-sm">+</button>
+                                                        <button wire:click="incrementQuantity('{{ $item['cart_id'] }}')" class="text-brand-green-800 hover:text-brand-gold-600 focus:outline-none font-bold px-1 text-sm">+</button>
                                                     </div>
 
                                                     <!-- Remove Button -->
                                                     <div class="flex">
-                                                        <button type="button" wire:click="removeItem({{ $item['id'] }})" class="font-medium text-red-600 hover:text-red-800 transition-colors">
+                                                        <button type="button" wire:click="removeItem('{{ $item['cart_id'] }}')" class="font-medium text-red-600 hover:text-red-800 transition-colors">
                                                             Remove
                                                         </button>
                                                     </div>

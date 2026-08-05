@@ -21,28 +21,28 @@ class MiniCart extends Component
         $this->isOpen = false;
     }
 
-    public function incrementQuantity(int $productId): void
+    public function incrementQuantity(string $cartId): void
     {
         $items = CartService::getItems();
-        if (isset($items[$productId])) {
-            CartService::update($productId, $items[$productId]['quantity'] + 1);
+        if (isset($items[$cartId])) {
+            CartService::update($cartId, $items[$cartId]['quantity'] + 1);
             $this->dispatch('cart-updated');
         }
     }
 
-    public function decrementQuantity(int $productId): void
+    public function decrementQuantity(string $cartId): void
     {
         $items = CartService::getItems();
-        if (isset($items[$productId])) {
-            $newQty = $items[$productId]['quantity'] - 1;
-            CartService::update($productId, $newQty);
+        if (isset($items[$cartId])) {
+            $newQty = $items[$cartId]['quantity'] - 1;
+            CartService::update($cartId, $newQty);
             $this->dispatch('cart-updated');
         }
     }
 
-    public function removeItem(int $productId): void
+    public function removeItem(string $cartId): void
     {
-        CartService::remove($productId);
+        CartService::remove($cartId);
         $this->dispatch('cart-updated');
     }
 

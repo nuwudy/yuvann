@@ -183,10 +183,16 @@
                     <div></div>
                 @endif
                 
-                @if($product->in_stock)
+                @php
+                    $activeVariant = $this->getSelectedVariant();
+                    $inStock = $activeVariant ? $activeVariant->in_stock : $product->in_stock;
+                    $stockQuantity = $activeVariant ? $activeVariant->stock_quantity : $product->stock_quantity;
+                @endphp
+
+                @if($inStock)
                     <span class="inline-flex items-center gap-1.5 text-xs text-green-700 font-semibold bg-green-50 px-3 py-1 rounded-full border border-green-200">
                         <span class="w-2 h-2 rounded-full bg-green-600 animate-pulse"></span>
-                        In Stock ({{ $product->stock_quantity }} units)
+                        In Stock ({{ $stockQuantity }} units)
                     </span>
                 @else
                     <span class="inline-flex items-center gap-1.5 text-xs text-red-700 font-semibold bg-red-50 px-3 py-1 rounded-full border border-red-200">
@@ -199,17 +205,39 @@
             <div class="space-y-2">
                 <span class="text-xs font-bold text-brand-gold-600 uppercase tracking-widest">{{ $product->category->name }}</span>
                 <h1 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900 leading-tight">{{ $product->name }}</h1>
-                <p class="text-xs text-brand-green-700/60 font-medium">SKU: <span class="font-bold">{{ $product->sku }}</span> | Size: <span class="font-bold">{{ $product->unit_size }}</span></p>
+                <p class="text-xs text-brand-green-700/60 font-medium">SKU: <span class="font-bold">{{ $activeVariant ? $activeVariant->sku : $product->sku }}</span> | Size: <span class="font-bold">{{ $activeVariant ? $activeVariant->unit_size : $product->unit_size }}</span></p>
                 
+                @if($product->variants->isNotEmpty())
+                    <div class="pt-2 pb-1">
+                        <span class="text-xs font-bold text-brand-green-900 uppercase block mb-2">Select Size:</span>
+                        <div class="flex flex-wrap gap-2">
+                            @foreach($product->variants as $variant)
+                                <button wire:click="$set('selectedVariantId', {{ $variant->id }})"
+                                        class="px-4 py-2 border rounded-full text-sm font-semibold transition-all
+                                        {{ $selectedVariantId === $variant->id ? 'border-brand-gold-500 bg-brand-gold-50 text-brand-green-900 ring-1 ring-brand-gold-500' : 'border-brand-green-200 text-brand-green-700 hover:border-brand-green-400' }}">
+                                    {{ $variant->unit_size }}
+                                </button>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                @php
+                    $displayPrice = $activeVariant ? $activeVariant->price : $product->price;
+                    $displaySalePrice = $activeVariant ? $activeVariant->sale_price : $product->sale_price;
+                    $isOnSale = $activeVariant ? $activeVariant->is_on_sale : $product->is_on_sale;
+                    $savings = $activeVariant ? $activeVariant->savings_percentage : $product->savings_percentage;
+                @endphp
+
                 <div class="flex items-baseline gap-3 pt-2">
-                    @if($product->is_on_sale)
-                        <span class="text-lg text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
-                        <span class="text-3xl font-serif font-bold text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
+                    @if($isOnSale)
+                        <span class="text-lg text-brand-green-700/40 line-through">₹{{ number_format($displayPrice, 2) }}</span>
+                        <span class="text-3xl font-serif font-bold text-brand-green-900">₹{{ number_format($displaySalePrice, 2) }}</span>
                         <span class="text-xs font-bold text-brand-gold-600 bg-brand-gold-50 px-2 py-1 rounded-md border border-brand-gold-100">
-                            Save {{ $product->savings_percentage }}%
+                            Save {{ $savings }}%
                         </span>
                     @else
-                        <span class="text-3xl font-serif font-bold text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
+                        <span class="text-3xl font-serif font-bold text-brand-green-900">₹{{ number_format($displayPrice, 2) }}</span>
                     @endif
                 </div>
             </div>
@@ -220,7 +248,7 @@
             </p>
 
             <!-- Quantity & Actions Area -->
-            @if($product->in_stock)
+            @if($inStock)
                 <div class="space-y-4 border-t border-brand-green-100/60 pt-4">
                     <div class="flex items-center gap-4">
                         <span class="text-xs font-bold text-brand-green-900 uppercase">Quantity:</span>
@@ -243,7 +271,9 @@
                         
                         <!-- WhatsApp Buy -->
                         @php
-                            $waMessage = "Hello Dr. Sajeev Dev, I would like to order " . $quantity . " x *" . $product->name . "* (" . $product->unit_size . ") priced at ₹" . number_format($product->active_price * $quantity, 2) . ". Please guide me with payment details. Product link: " . request()->url();
+                            $activePriceForWa = $activeVariant ? $activeVariant->active_price : $product->active_price;
+                            $activeSizeForWa = $activeVariant ? $activeVariant->unit_size : $product->unit_size;
+                            $waMessage = "Hello Dr. Sajeev Dev, I would like to order " . $quantity . " x *" . $product->name . "* (" . $activeSizeForWa . ") priced at ₹" . number_format($activePriceForWa * $quantity, 2) . ". Please guide me with payment details. Product link: " . request()->url();
                             $waUrl = "https://wa.me/917736609299?text=" . urlencode($waMessage);
                         @endphp
                         <a href="{{ $waUrl }}" target="_blank" 

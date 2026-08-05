@@ -21,6 +21,12 @@ class ProductManager extends Component
     public bool $isFormOpen = false;
     public ?int $productId = null;
 
+    // Variant Management
+    public ?int $managingVariantsProductId = null;
+    public string $managingVariantsProductName = '';
+    public bool $isVariantFormOpen = false;
+    public array $productVariants = [];
+
     // Form fields
     public ?int $category_id = null;
     public string $name = '';
@@ -259,6 +265,102 @@ class ProductManager extends Component
         $product = Product::findOrFail($id);
         $product->is_featured = !$product->is_featured;
         $product->save();
+    }
+
+    // ─── Variant Management ──────────────────────────────────────────────────
+
+    public function openVariantManager(int $id): void
+    {
+        $this->isFormOpen = false;
+        
+        $product = Product::with('variants')->findOrFail($id);
+        $this->managingVariantsProductId = $product->id;
+        $this->managingVariantsProductName = $product->name;
+        
+        $this->productVariants = $product->variants->map(function ($variant) {
+            return [
+                'id' => $variant->id,
+                'sku' => $variant->sku,
+                'unit_size' => $variant->unit_size,
+                'price' => (float) $variant->price,
+                'sale_price' => $variant->sale_price !== null ? (float) $variant->sale_price : null,
+                'stock_quantity' => $variant->stock_quantity,
+                'is_active' => (bool) $variant->is_active,
+            ];
+        })->toArray();
+        
+        $this->isVariantFormOpen = true;
+    }
+
+    public function closeVariantManager(): void
+    {
+        $this->isVariantFormOpen = false;
+        $this->managingVariantsProductId = null;
+        $this->productVariants = [];
+    }
+
+    public function addVariantRow(): void
+    {
+        $this->productVariants[] = [
+            'id' => null,
+            'sku' => '',
+            'unit_size' => '',
+            'price' => 0.0,
+            'sale_price' => null,
+            'stock_quantity' => 0,
+            'is_active' => true,
+        ];
+    }
+
+    public function removeVariantRow(int $index): void
+    {
+        if (isset($this->productVariants[$index]['id']) && $this->productVariants[$index]['id']) {
+            \App\Models\ProductVariant::find($this->productVariants[$index]['id'])?->delete();
+        }
+        unset($this->productVariants[$index]);
+        $this->productVariants = array_values($this->productVariants);
+    }
+
+    public function saveVariants(): void
+    {
+        $this->validate([
+            'productVariants.*.sku' => 'required|string|max:50',
+            'productVariants.*.unit_size' => 'required|string|max:50',
+            'productVariants.*.price' => 'required|numeric|min:0',
+            'productVariants.*.sale_price' => 'nullable|numeric|min:0',
+            'productVariants.*.stock_quantity' => 'required|integer|min:0',
+            'productVariants.*.is_active' => 'boolean',
+        ], [
+            'productVariants.*.sku.required' => 'SKU is required',
+            'productVariants.*.unit_size.required' => 'Size is required',
+            'productVariants.*.price.required' => 'Price is required',
+        ]);
+
+        foreach ($this->productVariants as $vData) {
+            if (!empty($vData['id'])) {
+                \App\Models\ProductVariant::where('id', $vData['id'])->update([
+                    'sku' => $vData['sku'],
+                    'unit_size' => $vData['unit_size'],
+                    'price' => $vData['price'],
+                    'sale_price' => $vData['sale_price'] ?: null,
+                    'stock_quantity' => $vData['stock_quantity'],
+                    'is_active' => $vData['is_active'],
+                ]);
+            } else {
+                \App\Models\ProductVariant::create([
+                    'product_id' => $this->managingVariantsProductId,
+                    'sku' => $vData['sku'],
+                    'unit_size' => $vData['unit_size'],
+                    'price' => $vData['price'],
+                    'sale_price' => $vData['sale_price'] ?: null,
+                    'stock_quantity' => $vData['stock_quantity'],
+                    'is_active' => $vData['is_active'],
+                ]);
+            }
+        }
+
+        session()->flash('success', 'Product variants updated successfully!');
+        $this->closeVariantManager();
     }
 
     // ─── Media Library Picker (state only — UI is pure Alpine.js + JSON API) ────

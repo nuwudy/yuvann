@@ -53,6 +53,11 @@ class Product extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function variants(): HasMany
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
     /**
      * Get the active price (sale price if available, otherwise regular price).
      */

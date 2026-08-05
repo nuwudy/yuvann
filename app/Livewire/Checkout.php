@@ -63,15 +63,23 @@ class Checkout extends Component
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item['id'],
+                    'product_variant_id' => $item['variant_id'] ?? null,
                     'product_name' => $item['name'],
                     'price' => $item['price'],
                     'quantity' => $item['quantity'],
                     'unit_size' => $item['unit_size'],
                 ]);
 
-                $product = Product::find($item['id']);
-                if ($product) {
-                    $product->decrement('stock_quantity', $item['quantity']);
+                if (!empty($item['variant_id'])) {
+                    $variant = \App\Models\ProductVariant::find($item['variant_id']);
+                    if ($variant) {
+                        $variant->decrement('stock_quantity', $item['quantity']);
+                    }
+                } else {
+                    $product = Product::find($item['id']);
+                    if ($product) {
+                        $product->decrement('stock_quantity', $item['quantity']);
+                    }
                 }
             }
 

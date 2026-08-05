@@ -10,17 +10,23 @@ class ProductDetail extends Component
 {
     public Product $product;
     public int $quantity = 1;
+    public ?int $selectedVariantId = null;
 
     public function mount(string $slug): void
     {
-        $this->product = Product::where('slug', $slug)
+        $this->product = Product::with('variants')->where('slug', $slug)
             ->where('is_active', true)
             ->firstOrFail();
+
+        if ($this->product->variants->isNotEmpty()) {
+            $this->selectedVariantId = $this->product->variants->first()->id;
+        }
     }
 
     public function incrementQty(): void
     {
-        if ($this->quantity < $this->product->stock_quantity) {
+        $stock = $this->getSelectedVariant() ? $this->getSelectedVariant()->stock_quantity : $this->product->stock_quantity;
+        if ($this->quantity < $stock) {
             $this->quantity++;
         }
     }
@@ -34,14 +40,25 @@ class ProductDetail extends Component
 
     public function addToCart(): void
     {
-        if ($this->product->in_stock) {
-            CartService::add($this->product, $this->quantity);
+        $variant = $this->getSelectedVariant();
+        $inStock = $variant ? $variant->in_stock : $this->product->in_stock;
+
+        if ($inStock) {
+            CartService::add($this->product, $this->quantity, $variant);
             $this->dispatch('cart-updated');
+            
+            $sizeStr = $variant ? " ({$variant->unit_size})" : "";
             $this->dispatch('notify', [
                 'type' => 'success',
-                'message' => "{$this->quantity} x {$this->product->name} added to cart!",
+                'message' => "{$this->quantity} x {$this->product->name}{$sizeStr} added to cart!",
             ]);
         }
+    }
+
+    public function getSelectedVariant()
+    {
+        if (!$this->selectedVariantId) return null;
+        return $this->product->variants->firstWhere('id', $this->selectedVariantId);
     }
 
     public function render()

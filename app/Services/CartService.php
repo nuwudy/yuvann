@@ -20,21 +20,23 @@ class CartService
     /**
      * Add a product to the cart.
      */
-    public static function add(Product $product, int $quantity = 1): void
+    public static function add(Product $product, int $quantity = 1, ?\App\Models\ProductVariant $variant = null): void
     {
         $cart = self::getItems();
-        $id = $product->id;
+        $id = $product->id . ($variant ? '_' . $variant->id : '');
 
         if (isset($cart[$id])) {
             $cart[$id]['quantity'] += $quantity;
         } else {
             $cart[$id] = [
+                'cart_id' => $id,
                 'id' => $product->id,
+                'variant_id' => $variant ? $variant->id : null,
                 'name' => $product->name,
                 'slug' => $product->slug,
-                'price' => (float) $product->active_price,
-                'original_price' => (float) $product->price,
-                'unit_size' => $product->unit_size,
+                'price' => $variant ? (float) $variant->active_price : (float) $product->active_price,
+                'original_price' => $variant ? (float) $variant->price : (float) $product->price,
+                'unit_size' => $variant ? $variant->unit_size : $product->unit_size,
                 'featured_image' => $product->featured_image,
                 'quantity' => $quantity,
             ];
@@ -46,12 +48,12 @@ class CartService
     /**
      * Remove a product from the cart.
      */
-    public static function remove(int $productId): void
+    public static function remove(string $cartId): void
     {
         $cart = self::getItems();
 
-        if (isset($cart[$productId])) {
-            unset($cart[$productId]);
+        if (isset($cart[$cartId])) {
+            unset($cart[$cartId]);
         }
 
         Session::put(self::SESSION_KEY, $cart);
@@ -60,15 +62,15 @@ class CartService
     /**
      * Update quantity of a product in the cart.
      */
-    public static function update(int $productId, int $quantity): void
+    public static function update(string $cartId, int $quantity): void
     {
         $cart = self::getItems();
 
-        if (isset($cart[$productId])) {
+        if (isset($cart[$cartId])) {
             if ($quantity <= 0) {
-                unset($cart[$productId]);
+                unset($cart[$cartId]);
             } else {
-                $cart[$productId]['quantity'] = $quantity;
+                $cart[$cartId]['quantity'] = $quantity;
             }
         }
 
