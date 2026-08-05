@@ -50,6 +50,9 @@
                         <a href="/admin/media" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
                             Media Library
                         </a>
+                        <a href="/admin/settings" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
+                            Settings
+                        </a>
                         <a href="/" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
                             View Storefront
                         </a>
@@ -77,6 +80,9 @@
                         </a>
                         <a href="/admin/media" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
                             🖼️ Media Library
+                        </a>
+                        <a href="/admin/settings" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
+                            ⚙️ Settings
                         </a>
                         <hr class="border-brand-green-800 my-4">
                         <a href="/" class="group flex items-center px-4 py-2.5 text-xs font-medium rounded-md text-brand-green-200 hover:bg-brand-green-800 hover:text-white transition-all">

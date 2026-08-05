@@ -51,6 +51,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/categories', CategoryManager::class);
     Route::get('/orders', OrderList::class);
     Route::get('/media', MediaLibrary::class);
+    Route::get('/settings', \App\Livewire\Admin\SettingsManager::class);
     Route::get('/api/media', [MediaApiController::class, 'index']); // JSON API for the client-side media picker
 
     // Force fix storage link via browser

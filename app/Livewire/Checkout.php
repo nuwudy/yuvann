@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Services\CartService;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -37,7 +38,13 @@ class Checkout extends Component
         $this->validate();
 
         $cartItems = CartService::getItems();
-        $totalAmount = CartService::getSubtotal();
+        $subtotal = CartService::getSubtotal();
+        
+        $shippingChargeSetting = Setting::where('key', 'shipping_charge')->value('value') ?? 60;
+        $freeShippingThreshold = Setting::where('key', 'free_shipping_threshold')->value('value') ?? 1000;
+        
+        $shippingAmount = ($subtotal >= $freeShippingThreshold) ? 0 : $shippingChargeSetting;
+        $totalAmount = $subtotal + $shippingAmount;
         
         if ($totalAmount < 1) {
             session()->flash('error', 'Order amount must be at least ₹1.');
@@ -56,6 +63,7 @@ class Checkout extends Component
                 'shipping_address' => $this->shipping_address,
                 'notes' => $this->notes ?: null,
                 'total_amount' => $totalAmount,
+                'shipping_amount' => $shippingAmount,
                 'status' => 'pending',
             ]);
 
@@ -155,10 +163,19 @@ class Checkout extends Component
 
     public function render()
     {
+        $subtotal = CartService::getSubtotal();
+        $shippingChargeSetting = Setting::where('key', 'shipping_charge')->value('value') ?? 60;
+        $freeShippingThreshold = Setting::where('key', 'free_shipping_threshold')->value('value') ?? 1000;
+        $shippingAmount = ($subtotal >= $freeShippingThreshold) ? 0 : $shippingChargeSetting;
+        $totalAmount = $subtotal + $shippingAmount;
+
         return view('livewire.checkout', [
             'cartItems' => CartService::getItems(),
             'totalQuantity' => CartService::getTotalQuantity(),
-            'subtotal' => CartService::getSubtotal(),
+            'subtotal' => $subtotal,
+            'shippingAmount' => $shippingAmount,
+            'freeShippingThreshold' => $freeShippingThreshold,
+            'totalAmount' => $totalAmount,
         ])->layout('components.layouts.app');
     }
 }

@@ -5,10 +5,15 @@
         <p class="text-xs sm:text-sm text-brand-green-700/70 mt-1.5">Provide your shipping details below to place your order and initiate WhatsApp delivery routing.</p>
     </div>
 
-    <!-- Error Alert -->
     @if(session()->has('error'))
         <div class="bg-red-50 border border-red-200 text-red-800 text-xs font-semibold px-4 py-3 rounded-xl mb-6 text-left">
             ⚠️ {{ session('error') }}
+        </div>
+    @endif
+    
+    @if($subtotal < $freeShippingThreshold)
+        <div class="bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold px-4 py-3 rounded-xl mb-6 text-left">
+            ℹ️ Add ₹{{ number_format($freeShippingThreshold - $subtotal, 2) }} more to your cart to get Free Shipping!
         </div>
     @endif
 
@@ -117,20 +122,16 @@
                     </div>
                     <div class="flex justify-between text-brand-green-700/80 font-medium">
                         <span>Shipping Fee</span>
-                        @if($subtotal >= 999)
+                        @if($shippingAmount == 0)
                             <span class="text-green-700 font-semibold uppercase">Free</span>
                         @else
-                            <span>₹60.00</span>
+                            <span>₹{{ number_format($shippingAmount, 2) }}</span>
                         @endif
                     </div>
                     <hr class="border-brand-green-100/50 my-2">
                     <div class="flex justify-between text-sm font-bold text-brand-green-900">
                         <span>Total Amount</span>
-                        @if($subtotal >= 999)
-                            <span>₹{{ number_format($subtotal, 2) }}</span>
-                        @else
-                            <span>₹{{ number_format($subtotal + 60.00, 2) }}</span>
-                        @endif
+                        <span>₹{{ number_format($totalAmount, 2) }}</span>
                     </div>
                 </div>
             </div>
