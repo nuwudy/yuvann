@@ -1,6 +1,6 @@
 <div x-data="{ notification: null }" 
      @notify.window="notification = $event.detail[0]; setTimeout(() => notification = null, 3000)"
-     class="relative">
+     class="relative font-sans text-brand-green-900 selection:bg-brand-gold-200 selection:text-brand-green-900">
      
     <!-- Toast Notification -->
     <div class="fixed bottom-5 right-5 z-50 transition-all duration-300" 
@@ -18,81 +18,192 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-brand-green-50/70 via-brand-green-100/30 to-[#faf9f6] py-16 sm:py-24 overflow-hidden border-b border-brand-green-100/60">
-        <div class="absolute inset-0 opacity-40">
-            <!-- Decorative circle shape -->
-            <div class="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-brand-green-200/40 blur-3xl"></div>
-            <div class="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-brand-gold-100/40 blur-2xl"></div>
+    <!-- 1. Immersive Hero Section with Video -->
+    <section class="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-green-900">
+        <!-- Background Video -->
+        <div class="absolute inset-0 z-0">
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80" poster="https://images.unsplash.com/photo-1611079830811-865080b06b9b?q=80&w=1600&auto=format&fit=crop">
+                <!-- High-quality free nature/wellness video placeholder -->
+                <source src="https://yuvann.com/storage/media/videos/5LLMTMqQtRg1rsepiVSWiPECnpPKf02QOUMHG9wA.mp4" type="video/mp4">
+            </video>
+            <!-- Overlay to ensure text readability -->
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-green-900/60 via-brand-green-900/30 to-brand-green-900/80"></div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                <!-- Left Content -->
-                <div class="lg:col-span-7 space-y-6 text-left">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-green-100 border border-brand-green-200/50 rounded-full text-xs font-semibold text-brand-green-800 tracking-wide uppercase">
-                        🌱 Clinical Ayurvedic Science
-                    </span>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-serif font-bold text-brand-green-900 leading-tight">
-                        Nurturing Your Body With Authentic <span class="italic text-brand-green-700">Ayurvedic Integrity</span>
-                    </h1>
-                    <p class="text-sm sm:text-base text-brand-green-800/80 max-w-xl leading-relaxed">
-                        Yuvann Wellness Concepts started by Dr Sajeev Dev. He started this movement to help people lead healthy and happy lives with wellness products. He is a Certified Ayurvedic Dietician and has Diploma in Herbal Medicines Manufacturing.
-                    </p>
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <a href="/products" class="px-6 py-3 border border-transparent rounded-full text-sm font-semibold text-white bg-brand-green-800 hover:bg-brand-green-700 shadow-md hover:shadow-lg transition-all">
-                            Shop Wellness Remedies
-                        </a>
-                        <a href="https://wa.me/917736609299?text=Hi%20Dr.%20Sajeev,%20I%20would%20like%20to%20consult%20regarding%20my%20health." 
-                           target="_blank" 
-                           class="px-6 py-3 border border-brand-green-200 rounded-full text-sm font-semibold text-brand-green-800 bg-white hover:bg-brand-green-50 transition-all flex items-center gap-1.5 shadow-sm">
-                            Contact Dr. Sajeev Dev
-                        </a>
-                    </div>
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto space-y-6 mt-16">
+            <span class="block text-brand-gold-300 text-sm md:text-base font-semibold tracking-[0.2em] uppercase mb-4 opacity-0 animate-[fadeInUp_1s_ease-out_forwards]">
+                A Return to Origin
+            </span>
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif text-white leading-tight drop-shadow-lg opacity-0 animate-[fadeInUp_1s_ease-out_0.2s_forwards]">
+                Pure. Natural. <br/><span class="italic font-light">Yuvann.</span>
+            </h1>
+            <p class="text-brand-green-50 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed drop-shadow opacity-0 animate-[fadeInUp_1s_ease-out_0.4s_forwards]">
+                Clinical Ayurvedic science meticulously crafted for your holistic well-being by Dr. Sajeev Dev.
+            </p>
+            <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
+                <a href="#trending" class="px-8 py-3.5 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
+                    Explore Collection
+                </a>
+                <a href="https://wa.me/917736609299?text=Hi%20Dr.%20Sajeev,%20I%20would%20like%20to%20consult%20regarding%20my%20health." target="_blank" class="px-8 py-3.5 bg-transparent border-2 border-white/70 hover:border-white hover:bg-white/10 text-white text-sm font-semibold rounded-full backdrop-blur-sm transition-all duration-300">
+                    Consult the Expert
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 animate-bounce opacity-80">
+            <span class="text-white text-[10px] uppercase tracking-widest font-semibold drop-shadow">Scroll</span>
+            <svg class="w-4 h-4 text-white drop-shadow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </section>
+
+    <!-- 2. Trust & Authority Bar -->
+    <section class="bg-brand-green-900 text-brand-gold-100 py-6 border-y border-brand-gold-500/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 text-sm font-medium">
+                <div class="flex items-center gap-2 group cursor-default">
+                    <svg class="w-5 h-5 text-brand-gold-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <span>100% Organic Ingredients</span>
                 </div>
-                
-                <!-- Right Image Showcase -->
-                <div class="lg:col-span-5 relative flex justify-center">
-                    <div class="relative w-72 h-72 sm:w-96 sm:h-96 rounded-full border-4 border-brand-gold-500/20 p-4 bg-white shadow-xl overflow-hidden flex items-center justify-center">
-                        <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" 
-                             alt="Ayurvedic Wellness Oils" 
-                             class="h-full w-full object-cover rounded-full hover:scale-105 transition-transform duration-700">
-                    </div>
-                    <!-- Small decorative card -->
-                    <div class="absolute bottom-4 right-4 sm:right-10 bg-white border border-brand-green-100 p-3.5 rounded-xl shadow-lg flex items-center gap-3 max-w-[200px]">
-                        <span class="text-xl">🎓</span>
-                        <div class="text-left">
-                            <h4 class="text-xs font-semibold text-brand-green-900 font-serif">Certified Expert</h4>
-                            <p class="text-[10px] text-brand-green-700/60 leading-tight">Ayurvedic Dietician & Herbal Medicines.</p>
-                        </div>
-                    </div>
+                <div class="flex items-center gap-2 group cursor-default">
+                    <svg class="w-5 h-5 text-brand-gold-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path></svg>
+                    <span>Expert Formulated</span>
+                </div>
+                <div class="flex items-center gap-2 group cursor-default">
+                    <svg class="w-5 h-5 text-brand-gold-400 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                    <span>GMP Certified Process</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Categories Grid -->
-    <section class="py-16 bg-white">
+    <!-- 3. Shoppable "Trending Now" Carousel -->
+    <section id="trending" class="py-20 bg-[#faf9f6]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
-                <h2 class="text-3xl font-serif font-bold text-brand-green-900">Explore by Category</h2>
-                <p class="text-xs sm:text-sm text-brand-green-700/70">Carefully structured ranges targeting specific wellness benefits.</p>
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900">Trending Now</h2>
+                    <p class="text-sm text-brand-green-700/70 mt-2">Our most loved Ayurvedic essentials.</p>
+                </div>
+                <a href="/products" class="hidden sm:inline-flex text-sm font-semibold text-brand-green-800 hover:text-brand-green-600 border-b border-brand-green-800 pb-0.5 transition-colors">
+                    Shop All
+                </a>
+            </div>
+
+            <!-- Horizontal Scroll Container -->
+            <div class="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+                @foreach($featuredProducts as $product)
+                    <div class="snap-start shrink-0 w-[280px] sm:w-[320px] bg-white rounded-xl shadow-sm border border-brand-green-50 group relative hover:shadow-xl hover:border-brand-gold-500/30 transition-all duration-300 flex flex-col">
+                        
+                        @if($product->badge)
+                            <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-brand-gold-500/90 backdrop-blur-sm text-[10px] font-bold text-brand-green-900 tracking-wider uppercase">
+                                {{ $product->badge }}
+                            </span>
+                        @endif
+
+                        <!-- Image with Hover Reveal -->
+                        <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl group">
+                            <a href="/products/{{ $product->slug }}">
+                                <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            </a>
+                            
+                            <!-- Desktop Quick Add Overlay -->
+                            <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
+                                <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 transition-colors">
+                                    Quick Add - ₹{{ number_format($product->active_price, 2) }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="p-5 flex flex-col flex-grow text-center">
+                            <span class="text-[10px] font-bold text-brand-gold-600 uppercase tracking-widest mb-2">{{ $product->category->name }}</span>
+                            <h3 class="font-serif text-lg text-brand-green-900 mb-1 hover:text-brand-green-700 transition-colors">
+                                <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
+                            </h3>
+                            <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size }}</p>
+                            
+                            <div class="mt-auto flex items-center justify-center gap-3">
+                                @if($product->is_on_sale)
+                                    <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
+                                    <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
+                                @else
+                                    <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
+                                @endif
+                            </div>
+                            
+                            <!-- Mobile / Tablet Add Button -->
+                            <div class="mt-5 lg:hidden">
+                                <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white transition-colors">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                @foreach($categories as $category)
+            <div class="text-center mt-6 sm:hidden">
+                <a href="/products" class="inline-block border-b border-brand-green-800 text-brand-green-800 font-semibold text-sm pb-1">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Brand Story Split Section -->
+    <section class="bg-white overflow-hidden">
+        <div class="flex flex-col lg:flex-row">
+            <div class="w-full lg:w-1/2 h-[50vh] lg:h-auto min-h-[500px]">
+                <img src="https://images.unsplash.com/photo-1611079830811-865080b06b9b?q=80&w=1600&auto=format&fit=crop" alt="Ayurvedic Ingredients" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full lg:w-1/2 flex items-center justify-center p-12 lg:p-24 bg-brand-green-900 text-white relative">
+                <!-- Subtle texture/pattern overlay -->
+                <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+                
+                <div class="max-w-md space-y-8 relative z-10">
+                    <h2 class="text-3xl lg:text-4xl font-serif font-bold text-brand-gold-100">
+                        The Yuvann Promise
+                    </h2>
+                    <p class="text-brand-green-100 leading-relaxed font-light">
+                        True wellness begins at the source. Under the guidance of Dr. Sajeev Dev, we blend ancient Ayurvedic wisdom with rigorous modern clinical standards. Every herb is ethically sourced, every formulation is meticulously balanced.
+                    </p>
+                    <p class="text-brand-green-100 leading-relaxed font-light mb-8">
+                        Experience the transformative power of nature, delivered in its purest form.
+                    </p>
+                    <a href="/dr-sajeev-dev" class="inline-block border-b border-brand-gold-400 text-brand-gold-400 pb-1 font-semibold hover:text-white hover:border-white transition-colors">
+                        Learn About Dr. Sajeev Dev
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Editorial Category Grid -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900">Curated by Benefit</h2>
+                <p class="text-brand-green-700/60 mt-4">Discover the perfect remedy for your body's needs.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                @foreach($categories as $index => $category)
                     @php
-                        $bgImage = $category->image_url
-                            ?? 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=800&auto=format&fit=crop';
+                        $bgImage = $category->image_url ?? 'https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=800&auto=format&fit=crop';
                     @endphp
-                    <a href="/products?category={{ $category->slug }}" class="group relative rounded-2xl overflow-hidden h-48 border border-brand-green-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-end p-4">
-                        <div class="absolute inset-0">
-                            <img src="{{ $bgImage }}" alt="{{ $category->name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);"></div>
-                        </div>
-                        <div class="relative z-10 text-left" style="text-shadow: 0px 2px 5px rgba(0,0,0,1), 0px 0px 10px rgba(0,0,0,0.8);">
-                            <h3 class="font-serif text-lg md:text-xl font-bold text-white tracking-wide">{{ $category->name }}</h3>
-                            <p class="text-[11px] md:text-xs text-white line-clamp-1 mt-1 font-medium">{{ $category->description }}</p>
+                    <a href="/products?category={{ $category->slug }}" class="group block relative overflow-hidden h-80 sm:h-96 w-full rounded-sm">
+                        <img src="{{ $bgImage }}" alt="{{ $category->name }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
+                        <!-- Gradient Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                        
+                        <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
+                            <h3 class="font-serif text-2xl font-medium tracking-wide mb-2 group-hover:-translate-y-2 transition-transform duration-300">{{ $category->name }}</h3>
+                            <p class="text-sm text-white/80 line-clamp-2 opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 delay-75">
+                                {{ $category->description }}
+                            </p>
+                            <span class="mt-4 text-xs font-bold tracking-widest uppercase text-brand-gold-400 group-hover:-translate-y-2 transition-transform duration-300 flex items-center gap-2">
+                                Explore <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </span>
                         </div>
                     </a>
                 @endforeach
@@ -100,118 +211,69 @@
         </div>
     </section>
 
-    <!-- Flagship Featured Products Section -->
-    <section class="py-16 bg-[#faf9f6]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
-                <h2 class="text-3xl font-serif font-bold text-brand-green-900">Featured Formulations</h2>
-                <p class="text-xs sm:text-sm text-brand-green-700/70">Dr. Sajeev Dev's highly recommended wellness essentials.</p>
-            </div>
-
-            <!-- Product Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                @foreach($featuredProducts as $product)
-                    <div class="bg-white rounded-2xl overflow-hidden border border-brand-green-100/60 shadow-sm hover:shadow-md hover:border-brand-gold-500/30 transition-all flex flex-col group relative">
-                        
-                        <!-- Badge -->
-                        @if($product->badge)
-                            <span class="absolute top-4 left-4 z-10 inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-brand-gold-500 text-brand-green-900 tracking-wide uppercase shadow-sm">
-                                {{ $product->badge }}
-                            </span>
-                        @endif
-
-                        <!-- Product Image -->
-                        <div class="h-64 w-full overflow-hidden bg-brand-green-50 relative">
-                            <a href="/products/{{ $product->slug }}">
-                                <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
-                            </a>
-                        </div>
-
-                        <!-- Product Info -->
-                        <div class="p-6 flex-grow flex flex-col text-left">
-                            <span class="text-[10px] font-semibold text-brand-gold-600 uppercase tracking-widest">{{ $product->category->name }}</span>
-                            <h3 class="font-serif text-lg font-bold text-brand-green-900 mt-1 hover:text-brand-green-700 transition-colors">
-                                <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
-                            </h3>
-                            <p class="text-xs text-brand-green-700/60 mt-1.5 flex-grow line-clamp-2">
-                                {{ $product->short_description }}
-                            </p>
-                            <div class="flex items-center justify-between mt-4">
-                                <span class="text-xs text-brand-green-800 font-medium bg-brand-green-50 px-2 py-0.5 rounded-md border border-brand-green-100">
-                                    {{ $product->unit_size }}
-                                </span>
-                                <div class="flex items-baseline gap-2">
-                                    @if($product->is_on_sale)
-                                        <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
-                                        <span class="text-lg font-bold text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
-                                    @else
-                                        <span class="text-lg font-bold text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card Action Buttons -->
-                        <div class="px-6 pb-6 pt-2 border-t border-brand-green-50 flex gap-2">
-                            <!-- Add to Cart -->
-                            <button wire:click="addToCart({{ $product->id }})" 
-                                    class="flex-1 py-2 px-3 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full text-xs font-semibold shadow-sm hover:shadow transition-all focus:outline-none">
-                                Add to Cart
-                            </button>
-                            
-                            <!-- WhatsApp Purchase -->
-                            @php
-                                $waMessage = "Hello Dr. Sajeev Dev, I would like to order *" . $product->name . "* (" . $product->unit_size . ") priced at ₹" . number_format($product->active_price, 2) . ". Please guide me with payment details. Product link: " . url('/products/' . $product->slug);
-                                $waUrl = "https://wa.me/917736609299?text=" . urlencode($waMessage);
-                            @endphp
-                            <a href="{{ $waUrl }}" target="_blank" 
-                               class="py-2 px-3 border border-green-600 bg-green-50 text-green-700 hover:bg-green-100 rounded-full text-xs font-semibold flex items-center justify-center gap-1 transition-all">
-                                <svg class="w-3.5 h-3.5 fill-current text-green-600" viewBox="0 0 24 24">
-                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
-                                </svg>
-                                Buy now
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="/products" class="inline-flex items-center gap-1.5 px-6 py-3 border border-brand-green-800 text-sm font-semibold rounded-full text-brand-green-800 hover:bg-brand-green-50 transition-all shadow-sm">
-                    View All Remedies
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                    </svg>
-                </a>
+    <!-- 6. Testimonials (Social Proof) -->
+    <section class="py-24 bg-[#faf9f6] border-t border-brand-green-100/50">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <span class="text-brand-gold-500 text-5xl font-serif leading-none block mb-4">"</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif text-brand-green-900 font-medium leading-tight mb-8">
+                I've been using Yuvann products for the last three months, and the difference in my daily energy levels is profound. It feels truly authentic and pure.
+            </h2>
+            <div class="flex flex-col items-center justify-center gap-3">
+                <div class="flex gap-1.5 text-brand-gold-500">
+                    @for($i = 0; $i < 5; $i++)
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    @endfor
+                </div>
+                <p class="text-sm font-semibold tracking-wide text-brand-green-800 uppercase">Sarah M. — Verified Buyer</p>
             </div>
         </div>
     </section>
 
-    <!-- Consultation Banner -->
-    <section class="py-16 bg-brand-green-900 text-white relative overflow-hidden border-t-2 border-brand-gold-400">
-        <div class="absolute inset-0 opacity-20">
-            <!-- decorative layout -->
-            <div class="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-brand-gold-500/30 blur-3xl"></div>
-            <div class="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-brand-green-700/50 blur-2xl"></div>
+    <!-- 7. Refined Consultation Banner -->
+    <section class="py-16 md:py-24 bg-brand-green-900 text-white relative overflow-hidden border-t-4 border-brand-gold-500">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute -right-20 -bottom-20 w-96 h-96 rounded-full bg-brand-gold-500/50 blur-3xl"></div>
+            <div class="absolute -left-20 -top-20 w-96 h-96 rounded-full bg-brand-gold-500/30 blur-3xl"></div>
         </div>
 
-        <div class="max-w-4xl mx-auto text-center px-4 relative z-10 space-y-6">
-            <span class="text-brand-gold-400 text-3xl font-serif">🌾</span>
-            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-gold-100">Professional Ayurvedic Consultation</h2>
-            <p class="text-sm sm:text-base text-brand-green-100/80 leading-relaxed max-w-2xl mx-auto">
-                Are you dealing with specific wellness goals or chronic health conditions? Get expert, personalized medical guidance from **Dr. Sajeev Dev** directly on WhatsApp.
-            </p>
-            <div class="pt-4">
+        <div class="max-w-5xl mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
+            <div class="flex-1 space-y-4">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-gold-100">Personalized Ayurvedic Guidance</h2>
+                <p class="text-brand-green-100/80 font-light leading-relaxed max-w-lg mx-auto md:mx-0">
+                    Not sure which products are right for your body type (Dosha)? Connect directly with Dr. Sajeev Dev for a tailored wellness plan.
+                </p>
+            </div>
+            
+            <div class="shrink-0">
                 <a href="https://wa.me/917736609299?text=Hi%20Dr.%20Sajeev,%20I%20would%20like%20to%20schedule%20a%20personal%20health%20consultation." 
                    target="_blank" 
-                   class="inline-flex items-center gap-2.5 px-8 py-4 border border-transparent rounded-full text-base font-semibold text-brand-green-900 bg-brand-gold-500 hover:bg-brand-gold-400 shadow-lg hover:scale-105 transition-all duration-300">
-                    <svg class="w-5 h-5 fill-current text-brand-green-900" viewBox="0 0 24 24">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
-                    </svg>
+                   class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 font-semibold rounded-full shadow-xl hover:-translate-y-1 transition-all duration-300 w-full md:w-auto">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/></svg>
                     Book WhatsApp Consultation
                 </a>
             </div>
-            <p class="text-[10px] text-brand-green-100/50">Consultations are conducted over text, voice note, or call.</p>
         </div>
     </section>
+    
+    <style>
+        /* Custom animations and utilities */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </div>
