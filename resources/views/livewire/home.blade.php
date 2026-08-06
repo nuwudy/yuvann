@@ -42,7 +42,7 @@
                 Clinical Ayurvedic science meticulously crafted for your holistic well-being by Dr. Sajeev Dev.
             </p>
             <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
-                <a href="#trending" class="px-8 py-3.5 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
+                <a href="/products" class="px-8 py-3.5 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
                     Explore Collection
                 </a>
                 <a href="https://wa.me/917736609299?text=Hi%20Dr.%20Sajeev,%20I%20would%20like%20to%20consult%20regarding%20my%20health." target="_blank" class="px-8 py-3.5 bg-transparent border-2 border-white/70 hover:border-white hover:bg-white/10 text-white text-sm font-semibold rounded-full backdrop-blur-sm transition-all duration-300">
