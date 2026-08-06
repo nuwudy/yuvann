@@ -129,11 +129,20 @@
                     </div>
                 </div>
 
-                {{-- Delete button (shown on hover) --}}
+                {{-- Copy URL button (Always visible) --}}
+                <button x-data="{ copied: false }"
+                        @click="navigator.clipboard.writeText('{{ $item->url }}'); copied = true; setTimeout(() => copied = false, 2000)"
+                        title="Copy URL"
+                        class="absolute top-2 right-10 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-brand-green-800 text-xs flex items-center justify-center shadow-md z-10 transition-colors">
+                    <svg x-show="!copied" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                    <svg x-show="copied" x-cloak class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </button>
+
+                {{-- Delete button (Always visible) --}}
                 <button wire:click="delete({{ $item->id }})"
                         onclick="return confirm('Remove \'{{ addslashes($item->name) }}\' from the library? This cannot be undone.')"
                         title="Delete"
-                        class="absolute top-2 right-2 w-6 h-6 rounded-full bg-red-500 hover:bg-red-600 text-white text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center shadow-md">
+                        class="absolute top-2 right-2 w-7 h-7 rounded-full bg-red-500 hover:bg-red-600 text-white text-xs font-bold flex items-center justify-center shadow-md z-10 transition-colors">
                     ×
                 </button>
 
