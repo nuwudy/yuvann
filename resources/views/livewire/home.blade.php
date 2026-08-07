@@ -98,12 +98,12 @@
             }" class="relative group">
                 
                 <!-- Left Arrow -->
-                <button @click="scrollLeft" class="absolute left-2 md:-left-4 top-1/2 -translate-y-1/2 z-30 bg-white shadow-md hover:shadow-lg rounded-full p-3 text-brand-green-900 hover:bg-brand-gold-500 transition-all hidden sm:flex items-center justify-center border border-brand-green-100" aria-label="Scroll Left">
+                <button @click="scrollLeft" class="absolute left-2 md:-left-4 top-1/2 -translate-y-1/2 z-30 bg-white shadow-md hover:shadow-lg rounded-full p-3 text-brand-green-900 hover:bg-brand-gold-500 transition-all flex items-center justify-center border border-brand-green-100" aria-label="Scroll Left">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 </button>
 
                 <!-- Right Arrow -->
-                <button @click="scrollRight" class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-30 bg-white shadow-md hover:shadow-lg rounded-full p-3 text-brand-green-900 hover:bg-brand-gold-500 transition-all hidden sm:flex items-center justify-center border border-brand-green-100" aria-label="Scroll Right">
+                <button @click="scrollRight" class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-30 bg-white shadow-md hover:shadow-lg rounded-full p-3 text-brand-green-900 hover:bg-brand-gold-500 transition-all flex items-center justify-center border border-brand-green-100" aria-label="Scroll Right">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>
 
