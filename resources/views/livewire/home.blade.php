@@ -166,43 +166,31 @@
         </div>
     </section>
 
-    <!-- 4. Brand Story Split Section -->
-    <section class="relative overflow-hidden">
-        <!-- Split Backgrounds -->
-        <div class="absolute inset-0 flex flex-col lg:flex-row">
-            <div class="w-full lg:w-1/2 h-full bg-[#faf9f6]"></div>
-            <div class="w-full lg:w-1/2 h-full bg-brand-green-900 relative">
-                <!-- Subtle texture/pattern overlay -->
-                <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-            </div>
-        </div>
-
-        <!-- Constrained Content -->
-        <div class="relative max-w-7xl mx-auto flex flex-col lg:flex-row">
-            <div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-20">
-                <div class="relative max-w-md w-full group">
-                    <!-- Decorative background element -->
-                    <div class="absolute inset-0 bg-brand-gold-500 rounded-2xl translate-x-3 translate-y-3 opacity-20 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
-                    <!-- The image itself -->
-                    <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="relative z-10 w-full h-auto rounded-2xl shadow-xl object-cover">
-                </div>
+    <!-- 4. Brand Story Section (Center Aligned) -->
+    <section class="py-20 lg:py-32 bg-[#faf9f6] relative overflow-hidden">
+        <!-- Subtle texture/pattern overlay -->
+        <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center z-10">
+            <!-- The image -->
+            <div class="relative w-full max-w-lg mb-12 group">
+                <div class="absolute inset-0 bg-brand-gold-500 rounded-2xl translate-x-3 translate-y-3 opacity-20 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
+                <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="relative z-10 w-full h-auto rounded-2xl shadow-xl object-cover">
             </div>
             
-            <div class="w-full lg:w-1/2 flex items-center justify-center p-12 lg:p-20 text-white relative">
-                <div class="max-w-md w-full space-y-8 relative z-10">
-                    <h2 class="text-3xl lg:text-4xl font-serif font-bold text-brand-gold-100">
-                        The Yuvann Promise
-                    </h2>
-                    <p class="text-brand-green-100 leading-relaxed font-light">
-                        True wellness begins at the source. Under the guidance of Dr. Sajeev Dev, we blend ancient Ayurvedic wisdom with rigorous modern clinical standards. Every herb is ethically sourced, every formulation is meticulously balanced.
-                    </p>
-                    <p class="text-brand-green-100 leading-relaxed font-light mb-8">
-                        Experience the transformative power of nature, delivered in its purest form.
-                    </p>
-                    <a href="/dr-sajeev-dev" class="inline-block border-b border-brand-gold-400 text-brand-gold-400 pb-1 font-semibold hover:text-white hover:border-white transition-colors">
-                        Learn About Dr. Sajeev Dev
-                    </a>
-                </div>
+            <div class="space-y-8 flex flex-col items-center">
+                <h2 class="text-3xl lg:text-5xl font-serif font-bold text-brand-green-900">
+                    The Yuvann Promise
+                </h2>
+                <p class="text-brand-green-800/80 text-lg lg:text-xl leading-relaxed font-light max-w-2xl">
+                    True wellness begins at the source. Under the guidance of Dr. Sajeev Dev, we blend ancient Ayurvedic wisdom with rigorous modern clinical standards. Every herb is ethically sourced, every formulation is meticulously balanced.
+                </p>
+                <p class="text-brand-green-800/80 text-lg lg:text-xl leading-relaxed font-light max-w-2xl pb-4">
+                    Experience the transformative power of nature, delivered in its purest form.
+                </p>
+                <a href="/dr-sajeev-dev" class="inline-block px-8 py-4 bg-brand-green-900 hover:bg-brand-green-800 text-brand-gold-400 font-semibold rounded-full shadow-lg hover:-translate-y-1 transition-all duration-300 border border-brand-gold-500/30">
+                    Learn About Dr. Sajeev Dev
+                </a>
             </div>
         </div>
     </section>
