@@ -91,57 +91,73 @@
                 </a>
             </div>
 
-            <!-- Horizontal Scroll Container -->
-            <div class="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
-                @foreach($featuredProducts as $product)
-                    <div class="snap-start shrink-0 w-[280px] sm:w-[320px] bg-white rounded-xl shadow-sm border border-brand-green-50 group relative hover:shadow-xl hover:border-brand-gold-500/30 transition-all duration-300 flex flex-col">
-                        
-                        @if($product->badge)
-                            <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-brand-gold-500/90 backdrop-blur-sm text-[10px] font-bold text-brand-green-900 tracking-wider uppercase">
-                                {{ $product->badge }}
-                            </span>
-                        @endif
+            <!-- Horizontal Scroll Container with Arrows -->
+            <div x-data="{
+                scrollLeft() { $refs.slider.scrollBy({ left: -350, behavior: 'smooth' }); },
+                scrollRight() { $refs.slider.scrollBy({ left: 350, behavior: 'smooth' }); }
+            }" class="relative group">
+                
+                <!-- Left Arrow -->
+                <button @click="scrollLeft" class="absolute left-0 top-1/2 -translate-y-1/2 -ml-5 z-20 bg-white/90 backdrop-blur shadow-lg rounded-full p-2.5 text-brand-green-900 hover:bg-brand-gold-500 transition-colors opacity-0 group-hover:opacity-100 hidden sm:block border border-brand-green-50" aria-label="Scroll Left">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
 
-                        <!-- Image with Hover Reveal -->
-                        <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl group">
-                            <a href="/products/{{ $product->slug }}">
-                                <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            </a>
+                <!-- Right Arrow -->
+                <button @click="scrollRight" class="absolute right-0 top-1/2 -translate-y-1/2 -mr-5 z-20 bg-white/90 backdrop-blur shadow-lg rounded-full p-2.5 text-brand-green-900 hover:bg-brand-gold-500 transition-colors opacity-0 group-hover:opacity-100 hidden sm:block border border-brand-green-50" aria-label="Scroll Right">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+
+                <div x-ref="slider" class="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+                    @foreach($featuredProducts as $product)
+                        <div class="snap-start shrink-0 w-[280px] sm:w-[320px] bg-white rounded-xl shadow-sm border border-brand-green-50 group/card relative hover:shadow-xl hover:border-brand-gold-500/30 transition-all duration-300 flex flex-col">
                             
-                            <!-- Desktop Quick Add Overlay -->
-                            <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
-                                <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 transition-colors">
-                                    Quick Add - ₹{{ number_format($product->active_price, 2) }}
-                                </button>
+                            @if($product->badge)
+                                <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-brand-gold-500/90 backdrop-blur-sm text-[10px] font-bold text-brand-green-900 tracking-wider uppercase">
+                                    {{ $product->badge }}
+                                </span>
+                            @endif
+
+                            <!-- Image with Hover Reveal -->
+                            <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl">
+                                <a href="/products/{{ $product->slug }}">
+                                    <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="absolute inset-0 h-full w-full object-cover group-hover/card:scale-105 transition-transform duration-700">
+                                </a>
+                                
+                                <!-- Desktop Quick Add Overlay -->
+                                <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
+                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 transition-colors">
+                                        Quick Add - ₹{{ number_format($product->active_price, 2) }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Info -->
+                            <div class="p-5 flex flex-col flex-grow text-center">
+                                <span class="text-[10px] font-bold text-brand-gold-600 uppercase tracking-widest mb-2">{{ $product->category->name ?? 'Product' }}</span>
+                                <h3 class="font-serif text-lg text-brand-green-900 mb-1 hover:text-brand-green-700 transition-colors">
+                                    <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
+                                </h3>
+                                <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size ?? '' }}</p>
+                                
+                                <div class="mt-auto flex items-center justify-center gap-3">
+                                    @if($product->is_on_sale)
+                                        <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
+                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
+                                    @else
+                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
+                                    @endif
+                                </div>
+                                
+                                <!-- Mobile / Tablet Add Button -->
+                                <div class="mt-5 lg:hidden">
+                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white transition-colors">
+                                        Add to Cart
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Info -->
-                        <div class="p-5 flex flex-col flex-grow text-center">
-                            <span class="text-[10px] font-bold text-brand-gold-600 uppercase tracking-widest mb-2">{{ $product->category->name }}</span>
-                            <h3 class="font-serif text-lg text-brand-green-900 mb-1 hover:text-brand-green-700 transition-colors">
-                                <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
-                            </h3>
-                            <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size }}</p>
-                            
-                            <div class="mt-auto flex items-center justify-center gap-3">
-                                @if($product->is_on_sale)
-                                    <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
-                                    <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
-                                @else
-                                    <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
-                                @endif
-                            </div>
-                            
-                            <!-- Mobile / Tablet Add Button -->
-                            <div class="mt-5 lg:hidden">
-                                <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white transition-colors">
-                                    Add to Cart
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
             
             <div class="text-center mt-6 sm:hidden">
