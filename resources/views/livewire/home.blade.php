@@ -167,9 +167,19 @@
     </section>
 
     <!-- 4. Brand Story Split Section -->
-    <section class="bg-white overflow-hidden">
-        <div class="flex flex-col lg:flex-row">
-            <div class="w-full lg:w-1/2 flex items-center justify-center lg:justify-end p-8 lg:p-16 lg:pr-12 bg-[#faf9f6]">
+    <section class="relative overflow-hidden">
+        <!-- Split Backgrounds -->
+        <div class="absolute inset-0 flex flex-col lg:flex-row">
+            <div class="w-full lg:w-1/2 h-full bg-[#faf9f6]"></div>
+            <div class="w-full lg:w-1/2 h-full bg-brand-green-900 relative">
+                <!-- Subtle texture/pattern overlay -->
+                <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+            </div>
+        </div>
+
+        <!-- Constrained Content -->
+        <div class="relative max-w-7xl mx-auto flex flex-col lg:flex-row">
+            <div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-20">
                 <div class="relative max-w-md w-full group">
                     <!-- Decorative background element -->
                     <div class="absolute inset-0 bg-brand-gold-500 rounded-2xl translate-x-3 translate-y-3 opacity-20 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
@@ -177,11 +187,9 @@
                     <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="relative z-10 w-full h-auto rounded-2xl shadow-xl object-cover">
                 </div>
             </div>
-            <div class="w-full lg:w-1/2 flex items-center justify-center lg:justify-start p-12 lg:p-16 lg:pl-12 bg-brand-green-900 text-white relative">
-                <!-- Subtle texture/pattern overlay -->
-                <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-                
-                <div class="max-w-md space-y-8 relative z-10">
+            
+            <div class="w-full lg:w-1/2 flex items-center justify-center p-12 lg:p-20 text-white relative">
+                <div class="max-w-md w-full space-y-8 relative z-10">
                     <h2 class="text-3xl lg:text-4xl font-serif font-bold text-brand-gold-100">
                         The Yuvann Promise
                     </h2>
