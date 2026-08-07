@@ -169,8 +169,13 @@
     <!-- 4. Brand Story Split Section -->
     <section class="bg-white overflow-hidden">
         <div class="flex flex-col lg:flex-row">
-            <div class="w-full lg:w-1/2 h-[50vh] lg:h-auto min-h-[500px]">
-                <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="w-full h-full object-cover">
+            <div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16 bg-[#faf9f6]">
+                <div class="relative max-w-md w-full group">
+                    <!-- Decorative background element -->
+                    <div class="absolute inset-0 bg-brand-gold-500 rounded-2xl translate-x-3 translate-y-3 opacity-20 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
+                    <!-- The image itself -->
+                    <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="relative z-10 w-full h-auto rounded-2xl shadow-xl object-cover">
+                </div>
             </div>
             <div class="w-full lg:w-1/2 flex items-center justify-center p-12 lg:p-24 bg-brand-green-900 text-white relative">
                 <!-- Subtle texture/pattern overlay -->
