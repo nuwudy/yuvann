@@ -154,7 +154,7 @@
     <section class="bg-white overflow-hidden">
         <div class="flex flex-col lg:flex-row">
             <div class="w-full lg:w-1/2 h-[50vh] lg:h-auto min-h-[500px]">
-                <img src="https://images.unsplash.com/photo-1611079830811-865080b06b9b?q=80&w=1600&auto=format&fit=crop" alt="Ayurvedic Ingredients" class="w-full h-full object-cover">
+                <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="w-full h-full object-cover">
             </div>
             <div class="w-full lg:w-1/2 flex items-center justify-center p-12 lg:p-24 bg-brand-green-900 text-white relative">
                 <!-- Subtle texture/pattern overlay -->
