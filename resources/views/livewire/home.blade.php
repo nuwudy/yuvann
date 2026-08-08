@@ -79,18 +79,22 @@
     </section>
 
     <!-- 3. Categories -->
-    <section class="py-12 bg-[#faf9f6] border-b border-brand-green-50/50">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-wrap justify-center gap-3 sm:gap-6">
+    <section class="py-16 bg-brand-green-900 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-white">Shop by Category</h2>
+                <p class="text-brand-green-100/70 mt-3 text-sm">Find the perfect Ayurvedic remedy for you</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-6">
                 @foreach($categories as $index => $category)
                     @php
                         $bgImage = $category->image_url ?? 'https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=800&auto=format&fit=crop';
                     @endphp
-                    <a href="/products?category={{ $category->slug }}" class="group flex flex-col items-center bg-white p-3 sm:p-4 rounded-[2rem] shadow-[0_2px_10px_-3px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_-6px_rgba(0,0,0,0.1)] hover:-translate-y-1.5 transition-all duration-300 w-[105px] sm:w-[140px] border border-brand-green-50/60">
-                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-3 bg-brand-green-50 border-2 border-brand-gold-100 group-hover:border-brand-gold-300 transition-colors relative">
-                             <img src="{{ $bgImage }}" alt="{{ $category->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <a href="/products?category={{ $category->slug }}" class="group flex flex-col items-center bg-brand-green-800 p-3 sm:p-4 rounded-[2rem] shadow-[0_6px_0_0_rgba(0,0,0,0.3)] hover:shadow-[0_2px_0_0_rgba(0,0,0,0.3)] hover:translate-y-1 transition-all w-[110px] sm:w-[140px] border border-brand-green-700/50">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-3 bg-brand-green-900 border-[3px] border-brand-gold-500/30 group-hover:border-brand-gold-400 transition-colors relative shadow-[inset_0_2px_6px_rgba(0,0,0,0.4)]">
+                             <img src="{{ $bgImage }}" alt="{{ $category->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-90 group-hover:opacity-100">
                         </div>
-                        <h3 class="font-sans text-[11px] sm:text-sm font-semibold text-brand-green-900 text-center leading-tight group-hover:text-brand-gold-600 transition-colors">{{ $category->name }}</h3>
+                        <h3 class="font-sans text-[11px] sm:text-sm font-semibold text-white text-center leading-tight group-hover:text-brand-gold-400 transition-colors tracking-wide">{{ $category->name }}</h3>
                     </a>
                 @endforeach
             </div>
