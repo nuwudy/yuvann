@@ -78,7 +78,27 @@
         </div>
     </section>
 
-    <!-- 3. Shoppable "Trending Now" Carousel -->
+    <!-- 3. Categories -->
+    <section class="py-12 bg-white border-b border-brand-green-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex overflow-x-auto hide-scrollbar gap-6 sm:gap-8 justify-start md:justify-center pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+                @foreach($categories as $index => $category)
+                    @php
+                        $bgImage = $category->image_url ?? 'https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=800&auto=format&fit=crop';
+                    @endphp
+                    <a href="/products?category={{ $category->slug }}" class="group flex flex-col items-center shrink-0 w-[88px] sm:w-[110px]">
+                        <div class="w-20 h-20 sm:w-[100px] sm:h-[100px] rounded-full overflow-hidden mb-3 bg-brand-green-50 group-hover:-translate-y-1.5 transition-all duration-300 shadow-sm group-hover:shadow-xl border-2 border-transparent group-hover:border-brand-gold-300 relative">
+                             <img src="{{ $bgImage }}" alt="{{ $category->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                             <div class="absolute inset-0 bg-brand-green-900/0 group-hover:bg-brand-green-900/10 transition-colors duration-300"></div>
+                        </div>
+                        <h3 class="font-sans text-xs sm:text-sm font-semibold text-brand-green-900 text-center leading-tight group-hover:text-brand-gold-600 transition-colors">{{ $category->name }}</h3>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Shoppable "Trending Now" Carousel -->
     <section id="trending" class="py-20 bg-[#faf9f6]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-end mb-10">
@@ -195,38 +215,7 @@
         </div>
     </section>
 
-    <!-- 5. Editorial Category Grid -->
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900">Curated by Benefit</h2>
-                <p class="text-brand-green-700/60 mt-4">Discover the perfect remedy for your body's needs.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                @foreach($categories as $index => $category)
-                    @php
-                        $bgImage = $category->image_url ?? 'https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=800&auto=format&fit=crop';
-                    @endphp
-                    <a href="/products?category={{ $category->slug }}" class="group block relative overflow-hidden h-80 sm:h-96 w-full rounded-sm">
-                        <img src="{{ $bgImage }}" alt="{{ $category->name }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <!-- Gradient Overlay -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
-                        
-                        <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
-                            <h3 class="font-serif text-2xl font-medium tracking-wide mb-2 group-hover:-translate-y-2 transition-transform duration-300">{{ $category->name }}</h3>
-                            <p class="text-sm text-white/80 line-clamp-2 opacity-0 group-hover:opacity-100 group-hover:-translate-y-2 transition-all duration-300 delay-75">
-                                {{ $category->description }}
-                            </p>
-                            <span class="mt-4 text-xs font-bold tracking-widest uppercase text-brand-gold-400 group-hover:-translate-y-2 transition-transform duration-300 flex items-center gap-2">
-                                Explore <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </span>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    </section>
+
 
     <!-- 6. Testimonials (Social Proof) -->
     <section class="py-24 bg-[#faf9f6] border-t border-brand-green-100/50">
