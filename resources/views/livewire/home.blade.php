@@ -58,6 +58,36 @@
         </div>
     </section>
 
+    <!-- Product Ticker -->
+    <div class="bg-brand-green-800 border-b border-brand-gold-500/20 overflow-hidden py-3 flex items-center group w-full">
+        <div class="product-marquee-content group-hover:[animation-play-state:paused]">
+            <!-- First Set -->
+            @foreach($featuredProducts as $product)
+                <a href="/products/{{ $product->slug }}" class="text-brand-gold-400 hover:text-white text-sm font-semibold tracking-wider mx-6 transition-colors inline-flex items-center gap-2">
+                    <span class="text-[10px]">✨</span> {{ $product->name }}
+                </a>
+            @endforeach
+            <!-- Second Set -->
+            @foreach($featuredProducts as $product)
+                <a href="/products/{{ $product->slug }}" class="text-brand-gold-400 hover:text-white text-sm font-semibold tracking-wider mx-6 transition-colors inline-flex items-center gap-2">
+                    <span class="text-[10px]">✨</span> {{ $product->name }}
+                </a>
+            @endforeach
+            <!-- Third Set -->
+            @foreach($featuredProducts as $product)
+                <a href="/products/{{ $product->slug }}" class="text-brand-gold-400 hover:text-white text-sm font-semibold tracking-wider mx-6 transition-colors inline-flex items-center gap-2">
+                    <span class="text-[10px]">✨</span> {{ $product->name }}
+                </a>
+            @endforeach
+            <!-- Fourth Set -->
+            @foreach($featuredProducts as $product)
+                <a href="/products/{{ $product->slug }}" class="text-brand-gold-400 hover:text-white text-sm font-semibold tracking-wider mx-6 transition-colors inline-flex items-center gap-2">
+                    <span class="text-[10px]">✨</span> {{ $product->name }}
+                </a>
+            @endforeach
+        </div>
+    </div>
+
     <!-- 2. Trust & Authority Bar -->
     <section class="bg-brand-green-900 text-brand-gold-100 py-6 border-y border-brand-gold-500/20">
         <div class="max-w-7xl mx-auto px-4">
@@ -274,6 +304,21 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        
+        .product-marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-50%);
             }
         }
         

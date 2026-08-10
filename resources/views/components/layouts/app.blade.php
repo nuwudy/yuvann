@@ -72,6 +72,11 @@
 </head>
 <body class="flex flex-col min-h-screen antialiased bg-[#faf9f6] text-[#1a2a22]">
 
+    <!-- Floating Shop Now Button -->
+    <a href="/products" class="fixed left-0 top-1/2 -translate-y-1/2 z-50 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 font-bold py-4 px-2 rounded-r-lg shadow-xl transition-transform hover:scale-105 flex items-center justify-center border border-l-0 border-brand-green-900/20 group" style="writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg);">
+        <span class="tracking-widest text-sm uppercase">Shop Now</span>
+    </a>
+
     <!-- Top Announcement Bar -->
     <div class="bg-brand-green-800 text-white text-xs py-2 px-4 text-center font-medium tracking-wide">
         🌿 100% Doctor Formulated Ayurvedic Products | Free Delivery on Orders above ₹999!
