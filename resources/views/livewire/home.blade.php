@@ -310,7 +310,7 @@
         .product-marquee-content {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 30s linear infinite;
+            animation: marquee 60s linear infinite;
         }
 
         @keyframes marquee {
