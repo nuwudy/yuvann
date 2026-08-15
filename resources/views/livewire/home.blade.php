@@ -33,13 +33,13 @@
         <!-- Hero Content -->
         <div class="relative z-10 text-center px-4 max-w-4xl mx-auto space-y-6 mt-16">
             <span class="block text-brand-gold-300 text-sm md:text-base font-semibold tracking-[0.2em] uppercase mb-4 opacity-0 animate-[fadeInUp_1s_ease-out_forwards]">
-                A Return to Origin
+                CURATED AYURVEDIC WELLNESS
             </span>
             <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif text-white leading-tight drop-shadow-lg opacity-0 animate-[fadeInUp_1s_ease-out_0.2s_forwards]">
-                Pure. Natural. <br/><span class="italic font-light">Yuvann.</span>
+                Pure Wellness. <br/><span class="italic font-light">Handpicked by Dr. Sajeev Dev.</span>
             </h1>
             <p class="text-brand-green-50 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed drop-shadow opacity-0 animate-[fadeInUp_1s_ease-out_0.4s_forwards]">
-                Clinical Ayurvedic science meticulously crafted for your holistic well-being by Dr. Sajeev Dev.
+                Proprietary formulations and meticulously curated herbal remedies—crafted and selected for your holistic well-being.
             </p>
             <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
                 <a href="/products" class="px-8 py-3.5 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
