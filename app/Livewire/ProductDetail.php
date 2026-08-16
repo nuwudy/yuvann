@@ -61,6 +61,39 @@ class ProductDetail extends Component
         return $this->product->variants->firstWhere('id', $this->selectedVariantId);
     }
 
+    public string $reviewName = '';
+    public int $reviewRating = 5;
+    public string $reviewComment = '';
+
+    public function submitReview(): void
+    {
+        $this->validate([
+            'reviewName' => 'required|string|max:255',
+            'reviewRating' => 'required|integer|min:1|max:5',
+            'reviewComment' => 'nullable|string|max:1000',
+        ]);
+
+        $isApproved = $this->reviewRating >= 4;
+
+        $this->product->reviews()->create([
+            'customer_name' => $this->reviewName,
+            'rating' => $this->reviewRating,
+            'comment' => $this->reviewComment,
+            'is_approved' => $isApproved,
+        ]);
+
+        $this->reset(['reviewName', 'reviewRating', 'reviewComment']);
+
+        $message = $isApproved 
+            ? 'Thank you! Your review has been published.' 
+            : 'Thank you! Your review has been submitted and is pending approval.';
+
+        $this->dispatch('notify', [
+            'type' => 'success',
+            'message' => $message,
+        ]);
+    }
+
     public function render()
     {
         // Decode description JSON if it's stored as JSON string

@@ -6,6 +6,7 @@ use App\Livewire\Admin\Login;
 use App\Livewire\Admin\MediaLibrary;
 use App\Livewire\Admin\OrderList;
 use App\Livewire\Admin\ProductManager;
+use App\Livewire\Admin\ReviewManager;
 use App\Livewire\Checkout;
 use App\Livewire\Home;
 use App\Livewire\ProductDetail;
@@ -51,6 +52,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/categories', CategoryManager::class);
     Route::get('/orders', OrderList::class);
     Route::get('/media', MediaLibrary::class);
+    Route::get('/reviews', ReviewManager::class);
     Route::get('/settings', \App\Livewire\Admin\SettingsManager::class);
     Route::get('/api/media', [MediaApiController::class, 'index']); // JSON API for the client-side media picker
 

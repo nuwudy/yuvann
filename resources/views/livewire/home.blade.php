@@ -120,7 +120,7 @@
                     @php
                         $bgImage = $category->image_url ?? 'https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=800&auto=format&fit=crop';
                     @endphp
-                    <a href="/products?category={{ $category->slug }}" class="group flex flex-col items-center bg-brand-green-800 p-3 sm:p-4 rounded-[2rem] shadow-[0_6px_0_0_rgba(0,0,0,0.3)] hover:shadow-[0_2px_0_0_rgba(0,0,0,0.3)] hover:translate-y-1 transition-all w-[110px] sm:w-[140px] border border-brand-green-700/50">
+                    <a href="/products?category={{ $category->slug }}" class="group flex flex-col items-center bg-brand-green-800 p-3 sm:p-4 rounded-[2rem] shadow-[0_6px_0_0_rgba(0,0,0,0.3)] hover:shadow-[0_2px_0_0_rgba(0,0,0,0.3)] hover:translate-y-1 active:translate-y-1.5 active:shadow-none transition-all duration-200 w-[110px] sm:w-[140px] border border-brand-green-700/50">
                         <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden mb-3 bg-brand-green-900 border-[3px] border-brand-gold-500/30 group-hover:border-brand-gold-400 transition-colors relative shadow-[inset_0_2px_6px_rgba(0,0,0,0.4)]">
                              <img src="{{ $bgImage }}" alt="{{ $category->name }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-90 group-hover:opacity-100">
                         </div>
@@ -162,7 +162,7 @@
 
                 <div x-ref="slider" class="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
                     @foreach($featuredProducts as $product)
-                        <div class="snap-start shrink-0 w-[280px] sm:w-[320px] bg-white rounded-xl shadow-sm border border-brand-green-50 group/card relative hover:shadow-xl hover:border-brand-gold-500/30 transition-all duration-300 flex flex-col">
+                        <div class="snap-start shrink-0 w-[280px] sm:w-[320px] bg-white rounded-xl shadow-sm border border-brand-green-50 group/card relative hover:shadow-xl hover:-translate-y-1 hover:border-brand-gold-500/30 transition-all duration-300 flex flex-col">
                             
                             @if($product->badge)
                                 <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-brand-gold-500/90 backdrop-blur-sm text-[10px] font-bold text-brand-green-900 tracking-wider uppercase">
@@ -178,7 +178,7 @@
                                 
                                 <!-- Desktop Quick Add Overlay -->
                                 <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
-                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 transition-colors">
+                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
                                         Quick Add - ₹{{ number_format($product->active_price, 2) }}
                                     </button>
                                 </div>
@@ -190,6 +190,18 @@
                                 <h3 class="font-serif text-lg text-brand-green-900 mb-1 hover:text-brand-green-700 transition-colors">
                                     <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
                                 </h3>
+                                @if($product->review_count > 0)
+                                    <div class="flex items-center justify-center gap-1 mb-2">
+                                        <div class="flex text-brand-gold-500">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <svg class="w-3 h-3 {{ $i <= round($product->average_rating) ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 20 20">
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                                </svg>
+                                            @endfor
+                                        </div>
+                                        <span class="text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
+                                    </div>
+                                @endif
                                 <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size ?? '' }}</p>
                                 
                                 <div class="mt-auto flex items-center justify-center gap-3">
@@ -203,7 +215,7 @@
                                 
                                 <!-- Mobile / Tablet Add Button -->
                                 <div class="mt-5 lg:hidden">
-                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white transition-colors">
+                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
                                         Add to Cart
                                     </button>
                                 </div>
@@ -226,9 +238,9 @@
         
         <div class="relative max-w-4xl mx-auto px-4 sm:px-6 flex flex-col items-center text-center z-10">
             <!-- The image -->
-            <div class="relative w-full max-w-lg mb-12 group">
-                <div class="absolute inset-0 bg-brand-gold-500 rounded-2xl translate-x-3 translate-y-3 opacity-20 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
-                <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="relative z-10 w-full h-auto rounded-2xl shadow-xl object-cover">
+            <div class="relative w-48 h-48 sm:w-64 sm:h-64 mx-auto mb-10 group">
+                <div class="absolute inset-0 bg-brand-gold-500 rounded-full translate-x-2 translate-y-2 opacity-10 transition-transform group-hover:translate-x-3 group-hover:translate-y-3"></div>
+                <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="relative z-10 w-full h-full rounded-full shadow-md object-cover ring-4 ring-brand-green-800/10 group-hover:ring-brand-gold-500/30 transition-all duration-500 grayscale-[20%] group-hover:grayscale-0">
             </div>
             
             <div class="space-y-8 flex flex-col items-center">

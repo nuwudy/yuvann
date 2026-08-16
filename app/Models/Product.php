@@ -58,6 +58,21 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function getAverageRatingAttribute(): float
+    {
+        return (float) $this->reviews()->where('is_approved', true)->avg('rating') ?? 0.0;
+    }
+
+    public function getReviewCountAttribute(): int
+    {
+        return $this->reviews()->where('is_approved', true)->count();
+    }
+
     /**
      * Get the active price (sale price if available, otherwise regular price).
      */

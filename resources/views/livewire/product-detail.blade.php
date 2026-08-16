@@ -205,6 +205,22 @@
             <div class="space-y-2">
                 <span class="text-xs font-bold text-brand-gold-600 uppercase tracking-widest">{{ $product->category->name }}</span>
                 <h1 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900 leading-tight">{{ $product->name }}</h1>
+                
+                @if($product->review_count > 0)
+                    <div class="flex items-center gap-2 pt-1 pb-2">
+                        <div class="flex text-brand-gold-500">
+                            @for($i = 1; $i <= 5; $i++)
+                                <svg class="w-4 h-4 {{ $i <= round($product->average_rating) ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                            @endfor
+                        </div>
+                        <a href="#reviews" class="text-sm font-medium text-brand-green-700 hover:text-brand-gold-600 transition-colors">
+                            {{ number_format($product->average_rating, 1) }} ({{ $product->review_count }} {{ Str::plural('Review', $product->review_count) }})
+                        </a>
+                    </div>
+                @endif
+                
                 <p class="text-xs text-brand-green-700/60 font-medium">SKU: <span class="font-bold">{{ $activeVariant ? $activeVariant->sku : $product->sku }}</span> | Size: <span class="font-bold">{{ $activeVariant ? $activeVariant->unit_size : $product->unit_size }}</span></p>
                 
                 @if($product->variants->isNotEmpty())
@@ -333,6 +349,78 @@
                         <p class="whitespace-pre-line text-left">{{ $details['usage'] ?? 'Refer to primary packaging or consult Dr. Sajeev Dev for directions.' }}</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Reviews Section -->
+    <div id="reviews" class="mt-20 border-t border-brand-green-100/60 pt-12">
+        <h2 class="text-2xl font-serif font-bold text-brand-green-900 mb-8">Customer Reviews</h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <!-- Review Form -->
+            <div class="lg:col-span-5 bg-white p-6 rounded-3xl border border-brand-green-100/60 shadow-sm">
+                <h3 class="text-lg font-serif font-bold text-brand-green-900 mb-4">Write a Review</h3>
+                <form wire:submit="submitReview" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-green-900 mb-1">Your Name *</label>
+                        <input type="text" wire:model="reviewName" required class="w-full rounded-xl border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm">
+                        @error('reviewName') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-green-900 mb-1">Rating *</label>
+                        <select wire:model="reviewRating" required class="w-full rounded-xl border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm">
+                            <option value="5">5 - Excellent</option>
+                            <option value="4">4 - Very Good</option>
+                            <option value="3">3 - Average</option>
+                            <option value="2">2 - Poor</option>
+                            <option value="1">1 - Terrible</option>
+                        </select>
+                        @error('reviewRating') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-brand-green-900 mb-1">Comment (Optional)</label>
+                        <textarea wire:model="reviewComment" rows="3" class="w-full rounded-xl border-gray-300 shadow-sm focus:border-brand-green-500 focus:ring-brand-green-500 sm:text-sm"></textarea>
+                        @error('reviewComment') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                    </div>
+
+                    <button type="submit" class="w-full py-2.5 bg-brand-green-900 hover:bg-brand-green-800 text-white rounded-full font-semibold shadow-sm transition-all focus:outline-none">
+                        Submit Review
+                    </button>
+                </form>
+            </div>
+
+            <!-- Review List -->
+            <div class="lg:col-span-7 space-y-6">
+                @php
+                    $approvedReviews = $product->reviews()->where('is_approved', true)->latest()->get();
+                @endphp
+                
+                @forelse($approvedReviews as $review)
+                    <div class="bg-white p-6 rounded-3xl border border-brand-green-100/60 shadow-sm">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-bold text-brand-green-900 text-sm">{{ $review->customer_name }}</h4>
+                            <span class="text-xs text-brand-green-700/60">{{ $review->created_at->format('F j, Y') }}</span>
+                        </div>
+                        <div class="flex text-brand-gold-500 mb-3">
+                            @for($i = 1; $i <= 5; $i++)
+                                <svg class="w-4 h-4 {{ $i <= $review->rating ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                            @endfor
+                        </div>
+                        @if($review->comment)
+                            <p class="text-sm text-brand-green-800/80 leading-relaxed">{{ $review->comment }}</p>
+                        @endif
+                    </div>
+                @empty
+                    <div class="bg-brand-green-50/50 p-8 rounded-3xl border border-brand-green-100/60 text-center">
+                        <p class="text-brand-green-800 font-medium">No reviews yet.</p>
+                        <p class="text-sm text-brand-green-700/60 mt-1">Be the first to share your experience with this product!</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
