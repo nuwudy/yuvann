@@ -26,6 +26,7 @@ class Home extends Component
     {
         return view('livewire.home', [
             'featuredProducts' => Product::where('is_active', true)->where('is_featured', true)->get(),
+            'latestProducts' => Product::where('is_active', true)->orderBy('created_at', 'desc')->take(8)->get(),
             'categories' => Category::where('is_active', true)->get(),
         ])->layout('components.layouts.app');
     }

@@ -7,6 +7,7 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Services\CartService;
+use App\Services\WhatsAppService;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -145,6 +146,19 @@ class Checkout extends Component
 
                 CartService::clear();
                 $this->dispatch('cart-updated');
+                
+                // Send WhatsApp Notifications (non-blocking)
+                try {
+                    $adminNumber = config('services.whatsapp.admin_number');
+                    if ($adminNumber) {
+                        WhatsAppService::sendOrderNotification($adminNumber, $order, true);
+                    }
+                    if ($order->customer_phone) {
+                        WhatsAppService::sendOrderNotification($order->customer_phone, $order, false);
+                    }
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('WhatsApp notification failed: ' . $e->getMessage());
+                }
                 
                 // Redirect to success page
                 return redirect()->to('/order-success/' . $order->order_number);

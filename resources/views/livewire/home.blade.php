@@ -231,7 +231,111 @@
         </div>
     </section>
 
-    <!-- 4. Brand Story Section (Center Aligned) -->
+    <!-- 5. Shoppable "Latest Arrivals" Carousel -->
+    <section id="latest-arrivals" class="py-20 bg-white border-t border-brand-green-100/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900">Latest Arrivals</h2>
+                    <p class="text-sm text-brand-green-700/70 mt-2">Discover our newest additions for your wellness journey.</p>
+                </div>
+                <a href="/products" class="hidden sm:inline-flex text-sm font-semibold text-brand-green-800 hover:text-brand-green-600 border-b border-brand-green-800 pb-0.5 transition-colors">
+                    Shop All
+                </a>
+            </div>
+
+            <!-- Horizontal Scroll Container with Arrows -->
+            <div x-data="{
+                scrollLeft() { $refs.latestSlider.scrollBy({ left: -350, behavior: 'smooth' }); },
+                scrollRight() { $refs.latestSlider.scrollBy({ left: 350, behavior: 'smooth' }); }
+            }" class="relative group">
+                
+                <!-- Left Arrow -->
+                <button @click="scrollLeft" class="absolute left-2 md:-left-4 top-1/2 -translate-y-1/2 z-30 bg-white shadow-md hover:shadow-lg rounded-full p-3 text-brand-green-900 hover:bg-brand-gold-500 transition-all flex items-center justify-center border border-brand-green-100" aria-label="Scroll Left">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+
+                <!-- Right Arrow -->
+                <button @click="scrollRight" class="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-30 bg-white shadow-md hover:shadow-lg rounded-full p-3 text-brand-green-900 hover:bg-brand-gold-500 transition-all flex items-center justify-center border border-brand-green-100" aria-label="Scroll Right">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+
+                <div x-ref="latestSlider" class="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+                    @foreach($latestProducts as $product)
+                        <div class="snap-start shrink-0 w-[280px] sm:w-[320px] bg-white rounded-xl shadow-sm border border-brand-green-50 group/card relative hover:shadow-xl hover:-translate-y-1 hover:border-brand-gold-500/30 transition-all duration-300 flex flex-col">
+                            
+                            @if($product->badge)
+                                <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-brand-gold-500/90 backdrop-blur-sm text-[10px] font-bold text-brand-green-900 tracking-wider uppercase">
+                                    {{ $product->badge }}
+                                </span>
+                            @else
+                                <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-brand-green-800/90 backdrop-blur-sm text-[10px] font-bold text-white tracking-wider uppercase">
+                                    New
+                                </span>
+                            @endif
+
+                            <!-- Image with Hover Reveal -->
+                            <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl">
+                                <a href="/products/{{ $product->slug }}">
+                                    <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="absolute inset-0 h-full w-full object-cover group-hover/card:scale-105 transition-transform duration-700">
+                                </a>
+                                
+                                <!-- Desktop Quick Add Overlay -->
+                                <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
+                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
+                                        Quick Add - ₹{{ number_format($product->active_price, 2) }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Info -->
+                            <div class="p-5 flex flex-col flex-grow text-center">
+                                <span class="text-[10px] font-bold text-brand-gold-600 uppercase tracking-widest mb-2">{{ $product->category->name ?? 'Product' }}</span>
+                                <h3 class="font-serif text-lg text-brand-green-900 mb-1 hover:text-brand-green-700 transition-colors">
+                                    <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
+                                </h3>
+                                @if($product->review_count > 0)
+                                    <div class="flex items-center justify-center gap-1 mb-2">
+                                        <div class="flex text-brand-gold-500">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <svg class="w-3 h-3 {{ $i <= round($product->average_rating) ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 20 20">
+                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                                </svg>
+                                            @endfor
+                                        </div>
+                                        <span class="text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
+                                    </div>
+                                @endif
+                                <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size ?? '' }}</p>
+                                
+                                <div class="mt-auto flex items-center justify-center gap-3">
+                                    @if($product->is_on_sale)
+                                        <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
+                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
+                                    @else
+                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
+                                    @endif
+                                </div>
+                                
+                                <!-- Mobile / Tablet Add Button -->
+                                <div class="mt-5 lg:hidden">
+                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            
+            <div class="text-center mt-6 sm:hidden">
+                <a href="/products" class="inline-block border-b border-brand-green-800 text-brand-green-800 font-semibold text-sm pb-1">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Brand Story Section (Center Aligned) -->
     <section class="py-20 lg:py-32 bg-[#faf9f6] relative overflow-hidden">
         <!-- Subtle texture/pattern overlay -->
         <div class="absolute inset-0 opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>

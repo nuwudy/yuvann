@@ -40,4 +40,11 @@ return [
         'secret' => env('RAZORPAY_KEY_SECRET'),
     ],
 
+    'whatsapp' => [
+        'phone_number_id' => env('WHATSAPP_PHONE_NUMBER_ID'),
+        'token' => env('WHATSAPP_TOKEN'),
+        'admin_number' => env('ADMIN_WHATSAPP_NUMBER'),
+        'template_name' => env('WHATSAPP_TEMPLATE_NAME', 'order_notification'), // Name of the approved utility template
+    ],
+
 ];
