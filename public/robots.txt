@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://yuvann.com/sitemap.xml

@@ -6,6 +6,25 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? 'Yuvann Wellness Concepts - Premium Ayurvedic & Herbal Products' }}</title>
+<link rel="canonical" href="{{ url()->current() }}" />
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "Organization",
+  "name": "Yuvann Wellness Concepts",
+  "url": "https://yuvann.com",
+  "logo": "{{ url('/icons/icon-512.png') }}",
+  "contactPoint": {
+    "@@type": "ContactPoint",
+    "telephone": "+91-7736609299",
+    "contactType": "customer service"
+  },
+  "sameAs": [
+    "https://www.facebook.com/YuvannWellness",
+    "https://www.instagram.com/YuvannWellness"
+  ]
+}
+</script>
     
     <!-- SEO Meta Tags -->
     @hasSection('meta')

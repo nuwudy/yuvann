@@ -13,6 +13,7 @@
     <meta property="og:type" content="product">
     <meta name="twitter:card" content="summary_large_image">
 @endsection
+@include('components.seo.product-schema', ['product' => $product])
 
 <div x-data="{ notification: null }" 
      @notify.window="notification = $event.detail[0]; setTimeout(() => notification = null, 3000)"
