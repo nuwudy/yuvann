@@ -25,7 +25,8 @@ class Home extends Component
     public function render()
     {
         return view('livewire.home', [
-            'featuredProducts' => Product::where('is_active', true)->where('is_featured', true)->get(),
+            'featuredProducts' => Product::where('is_active', true)->whereNotNull('featured_order')->orderBy('featured_order', 'asc')->get(),
+            'trendingProducts' => Product::where('is_active', true)->inRandomOrder()->take(8)->get(),
             'latestProducts' => Product::where('is_active', true)->orderBy('created_at', 'desc')->take(8)->get(),
             'categories' => Category::where('is_active', true)->get(),
         ])->layout('components.layouts.app');

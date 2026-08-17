@@ -263,7 +263,7 @@
                 </button>
 
                 <div x-ref="slider" class="flex overflow-x-auto gap-6 pb-8 pt-4 snap-x snap-mandatory hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
-                    @foreach($featuredProducts as $product)
+                    @foreach($trendingProducts as $product)
                         <div class="snap-start shrink-0 w-[280px] sm:w-[320px] bg-white rounded-xl shadow-sm border border-brand-green-50 group/card relative hover:shadow-xl hover:-translate-y-1 hover:border-brand-gold-500/30 transition-all duration-300 flex flex-col">
                             
                             @if($product->badge)
