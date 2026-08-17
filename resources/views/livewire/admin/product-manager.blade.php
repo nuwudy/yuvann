@@ -79,15 +79,12 @@
                             </td>
                             <!-- Featured -->
                             <td class="px-6 py-4 text-center">
-                                <button wire:click="toggleFeatured({{ $product->id }})" 
-                                        class="p-1 rounded hover:bg-brand-green-50 transition-colors"
-                                        style="cursor: pointer;">
-                                    @if($product->is_featured)
-                                        <span class="text-brand-gold-500 text-lg">★</span>
-                                    @else
-                                        <span class="text-brand-green-200 hover:text-brand-gold-400 text-lg">☆</span>
-                                    @endif
-                                </button>
+                                <input type="number" 
+                                       wire:change="updateFeaturedOrder({{ $product->id }}, $event.target.value || null)"
+                                       value="{{ $product->featured_order }}"
+                                       min="1"
+                                       class="w-16 bg-white border border-brand-green-200 rounded py-1 px-2 text-xs text-center text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 shadow-sm transition-all"
+                                       placeholder="-">
                             </td>
                             <!-- Status -->
                             <td class="px-6 py-4 text-center">
@@ -242,6 +239,14 @@
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Badge Text (e.g., 100% Herbal)</label>
                         <input type="text" wire:model="badge" placeholder="e.g. 100% Herbal" 
                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500">
+                    </div>
+
+                    <!-- Featured Order -->
+                    <div class="md:col-span-3">
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Home Slider Order</label>
+                        <input type="number" wire:model="featured_order" placeholder="e.g. 1" min="1"
+                               class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('featured_order') border-red-400 @enderror">
+                        @error('featured_order') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
                     </div>
                 </div>
 

@@ -27,8 +27,10 @@ class Product extends Model
         'featured_image',
         'gallery_images',
         'product_video',
+        'description',
         'is_active',
         'is_featured',
+        'featured_order',
     ];
 
     protected function casts(): array

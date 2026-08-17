@@ -40,6 +40,7 @@ class ProductManager extends Component
     public string $badge = '';
     public bool $is_active = true;
     public bool $is_featured = false;
+    public ?int $featured_order = null;
 
     // Tabs content fields
     public string $benefits = '';
@@ -94,6 +95,7 @@ class ProductManager extends Component
         $this->badge = $product->badge ?? '';
         $this->is_active = $product->is_active;
         $this->is_featured = $product->is_featured;
+        $this->featured_order = $product->featured_order;
 
         // Decode tab descriptions
         $desc = is_string($product->description) ? json_decode($product->description, true) : $product->description;
@@ -112,7 +114,7 @@ class ProductManager extends Component
     {
         $this->reset([
             'productId', 'category_id', 'name', 'slug', 'sku', 'short_description', 'price', 'sale_price',
-            'stock_quantity', 'unit_size', 'badge', 'is_active', 'is_featured',
+            'stock_quantity', 'unit_size', 'badge', 'is_active', 'is_featured', 'featured_order',
             'benefits', 'ingredients', 'usage', 'featured_image', 'new_gallery_images',
             'existing_featured_image', 'existing_gallery_images',
             'product_video', 'existing_product_video',
@@ -141,6 +143,7 @@ class ProductManager extends Component
             'badge' => 'nullable|string|max:50',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
+            'featured_order' => 'nullable|integer|min:1',
             'benefits' => 'required|string',
             'ingredients' => 'required|string',
             'usage' => 'required|string',
@@ -239,6 +242,7 @@ class ProductManager extends Component
                 'description' => json_encode($descriptionData),
                 'is_active' => $this->is_active,
                 'is_featured' => $this->is_featured,
+                'featured_order' => $this->featured_order,
             ]
         );
 
@@ -265,6 +269,14 @@ class ProductManager extends Component
         $product = Product::findOrFail($id);
         $product->is_featured = !$product->is_featured;
         $product->save();
+    }
+
+    public function updateFeaturedOrder(int $id, ?int $order): void
+    {
+        $product = Product::findOrFail($id);
+        $product->featured_order = $order;
+        $product->save();
+        session()->flash('success', 'Featured order updated!');
     }
 
     // ─── Variant Management ──────────────────────────────────────────────────
