@@ -62,11 +62,11 @@
                     <h3 class="font-serif text-sm font-semibold text-brand-green-900 uppercase tracking-wider">Max Price</h3>
                     <span class="text-xs font-bold text-brand-green-900">₹{{ $maxPrice }}</span>
                 </div>
-                <input type="range" min="50" max="1000" step="10" wire:model.live="maxPrice" 
+                <input type="range" min="50" max="10000" step="50" wire:model.live="maxPrice" 
                        class="w-full h-1.5 bg-brand-green-100 rounded-lg appearance-none cursor-pointer accent-brand-green-800 focus:outline-none">
                 <div class="flex justify-between text-[10px] text-brand-green-700/60 mt-1 font-medium">
                     <span>₹50</span>
-                    <span>₹1,000</span>
+                    <span>₹10,000</span>
                 </div>
             </div>
 

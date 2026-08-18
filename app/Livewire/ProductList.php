@@ -14,13 +14,13 @@ class ProductList extends Component
 
     public string $search = '';
     public string $category = '';
-    public float $maxPrice = 1000;
+    public float $maxPrice = 10000;
     public string $sort = 'latest';
 
     protected $queryString = [
         'search' => ['except' => ''],
         'category' => ['except' => ''],
-        'maxPrice' => ['except' => 1000],
+        'maxPrice' => ['except' => 10000],
         'sort' => ['except' => 'latest'],
     ];
 
