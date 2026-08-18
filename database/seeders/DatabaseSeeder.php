@@ -202,10 +202,9 @@ class DatabaseSeeder extends Seeder
 
         foreach ($products as $p) {
             $cat = $categoryModels[$p['category_slug']];
-            Product::updateOrCreate(
+            $product = Product::updateOrCreate(
                 ['slug' => $p['slug']],
                 [
-                    'category_id' => $cat->id,
                     'name' => $p['name'],
                     'short_description' => $p['short_description'],
                     'description' => $p['description'],
@@ -221,6 +220,7 @@ class DatabaseSeeder extends Seeder
                     'is_featured' => $p['is_featured'],
                 ]
             );
+            $product->categories()->sync([$cat->id]);
         }
     }
 }

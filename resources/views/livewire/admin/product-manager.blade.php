@@ -60,7 +60,9 @@
                                 <div class="text-[10px] text-brand-green-700/60 font-medium">SKU: {{ $product->sku }} | Size: {{ $product->unit_size }}</div>
                             </td>
                             <!-- Category -->
-                            <td class="px-6 py-4 text-brand-green-700">{{ $product->category->name }}</td>
+                            <td class="px-6 py-4 text-brand-green-700">
+                                {{ $product->categories->pluck('name')->join(', ') }}
+                            </td>
                             <!-- Price -->
                             <td class="px-6 py-4 font-semibold text-brand-green-900">
                                 @if($product->is_on_sale)
@@ -191,15 +193,17 @@
 
                     <!-- Category selection -->
                     <div class="md:col-span-4">
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Category *</label>
-                        <select wire:model="category_id" 
-                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('category_id') border-red-400 @enderror">
-                            <option value="">Select Category</option>
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Categories *</label>
+                        <div class="space-y-2 max-h-24 overflow-y-auto bg-brand-green-50/30 border border-brand-green-100 rounded-xl p-3 @error('category_ids') border-red-400 @enderror @error('category_ids.*') border-red-400 @enderror">
                             @foreach($categories as $cat)
-                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-brand-green-900">
+                                    <input type="checkbox" wire:model="category_ids" value="{{ $cat->id }}" class="h-4 w-4 text-brand-green-800 focus:ring-brand-gold-500 border-brand-green-200 rounded">
+                                    <span>{{ $cat->name }}</span>
+                                </label>
                             @endforeach
-                        </select>
-                        @error('category_id') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                        </div>
+                        @error('category_ids') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                        @error('category_ids.*') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
                     </div>
 
                     <!-- Unit Size -->

@@ -78,7 +78,7 @@ class ProductList extends Component
 
         // Category Filter
         if (!empty($this->category)) {
-            $query->whereHas('category', function($q) {
+            $query->whereHas('categories', function($q) {
                 $q->where('slug', $this->category);
             });
         }

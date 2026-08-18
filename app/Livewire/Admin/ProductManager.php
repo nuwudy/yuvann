@@ -28,7 +28,7 @@ class ProductManager extends Component
     public array $productVariants = [];
 
     // Form fields
-    public ?int $category_id = null;
+    public array $category_ids = [];
     public string $name = '';
     public string $slug = '';
     public string $sku = '';
@@ -83,7 +83,7 @@ class ProductManager extends Component
         $product = Product::findOrFail($id);
 
         $this->productId = $product->id;
-        $this->category_id = $product->category_id;
+        $this->category_ids = $product->categories->pluck('id')->toArray();
         $this->name = $product->name;
         $this->slug = $product->slug;
         $this->sku = $product->sku;
@@ -113,7 +113,7 @@ class ProductManager extends Component
     public function resetForm(): void
     {
         $this->reset([
-            'productId', 'category_id', 'name', 'slug', 'sku', 'short_description', 'price', 'sale_price',
+            'productId', 'category_ids', 'name', 'slug', 'sku', 'short_description', 'price', 'sale_price',
             'stock_quantity', 'unit_size', 'badge', 'is_active', 'is_featured', 'featured_order',
             'benefits', 'ingredients', 'usage', 'featured_image', 'new_gallery_images',
             'existing_featured_image', 'existing_gallery_images',
@@ -131,7 +131,8 @@ class ProductManager extends Component
     public function saveProduct()
     {
         $rules = [
-            'category_id' => 'required|exists:categories,id',
+            'category_ids' => 'required|array|min:1',
+            'category_ids.*' => 'exists:categories,id',
             'name' => 'required|string|max:150',
             'slug' => 'required|string|max:150|unique:products,slug,' . $this->productId,
             'sku' => 'required|string|max:50|unique:products,sku,' . $this->productId,
@@ -223,10 +224,9 @@ class ProductManager extends Component
             'usage' => $this->usage,
         ];
 
-        Product::updateOrCreate(
+        $product = Product::updateOrCreate(
             ['id' => $this->productId],
             [
-                'category_id' => $this->category_id,
                 'name' => $this->name,
                 'slug' => $this->slug,
                 'sku' => $this->sku,
@@ -245,6 +245,8 @@ class ProductManager extends Component
                 'featured_order' => $this->featured_order,
             ]
         );
+
+        $product->categories()->sync($this->category_ids);
 
         session()->flash('success', $this->productId ? 'Product updated successfully!' : 'Product created successfully!');
         $this->closeForm();
@@ -431,7 +433,9 @@ class ProductManager extends Component
                   ->orWhere('short_description', 'like', '%' . $this->search . '%');
             })
             ->when(!empty($this->categoryFilter), function ($q) {
-                $q->where('category_id', $this->categoryFilter);
+                $q->whereHas('categories', function ($query) {
+                    $query->where('categories.id', $this->categoryFilter);
+                });
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10);

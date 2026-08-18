@@ -118,7 +118,7 @@
 
                             <!-- Info Container -->
                             <div class="p-5 flex-grow flex flex-col text-left">
-                                <span class="text-[9px] font-semibold text-brand-gold-600 uppercase tracking-widest">{{ $product->category->name }}</span>
+                                <span class="text-[9px] font-semibold text-brand-gold-600 uppercase tracking-widest">{{ $product->categories->pluck('name')->join(', ') }}</span>
                                 <h3 class="font-serif text-base font-bold text-brand-green-900 mt-1 hover:text-brand-green-700 transition-colors">
                                     <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
                                 </h3>

@@ -48,7 +48,7 @@
             <li>
                 <div class="flex items-center gap-1.5">
                     <span>/</span>
-                    <a href="/products?category={{ $product->category->slug }}" class="hover:text-brand-green-900 transition-colors">{{ $product->category->name }}</a>
+                    <a href="/products?category={{ $product->categories->first()->slug ?? '' }}" class="hover:text-brand-green-900 transition-colors">{{ $product->categories->first()->name ?? 'Products' }}</a>
                 </div>
             </li>
             <li aria-current="page">
@@ -204,7 +204,7 @@
 
             <!-- Title & Price -->
             <div class="space-y-2">
-                <span class="text-xs font-bold text-brand-gold-600 uppercase tracking-widest">{{ $product->category->name }}</span>
+                <span class="text-xs font-bold text-brand-gold-600 uppercase tracking-widest">{{ $product->categories->pluck('name')->join(', ') }}</span>
                 <h1 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900 leading-tight">{{ $product->name }}</h1>
                 
                 @if($product->review_count > 0)
