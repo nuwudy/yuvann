@@ -143,7 +143,7 @@
 
                             <!-- Info -->
                             <div class="p-5 flex flex-col flex-grow text-center">
-                                <span class="text-[10px] font-bold text-brand-gold-600 uppercase tracking-widest mb-2">{{ $product->categories->isNotEmpty() ? $product->categories->pluck('name')->join(', ') : 'Product' }}</span>
+                                <span class="text-[9px] font-bold text-brand-gold-600 uppercase tracking-wider mb-2 break-words leading-snug">{{ $product->categories->isNotEmpty() ? $product->categories->pluck('name')->join(' • ') : 'Product' }}</span>
                                 <h3 class="font-serif text-lg text-brand-green-900 mb-1 hover:text-brand-green-700 transition-colors">
                                     <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
                                 </h3>
@@ -288,7 +288,7 @@
 
                             <!-- Info -->
                             <div class="p-5 flex flex-col flex-grow text-center">
-                                <span class="text-[10px] font-bold text-brand-gold-600 uppercase tracking-widest mb-2">{{ $product->categories->isNotEmpty() ? $product->categories->pluck('name')->join(', ') : 'Product' }}</span>
+                                <span class="text-[9px] font-bold text-brand-gold-600 uppercase tracking-wider mb-2 break-words leading-snug">{{ $product->categories->isNotEmpty() ? $product->categories->pluck('name')->join(' • ') : 'Product' }}</span>
                                 <h3 class="font-serif text-lg text-brand-green-900 mb-1 hover:text-brand-green-700 transition-colors">
                                     <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
                                 </h3>
@@ -392,7 +392,7 @@
 
                             <!-- Info -->
                             <div class="p-5 flex flex-col flex-grow text-center">
-                                <span class="text-[10px] font-bold text-brand-gold-600 uppercase tracking-widest mb-2">{{ $product->categories->isNotEmpty() ? $product->categories->pluck('name')->join(', ') : 'Product' }}</span>
+                                <span class="text-[9px] font-bold text-brand-gold-600 uppercase tracking-wider mb-2 break-words leading-snug">{{ $product->categories->isNotEmpty() ? $product->categories->pluck('name')->join(' • ') : 'Product' }}</span>
                                 <h3 class="font-serif text-lg text-brand-green-900 mb-1 hover:text-brand-green-700 transition-colors">
                                     <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
                                 </h3>
