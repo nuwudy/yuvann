@@ -105,19 +105,6 @@
             @endphp
             @if(count($allImages) > 1 || $productVideoUrl)
                 <div class="flex gap-3 overflow-x-auto py-1">
-                    {{-- Image thumbnails --}}
-                    @foreach($allImages as $imgUrl)
-                        <!-- Resolve image URLs (local uploads or absolute seeds) -->
-                        @php
-                            $resolvedUrl = (str_starts_with($imgUrl, 'http://') || str_starts_with($imgUrl, 'https://')) ? $imgUrl : \Illuminate\Support\Facades\Storage::url($imgUrl);
-                        @endphp
-                        <button @click="activeMedia = { type: 'image', src: '{{ $resolvedUrl }}' }" 
-                                class="w-20 h-20 bg-white rounded-xl border overflow-hidden p-1 flex-shrink-0 focus:outline-none transition-all shadow-sm"
-                                :class="activeMedia.type === 'image' && activeMedia.src === '{{ $resolvedUrl }}' ? 'border-brand-gold-500 ring-2 ring-brand-gold-500/20 scale-95' : 'border-brand-green-100 hover:border-brand-green-300'">
-                            <img src="{{ $resolvedUrl }}" alt="Gallery view" class="w-full h-full object-cover rounded-lg">
-                        </button>
-                    @endforeach
-
                     {{-- Video thumbnail (if a product video exists) --}}
                     @if($productVideoUrl)
                         <button @click="activeMedia = { type: 'video', src: '{{ $productVideoUrl }}' }"
@@ -140,15 +127,23 @@
                             </div>
                         </button>
                     @endif
+
+                    {{-- Image thumbnails --}}
+                    @foreach($allImages as $imgUrl)
+                        <!-- Resolve image URLs (local uploads or absolute seeds) -->
+                        @php
+                            $resolvedUrl = (str_starts_with($imgUrl, 'http://') || str_starts_with($imgUrl, 'https://')) ? $imgUrl : \Illuminate\Support\Facades\Storage::url($imgUrl);
+                        @endphp
+                        <button @click="activeMedia = { type: 'image', src: '{{ $resolvedUrl }}' }" 
+                                class="w-20 h-20 bg-white rounded-xl border overflow-hidden p-1 flex-shrink-0 focus:outline-none transition-all shadow-sm"
+                                :class="activeMedia.type === 'image' && activeMedia.src === '{{ $resolvedUrl }}' ? 'border-brand-gold-500 ring-2 ring-brand-gold-500/20 scale-95' : 'border-brand-green-100 hover:border-brand-green-300'">
+                            <img src="{{ $resolvedUrl }}" alt="Gallery view" class="w-full h-full object-cover rounded-lg">
+                        </button>
+                    @endforeach
                 </div>
             @elseif($productVideoUrl)
                 {{-- Only video exists (single image), show a standalone play button --}}
                 <div class="flex gap-3 py-1">
-                    <button @click="activeMedia = { type: 'image', src: '{{ $product->featured_image_url }}' }"
-                            class="w-20 h-20 bg-white rounded-xl border overflow-hidden p-1 flex-shrink-0 focus:outline-none transition-all shadow-sm"
-                            :class="activeMedia.type === 'image' ? 'border-brand-gold-500 ring-2 ring-brand-gold-500/20 scale-95' : 'border-brand-green-100 hover:border-brand-green-300'">
-                        <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover rounded-lg">
-                    </button>
                     <button @click="activeMedia = { type: 'video', src: '{{ $productVideoUrl }}' }"
                             class="w-20 h-20 rounded-xl border overflow-hidden p-0 flex-shrink-0 focus:outline-none transition-all shadow-sm relative group bg-black"
                             :class="activeMedia.type === 'video' ? 'border-brand-gold-500 ring-2 ring-brand-gold-500/20 scale-95' : 'border-brand-green-100 hover:border-brand-gold-400'">
@@ -167,6 +162,11 @@
                                 </svg>
                             </div>
                         </div>
+                    </button>
+                    <button @click="activeMedia = { type: 'image', src: '{{ $product->featured_image_url }}' }"
+                            class="w-20 h-20 bg-white rounded-xl border overflow-hidden p-1 flex-shrink-0 focus:outline-none transition-all shadow-sm"
+                            :class="activeMedia.type === 'image' ? 'border-brand-gold-500 ring-2 ring-brand-gold-500/20 scale-95' : 'border-brand-green-100 hover:border-brand-green-300'">
+                        <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="w-full h-full object-cover rounded-lg">
                     </button>
                 </div>
             @endif
