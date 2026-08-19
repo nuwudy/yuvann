@@ -224,26 +224,32 @@ class ProductManager extends Component
             'usage' => $this->usage,
         ];
 
+        $productData = [
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'sku' => $this->sku,
+            'short_description' => $this->short_description,
+            'price' => $this->price,
+            'sale_price' => $this->sale_price ?: null,
+            'stock_quantity' => $this->stock_quantity,
+            'unit_size' => $this->unit_size,
+            'badge' => $this->badge ?: null,
+            'featured_image' => $featuredImagePath,
+            'gallery_images' => $galleryPaths,
+            'product_video' => $videoPath,
+            'description' => json_encode($descriptionData),
+            'is_active' => $this->is_active,
+            'is_featured' => $this->is_featured,
+            'featured_order' => $this->featured_order,
+        ];
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('products', 'category_id')) {
+            $productData['category_id'] = !empty($this->category_ids) ? $this->category_ids[0] : 1;
+        }
+
         $product = Product::updateOrCreate(
             ['id' => $this->productId],
-            [
-                'name' => $this->name,
-                'slug' => $this->slug,
-                'sku' => $this->sku,
-                'short_description' => $this->short_description,
-                'price' => $this->price,
-                'sale_price' => $this->sale_price ?: null,
-                'stock_quantity' => $this->stock_quantity,
-                'unit_size' => $this->unit_size,
-                'badge' => $this->badge ?: null,
-                'featured_image' => $featuredImagePath,
-                'gallery_images' => $galleryPaths,
-                'product_video' => $videoPath,
-                'description' => json_encode($descriptionData),
-                'is_active' => $this->is_active,
-                'is_featured' => $this->is_featured,
-                'featured_order' => $this->featured_order,
-            ]
+            $productData
         );
 
         $product->categories()->sync($this->category_ids);

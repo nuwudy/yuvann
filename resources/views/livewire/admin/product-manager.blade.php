@@ -283,73 +283,113 @@
                     </div>
                 </div>
 
-                <!-- Image Uploads -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 border-t border-brand-green-100/60 pt-6">
-                    <!-- Featured Image -->
-                    <div class="md:col-span-6">
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-2">Featured Image *</label>
-                        <div class="flex items-center gap-2"
-                             x-data="{ featuredName: 'No file chosen' }">
-                            {{-- Hidden real input --}}
-                            <input type="file" id="featuredFileInput" wire:model="featured_image"
-                                   class="hidden"
-                                   @change="featuredName = $event.target.files[0]?.name ?? 'No file chosen'">
-                            {{-- Styled Choose File button --}}
-                            <button type="button"
-                                    onclick="document.getElementById('featuredFileInput').click()"
-                                    class="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-dashed border-brand-green-300 bg-brand-green-50 hover:bg-brand-gold-50 hover:border-brand-gold-400 text-brand-green-800 transition-all flex-1 min-w-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-brand-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
-                                <span class="text-[11px] font-semibold truncate" x-text="featuredName === 'No file chosen' ? '📁 Choose Image…' : featuredName"></span>
-                            </button>
-                            {{-- Library button --}}
-                            <button type="button"
-                                    onclick="window.dispatchEvent(new CustomEvent('open-media-picker', { detail: { target: 'featured' } }))"
-                                    class="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 text-[10px] font-bold text-brand-green-800 bg-brand-green-50 border border-brand-green-200 rounded-xl hover:bg-brand-gold-50 hover:border-brand-gold-400 transition-all">
-                                📂 Library
-                            </button>
-                        </div>
-                        @error('featured_image') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                <!-- Media Uploads (Featured, Video, Gallery) -->
+                <div class="space-y-6 border-t border-brand-green-100/60 pt-6">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                        <!-- Featured Image -->
+                        <div class="md:col-span-6">
+                            <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-2">Featured Image *</label>
+                            <div class="flex items-center gap-2"
+                                 x-data="{ featuredName: 'No file chosen' }">
+                                {{-- Hidden real input --}}
+                                <input type="file" id="featuredFileInput" wire:model="featured_image"
+                                       class="hidden"
+                                       @change="featuredName = $event.target.files[0]?.name ?? 'No file chosen'">
+                                {{-- Styled Choose File button --}}
+                                <button type="button"
+                                        onclick="document.getElementById('featuredFileInput').click()"
+                                        class="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-dashed border-brand-green-300 bg-brand-green-50 hover:bg-brand-gold-50 hover:border-brand-gold-400 text-brand-green-800 transition-all flex-1 min-w-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-brand-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                    </svg>
+                                    <span class="text-[11px] font-semibold truncate" x-text="featuredName === 'No file chosen' ? '📁 Choose Image…' : featuredName"></span>
+                                </button>
+                                {{-- Library button --}}
+                                <button type="button"
+                                        onclick="window.dispatchEvent(new CustomEvent('open-media-picker', { detail: { target: 'featured' } }))"
+                                        class="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 text-[10px] font-bold text-brand-green-800 bg-brand-green-50 border border-brand-green-200 rounded-xl hover:bg-brand-gold-50 hover:border-brand-gold-400 transition-all">
+                                    📂 Library
+                                </button>
+                            </div>
+                            @error('featured_image') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
 
-                        <!-- Preview -->
-                        <div class="mt-3">
-                            @if ($featured_image)
-                                <span class="text-[10px] text-brand-green-700/60 block mb-1">Temporary Preview:</span>
-                                <div class="h-28 w-28 rounded-xl overflow-hidden border border-brand-green-200">
-                                    <img src="{{ $featured_image->temporaryUrl() }}" class="w-full h-full object-cover">
-                                </div>
-                            @elseif ($existing_featured_image)
-                                <span class="text-[10px] text-brand-green-700/60 block mb-1">Current Image:</span>
-                                <div class="relative h-28 w-28 rounded-xl overflow-hidden border border-brand-green-200 bg-white cursor-pointer"
-                                     x-data="{ hovered: false }"
-                                     @mouseenter="hovered = true"
-                                     @mouseleave="hovered = false">
-                                    <img src="{{ (str_starts_with($existing_featured_image, 'http://') || str_starts_with($existing_featured_image, 'https://')) ? $existing_featured_image : \Illuminate\Support\Facades\Storage::url($existing_featured_image) }}" class="w-full h-full object-cover">
-                                    <div x-show="hovered"
-                                         x-transition:enter="transition ease-out duration-150"
-                                         x-transition:enter-start="opacity-0"
-                                         x-transition:enter-end="opacity-100"
-                                         x-transition:leave="transition ease-in duration-100"
-                                         x-transition:leave-start="opacity-100"
-                                         x-transition:leave-end="opacity-0"
-                                         style="display:none;"
-                                         class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-1">
-                                        <button type="button" wire:click="$set('existing_featured_image', null)"
-                                                class="flex flex-col items-center gap-0.5 text-white hover:text-red-300 transition-colors">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                            </svg>
-                                            <span class="text-[9px] font-bold uppercase tracking-wide leading-none">Remove</span>
-                                        </button>
+                            <!-- Preview -->
+                            <div class="mt-3">
+                                @if ($featured_image)
+                                    <span class="text-[10px] text-brand-green-700/60 block mb-1">Temporary Preview:</span>
+                                    <div class="h-28 w-28 rounded-xl overflow-hidden border border-brand-green-200">
+                                        <img src="{{ $featured_image->temporaryUrl() }}" class="w-full h-full object-cover">
                                     </div>
+                                @elseif ($existing_featured_image)
+                                    <span class="text-[10px] text-brand-green-700/60 block mb-1">Current Image:</span>
+                                    <div class="relative h-28 w-28 rounded-xl overflow-hidden border border-brand-green-200 bg-white cursor-pointer"
+                                         x-data="{ hovered: false }"
+                                         @mouseenter="hovered = true"
+                                         @mouseleave="hovered = false">
+                                        <img src="{{ (str_starts_with($existing_featured_image, 'http://') || str_starts_with($existing_featured_image, 'https://')) ? $existing_featured_image : \Illuminate\Support\Facades\Storage::url($existing_featured_image) }}" class="w-full h-full object-cover">
+                                        <div x-show="hovered"
+                                             x-transition:enter="transition ease-out duration-150"
+                                             x-transition:enter-start="opacity-0"
+                                             x-transition:enter-end="opacity-100"
+                                             x-transition:leave="transition ease-in duration-100"
+                                             x-transition:leave-start="opacity-100"
+                                             x-transition:leave-end="opacity-0"
+                                             style="display:none;"
+                                             class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-1">
+                                            <button type="button" wire:click="$set('existing_featured_image', null)"
+                                                    class="flex flex-col items-center gap-0.5 text-white hover:text-red-300 transition-colors">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                                </svg>
+                                                <span class="text-[9px] font-bold uppercase tracking-wide leading-none">Remove</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Product Short Video Upload -->
+                        <div class="md:col-span-6">
+                            <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-2">🎬 Product Short Video (Optional)</label>
+                            <div class="flex items-center gap-2">
+                                <input type="file" wire:model="product_video" accept="video/mp4,video/webm,video/quicktime"
+                                       class="text-[11px] text-brand-green-800 flex-1 min-w-0 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-[11px] file:font-semibold file:bg-brand-green-100 file:text-brand-green-800 hover:file:bg-brand-green-200 transition-all">
+                                <button type="button"
+                                        onclick="window.dispatchEvent(new CustomEvent('open-media-picker', { detail: { target: 'video' } }))"
+                                        class="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 text-[10px] font-bold text-brand-green-800 bg-brand-green-50 border border-brand-green-200 rounded-xl hover:bg-brand-gold-50 hover:border-brand-gold-400 transition-all">
+                                    📂 Library
+                                </button>
+                            </div>
+                            @error('product_video') <p class="text-[10px] text-red-600 mt-1.5 font-semibold">{{ $message }}</p> @enderror
+
+                            <div wire:loading wire:target="product_video" class="mt-2 text-[10px] text-brand-green-700/60 font-medium animate-pulse">
+                                ⏳ Uploading video…
+                            </div>
+
+                            @if ($product_video)
+                                <div class="mt-3">
+                                    <span class="text-[10px] text-brand-green-700/60 block mb-1.5">📹 New Video Preview:</span>
+                                    <video src="{{ $product_video->temporaryUrl() }}" controls
+                                           class="rounded-xl border border-brand-green-200 shadow-sm w-full max-w-sm" style="max-height:112px;">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            @elseif ($existing_product_video)
+                                <div class="mt-3">
+                                    <span class="text-[10px] text-brand-green-700/60 block mb-1.5">🎥 Current Video:</span>
+                                    <video src="{{ (str_starts_with($existing_product_video, 'http://') || str_starts_with($existing_product_video, 'https://')) ? $existing_product_video : \Illuminate\Support\Facades\Storage::url($existing_product_video) }}"
+                                           controls class="rounded-xl border border-brand-green-200 shadow-sm w-full max-w-sm" style="max-height:112px;">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <p class="text-[10px] text-brand-green-700/60 mt-1.5 font-medium">Upload a new video above to replace this one.</p>
                                 </div>
                             @endif
                         </div>
                     </div>
 
                     <!-- Gallery Images -->
-                    <div class="md:col-span-6">
+                    <div>
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-2">Gallery Images (Optional, Multi)</label>
                         <div class="flex items-center gap-2"
                              x-data="{ galleryLabel: 'No files chosen' }">
@@ -360,7 +400,7 @@
                             {{-- Styled Choose Files button --}}
                             <button type="button"
                                     onclick="document.getElementById('galleryFileInput').click()"
-                                    class="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-dashed border-brand-green-300 bg-brand-green-50 hover:bg-brand-gold-50 hover:border-brand-gold-400 text-brand-green-800 transition-all flex-1 min-w-0">
+                                    class="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-dashed border-brand-green-300 bg-brand-green-50 hover:bg-brand-gold-50 hover:border-brand-gold-400 text-brand-green-800 transition-all max-w-xs">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0 text-brand-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
@@ -426,51 +466,6 @@
                             @endif
                         </div>
                     </div>
-                </div>
-
-                <!-- Product Short Video Upload -->
-                <div class="border-t border-brand-green-100/60 pt-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-base">🎬</span>
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase">Product Short Video (Optional)</label>
-                    </div>
-                    <p class="text-[10px] text-brand-green-700/60 font-medium mb-3">
-                        Upload a short showcase video (10–30 seconds recommended). Accepted formats: MP4, WebM, MOV — max 50 MB.
-                    </p>
-
-                    <div class="flex items-center gap-2">
-                        <input type="file" wire:model="product_video" accept="video/mp4,video/webm,video/quicktime"
-                               class="text-xs text-brand-green-800 flex-1 min-w-0 file:mr-3 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-brand-green-100 file:text-brand-green-800 hover:file:bg-brand-green-200 transition-all">
-                        <button type="button"
-                                onclick="window.dispatchEvent(new CustomEvent('open-media-picker', { detail: { target: 'video' } }))"
-                                class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold text-brand-green-800 bg-brand-green-50 border border-brand-green-200 rounded-lg hover:bg-brand-gold-50 hover:border-brand-gold-400 transition-all">
-                            📂 Library
-                        </button>
-                    </div>
-                    @error('product_video') <p class="text-[10px] text-red-600 mt-1.5 font-semibold">{{ $message }}</p> @enderror
-
-                    <div wire:loading wire:target="product_video" class="mt-2 text-[10px] text-brand-green-700/60 font-medium animate-pulse">
-                        ⏳ Uploading video…
-                    </div>
-
-                    @if ($product_video)
-                        <div class="mt-3">
-                            <span class="text-[10px] text-brand-green-700/60 block mb-1.5">📹 New Video Preview:</span>
-                            <video src="{{ $product_video->temporaryUrl() }}" controls
-                                   class="rounded-xl border border-brand-green-200 shadow-sm w-full max-w-sm" style="max-height:200px;">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    @elseif ($existing_product_video)
-                        <div class="mt-3">
-                            <span class="text-[10px] text-brand-green-700/60 block mb-1.5">🎥 Current Video:</span>
-                            <video src="{{ (str_starts_with($existing_product_video, 'http://') || str_starts_with($existing_product_video, 'https://')) ? $existing_product_video : \Illuminate\Support\Facades\Storage::url($existing_product_video) }}"
-                                   controls class="rounded-xl border border-brand-green-200 shadow-sm w-full max-w-sm" style="max-height:200px;">
-                                Your browser does not support the video tag.
-                            </video>
-                            <p class="text-[10px] text-brand-green-700/60 mt-1.5 font-medium">Upload a new video above to replace this one.</p>
-                        </div>
-                    @endif
                 </div>
 
                 <!-- Toggle Options -->
