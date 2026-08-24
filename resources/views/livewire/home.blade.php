@@ -1,4 +1,4 @@
-<div x-data="{ notification: null }" 
+<div x-data="{ notification: null, showAssessment: false }" 
      @notify.window="notification = $event.detail[0]; setTimeout(() => notification = null, 3000)"
      class="relative font-sans text-brand-green-900 selection:bg-brand-gold-200 selection:text-brand-green-900">
      
@@ -75,9 +75,9 @@
                 <a href="/products" class="px-8 py-3.5 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
                     Explore Collection
                 </a>
-                <a href="https://wa.me/917736609299?text=Hi%20Dr.%20Sajeev,%20I%20would%20like%20to%20consult%20regarding%20my%20health." target="_blank" class="px-8 py-3.5 bg-transparent border-2 border-white/70 hover:border-white hover:bg-white/10 text-white text-sm font-semibold rounded-full backdrop-blur-sm transition-all duration-300">
-                    Consult the Expert
-                </a>
+                <button @click="showAssessment = true" class="px-8 py-3.5 bg-transparent border-2 border-white/70 hover:border-white hover:bg-white/10 text-white text-sm font-semibold rounded-full backdrop-blur-sm transition-all duration-300">
+                    Take Assessment
+                </button>
             </div>
         </div>
         
@@ -548,4 +548,6 @@
             scrollbar-width: none;
         }
     </style>
+    
+    <x-assessment-modal />
 </div>
