@@ -76,7 +76,7 @@
                             <div class="grid grid-cols-1 gap-6">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Name</label>
-                                    <input type="text" wire:model.live="name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+                                    <input type="text" wire:model.blur="name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
                                     @error('name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </div>
                                 
@@ -93,13 +93,17 @@
                                 </div>
 
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">Profile Picture / Logo path</label>
-                                    <div class="flex items-center mt-1">
-                                        <input type="text" wire:model="profile_pic" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm" placeholder="e.g. shops/veachoc-logo.png">
-                                        <!-- Note: Real app might use a file upload or media library component here -->
+                                    <label class="block text-sm font-medium text-gray-700">Profile Picture / Logo</label>
+                                    <div class="flex items-center mt-1 space-x-4">
+                                        @if ($new_profile_pic)
+                                            <img src="{{ $new_profile_pic->temporaryUrl() }}" class="h-12 w-12 object-cover rounded-full border border-gray-200">
+                                        @elseif ($profile_pic)
+                                            <img src="{{ \Illuminate\Support\Facades\Storage::url($profile_pic) }}" class="h-12 w-12 object-cover rounded-full border border-gray-200">
+                                        @endif
+                                        <input type="file" wire:model="new_profile_pic" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm" accept="image/*">
                                     </div>
-                                    <p class="text-xs text-gray-500 mt-1">Path relative to storage root, or full URL.</p>
-                                    @error('profile_pic') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                    <div wire:loading wire:target="new_profile_pic" class="text-sm text-gray-500 mt-1">Uploading...</div>
+                                    @error('new_profile_pic') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                 </div>
                                 
                                 <div class="flex items-start">

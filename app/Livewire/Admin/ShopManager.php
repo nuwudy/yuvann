@@ -5,10 +5,11 @@ namespace App\Livewire\Admin;
 use App\Models\Shop;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 
 class ShopManager extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
 
     public $showModal = false;
     public $shopId;
@@ -16,25 +17,28 @@ class ShopManager extends Component
     public $slug = '';
     public $description = '';
     public $profile_pic = '';
+    public $new_profile_pic = null;
     public $is_active = true;
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'slug' => 'required|string|max:255|unique:shops,slug',
         'description' => 'nullable|string',
-        'profile_pic' => 'nullable|string',
+        'new_profile_pic' => 'nullable|image|max:2048',
         'is_active' => 'boolean',
     ];
 
     public function updatedName($value)
     {
-        $this->slug = \Str::slug($value);
+        if (empty($this->shopId)) {
+            $this->slug = \Str::slug($value);
+        }
     }
 
     public function createShop()
     {
         $this->resetValidation();
-        $this->reset(['shopId', 'name', 'slug', 'description', 'profile_pic', 'is_active']);
+        $this->reset(['shopId', 'name', 'slug', 'description', 'profile_pic', 'new_profile_pic', 'is_active']);
         $this->showModal = true;
     }
 
@@ -47,6 +51,7 @@ class ShopManager extends Component
         $this->slug = $shop->slug;
         $this->description = $shop->description;
         $this->profile_pic = $shop->profile_pic;
+        $this->new_profile_pic = null;
         $this->is_active = $shop->is_active;
         $this->showModal = true;
     }
@@ -59,6 +64,10 @@ class ShopManager extends Component
         }
 
         $this->validate($rules);
+
+        if ($this->new_profile_pic) {
+            $this->profile_pic = $this->new_profile_pic->store('shops', 'public');
+        }
 
         Shop::updateOrCreate(
             ['id' => $this->shopId],
