@@ -71,25 +71,18 @@
             <p class="text-brand-green-50 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed drop-shadow opacity-0 animate-[fadeInUp_1s_ease-out_0.4s_forwards]">
                 Proprietary formulations and meticulously curated herbal remedies—crafted and selected for your holistic well-being.
             </p>
-            <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
-                <a href="/products" class="px-8 py-3.5 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
-                    Explore Collection
+            <div class="pt-8 flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
+                <a href="/products" class="px-6 py-3 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
+                    Shop Wellness
                 </a>
-                <button @click="showAssessment = true" class="relative group px-8 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white text-sm font-semibold rounded-full shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:shadow-[0_0_25px_rgba(16,185,129,0.7)] hover:scale-105 transition-all duration-300">
-                    <span class="absolute -top-3 -right-2 bg-brand-gold-400 text-brand-green-900 text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-full shadow-md animate-bounce">
-                        Free
-                    </span>
-                    <span class="flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
-                        Take Assessment
-                    </span>
-                </button>
-                <a href="/iron-vitality-quiz.html" class="relative group px-8 py-3.5 border border-red-500 text-white text-sm font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2" style="background-color: #b91c1c;">
-                    <span class="absolute -top-3 -right-2 bg-brand-gold-400 text-brand-green-900 text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-full shadow-md animate-bounce" style="animation-delay: 0.2s;">
-                        Free
-                    </span>
-                    <svg class="w-4 h-4 text-white animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    Iron Test
+                <a href="#bmi-assessment" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
+                    Take Assessment Test
+                </a>
+                <a href="#iron-test" class="px-6 py-3 bg-[#8a1c1c] hover:bg-[#6b1515] text-white text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
+                    Iron & Blood Vitality Test
+                </a>
+                <a href="#diet-plan-test" class="px-6 py-3 bg-brand-green-800 hover:bg-brand-green-700 text-white text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
+                    Find Your Diet Plan
                 </a>
             </div>
         </div>
@@ -524,6 +517,11 @@
             </div>
         </div>
     </section>
+    
+    <!-- Assessment Sections -->
+    <x-assessments.bmi-test />
+    <x-assessments.iron-test />
+    <x-assessments.diet-plan-test />
     
     <style>
         /* Custom animations and utilities */
