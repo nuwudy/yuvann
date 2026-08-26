@@ -84,6 +84,13 @@
                         Take Assessment
                     </span>
                 </button>
+                <a href="/iron-vitality-quiz.html" class="relative group px-8 py-3.5 border border-red-500 text-white text-sm font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2" style="background-color: #b91c1c;">
+                    <span class="absolute -top-3 -right-2 bg-brand-gold-400 text-brand-green-900 text-[10px] font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-full shadow-md animate-bounce" style="animation-delay: 0.2s;">
+                        Free
+                    </span>
+                    <svg class="w-4 h-4 text-white animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    Iron Test
+                </a>
             </div>
         </div>
         
