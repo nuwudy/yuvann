@@ -80,8 +80,10 @@ class ShopManager extends Component
             ]
         );
 
+        session()->flash('success', $this->shopId ? 'Shop updated successfully.' : 'Shop created successfully.');
+        
+        $this->reset(['shopId', 'name', 'slug', 'description', 'profile_pic', 'new_profile_pic', 'is_active']);
         $this->showModal = false;
-        $this->dispatch('notify', ['type' => 'success', 'message' => 'Shop saved successfully.']);
     }
 
     public function deleteShop($id)

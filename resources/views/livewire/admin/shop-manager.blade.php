@@ -6,6 +6,12 @@
         </button>
     </div>
 
+    @if (session()->has('success'))
+        <div class="mb-4 bg-emerald-100 border border-emerald-400 text-emerald-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
+
     <!-- Shops Table -->
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <table class="min-w-full divide-y divide-gray-200">
