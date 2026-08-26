@@ -4,13 +4,13 @@
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1545239351-ef35f43d514b?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-brand-green-900 via-brand-green-900/80 to-transparent"></div>
         
-        <div class="relative z-10 px-6 py-12 md:py-16 flex flex-col md:flex-row items-center gap-8 md:gap-12 max-w-5xl mx-auto">
+        <div class="relative z-10 px-6 py-12 md:py-16 flex flex-col md:flex-row items-center gap-6 md:gap-8 max-w-5xl mx-auto">
             <div class="flex-shrink-0">
-                <div class="w-32 h-32 md:w-48 md:h-48 rounded-full bg-white flex items-center justify-center overflow-hidden border-4 border-brand-gold-500/50 shadow-[0_0_30px_rgba(201,168,76,0.2)] p-2">
+                <div class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-white flex items-center justify-center overflow-hidden border-4 border-brand-gold-500/50 shadow-lg p-1.5 transition-transform hover:scale-105 hover:border-brand-gold-400">
                     @if($shop->profile_pic)
-                        <img src="{{ \Illuminate\Support\Facades\Storage::url($shop->profile_pic) }}" alt="{{ $shop->name }}" class="w-full h-full object-contain">
+                        <img src="{{ \Illuminate\Support\Facades\Storage::url($shop->profile_pic) }}" alt="{{ $shop->name }}" class="w-full h-full object-cover rounded-full">
                     @else
-                        <span class="text-6xl font-serif font-bold text-brand-green-900">{{ substr($shop->name, 0, 1) }}</span>
+                        <span class="text-4xl md:text-5xl font-serif font-bold text-brand-green-900">{{ substr($shop->name, 0, 1) }}</span>
                     @endif
                 </div>
             </div>
