@@ -14,6 +14,7 @@ class Product extends Model
 
     protected $fillable = [
         'category_id',
+        'shop_id',
         'name',
         'slug',
         'short_description',
@@ -43,6 +44,11 @@ class Product extends Model
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
         ];
+    }
+
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
     }
 
     public function categories(): BelongsToMany

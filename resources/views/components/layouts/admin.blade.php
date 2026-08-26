@@ -41,6 +41,9 @@
                         <a href="/admin/products" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-white bg-brand-green-800">
                             Products
                         </a>
+                        <a href="/admin/shops" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
+                            Shops & Brands
+                        </a>
                         <a href="/admin/categories" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
                             Categories
                         </a>
@@ -74,6 +77,9 @@
                     <nav class="flex-1 px-4 py-6 space-y-2">
                         <a href="/admin/products" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-white bg-brand-green-800 hover:bg-brand-green-700/80 transition-all">
                             📦 Products
+                        </a>
+                        <a href="/admin/shops" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
+                            🏪 Shops & Brands
                         </a>
                         <a href="/admin/categories" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
                             🗂️ Categories

@@ -239,6 +239,32 @@
         </div>
     </section>
 
+    <!-- Partner Shops / Brands -->
+    @if(isset($shops) && $shops->count() > 0)
+    <section class="py-12 bg-[#faf9f6] border-b border-brand-green-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-brand-green-900">Our Partner Shops</h2>
+                <p class="text-brand-green-700/70 mt-2 text-sm">Discover curated wellness brands.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
+                @foreach($shops as $shop)
+                    <a href="{{ route('shop.profile', $shop->slug) }}" class="group flex flex-col items-center">
+                        <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden mb-3 bg-white shadow-sm border border-brand-green-100 group-hover:border-brand-gold-400 group-hover:shadow-md transition-all duration-300 flex items-center justify-center p-2">
+                            @if($shop->profile_pic)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::url($shop->profile_pic) }}" alt="{{ $shop->name }}" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
+                            @else
+                                <span class="text-2xl font-serif font-bold text-brand-green-900">{{ substr($shop->name, 0, 1) }}</span>
+                            @endif
+                        </div>
+                        <h3 class="font-sans text-sm font-semibold text-brand-green-900 text-center group-hover:text-brand-gold-600 transition-colors">{{ $shop->name }}</h3>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
     <!-- 4. Shoppable "Trending Now" Carousel -->
     <section id="trending" class="py-20 bg-[#faf9f6]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

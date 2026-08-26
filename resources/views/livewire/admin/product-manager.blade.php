@@ -184,7 +184,7 @@
                     </div>
 
                     <!-- SKU -->
-                    <div class="md:col-span-4">
+                    <div class="md:col-span-3">
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">SKU Code *</label>
                         <input type="text" wire:model="sku" placeholder="e.g. RS-OIL-100" 
                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('sku') border-red-400 @enderror">
@@ -192,7 +192,7 @@
                     </div>
 
                     <!-- Category selection -->
-                    <div class="md:col-span-4">
+                    <div class="md:col-span-3">
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Categories *</label>
                         <div class="space-y-2 max-h-24 overflow-y-auto bg-brand-green-50/30 border border-brand-green-100 rounded-xl p-3 @error('category_ids') border-red-400 @enderror @error('category_ids.*') border-red-400 @enderror">
                             @foreach($categories as $cat)
@@ -206,8 +206,20 @@
                         @error('category_ids.*') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
                     </div>
 
+                    <!-- Shop / Brand -->
+                    <div class="md:col-span-3">
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Shop / Brand</label>
+                        <select wire:model="shop_id" class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('shop_id') border-red-400 @enderror">
+                            <option value="">No Shop (Default)</option>
+                            @foreach($shops as $shop)
+                                <option value="{{ $shop->id }}">{{ $shop->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('shop_id') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                    </div>
+
                     <!-- Unit Size -->
-                    <div class="md:col-span-4">
+                    <div class="md:col-span-3">
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Unit Size *</label>
                         <input type="text" wire:model="unit_size" placeholder="e.g. 100ml, 250g" 
                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('unit_size') border-red-400 @enderror">

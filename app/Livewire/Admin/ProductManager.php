@@ -5,6 +5,7 @@ namespace App\Livewire\Admin;
 use App\Models\Category;
 use App\Models\MediaItem;
 use App\Models\Product;
+use App\Models\Shop;
 use App\Services\ImageService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -29,6 +30,7 @@ class ProductManager extends Component
 
     // Form fields
     public array $category_ids = [];
+    public ?int $shop_id = null;
     public string $name = '';
     public string $slug = '';
     public string $sku = '';
@@ -84,6 +86,7 @@ class ProductManager extends Component
 
         $this->productId = $product->id;
         $this->category_ids = $product->categories->pluck('id')->toArray();
+        $this->shop_id = $product->shop_id;
         $this->name = $product->name;
         $this->slug = $product->slug;
         $this->sku = $product->sku;
@@ -113,7 +116,7 @@ class ProductManager extends Component
     public function resetForm(): void
     {
         $this->reset([
-            'productId', 'category_ids', 'name', 'slug', 'sku', 'short_description', 'price', 'sale_price',
+            'productId', 'category_ids', 'shop_id', 'name', 'slug', 'sku', 'short_description', 'price', 'sale_price',
             'stock_quantity', 'unit_size', 'badge', 'is_active', 'is_featured', 'featured_order',
             'benefits', 'ingredients', 'usage', 'featured_image', 'new_gallery_images',
             'existing_featured_image', 'existing_gallery_images',
@@ -133,6 +136,7 @@ class ProductManager extends Component
         $rules = [
             'category_ids' => 'required|array|min:1',
             'category_ids.*' => 'exists:categories,id',
+            'shop_id' => 'nullable|exists:shops,id',
             'name' => 'required|string|max:150',
             'slug' => 'required|string|max:150|unique:products,slug,' . $this->productId,
             'sku' => 'required|string|max:50|unique:products,sku,' . $this->productId,
@@ -227,6 +231,7 @@ class ProductManager extends Component
         $productData = [
             'name' => $this->name,
             'slug' => $this->slug,
+            'shop_id' => $this->shop_id ?: null,
             'sku' => $this->sku,
             'short_description' => $this->short_description,
             'price' => $this->price,
@@ -449,6 +454,7 @@ class ProductManager extends Component
         return view('livewire.admin.product-manager', [
             'products'   => $products,
             'categories' => Category::all(),
+            'shops'      => Shop::all(),
         ])->layout('components.layouts.admin', ['header' => 'Product Management']);
     }
 }

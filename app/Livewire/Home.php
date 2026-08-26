@@ -29,6 +29,7 @@ class Home extends Component
             'trendingProducts' => Product::where('is_active', true)->inRandomOrder()->take(8)->get(),
             'latestProducts' => Product::where('is_active', true)->orderBy('created_at', 'desc')->take(8)->get(),
             'categories' => Category::where('is_active', true)->get(),
+            'shops' => \App\Models\Shop::where('is_active', true)->get(),
         ])->layout('components.layouts.app');
     }
 }

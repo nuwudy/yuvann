@@ -11,6 +11,7 @@ use App\Livewire\Checkout;
 use App\Livewire\Home;
 use App\Livewire\ProductDetail;
 use App\Livewire\ProductList;
+use App\Livewire\ShopProfile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Home::class);
 Route::get('/products', ProductList::class);
 Route::get('/products/{slug}', ProductDetail::class)->name('product.detail');
+Route::get('/shops/{slug}', ShopProfile::class)->name('shop.profile');
 Route::get('/checkout', Checkout::class);
 Route::get('/order-success/{order_number}', function ($order_number) {
     $order = \App\Models\Order::where('order_number', $order_number)->firstOrFail();
@@ -65,6 +67,7 @@ Route::middleware(['auth'])
     ->prefix('admin')
     ->group(function () {
         Route::get('/products', ProductManager::class);
+        Route::get('/shops', \App\Livewire\Admin\ShopManager::class);
         Route::get('/categories', CategoryManager::class);
         Route::get('/orders', OrderList::class);
         Route::get('/media', MediaLibrary::class);
