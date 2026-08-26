@@ -61,7 +61,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="96x96" href="/icons/icon-96.png">
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon-o.ico">
     <!-- ════════════════════════════════════════════ -->
 
     <!-- Fonts -->
