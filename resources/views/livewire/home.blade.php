@@ -66,10 +66,10 @@
                 CURATED AYURVEDIC WELLNESS
             </span>
             <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif text-white leading-tight drop-shadow-lg opacity-0 animate-[fadeInUp_1s_ease-out_0.2s_forwards]">
-                Pure Wellness. <br/><span class="italic font-light">Handpicked by Dr. Sajeev Dev.</span>
+                Think Wellness. <br/><span class="italic font-light">Think Yuvann.</span>
             </h1>
             <p class="text-brand-green-50 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed drop-shadow opacity-0 animate-[fadeInUp_1s_ease-out_0.4s_forwards]">
-                Proprietary formulations and meticulously curated herbal remedies—crafted and selected for your holistic well-being.
+                India’s trusted destination for doctor-guided, holistic wellness and natural care.
             </p>
             <div class="pt-8 flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
                 <a href="/products" class="px-6 py-3 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
