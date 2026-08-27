@@ -478,7 +478,7 @@
             <!-- The image -->
             <div class="relative w-48 h-48 sm:w-64 sm:h-64 mx-auto mb-10 group">
                 <div class="absolute inset-0 bg-brand-gold-500 rounded-full translate-x-2 translate-y-2 opacity-10 transition-transform group-hover:translate-x-3 group-hover:translate-y-3"></div>
-                <img src="https://yuvann.com/storage/media/5a70348f-5e77-430c-9440-e8fbbb60e7d9.webp" alt="Dr. Sajeev Dev" class="relative z-10 w-full h-full rounded-full shadow-md object-cover ring-4 ring-brand-green-800/10 group-hover:ring-brand-gold-500/30 transition-all duration-500 grayscale-[20%] group-hover:grayscale-0">
+                <img src="https://yuvann.com/storage/media/1efcda7f-d369-40dc-aae9-81be1320217d.webp" alt="Dr. Sajeev Dev" class="relative z-10 w-full h-full rounded-full shadow-md object-cover ring-4 ring-brand-green-800/10 group-hover:ring-brand-gold-500/30 transition-all duration-500 grayscale-[20%] group-hover:grayscale-0">
             </div>
             
             <div class="space-y-8 flex flex-col items-center">
