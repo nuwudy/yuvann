@@ -16,6 +16,7 @@
     <template x-teleport="body">
         <div class="fixed inset-0 overflow-hidden z-[999]" 
              x-data="{ show: @entangle('isOpen') }" 
+             @open-cart.window="show = true"
              x-show="show" 
              x-description="Portal-like modal backdrop"
              style="display: none;">

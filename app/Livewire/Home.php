@@ -15,6 +15,7 @@ class Home extends Component
         if ($product && $product->in_stock) {
             CartService::add($product);
             $this->dispatch('cart-updated');
+            $this->dispatch('open-cart');
             $this->dispatch('notify', [
                 'type' => 'success',
                 'message' => "{$product->name} added to cart!",

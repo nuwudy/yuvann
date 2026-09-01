@@ -9,7 +9,15 @@ class MiniCart extends Component
 {
     public bool $isOpen = false;
 
-    protected $listeners = ['cart-updated' => '$refresh'];
+    protected $listeners = [
+        'cart-updated' => '$refresh',
+        'open-cart' => 'openCart',
+    ];
+
+    public function openCart(): void
+    {
+        $this->isOpen = true;
+    }
 
     public function toggleCart(): void
     {

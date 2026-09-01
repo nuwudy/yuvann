@@ -46,6 +46,7 @@ class ProductDetail extends Component
         if ($inStock) {
             CartService::add($this->product, $this->quantity, $variant);
             $this->dispatch('cart-updated');
+            $this->dispatch('open-cart');
             
             $sizeStr = $variant ? " ({$variant->unit_size})" : "";
             $this->dispatch('notify', [
