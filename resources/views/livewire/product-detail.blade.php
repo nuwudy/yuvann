@@ -12,8 +12,8 @@
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:type" content="product">
     <meta name="twitter:card" content="summary_large_image">
+    @include('components.seo.product-schema', ['product' => $product])
 @endsection
-@include('components.seo.product-schema', ['product' => $product])
 
 <div x-data="{ notification: null }" 
      @notify.window="notification = $event.detail[0]; setTimeout(() => notification = null, 3000)"
@@ -279,14 +279,16 @@
                     <div class="flex flex-col sm:flex-row gap-3 pt-2">
                         <!-- Add to Cart -->
                         <button wire:click="addToCart" 
-                                class="flex-1 py-3.5 px-6 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full font-semibold shadow-md hover:shadow-lg transition-all focus:outline-none flex justify-center items-center gap-2 text-sm">
+                                wire:loading.attr="disabled"
+                                class="flex-1 py-3.5 px-6 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full font-semibold shadow-md hover:shadow-lg transition-all focus:outline-none flex justify-center items-center gap-2 text-sm disabled:opacity-75 cursor-pointer">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                             </svg>
-                            Add to Cart
+                            <span wire:loading.remove wire:target="addToCart">Add to Cart</span>
+                            <span wire:loading wire:target="addToCart">Adding...</span>
                         </button>
                         
-                        <!-- WhatsApp Buy -->
+                        <!-- WhatsApp Buy Single Product -->
                         @php
                             $activePriceForWa = $activeVariant ? $activeVariant->active_price : $product->active_price;
                             $activeSizeForWa = $activeVariant ? $activeVariant->unit_size : $product->unit_size;
@@ -294,11 +296,11 @@
                             $waUrl = "https://wa.me/917736609299?text=" . urlencode($waMessage);
                         @endphp
                         <a href="{{ $waUrl }}" target="_blank" 
-                           class="flex-1 py-3.5 px-6 border-2 border-green-600 bg-green-50 text-green-700 hover:bg-green-100 rounded-full font-semibold flex items-center justify-center gap-2 transition-all text-sm">
+                           class="flex-1 py-3.5 px-6 border-2 border-green-600 bg-green-50 text-green-700 hover:bg-green-100 rounded-full font-semibold flex items-center justify-center gap-2 transition-all text-sm shadow-sm" title="Direct single item WhatsApp order">
                             <svg class="w-4 h-4 fill-current text-green-600" viewBox="0 0 24 24">
                                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
                             </svg>
-                            Buy via WhatsApp
+                            Instant WhatsApp Buy
                         </a>
                         
                         <!-- Share -->
@@ -308,6 +310,12 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
                             </svg>
                         </button>
+                    </div>
+
+                    <!-- Multi-product WhatsApp notice -->
+                    <div class="flex items-center gap-2.5 p-3 rounded-xl bg-brand-green-50/80 border border-brand-green-100 text-xs text-brand-green-900">
+                        <span class="text-base">🛒</span>
+                        <span><strong>Ordering multiple items?</strong> Click <em>Add to Cart</em> and choose <strong>Order via WhatsApp</strong> or <strong>Online Payment</strong> at checkout!</span>
                     </div>
                 </div>
             @endif
