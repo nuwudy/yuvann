@@ -116,4 +116,54 @@ class CartService
     {
         return '₹' . number_format(self::getSubtotal(), 2);
     }
+
+    /**
+     * Get WhatsApp recipient phone number.
+     */
+    public static function getWhatsAppNumber(): string
+    {
+        $admin = config('services.whatsapp.admin_number');
+        if (!empty($admin)) {
+            $admin = preg_replace('/[^0-9]/', '', $admin);
+            if (strlen($admin) === 10) {
+                $admin = '91' . $admin;
+            }
+            return $admin;
+        }
+        return '917736609299';
+    }
+
+    /**
+     * Generate a WhatsApp order URL for current cart items.
+     */
+    public static function getWhatsAppOrderUrl(): string
+    {
+        $items = self::getItems();
+        $phone = self::getWhatsAppNumber();
+
+        if (empty($items)) {
+            return "https://wa.me/{$phone}";
+        }
+
+        $lines = [];
+        $lines[] = "🌿 *YUVANN WELLNESS - CART ORDER*";
+        $lines[] = "Hello Dr. Sajeev Dev, I would like to place an order for the items in my cart:";
+        $lines[] = "";
+
+        $i = 1;
+        foreach ($items as $item) {
+            $unit = !empty($item['unit_size']) ? " (" . $item['unit_size'] . ")" : "";
+            $itemTotal = number_format($item['price'] * $item['quantity'], 2);
+            $lines[] = "{$i}. *{$item['name']}*{$unit}";
+            $lines[] = "   Qty: {$item['quantity']} × ₹" . number_format($item['price'], 2) . " = ₹{$itemTotal}";
+            $i++;
+        }
+
+        $lines[] = "";
+        $lines[] = "💰 *Subtotal: ₹" . number_format(self::getSubtotal(), 2) . "*";
+        $lines[] = "";
+        $lines[] = "Please guide me with the delivery and payment/UPI details.";
+
+        return "https://wa.me/{$phone}?text=" . urlencode(implode("\n", $lines));
+    }
 }

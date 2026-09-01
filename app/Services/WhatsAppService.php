@@ -94,4 +94,54 @@ class WhatsAppService
             return false;
         }
     }
+
+    /**
+     * Generate a full WhatsApp direct chat link with pre-filled order summary.
+     *
+     * @param \App\Models\Order $order
+     * @return string
+     */
+    public static function buildOrderWhatsAppUrl($order): string
+    {
+        $phone = CartService::getWhatsAppNumber();
+        $order->loadMissing('items');
+
+        $lines = [];
+        $lines[] = "🌿 *YUVANN WELLNESS - ORDER #{$order->order_number}*";
+        $lines[] = "--------------------------------------";
+        $lines[] = "👤 *Customer:* " . $order->customer_name;
+        $lines[] = "📞 *Phone:* " . $order->customer_phone;
+        if (!empty($order->customer_email)) {
+            $lines[] = "✉️ *Email:* " . $order->customer_email;
+        }
+        $lines[] = "📍 *Shipping Address:*";
+        $lines[] = $order->shipping_address;
+        $lines[] = "";
+        $lines[] = "📦 *Ordered Items:*";
+
+        $i = 1;
+        foreach ($order->items as $item) {
+            $unit = !empty($item->unit_size) ? " ({$item->unit_size})" : "";
+            $itemTotal = number_format($item->price * $item->quantity, 2);
+            $lines[] = "{$i}. *{$item->product_name}*{$unit}";
+            $lines[] = "   Qty: {$item->quantity} × ₹" . number_format($item->price, 2) . " = ₹{$itemTotal}";
+            $i++;
+        }
+
+        $itemsSubtotal = $order->total_amount - ($order->shipping_amount ?? 0);
+        $lines[] = "";
+        $lines[] = "💵 *Subtotal:* ₹" . number_format($itemsSubtotal, 2);
+        $lines[] = "🚚 *Shipping:* " . (($order->shipping_amount ?? 0) > 0 ? "₹" . number_format($order->shipping_amount, 2) : "FREE");
+        $lines[] = "💰 *Total Order Value:* ₹" . number_format($order->total_amount, 2);
+
+        if (!empty($order->notes)) {
+            $lines[] = "";
+            $lines[] = "📝 *Customer Note / Consult:* " . $order->notes;
+        }
+
+        $lines[] = "";
+        $lines[] = "Please confirm my order and share payment details (UPI/Bank Transfer). Thank you!";
+
+        return "https://wa.me/{$phone}?text=" . urlencode(implode("\n", $lines));
+    }
 }

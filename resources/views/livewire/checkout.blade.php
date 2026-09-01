@@ -74,16 +74,60 @@
                               class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500"></textarea>
                 </div>
 
+                <!-- Payment Method Selection -->
+                <div class="pt-2 border-t border-brand-green-100/60">
+                    <h2 class="text-base font-serif font-bold text-brand-green-900 mb-3">2. Choose Payment Method</h2>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <!-- Razorpay Online Option -->
+                        <label class="relative flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all {{ $payment_method === 'razorpay' ? 'border-brand-green-800 bg-brand-green-50/40 shadow-sm' : 'border-brand-green-100 hover:border-brand-green-300 bg-white' }}">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2.5">
+                                    <input type="radio" wire:model.live="payment_method" value="razorpay" class="text-brand-green-800 focus:ring-brand-gold-500">
+                                    <span class="text-xs font-bold text-brand-green-900">Pay Online</span>
+                                </div>
+                                <span class="text-xs">💳</span>
+                            </div>
+                            <p class="text-[11px] text-brand-green-700/80 pl-6 leading-relaxed">UPI (GPay/PhonePe), Credit & Debit Cards, NetBanking via Razorpay.</p>
+                        </label>
+
+                        <!-- WhatsApp Order Option -->
+                        <label class="relative flex flex-col p-4 rounded-xl border-2 cursor-pointer transition-all {{ $payment_method === 'whatsapp' ? 'border-green-600 bg-green-50/50 shadow-sm' : 'border-brand-green-100 hover:border-green-300 bg-white' }}">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2.5">
+                                    <input type="radio" wire:model.live="payment_method" value="whatsapp" class="text-green-600 focus:ring-green-500">
+                                    <span class="text-xs font-bold text-brand-green-900">Order via WhatsApp</span>
+                                </div>
+                                <svg class="w-4 h-4 fill-current text-green-600" viewBox="0 0 24 24">
+                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
+                                </svg>
+                            </div>
+                            <p class="text-[11px] text-brand-green-700/80 pl-6 leading-relaxed">Pay offline, direct UPI QR, or consult directly with Dr. Sajeev Dev.</p>
+                        </label>
+                    </div>
+                </div>
+
                 <!-- Place Order CTA Button -->
-                <div class="pt-4">
-                    <button type="submit" 
-                            class="w-full py-4 px-6 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full font-bold shadow-md hover:shadow-lg transition-all focus:outline-none flex justify-center items-center gap-2 text-sm">
-                        <svg class="w-4 h-4 fill-current text-brand-gold-400" viewBox="0 0 24 24">
-                            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
-                        </svg>
-                        Pay Securely with Razorpay
-                    </button>
-                    <p class="text-[10px] text-brand-green-700/50 mt-3 text-center">Your payment will be processed securely.</p>
+                <div class="pt-2">
+                    @if($payment_method === 'whatsapp')
+                        <button type="submit" 
+                                class="w-full py-4 px-6 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold shadow-md hover:shadow-lg transition-all focus:outline-none flex justify-center items-center gap-2 text-sm">
+                            <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 24 24">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
+                            </svg>
+                            Place Order via WhatsApp • ₹{{ number_format($totalAmount, 2) }}
+                        </button>
+                        <p class="text-[10px] text-brand-green-700/60 mt-3 text-center">Your order details will be sent directly to Dr. Sajeev Dev on WhatsApp for confirmation.</p>
+                    @else
+                        <button type="submit" 
+                                class="w-full py-4 px-6 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full font-bold shadow-md hover:shadow-lg transition-all focus:outline-none flex justify-center items-center gap-2 text-sm">
+                            <svg class="w-4 h-4 fill-current text-brand-gold-400" viewBox="0 0 24 24">
+                                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                            </svg>
+                            Pay Securely with Razorpay • ₹{{ number_format($totalAmount, 2) }}
+                        </button>
+                        <p class="text-[10px] text-brand-green-700/50 mt-3 text-center">Your payment will be processed securely via 256-bit encryption.</p>
+                    @endif
                 </div>
             </form>
         </div>
@@ -143,8 +187,8 @@
                     <div class="flex items-start gap-3">
                         <span class="text-lg">🛡️</span>
                         <div>
-                            <h4 class="text-xs font-semibold text-brand-green-900 leading-tight">Secure Payment</h4>
-                            <p class="text-[10px] text-brand-green-700/60 mt-0.5">Your payment is processed securely via Razorpay.</p>
+                            <h4 class="text-xs font-semibold text-brand-green-900 leading-tight">Flexible Payment Options</h4>
+                            <p class="text-[10px] text-brand-green-700/60 mt-0.5">Pay online via Razorpay or place your order directly via WhatsApp.</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-3">
@@ -159,10 +203,22 @@
         </div>
     </div>
 
-    <!-- Razorpay Script -->
+    <!-- Razorpay Script & WhatsApp Dispatcher -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
         document.addEventListener('livewire:initialized', () => {
+            Livewire.on('open-whatsapp-order', (options) => {
+                const data = Array.isArray(options) ? options[0] : options;
+                if (data && data.url) {
+                    window.open(data.url, '_blank');
+                }
+                if (data && data.redirect) {
+                    setTimeout(() => {
+                        window.location.href = data.redirect;
+                    }, 300);
+                }
+            });
+
             Livewire.on('initiate-razorpay', (options) => {
                 var rzp1 = new Razorpay({
                     key: options[0].key,

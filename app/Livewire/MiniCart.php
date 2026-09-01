@@ -52,6 +52,7 @@ class MiniCart extends Component
             'cartItems' => CartService::getItems(),
             'totalQuantity' => CartService::getTotalQuantity(),
             'subtotal' => CartService::getSubtotal(),
+            'whatsappCartUrl' => CartService::getWhatsAppOrderUrl(),
         ]);
     }
 }

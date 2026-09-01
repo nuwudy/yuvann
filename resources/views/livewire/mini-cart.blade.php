@@ -119,11 +119,17 @@
                                     <p>₹{{ number_format($subtotal, 2) }}</p>
                                 </div>
                                 <p class="mt-0.5 text-xs text-brand-green-700/80">Shipping and taxes calculated at checkout.</p>
-                                <div class="mt-6 flex flex-col gap-3">
+                                <div class="mt-6 flex flex-col gap-2.5">
                                     <a href="/checkout" @click="show = false" class="w-full flex items-center justify-center px-6 py-3 border border-transparent rounded-full text-sm font-semibold text-white bg-brand-green-800 hover:bg-brand-green-700 shadow-sm transition-all">
                                         Proceed to Checkout
                                     </a>
-                                    <button @click="show = false" class="w-full flex items-center justify-center px-6 py-2.5 border border-brand-green-200 rounded-full text-xs font-semibold text-brand-green-800 bg-white hover:bg-brand-green-50 transition-all">
+                                    <a href="{{ $whatsappCartUrl }}" target="_blank" class="w-full flex items-center justify-center gap-2 px-6 py-2.5 border-2 border-green-600 bg-green-50 text-green-700 hover:bg-green-100 rounded-full text-xs font-semibold shadow-sm transition-all">
+                                        <svg class="w-4 h-4 fill-current text-green-600" viewBox="0 0 24 24">
+                                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
+                                        </svg>
+                                        Quick Order via WhatsApp
+                                    </a>
+                                    <button @click="show = false" class="w-full flex items-center justify-center px-6 py-2 border border-brand-green-200 rounded-full text-xs font-semibold text-brand-green-800 bg-white hover:bg-brand-green-50 transition-all">
                                         Continue Shopping
                                     </button>
                                 </div>

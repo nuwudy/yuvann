@@ -18,6 +18,7 @@ class Checkout extends Component
     public string $customer_email = '';
     public string $shipping_address = '';
     public string $notes = '';
+    public string $payment_method = 'razorpay'; // 'razorpay' or 'whatsapp'
 
     protected array $rules = [
         'customer_name' => 'required|string|min:3|max:100',
@@ -25,6 +26,7 @@ class Checkout extends Component
         'customer_email' => 'nullable|email|max:100',
         'shipping_address' => 'required|string|min:10|max:500',
         'notes' => 'nullable|string|max:500',
+        'payment_method' => 'required|in:razorpay,whatsapp',
     ];
 
     public function mount(): void
@@ -66,6 +68,7 @@ class Checkout extends Component
                 'total_amount' => $totalAmount,
                 'shipping_amount' => $shippingAmount,
                 'status' => 'pending',
+                'payment_method' => $this->payment_method,
             ]);
 
             foreach ($cartItems as $item) {
@@ -90,6 +93,33 @@ class Checkout extends Component
                         $product->decrement('stock_quantity', $item['quantity']);
                     }
                 }
+            }
+
+            if ($this->payment_method === 'whatsapp') {
+                DB::commit();
+
+                // Clear cart
+                CartService::clear();
+                $this->dispatch('cart-updated');
+
+                // Send WhatsApp Cloud API Notifications (non-blocking)
+                try {
+                    $adminNumber = config('services.whatsapp.admin_number');
+                    if ($adminNumber) {
+                        WhatsAppService::sendOrderNotification($adminNumber, $order, true);
+                    }
+                    if ($order->customer_phone) {
+                        WhatsAppService::sendOrderNotification($order->customer_phone, $order, false);
+                    }
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('WhatsApp notification failed: ' . $e->getMessage());
+                }
+
+                $waUrl = WhatsAppService::buildOrderWhatsAppUrl($order);
+
+                // Dispatch event to open WhatsApp in new tab and redirect to success page
+                $this->dispatch('open-whatsapp-order', ['url' => $waUrl, 'redirect' => route('order.success', $order->order_number)]);
+                return;
             }
 
             // Create Razorpay Order

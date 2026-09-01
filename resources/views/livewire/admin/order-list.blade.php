@@ -22,6 +22,12 @@
                 <option value="completed">Completed</option>
                 <option value="cancelled">Cancelled</option>
             </select>
+            <select wire:model.live="paymentMethodFilter" 
+                    class="bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 shadow-sm">
+                <option value="">All Payment Types</option>
+                <option value="razorpay">Online (Razorpay)</option>
+                <option value="whatsapp">WhatsApp Order</option>
+            </select>
         </div>
     </div>
 
@@ -34,6 +40,7 @@
                         <th class="px-6 py-4">Order ID</th>
                         <th class="px-6 py-4">Date</th>
                         <th class="px-6 py-4">Customer</th>
+                        <th class="px-6 py-4">Payment</th>
                         <th class="px-6 py-4">Total</th>
                         <th class="px-6 py-4 text-center">Status</th>
                         <th class="px-6 py-4 text-right">Actions</th>
@@ -47,6 +54,20 @@
                             <td class="px-6 py-4">
                                 <div class="font-semibold text-brand-green-900">{{ $order->customer_name }}</div>
                                 <div class="text-[10px] text-brand-green-700/60">{{ $order->customer_phone }}</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                @if($order->payment_method === 'whatsapp')
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-green-50 text-green-700 border border-green-200">
+                                        <svg class="w-3 h-3 fill-current text-green-600" viewBox="0 0 24 24">
+                                            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
+                                        </svg>
+                                        WhatsApp
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                                        💳 Razorpay
+                                    </span>
+                                @endif
                             </td>
                             <td class="px-6 py-4 font-bold text-brand-green-900">₹{{ number_format($order->total_amount, 2) }}</td>
                             <td class="px-6 py-4 text-center">
@@ -77,7 +98,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-12 text-center text-brand-green-700/60 font-medium">
+                            <td colspan="7" class="px-6 py-12 text-center text-brand-green-700/60 font-medium">
                                 No orders found matching your search.
                             </td>
                         </tr>
@@ -125,7 +146,7 @@
             @if($selectedOrder)
                 <div class="p-6 space-y-6 overflow-y-auto max-h-[70vh]">
                     <!-- Customer Details Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-b border-brand-green-100 pb-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-brand-green-100 pb-5">
                         <div class="space-y-1">
                             <span class="text-[9px] font-bold text-brand-green-700/60 uppercase">Customer Info</span>
                             <div class="text-xs font-bold text-brand-green-900">{{ $selectedOrder->customer_name }}</div>
@@ -135,8 +156,34 @@
                             @endif
                         </div>
                         <div class="space-y-1">
-                            <span class="text-[9px] font-bold text-brand-green-700/60 uppercase">Shipping Target Address</span>
+                            <span class="text-[9px] font-bold text-brand-green-700/60 uppercase">Shipping Address</span>
                             <div class="text-xs font-medium text-brand-green-900 leading-relaxed">{{ $selectedOrder->shipping_address }}</div>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-[9px] font-bold text-brand-green-700/60 uppercase">Payment Method</span>
+                            <div class="text-xs font-bold text-brand-green-900">
+                                @if($selectedOrder->payment_method === 'whatsapp')
+                                    <span class="text-green-700">WhatsApp / Direct</span>
+                                @else
+                                    <span class="text-blue-700">Razorpay Online</span>
+                                @endif
+                            </div>
+                            @if($selectedOrder->razorpay_payment_id)
+                                <div class="text-[10px] text-brand-green-700/60 font-mono">ID: {{ $selectedOrder->razorpay_payment_id }}</div>
+                            @endif
+                            <div class="pt-1.5">
+                                @php
+                                    $cleanPhone = preg_replace('/[^0-9]/', '', $selectedOrder->customer_phone);
+                                    if (strlen($cleanPhone) === 10) { $cleanPhone = '91' . $cleanPhone; }
+                                    $adminChatUrl = "https://wa.me/{$cleanPhone}?text=" . urlencode("Hello {$selectedOrder->customer_name}, regarding your Yuvann order #{$selectedOrder->order_number}...");
+                                @endphp
+                                <a href="{{ $adminChatUrl }}" target="_blank" class="inline-flex items-center gap-1 text-[10px] font-bold text-green-700 hover:text-green-800 bg-green-50 px-2 py-1 rounded-md border border-green-200">
+                                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
+                                    </svg>
+                                    Chat with Customer
+                                </a>
+                            </div>
                         </div>
                     </div>
 

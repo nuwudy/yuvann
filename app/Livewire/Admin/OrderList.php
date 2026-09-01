@@ -12,12 +12,14 @@ class OrderList extends Component
 
     public string $search = '';
     public string $statusFilter = '';
+    public string $paymentMethodFilter = '';
     public bool $isDetailsOpen = false;
     public ?Order $selectedOrder = null;
 
     protected $queryString = [
         'search' => ['except' => ''],
         'statusFilter' => ['except' => ''],
+        'paymentMethodFilter' => ['except' => ''],
     ];
 
     public function updatingSearch(): void
@@ -26,6 +28,11 @@ class OrderList extends Component
     }
 
     public function updatingStatusFilter(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPaymentMethodFilter(): void
     {
         $this->resetPage();
     }
@@ -65,6 +72,9 @@ class OrderList extends Component
             })
             ->when(!empty($this->statusFilter), function($q) {
                 $q->where('status', $this->statusFilter);
+            })
+            ->when(!empty($this->paymentMethodFilter), function($q) {
+                $q->where('payment_method', $this->paymentMethodFilter);
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10);
