@@ -126,8 +126,8 @@
                     <a href="/products?category=superfoods" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Superfoods</a>
                     <a href="/products?category=herbal-powders" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Herbal Powders</a>
                     <a href="/blog" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors {{ request()->is('blog*') ? 'text-brand-gold-600 font-semibold' : '' }}">Wellness Journal</a>
-                    <a href="/migraine-treatment" class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-950 border border-amber-300 hover:bg-amber-200 transition-all shadow-2xs {{ request()->is('migraine-treatment*') ? 'ring-2 ring-brand-gold-500 bg-amber-200' : '' }}">
-                        <span>⚡</span>
+                    <a href="/migraine-treatment" class="whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 border border-brand-gold-500 shadow-sm transition-all hover:scale-105 {{ request()->is('migraine-treatment*') ? 'ring-2 ring-brand-gold-600' : '' }}">
+                        <span class="text-brand-green-950">⚡</span>
                         <span>മൈഗ്രെയ്ൻ ചികിത്സ</span>
                     </a>
                     <a href="{{ route('dr-sajeev-dev') }}" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">About</a>

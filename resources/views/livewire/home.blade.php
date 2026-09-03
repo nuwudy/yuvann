@@ -49,11 +49,20 @@
     </div>
 
     <!-- Special Announcement Banner: Migraine Ottamooli Camp -->
-    <a href="/migraine-treatment" class="bg-gradient-to-r from-amber-600 via-brand-gold-500 to-amber-600 text-brand-green-950 py-2.5 px-4 text-center block font-bold text-xs sm:text-sm hover:brightness-105 transition-all shadow-sm">
-        <div class="max-w-7xl mx-auto flex items-center justify-center gap-2 flex-wrap">
-            <span class="bg-brand-green-900 text-brand-gold-300 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">പ്രത്യേകം</span>
-            <span>⚡ മൈഗ്രെയ്ൻ മാറാനുള്ള അപൂർവ്വ ഒറ്റമൂലി ചികിത്സ — ഡോ. സജീവ് ദേവ് (കരിയാട്, എറണാകുളം)</span>
-            <span class="underline ml-1">വിശദവിവരങ്ങൾക്കും ബുക്കിംഗിനും ക്ലിക്ക് ചെയ്യുക &rarr;</span>
+    <a href="/migraine-treatment" 
+       class="py-3 px-4 text-center block shadow-sm transition-all hover:brightness-110 group border-y border-brand-gold-500/30"
+       style="background: linear-gradient(90deg, #0e241b 0%, #1a4332 50%, #0e241b 100%);">
+        <div class="max-w-7xl mx-auto flex items-center justify-center gap-2.5 flex-wrap text-white text-xs sm:text-sm font-medium">
+            <span class="bg-brand-gold-400 text-brand-green-950 font-extrabold text-[11px] px-3 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+                പ്രത്യേകം
+            </span>
+            <span class="text-brand-gold-200 font-bold">⚡ മൈഗ്രെയ്ൻ മാറാനുള്ള അപൂർവ്വ ഒറ്റമൂലി ചികിത്സ</span>
+            <span class="hidden md:inline text-white/60">•</span>
+            <span class="text-white/90">ഡോ. സജീവ് ദേവ് (കരിയാട്, എറണാകുളം)</span>
+            <span class="inline-flex items-center gap-1 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-950 font-bold text-xs px-3.5 py-1 rounded-full shadow-sm ml-1 transition-transform group-hover:scale-105">
+                <span>വിശദവിവരങ്ങൾക്കും ബുക്കിംഗിനും</span>
+                <span>&rarr;</span>
+            </span>
         </div>
     </a>
 
@@ -81,7 +90,7 @@
                 India’s trusted destination for doctor-guided, holistic wellness and natural care.
             </p>
             <div class="pt-8 flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
-                <a href="/migraine-treatment" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-brand-green-950 text-sm font-bold rounded-full shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 border border-amber-300 animate-pulse">
+                <a href="/migraine-treatment" class="px-7 py-3.5 bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 text-sm font-extrabold rounded-full shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 border-2 border-brand-gold-300 animate-pulse">
                     <span>⚡</span>
                     <span>മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സ</span>
                 </a>
@@ -665,7 +674,7 @@
         .product-marquee-content {
             display: inline-block;
             white-space: nowrap;
-            animation: marquee 60s linear infinite;
+            animation: marquee 120s linear infinite;
         }
 
         @keyframes marquee {
