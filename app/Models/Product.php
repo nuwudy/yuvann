@@ -71,6 +71,11 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function blogPosts(): BelongsToMany
+    {
+        return $this->belongsToMany(BlogPost::class, 'blog_post_product')->withTimestamps();
+    }
+
     public function getAverageRatingAttribute(): float
     {
         return (float) $this->reviews()->where('is_approved', true)->avg('rating') ?? 0.0;

@@ -48,6 +48,15 @@
         </div>
     </div>
 
+    <!-- Special Announcement Banner: Migraine Ottamooli Camp -->
+    <a href="/migraine-treatment" class="bg-gradient-to-r from-amber-600 via-brand-gold-500 to-amber-600 text-brand-green-950 py-2.5 px-4 text-center block font-bold text-xs sm:text-sm hover:brightness-105 transition-all shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-center gap-2 flex-wrap">
+            <span class="bg-brand-green-900 text-brand-gold-300 text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">പ്രത്യേകം</span>
+            <span>⚡ മൈഗ്രെയ്ൻ മാറാനുള്ള അപൂർവ്വ ഒറ്റമൂലി ചികിത്സ — ഡോ. സജീവ് ദേവ് (കരിയാട്, എറണാകുളം)</span>
+            <span class="underline ml-1">വിശദവിവരങ്ങൾക്കും ബുക്കിംഗിനും ക്ലിക്ക് ചെയ്യുക &rarr;</span>
+        </div>
+    </a>
+
     <!-- 1. Immersive Hero Section with Video -->
     <section class="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-green-900">
         <!-- Background Video -->
@@ -72,6 +81,10 @@
                 India’s trusted destination for doctor-guided, holistic wellness and natural care.
             </p>
             <div class="pt-8 flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
+                <a href="/migraine-treatment" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-brand-green-950 text-sm font-bold rounded-full shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 border border-amber-300 animate-pulse">
+                    <span>⚡</span>
+                    <span>മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സ</span>
+                </a>
                 <a href="/products" class="px-6 py-3 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-900 text-sm font-semibold rounded-full shadow-lg hover:scale-105 transition-all duration-300">
                     Shop Wellness
                 </a>
@@ -517,6 +530,93 @@
             </div>
         </div>
     </section>
+
+    <!-- From the Wellness Journal (Blog & Product Introductions) -->
+    @if(isset($latestPosts) && $latestPosts->isNotEmpty())
+        <section class="py-20 bg-white border-t border-brand-green-100/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-gold-600 uppercase tracking-widest mb-1.5">
+                            <span>🌿</span>
+                            <span>Ancient Wisdom & Modern Living</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900">
+                            From the Wellness Journal
+                        </h2>
+                        <p class="text-xs sm:text-sm text-brand-green-900/70 mt-1 max-w-xl">
+                            Read doctor-guided lifestyle routines, natural remedies, and insights on integrating pure Ayurvedic formulations into your routine.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="/blog" 
+                           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-brand-green-800 text-brand-green-800 hover:bg-brand-green-800 hover:text-white text-xs font-semibold transition-all shadow-xs">
+                            <span>Explore All Guides</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    @foreach($latestPosts as $post)
+                        <article class="group bg-[#fbfaf8] rounded-2xl overflow-hidden border border-brand-green-100/70 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                            <div>
+                                <a href="/blog/{{ $post->slug }}" class="block relative h-48 overflow-hidden bg-gray-100">
+                                    <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" 
+                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <span class="absolute top-3 left-3 bg-white/95 backdrop-blur-xs text-brand-green-900 text-[11px] font-semibold px-2.5 py-0.5 rounded-full shadow-xs border border-brand-green-100">
+                                        {{ $post->category }}
+                                    </span>
+                                </a>
+
+                                <div class="p-5 space-y-2.5">
+                                    <div class="flex items-center gap-2 text-[11px] text-gray-500">
+                                        <span>{{ $post->read_time }}</span>
+                                        <span>•</span>
+                                        <span>{{ $post->published_at ? $post->published_at->format('M d, Y') : $post->created_at->format('M d, Y') }}</span>
+                                    </div>
+
+                                    <h3 class="font-serif font-bold text-base text-brand-green-900 group-hover:text-brand-gold-600 transition-colors line-clamp-2">
+                                        <a href="/blog/{{ $post->slug }}">
+                                            {{ $post->title }}
+                                        </a>
+                                    </h3>
+
+                                    <p class="text-xs text-brand-green-900/70 line-clamp-2 leading-relaxed">
+                                        {{ $post->excerpt }}
+                                    </p>
+
+                                    @if($post->products->isNotEmpty())
+                                        <div class="pt-2">
+                                            <div class="flex flex-wrap gap-1">
+                                                @foreach($post->products->take(2) as $p)
+                                                    <span class="inline-flex items-center gap-1 text-[10px] bg-brand-gold-100/60 text-brand-green-900 border border-brand-gold-200/80 px-2 py-0.5 rounded-md font-medium truncate max-w-[130px]">
+                                                        ✨ {{ $p->name }}
+                                                    </span>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="p-5 pt-0 border-t border-brand-green-100/60 mt-3 flex items-center justify-between">
+                                <span class="text-[11px] font-medium text-brand-green-800">{{ $post->author_name }}</span>
+                                <a href="/blog/{{ $post->slug }}" class="text-xs font-semibold text-brand-gold-600 hover:text-brand-gold-700 flex items-center gap-1">
+                                    <span>Read Guide</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 
     <!-- 7. Refined Consultation Banner -->
     <section class="py-16 md:py-24 bg-brand-green-900 text-white relative overflow-hidden border-t-4 border-brand-gold-500">

@@ -97,8 +97,13 @@
     </a>
 
     <!-- Top Announcement Bar -->
-    <div class="bg-brand-green-800 text-white text-xs py-2 px-4 text-center font-medium tracking-wide">
-        🌿 100% Doctor Formulated Ayurvedic Products | Free Delivery on Orders above ₹999!
+    <div class="bg-brand-green-800 text-white text-xs py-2 px-4 text-center font-medium tracking-wide flex items-center justify-center gap-3 flex-wrap">
+        <span>🌿 100% Doctor Formulated Ayurvedic Products</span>
+        <span class="hidden sm:inline text-brand-green-600">|</span>
+        <a href="/migraine-treatment" class="inline-flex items-center gap-1.5 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-950 font-bold px-3 py-0.5 rounded-full text-[11px] shadow-xs transition-transform hover:scale-105">
+            <span>⚡</span>
+            <span>മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സ (Migraine Relief Camp) — Book Now &rarr;</span>
+        </a>
     </div>
 
     <!-- Header Navigation -->
@@ -114,13 +119,18 @@
                 </div>
 
                 <!-- Desktop Nav Navigation -->
-                <nav class="hidden md:flex space-x-8">
-                    <a href="/" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Home</a>
-                    <a href="/products" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Shop All</a>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="/" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors {{ request()->is('/') ? 'text-brand-gold-600 font-semibold' : '' }}">Home</a>
+                    <a href="/products" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors {{ request()->is('products*') ? 'text-brand-gold-600 font-semibold' : '' }}">Shop All</a>
                     <a href="/products?category=womens-care" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Women's Care</a>
                     <a href="/products?category=superfoods" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Superfoods</a>
                     <a href="/products?category=herbal-powders" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Herbal Powders</a>
-                    <a href="{{ route('dr-sajeev-dev') }}" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">About Dr Sajeev Dev</a>
+                    <a href="/blog" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors {{ request()->is('blog*') ? 'text-brand-gold-600 font-semibold' : '' }}">Wellness Journal</a>
+                    <a href="/migraine-treatment" class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-950 border border-amber-300 hover:bg-amber-200 transition-all shadow-2xs {{ request()->is('migraine-treatment*') ? 'ring-2 ring-brand-gold-500 bg-amber-200' : '' }}">
+                        <span>⚡</span>
+                        <span>മൈഗ്രെയ്ൻ ചികിത്സ</span>
+                    </a>
+                    <a href="{{ route('dr-sajeev-dev') }}" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">About</a>
                 </nav>
 
                 <!-- Header Actions -->
@@ -168,6 +178,8 @@
                 <a href="/products?category=womens-care" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Women's Care</a>
                 <a href="/products?category=superfoods" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Superfoods</a>
                 <a href="/products?category=herbal-powders" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Herbal Powders</a>
+                <a href="/blog" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Wellness Journal</a>
+                <a href="/migraine-treatment" class="block px-3 py-2 rounded-md text-base font-bold bg-amber-100 text-amber-950 border border-amber-300">⚡ മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സ (Migraine Relief)</a>
                 <a href="{{ route('dr-sajeev-dev') }}" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">About</a>
                 <div class="mt-4 px-3">
                     <form action="/products" method="GET" class="relative">
@@ -262,6 +274,8 @@
                     <ul class="space-y-2.5 text-xs text-brand-green-100/70">
                         <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
                         <li><a href="/products" class="hover:text-white transition-colors">Browse Store</a></li>
+                        <li><a href="/migraine-treatment" class="text-brand-gold-400 hover:text-white font-semibold transition-colors">⚡ Migraine Ottamooli Treatment</a></li>
+                        <li><a href="/blog" class="hover:text-white transition-colors">Wellness Journal & Tips</a></li>
                         <li><a href="{{ route('dr-sajeev-dev') }}" class="hover:text-white transition-colors">About Dr. Sajeev Dev</a></li>
                         <li><a href="https://wa.me/917736609299" target="_blank" class="hover:text-white transition-colors">Consult on WhatsApp</a></li>
                         <li><a href="/admin/products" class="hover:text-white transition-colors">Admin Panel</a></li>

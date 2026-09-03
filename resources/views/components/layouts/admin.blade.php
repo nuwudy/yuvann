@@ -56,6 +56,9 @@
                         <a href="/admin/reviews" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
                             Reviews
                         </a>
+                        <a href="/admin/blog" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
+                            Blog & Wellness
+                        </a>
                         <a href="/admin/settings" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
                             Settings
                         </a>
@@ -75,25 +78,28 @@
                 </div>
                 <div class="flex-grow flex flex-col">
                     <nav class="flex-1 px-4 py-6 space-y-2">
-                        <a href="/admin/products" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-white bg-brand-green-800 hover:bg-brand-green-700/80 transition-all">
+                        <a href="/admin/products" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/products*') ? 'bg-brand-green-800 text-white' : '' }}">
                             📦 Products
                         </a>
-                        <a href="/admin/shops" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
+                        <a href="/admin/shops" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/shops*') ? 'bg-brand-green-800 text-white' : '' }}">
                             🏪 Shops & Brands
                         </a>
-                        <a href="/admin/categories" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
+                        <a href="/admin/categories" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/categories*') ? 'bg-brand-green-800 text-white' : '' }}">
                             🗂️ Categories
                         </a>
-                        <a href="/admin/orders" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
+                        <a href="/admin/orders" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/orders*') ? 'bg-brand-green-800 text-white' : '' }}">
                             📋 Orders
                         </a>
-                        <a href="/admin/media" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
+                        <a href="/admin/media" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/media*') ? 'bg-brand-green-800 text-white' : '' }}">
                             🖼️ Media Library
                         </a>
-                        <a href="/admin/reviews" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
+                        <a href="/admin/reviews" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/reviews*') ? 'bg-brand-green-800 text-white' : '' }}">
                             ⭐ Reviews
                         </a>
-                        <a href="/admin/settings" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all">
+                        <a href="/admin/blog" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/blog*') ? 'bg-brand-green-800 text-white' : '' }}">
+                            📰 Blog & Wellness
+                        </a>
+                        <a href="/admin/settings" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/settings*') ? 'bg-brand-green-800 text-white' : '' }}">
                             ⚙️ Settings
                         </a>
                         <hr class="border-brand-green-800 my-4">
