@@ -87,6 +87,8 @@ test('homepage renders dedicated you are money feature section', function () {
 test('dr sajeev dev profile renders featured landmark publication section', function () {
     $response = $this->get('/dr-sajeev-dev');
     $response->assertStatus(200);
+    $response->assertSee('Author of <em>You Are Money</em>', false);
+    $response->assertSee('href="/you-are-money"', false);
     $response->assertSee('Featured Landmark Publication');
     $response->assertSee('You Are Money:');
     $response->assertSee('A Secret Guide to Financial Freedom');

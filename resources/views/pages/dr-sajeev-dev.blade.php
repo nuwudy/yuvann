@@ -28,7 +28,16 @@
                     <span class="bg-brand-gold-400 px-3 py-1 rounded-full">Certified TCHP (QCI)</span>
                     <span class="bg-brand-gold-400 px-3 py-1 rounded-full">Ayurvedic Dietitian</span>
                     <span class="bg-brand-gold-400 px-3 py-1 rounded-full">Doctorate in Business Admin</span>
-                    <span class="bg-brand-gold-400 px-3 py-1 rounded-full">Wellness Mentor & Author</span>
+                    <a href="/you-are-money" 
+                       class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 font-bold shadow hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group border border-brand-gold-300"
+                       title="Explore Dr. Sajeev Dev's Book: You Are Money">
+                        <span>📖</span>
+                        <span>Author of <em>You Are Money</em></span>
+                        <svg class="w-3 h-3 text-brand-green-900 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <span class="bg-brand-gold-400 px-3 py-1 rounded-full">Wellness Mentor</span>
                 </div>
             </div>
         </div>
@@ -41,7 +50,7 @@
             <!-- Biography -->
             <section class="prose prose-brand-green prose-lg max-w-none text-brand-green-900/80 leading-relaxed text-justify space-y-5">
                 <p>
-                    <strong>Dr. Sajeev Dev (DBA)</strong> is a respected <strong>Traditional Lineage Vaidhyan (Paramparya Vaidhyan)</strong>, Certified Healthcare Provider, Ayurvedic Wellness Dietitian, author, and wellness entrepreneur with over three decades of professional experience across traditional healing, education, and holistic personal transformation.
+                    <strong>Dr. Sajeev Dev (DBA)</strong> is a respected <strong>Traditional Lineage Vaidhyan (Paramparya Vaidhyan)</strong>, Certified Healthcare Provider, Ayurvedic Wellness Dietitian, author of the bestselling book <a href="/you-are-money" class="text-brand-gold-700 hover:text-brand-gold-800 font-semibold underline decoration-brand-gold-400 underline-offset-2"><em>You Are Money</em></a>, and wellness entrepreneur with over three decades of professional experience across traditional healing, education, and holistic personal transformation.
                 </p>
                 
                 <p>
