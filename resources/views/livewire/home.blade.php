@@ -520,9 +520,137 @@
         </div>
     </section>
 
+    <!-- 5.5 Featured Landmark Publication: You Are Money -->
+    <section class="py-20 lg:py-28 relative overflow-hidden text-white" 
+             style="background: radial-gradient(circle at 85% 20%, #1c4d37 0%, #0e281d 45%, #07150f 100%);">
+        <!-- Ambient background lighting decorative elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-gold-500/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 rounded-full bg-brand-green-500/10 blur-3xl pointer-events-none"></div>
 
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                
+                <!-- Left Visual: 3D Book Presentation -->
+                <div class="lg:col-span-5 flex flex-col items-center">
+                    <div class="relative group max-w-[280px] sm:max-w-[340px] w-full">
+                        <!-- Glow behind book -->
+                        <div class="absolute -inset-4 bg-gradient-to-tr from-brand-gold-500/30 to-brand-green-400/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        
+                        <!-- Book Cover Image -->
+                        <div class="relative rounded-2xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] border-2 border-brand-gold-400/40 transform transition-transform duration-500 group-hover:scale-[1.02]">
+                            <img src="https://yuvann.com/storage/products/4859c2b9-6c8e-4058-ac9f-17d1b1217386.webp" 
+                                 alt="You Are Money by Dr. Sajeev Dev" 
+                                 class="w-full h-auto object-cover block">
+                            
+                            <!-- Bestseller Ribbon -->
+                            <div class="absolute top-4 left-4 bg-brand-gold-400 text-brand-green-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
+                                ★ National Bestseller
+                            </div>
 
-    <!-- 6. Testimonials (Social Proof) -->
+                            <!-- Price Tag Overlay -->
+                            <div class="absolute bottom-4 right-4 bg-black/85 backdrop-blur-md text-brand-gold-300 border border-brand-gold-500/50 px-3.5 py-1.5 rounded-xl text-sm font-bold shadow-lg">
+                                Only ₹400.00
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="mt-4 text-xs text-brand-gold-300/80 font-medium tracking-wide flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-brand-gold-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        Official Author Edition · Direct From Yuvann
+                    </p>
+                </div>
+
+                <!-- Right Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    
+                    <!-- Tag / Badge -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase border border-brand-gold-500/50"
+                         style="background-color: rgba(212, 175, 55, 0.12); color: #f9e295;">
+                        <span>📖</span>
+                        <span>Landmark Financial & Mindset Publication</span>
+                    </div>
+
+                    <!-- Main Heading -->
+                    <div class="space-y-2">
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-white leading-tight">
+                            You Are Money
+                        </h2>
+                        <p class="text-lg sm:text-xl font-serif italic text-brand-gold-300">
+                            A Secret Guide to Financial Freedom — by Dr. Sajeev Dev (DBA)
+                        </p>
+                    </div>
+
+                    <!-- Hook Description -->
+                    <p class="text-sm sm:text-base text-brand-green-100/90 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
+                        In this masterwork, Dr. Sajeev Dev dismantles the illusions keeping hard-working individuals trapped in financial anxiety. Drawing from <strong>30 years of distilled research and enterprise execution</strong>, he proves why <em>you</em> are the primary asset and provides an actionable blueprint to eliminate debt and attain everlasting financial serenity.
+                    </p>
+
+                    <!-- Key Takeaways 4-Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2 text-left max-w-2xl mx-auto lg:mx-0">
+                        <div class="p-3.5 rounded-xl border border-brand-gold-500/20" style="background-color: rgba(255, 255, 255, 0.04);">
+                            <div class="text-brand-gold-400 font-bold text-sm mb-1 flex items-center gap-1.5">
+                                <span>✦</span> 30 Years of Wisdom
+                            </div>
+                            <p class="text-xs text-brand-green-100/80">
+                                Three decades of trial-and-error condensed into direct, actionable execution.
+                            </p>
+                        </div>
+
+                        <div class="p-3.5 rounded-xl border border-brand-gold-500/20" style="background-color: rgba(255, 255, 255, 0.04);">
+                            <div class="text-brand-gold-400 font-bold text-sm mb-1 flex items-center gap-1.5">
+                                <span>✦</span> Escape the Debt Trap
+                            </div>
+                            <p class="text-xs text-brand-green-100/80">
+                                Step-by-step methodologies to overcome lingering liabilities and rebuild healthy cash flow.
+                            </p>
+                        </div>
+
+                        <div class="p-3.5 rounded-xl border border-brand-gold-500/20" style="background-color: rgba(255, 255, 255, 0.04);">
+                            <div class="text-brand-gold-400 font-bold text-sm mb-1 flex items-center gap-1.5">
+                                <span>✦</span> Rewire Your Wealth Mindset
+                            </div>
+                            <p class="text-xs text-brand-green-100/80">
+                                Unlock your internal capacity to attract and sustain lasting financial security.
+                            </p>
+                        </div>
+
+                        <div class="p-3.5 rounded-xl border border-brand-gold-500/20" style="background-color: rgba(255, 255, 255, 0.04);">
+                            <div class="text-brand-gold-400 font-bold text-sm mb-1 flex items-center gap-1.5">
+                                <span>✦</span> Holistic Health & Wealth
+                            </div>
+                            <p class="text-xs text-brand-green-100/80">
+                                Alleviate economic stress to harmoniously support lifelong physical wellness.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Call To Action Buttons -->
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="/you-are-money" 
+                           class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm sm:text-base bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+                            <span>Get Your Copy (₹400)</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </a>
+
+                        <a href="https://wa.me/917736609299?text={{ urlencode('Hello Dr. Sajeev Dev, I would like to order your book *You Are Money: A Secret Guide to Financial Freedom* (₹400). Please guide me with payment and delivery details.') }}" 
+                           target="_blank"
+                           class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full font-bold text-sm sm:text-base shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                           style="background-color: #25D366; color: #07150f;">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path d="M12.012 2.25c-5.378 0-9.75 4.372-9.75 9.75 0 1.72.448 3.396 1.3 4.873l-1.383 5.05 5.168-1.357c1.428.777 3.037 1.184 4.665 1.185h.004c5.376 0 9.748-4.372 9.748-9.75 0-2.605-1.014-5.053-2.857-6.897A9.68 9.68 0 0012.012 2.25zm5.72 13.725c-.244.688-1.2 1.254-1.645 1.3-.448.047-.893.208-2.88-.574-2.544-1.002-4.178-3.59-4.305-3.76-.126-.167-1.026-1.365-1.026-2.597 0-1.233.645-1.84.872-2.088.227-.248.5-.31.666-.31.168 0 .337.002.484.01.155.007.362-.058.567.447.21.517.717 1.748.778 1.873.063.125.105.27.02.436-.083.167-.126.27-.253.418-.125.146-.264.327-.377.44-.127.126-.26.262-.112.518.148.256.66 1.085 1.417 1.758.974.87 1.794 1.14 2.047 1.266.253.126.402.105.55-.063.148-.168.633-.734.802-.986.168-.25.337-.21.565-.126.23.084 1.458.687 1.71.813.253.126.422.188.485.293.063.104.063.605-.18 1.293z"/>
+                            </svg>
+                            <span>Order via WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
     <section class="py-24 bg-[#faf9f6] border-t border-brand-green-100/50">
         <div class="max-w-4xl mx-auto px-4 text-center">
             <span class="text-brand-gold-500 text-5xl font-serif leading-none block mb-4">"</span>

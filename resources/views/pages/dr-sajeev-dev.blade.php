@@ -169,6 +169,86 @@
                 </section>
 
             </div>
+
+            <!-- Featured Landmark Publication: You Are Money -->
+            <section class="relative rounded-3xl p-8 sm:p-12 border-2 border-brand-gold-500/50 shadow-xl overflow-hidden"
+                     style="background: linear-gradient(135deg, #0e241b 0%, #153527 50%, #0a1b14 100%); color: #ffffff;">
+                <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-brand-gold-500/20 blur-2xl pointer-events-none"></div>
+
+                <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <!-- Book Visual -->
+                    <div class="md:col-span-4 flex justify-center">
+                        <div class="relative group max-w-[220px]">
+                            <div class="absolute inset-0 bg-brand-gold-500/20 rounded-2xl blur-lg group-hover:bg-brand-gold-500/30 transition-all"></div>
+                            <img src="https://yuvann.com/storage/products/4859c2b9-6c8e-4058-ac9f-17d1b1217386.webp" 
+                                 alt="You Are Money by Dr. Sajeev Dev" 
+                                 class="relative z-10 w-full rounded-xl shadow-2xl border border-brand-gold-500/40 drop-shadow-2xl">
+                            <div class="mt-3 text-center">
+                                <span class="bg-brand-gold-400 text-brand-green-950 font-black text-[10px] px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                                    ★ National Bestseller
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Book Content & CTAs -->
+                    <div class="md:col-span-8 space-y-4 text-center md:text-left">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
+                             style="background-color: #1b4332; color: #f5eed1; border: 1px solid #d4af37;">
+                            <span>📖</span>
+                            <span>Featured Landmark Publication</span>
+                        </div>
+
+                        <h3 class="text-2xl sm:text-4xl font-serif font-bold text-white leading-tight">
+                            You Are Money: <br class="hidden sm:inline">
+                            <span class="text-brand-gold-300 font-normal italic text-xl sm:text-2xl">A Secret Guide to Financial Freedom</span>
+                        </h3>
+
+                        <p class="text-xs sm:text-sm text-brand-green-100/90 leading-relaxed font-light">
+                            In this transformative masterwork, Dr. Sajeev Dev dismantles common financial illusions and delivers a secret roadmap to true economic sovereignty. Distilling <strong>30 years of research, business execution, and mindset mastery</strong>, he teaches readers why they are the primary asset, how to systematically eliminate debt traps, and how financial serenity fosters lifelong physical wellness.
+                        </p>
+
+                        <!-- Key Pillars Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs text-brand-gold-200">
+                            <div class="flex items-center gap-2">
+                                <span class="text-brand-gold-400 font-bold">✓</span>
+                                <span><strong>30 Years of Wisdom:</strong> Real-world execution</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-brand-gold-400 font-bold">✓</span>
+                                <span><strong>Debt Elimination:</strong> Sustainable cash flow</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-brand-gold-400 font-bold">✓</span>
+                                <span><strong>Internal Asset Mindset:</strong> Rewire beliefs</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-brand-gold-400 font-bold">✓</span>
+                                <span><strong>Holistic Mastery:</strong> Lower financial anxiety</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="pt-3 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-3">
+                            <a href="/you-are-money" 
+                               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold text-xs sm:text-sm bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 shadow-lg hover:scale-105 transition-all">
+                                <span>Explore Dedicated Book Presentation</span>
+                                <span>&rarr;</span>
+                            </a>
+
+                            <a href="https://wa.me/917736609299?text={{ urlencode('Hello Dr. Sajeev Dev, I would like to order your book *You Are Money: A Secret Guide to Financial Freedom* (₹400). Please guide me with payment and delivery details.') }}" 
+                               target="_blank"
+                               class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-bold text-xs sm:text-sm shadow-lg hover:scale-105 transition-all"
+                               style="background-color: #25D366; color: #07150f;">
+                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                    <path d="M12.012 2.25c-5.378 0-9.75 4.372-9.75 9.75 0 1.72.448 3.396 1.3 4.873l-1.383 5.05 5.168-1.357c1.428.777 3.037 1.184 4.665 1.185h.004c5.376 0 9.748-4.372 9.748-9.75 0-2.605-1.014-5.053-2.857-6.897A9.68 9.68 0 0012.012 2.25zm5.72 13.725c-.244.688-1.2 1.254-1.645 1.3-.448.047-.893.208-2.88-.574-2.544-1.002-4.178-3.59-4.305-3.76-.126-.167-1.026-1.365-1.026-2.597 0-1.233.645-1.84.872-2.088.227-.248.5-.31.666-.31.168 0 .337.002.484.01.155.007.362-.058.567.447.21.517.717 1.748.778 1.873.063.125.105.27.02.436-.083.167-.126.27-.253.418-.125.146-.264.327-.377.44-.127.126-.26.262-.112.518.148.256.66 1.085 1.417 1.758.974.87 1.794 1.14 2.047 1.266.253.126.402.105.55-.063.148-.168.633-.734.802-.986.168-.25.337-.21.565-.126.23.084 1.458.687 1.71.813.253.126.422.188.485.293.063.104.063.605-.18 1.293z"/>
+                                </svg>
+                                <span>Order on WhatsApp (₹400)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
             <!-- Contact CTA -->
             <div class="text-center pt-8 border-t border-brand-green-200">

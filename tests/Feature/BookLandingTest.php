@@ -65,3 +65,32 @@ test('sitemap contains you-are-money page url', function () {
     $response->assertStatus(200);
     $response->assertSee('/you-are-money');
 });
+
+test('header navigation and mobile menu contain book link', function () {
+    $response = $this->get('/');
+    $response->assertStatus(200);
+    $response->assertSee('/you-are-money');
+    $response->assertSee('📖 Book');
+});
+
+test('homepage renders dedicated you are money feature section', function () {
+    $response = $this->get('/');
+    $response->assertStatus(200);
+    $response->assertSee('You Are Money');
+    $response->assertSee('A Secret Guide to Financial Freedom');
+    $response->assertSee('30 Years of Wisdom');
+    $response->assertSee('Escape the Debt Trap');
+    $response->assertSee('Rewire Your Wealth Mindset');
+    $response->assertSee('Get Your Copy (₹400)');
+});
+
+test('dr sajeev dev profile renders featured landmark publication section', function () {
+    $response = $this->get('/dr-sajeev-dev');
+    $response->assertStatus(200);
+    $response->assertSee('Featured Landmark Publication');
+    $response->assertSee('You Are Money:');
+    $response->assertSee('A Secret Guide to Financial Freedom');
+    $response->assertSee('Explore Dedicated Book Presentation');
+    $response->assertSee('Order on WhatsApp (₹400)');
+});
+

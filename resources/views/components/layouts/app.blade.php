@@ -122,6 +122,7 @@
                 <nav class="hidden md:flex items-center space-x-6">
                     <a href="/" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors {{ request()->is('/') ? 'text-brand-gold-600 font-semibold' : '' }}">Home</a>
                     <a href="/products" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors {{ request()->is('products*') ? 'text-brand-gold-600 font-semibold' : '' }}">Shop All</a>
+                    <a href="/you-are-money" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors whitespace-nowrap {{ request()->is('you-are-money*') ? 'text-brand-gold-600 font-semibold' : '' }}">📖 Book</a>
                     <a href="/products?category=womens-care" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Women's Care</a>
                     <a href="/products?category=superfoods" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Superfoods</a>
                     <a href="/products?category=herbal-powders" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Herbal Powders</a>
@@ -175,6 +176,7 @@
             <div class="px-2 pt-2 pb-4 space-y-1 sm:px-3">
                 <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Home</a>
                 <a href="/products" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Shop All</a>
+                <a href="/you-are-money" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">📖 Book: You Are Money</a>
                 <a href="/products?category=womens-care" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Women's Care</a>
                 <a href="/products?category=superfoods" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Superfoods</a>
                 <a href="/products?category=herbal-powders" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Herbal Powders</a>
