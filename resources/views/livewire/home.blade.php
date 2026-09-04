@@ -508,7 +508,7 @@
                     The Yuvann Promise
                 </h2>
                 <p class="text-brand-green-800/80 text-lg lg:text-xl leading-relaxed font-light max-w-2xl">
-                    True wellness begins at the source. Under the guidance of Dr. Sajeev Dev, we blend ancient Ayurvedic wisdom with rigorous modern clinical standards. Every herb is ethically sourced, every formulation is meticulously balanced.
+                    True wellness begins at the source. Guided by Traditional Lineage Vaidhyan Dr. Sajeev Dev (DBA), we blend generations of indigenous Ayurvedic wisdom with certified dietary excellence. Every herb is ethically sourced, every formulation is meticulously balanced.
                 </p>
                 <p class="text-brand-green-800/80 text-lg lg:text-xl leading-relaxed font-light max-w-2xl pb-4">
                     Experience the transformative power of nature, delivered in its purest form.
@@ -638,7 +638,7 @@
             <div class="flex-1 space-y-4">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-brand-gold-100">Personalized Ayurvedic Guidance</h2>
                 <p class="text-brand-green-100/80 font-light leading-relaxed max-w-lg mx-auto md:mx-0">
-                    Not sure which products are right for your body type (Dosha)? Connect directly with Dr. Sajeev Dev for a tailored wellness plan.
+                    Not sure which formulations match your body constitution (Dosha)? Connect directly with Traditional Vaidhyan Dr. Sajeev Dev for personalized Ayurvedic diet & wellness guidance.
                 </p>
             </div>
             

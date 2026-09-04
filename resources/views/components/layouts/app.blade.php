@@ -222,8 +222,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
                             </svg>
                         </div>
-                        <h4 class="font-serif text-lg text-brand-gold-100">Doctor Formulated</h4>
-                        <p class="text-xs text-brand-green-100/70 mt-1">Backed by the clinical experience of Dr. Sajeev Dev for targeted physiological benefits.</p>
+                        <h4 class="font-serif text-lg text-brand-gold-100">Practitioner Formulated</h4>
+                        <p class="text-xs text-brand-green-100/70 mt-1">Backed by the authentic lineage experience of Traditional Vaidhyan Dr. Sajeev Dev for targeted physiological benefits.</p>
                     </div>
                     <div class="flex flex-col items-center">
                         <div class="w-12 h-12 rounded-full bg-brand-green-700/50 flex items-center justify-center border border-brand-gold-500/30 mb-3 text-brand-gold-400">
@@ -245,7 +245,7 @@
                 <div class="space-y-4">
                     <h3 class="text-xl font-serif text-brand-gold-400">Yuvann Wellness</h3>
                     <p class="text-xs text-brand-green-100/70 leading-relaxed">
-                        Pioneering pure, clinical-grade Ayurvedic formulations and plant-based foods to restore your body's natural harmony. Created by Dr. Sajeev Dev.
+                        Pioneering pure, traditional Ayurvedic formulations and plant-based foods to restore your body's natural harmony. Guided by Dr. Sajeev Dev (DBA).
                     </p>
                     <div class="flex gap-4">
                         <a href="https://wa.me/917736609299" target="_blank" class="text-brand-green-200 hover:text-white transition-colors">
@@ -309,10 +309,10 @@
                 </div>
             </div>
 
-            <!-- Medical Disclaimer & Copyright -->
+            <!-- Wellness Disclaimer & Copyright -->
             <div class="mt-12 pt-8 border-t border-brand-green-800 text-center space-y-4">
-                <p class="text-[10px] text-brand-green-100/50 max-w-4xl mx-auto leading-relaxed">
-                    <strong>Medical Disclaimer:</strong> The information provided on this website is for educational purposes only and is not intended to substitute medical advice, diagnosis, or treatment. Please consult with Dr. Sajeev Dev or another qualified physician regarding any health concerns, or before using any products or beginning any dietary plans.
+                <p class="text-[10px] text-brand-green-100/60 max-w-4xl mx-auto leading-relaxed">
+                    <strong>Wellness & Educational Disclaimer:</strong> The information provided on this website is for educational and holistic lifestyle guidance purposes only and is not intended to substitute professional medical advice, clinical diagnosis, or medical treatment. Consult with Traditional Vaidhyan Dr. Sajeev Dev or a qualified medical physician regarding specific health conditions, or before starting any dietary regimens or herbal supplements.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4 text-xs text-brand-green-100/60 pt-2 pb-2">
                     <a href="{{ route('terms') }}" class="hover:text-white transition-colors">Terms & Conditions</a>

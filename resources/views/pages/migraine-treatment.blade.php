@@ -78,8 +78,8 @@
                             SD
                         </div>
                         <div class="text-left text-xs sm:text-sm">
-                            <div class="font-bold text-white">Dr. Sajeev Dev</div>
-                            <div class="text-brand-green-200 text-xs">Yuvann Wellness Concepts</div>
+                            <div class="font-bold text-white">Dr. Sajeev Dev, <span class="text-xs text-brand-gold-300 font-normal">DBA</span></div>
+                            <div class="text-brand-gold-300 text-xs">Paramparya Vaidhyan • Certified Healthcare Provider (QCI)</div>
                         </div>
                     </div>
                 </div>
@@ -168,7 +168,8 @@
                     </div>
                     <div class="text-[11px] text-brand-green-200 space-y-0.5">
                         <div>Alt: <a href="tel:+919447365545" class="underline hover:text-white">94473 65545</a></div>
-                        <div class="text-brand-gold-300 font-semibold">Dr. Sajeev Dev</div>
+                        <div class="text-brand-gold-300 font-semibold">Dr. Sajeev Dev, DBA</div>
+                        <div class="text-[10px] text-brand-green-300">Paramparya Vaidhyan</div>
                     </div>
                 </div>
             </div>
