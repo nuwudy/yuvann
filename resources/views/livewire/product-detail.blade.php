@@ -60,6 +60,26 @@
         </ol>
     </nav>
 
+    @if(str_contains($product->slug, 'you-are-money'))
+        <!-- Dedicated Book Sales Landing Page Banner -->
+        <div class="mb-8 p-4 sm:p-5 rounded-2xl border border-brand-gold-400/50 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left transition-all hover:shadow-md"
+             style="background: linear-gradient(135deg, #0e241b 0%, #173d2d 100%); color: #ffffff;">
+            <div class="flex items-center gap-3.5">
+                <span class="text-3xl sm:text-4xl">📖</span>
+                <div>
+                    <div class="text-[11px] uppercase font-bold text-brand-gold-300 tracking-wider">Dedicated Author Presentation & Masterclass</div>
+                    <div class="text-sm sm:text-base font-serif font-bold text-white mt-0.5">
+                        Discover the 5 Wealth Pillars, 30 Years of Distilled Wisdom & Active Frameworks
+                    </div>
+                </div>
+            </div>
+            <a href="/you-are-money" 
+               class="whitespace-nowrap px-5 py-2.5 bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 font-bold text-xs sm:text-sm rounded-full shadow-lg transition-transform hover:scale-105">
+                View Special Presentation Page &rarr;
+            </a>
+        </div>
+    @endif
+
     <!-- Main PDP Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start" 
          x-data="{ 

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Admin\BlogManager;
 use App\Livewire\BlogDetail;
 use App\Livewire\BlogList;
+use App\Livewire\BookLanding;
 
 /* -------------------------------------------------------------------------- */
 /* Web Routes                                                                */
@@ -27,6 +28,10 @@ use App\Livewire\BlogList;
 Route::get('/', Home::class);
 Route::get('/products', ProductList::class);
 Route::get('/products/{slug}', ProductDetail::class)->name('product.detail');
+Route::get('/you-are-money', BookLanding::class)->name('book.you-are-money');
+Route::get('/book/you-are-money', function () {
+    return redirect()->route('book.you-are-money');
+});
 Route::get('/blog', BlogList::class)->name('blog.index');
 Route::get('/blog/{slug}', BlogDetail::class)->name('blog.show');
 Route::get('/shops/{slug}', ShopProfile::class)->name('shop.profile');
@@ -39,7 +44,7 @@ Route::get('/order-success/{order_number}', function ($order_number) {
 // Sitemap XML route
 Route::get('/sitemap.xml', function () {
     $urls = collect();
-    $static = ['/', '/products', '/blog', '/migraine-treatment', '/contact', '/terms', '/privacy', '/refund', '/shipping'];
+    $static = ['/', '/products', '/you-are-money', '/blog', '/migraine-treatment', '/contact', '/terms', '/privacy', '/refund', '/shipping'];
     foreach ($static as $uri) {
         $urls->push(url($uri));
     }

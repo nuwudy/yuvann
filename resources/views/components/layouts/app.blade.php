@@ -274,6 +274,7 @@
                     <ul class="space-y-2.5 text-xs text-brand-green-100/70">
                         <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
                         <li><a href="/products" class="hover:text-white transition-colors">Browse Store</a></li>
+                        <li><a href="/you-are-money" class="text-brand-gold-400 hover:text-white font-semibold transition-colors">📖 Book: You Are Money</a></li>
                         <li><a href="/migraine-treatment" class="text-brand-gold-400 hover:text-white font-semibold transition-colors">⚡ Migraine Ottamooli Treatment</a></li>
                         <li><a href="/blog" class="hover:text-white transition-colors">Wellness Journal & Tips</a></li>
                         <li><a href="{{ route('dr-sajeev-dev') }}" class="hover:text-white transition-colors">About Dr. Sajeev Dev</a></li>
