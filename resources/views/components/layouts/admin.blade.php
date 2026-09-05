@@ -47,6 +47,9 @@
                         <a href="/admin/categories" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
                             Categories
                         </a>
+                        <a href="/admin/targeted-body-care" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
+                            Targeted Body Care
+                        </a>
                         <a href="/admin/orders" class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800">
                             Orders
                         </a>
@@ -86,6 +89,9 @@
                         </a>
                         <a href="/admin/categories" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/categories*') ? 'bg-brand-green-800 text-white' : '' }}">
                             🗂️ Categories
+                        </a>
+                        <a href="/admin/targeted-body-care" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/targeted-body-care*') ? 'bg-brand-green-800 text-white' : '' }}">
+                            🧘 Targeted Body Care
                         </a>
                         <a href="/admin/orders" class="group flex items-center px-4 py-2.5 text-sm font-medium rounded-md text-brand-green-100 hover:bg-brand-green-800 hover:text-white transition-all {{ request()->is('admin/orders*') ? 'bg-brand-green-800 text-white' : '' }}">
                             📋 Orders

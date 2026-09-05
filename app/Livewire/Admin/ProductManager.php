@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\BodyPart;
 use App\Models\Category;
 use App\Models\MediaItem;
 use App\Models\Product;
@@ -19,6 +20,7 @@ class ProductManager extends Component
 
     public string $search = '';
     public string $categoryFilter = '';
+    public string $bodyPartFilter = '';
     public bool $isFormOpen = false;
     public ?int $productId = null;
 
@@ -30,6 +32,7 @@ class ProductManager extends Component
 
     // Form fields
     public array $category_ids = [];
+    public array $body_part_ids = [];
     public ?int $shop_id = null;
     public string $name = '';
     public string $slug = '';
@@ -64,6 +67,7 @@ class ProductManager extends Component
     protected $queryString = [
         'search' => ['except' => ''],
         'categoryFilter' => ['except' => ''],
+        'bodyPartFilter' => ['except' => ''],
     ];
 
     public function updatedName($value): void
@@ -86,6 +90,7 @@ class ProductManager extends Component
 
         $this->productId = $product->id;
         $this->category_ids = $product->categories->pluck('id')->toArray();
+        $this->body_part_ids = $product->bodyParts->pluck('id')->toArray();
         $this->shop_id = $product->shop_id;
         $this->name = $product->name;
         $this->slug = $product->slug;
@@ -116,7 +121,7 @@ class ProductManager extends Component
     public function resetForm(): void
     {
         $this->reset([
-            'productId', 'category_ids', 'shop_id', 'name', 'slug', 'sku', 'short_description', 'price', 'sale_price',
+            'productId', 'category_ids', 'body_part_ids', 'shop_id', 'name', 'slug', 'sku', 'short_description', 'price', 'sale_price',
             'stock_quantity', 'unit_size', 'badge', 'is_active', 'is_featured', 'featured_order',
             'benefits', 'ingredients', 'usage', 'featured_image', 'new_gallery_images',
             'existing_featured_image', 'existing_gallery_images',
@@ -258,6 +263,7 @@ class ProductManager extends Component
         );
 
         $product->categories()->sync($this->category_ids);
+        $product->bodyParts()->sync($this->body_part_ids);
 
         session()->flash('success', $this->productId ? 'Product updated successfully!' : 'Product created successfully!');
         $this->closeForm();
@@ -448,12 +454,18 @@ class ProductManager extends Component
                     $query->where('categories.id', $this->categoryFilter);
                 });
             })
+            ->when(!empty($this->bodyPartFilter), function ($q) {
+                $q->whereHas('bodyParts', function ($query) {
+                    $query->where('body_parts.id', $this->bodyPartFilter);
+                });
+            })
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
         return view('livewire.admin.product-manager', [
             'products'   => $products,
             'categories' => Category::all(),
+            'bodyParts'  => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
             'shops'      => Shop::all(),
         ])->layout('components.layouts.admin', ['header' => 'Product Management']);
     }

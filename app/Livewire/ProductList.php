@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\BodyPart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\CartService;
@@ -14,12 +15,14 @@ class ProductList extends Component
 
     public string $search = '';
     public string $category = '';
+    public string $body_part = '';
     public float $maxPrice = 10000;
     public string $sort = 'latest';
 
     protected $queryString = [
         'search' => ['except' => ''],
         'category' => ['except' => ''],
+        'body_part' => ['except' => ''],
         'maxPrice' => ['except' => 10000],
         'sort' => ['except' => 'latest'],
     ];
@@ -30,6 +33,11 @@ class ProductList extends Component
     }
 
     public function updatingCategory(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingBodyPart(): void
     {
         $this->resetPage();
     }
@@ -46,7 +54,7 @@ class ProductList extends Component
 
     public function resetFilters(): void
     {
-        $this->reset(['search', 'category', 'maxPrice', 'sort']);
+        $this->reset(['search', 'category', 'body_part', 'maxPrice', 'sort']);
         $this->resetPage();
     }
 
@@ -68,12 +76,15 @@ class ProductList extends Component
     {
         $query = Product::where('is_active', true);
 
-        // Search Filter
+        // Search Filter (Includes product name, description, SKU, and tagged body parts)
         if (!empty($this->search)) {
             $query->where(function($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
                   ->orWhere('short_description', 'like', '%' . $this->search . '%')
-                  ->orWhere('sku', 'like', '%' . $this->search . '%');
+                  ->orWhere('sku', 'like', '%' . $this->search . '%')
+                  ->orWhereHas('bodyParts', function($bp) {
+                      $bp->where('name', 'like', '%' . $this->search . '%');
+                  });
             });
         }
 
@@ -81,6 +92,13 @@ class ProductList extends Component
         if (!empty($this->category)) {
             $query->whereHas('categories', function($q) {
                 $q->where('slug', $this->category);
+            });
+        }
+
+        // Targeted Body Care Filter
+        if (!empty($this->body_part)) {
+            $query->whereHas('bodyParts', function($q) {
+                $q->where('slug', $this->body_part);
             });
         }
 
@@ -113,8 +131,9 @@ class ProductList extends Component
         }
 
         return view('livewire.product-list', [
-            'products' => $query->paginate(6),
+            'products' => $query->paginate(9),
             'categories' => Category::where('is_active', true)->get(),
+            'bodyParts' => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
         ])->layout('components.layouts.app');
     }
 }

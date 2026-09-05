@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\BlogPost;
+use App\Models\BodyPart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\CartService;
@@ -30,6 +31,7 @@ class Home extends Component
             'featuredProducts' => Product::where('is_active', true)->whereNotNull('featured_order')->orderBy('featured_order', 'asc')->get(),
             'trendingProducts' => Product::where('is_active', true)->inRandomOrder()->take(8)->get(),
             'latestProducts' => Product::where('is_active', true)->orderBy('created_at', 'desc')->take(8)->get(),
+            'bodyParts' => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
             'categories' => Category::where('is_active', true)->get(),
             'shops' => \App\Models\Shop::where('is_active', true)->get(),
             'latestPosts' => BlogPost::published()->with('products')->latest('published_at')->take(3)->get(),

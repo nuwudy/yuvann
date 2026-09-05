@@ -21,6 +21,13 @@
                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                 @endforeach
             </select>
+            <select wire:model.live="bodyPartFilter" 
+                    class="bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 shadow-sm">
+                <option value="">All Body Care Areas</option>
+                @foreach($bodyParts as $bp)
+                    <option value="{{ $bp->id }}">{{ $bp->name }}</option>
+                @endforeach
+            </select>
         </div>
         <!-- Add Button -->
         <button wire:click="openCreateForm" 
@@ -59,9 +66,18 @@
                                 <div class="font-bold text-brand-green-900">{{ $product->name }}</div>
                                 <div class="text-[10px] text-brand-green-700/60 font-medium">SKU: {{ $product->sku }} | Size: {{ $product->unit_size }}</div>
                             </td>
-                            <!-- Category -->
-                            <td class="px-6 py-4 text-brand-green-700">
-                                {{ $product->categories->pluck('name')->join(', ') }}
+                            <!-- Category & Body Care -->
+                            <td class="px-6 py-4">
+                                <div class="text-brand-green-800 font-medium">{{ $product->categories->pluck('name')->join(', ') }}</div>
+                                @if($product->bodyParts->count() > 0)
+                                    <div class="flex flex-wrap gap-1 mt-1">
+                                        @foreach($product->bodyParts as $bp)
+                                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold bg-brand-gold-100 text-brand-green-900 border border-brand-gold-300">
+                                                🧘 {{ $bp->name }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </td>
                             <!-- Price -->
                             <td class="px-6 py-4 font-semibold text-brand-green-900">
@@ -184,30 +200,15 @@
                     </div>
 
                     <!-- SKU -->
-                    <div class="md:col-span-3">
+                    <div class="md:col-span-4">
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">SKU Code *</label>
                         <input type="text" wire:model="sku" placeholder="e.g. RS-OIL-100" 
                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('sku') border-red-400 @enderror">
                         @error('sku') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
                     </div>
 
-                    <!-- Category selection -->
-                    <div class="md:col-span-3">
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Categories *</label>
-                        <div class="space-y-2 max-h-24 overflow-y-auto bg-brand-green-50/30 border border-brand-green-100 rounded-xl p-3 @error('category_ids') border-red-400 @enderror @error('category_ids.*') border-red-400 @enderror">
-                            @foreach($categories as $cat)
-                                <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-brand-green-900">
-                                    <input type="checkbox" wire:model="category_ids" value="{{ $cat->id }}" class="h-4 w-4 text-brand-green-800 focus:ring-brand-gold-500 border-brand-green-200 rounded">
-                                    <span>{{ $cat->name }}</span>
-                                </label>
-                            @endforeach
-                        </div>
-                        @error('category_ids') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
-                        @error('category_ids.*') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
-                    </div>
-
                     <!-- Shop / Brand -->
-                    <div class="md:col-span-3">
+                    <div class="md:col-span-4">
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Shop / Brand</label>
                         <select wire:model="shop_id" class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('shop_id') border-red-400 @enderror">
                             <option value="">No Shop (Default)</option>
@@ -219,11 +220,39 @@
                     </div>
 
                     <!-- Unit Size -->
-                    <div class="md:col-span-3">
+                    <div class="md:col-span-4">
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Unit Size *</label>
                         <input type="text" wire:model="unit_size" placeholder="e.g. 100ml, 250g" 
                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('unit_size') border-red-400 @enderror">
                         @error('unit_size') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                    </div>
+
+                    <!-- Category selection -->
+                    <div class="md:col-span-6">
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Categories *</label>
+                        <div class="space-y-2 max-h-32 overflow-y-auto bg-brand-green-50/30 border border-brand-green-100 rounded-xl p-3 @error('category_ids') border-red-400 @enderror @error('category_ids.*') border-red-400 @enderror">
+                            @foreach($categories as $cat)
+                                <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-brand-green-900 hover:text-brand-gold-600">
+                                    <input type="checkbox" wire:model="category_ids" value="{{ $cat->id }}" class="h-4 w-4 text-brand-green-800 focus:ring-brand-gold-500 border-brand-green-200 rounded">
+                                    <span>{{ $cat->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                        @error('category_ids') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                        @error('category_ids.*') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                    </div>
+
+                    <!-- Targeted Body Care selection -->
+                    <div class="md:col-span-6">
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Targeted Body Care (Select Body Parts)</label>
+                        <div class="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto bg-brand-green-50/30 border border-brand-green-100 rounded-xl p-3">
+                            @foreach($bodyParts as $bp)
+                                <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold text-brand-green-900 hover:text-brand-gold-600">
+                                    <input type="checkbox" wire:model="body_part_ids" value="{{ $bp->id }}" class="h-4 w-4 text-brand-green-800 focus:ring-brand-gold-500 border-brand-green-200 rounded">
+                                    <span class="truncate">{{ $bp->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
                     </div>
 
                     <!-- Regular Price -->

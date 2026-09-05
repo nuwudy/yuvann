@@ -56,6 +56,11 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function bodyParts(): BelongsToMany
+    {
+        return $this->belongsToMany(BodyPart::class);
+    }
+
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);

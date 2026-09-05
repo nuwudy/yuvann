@@ -32,10 +32,36 @@
             <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
                 <h3 class="font-serif text-sm font-semibold text-brand-green-900 mb-3 uppercase tracking-wider">Search</h3>
                 <div class="relative">
-                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Type keywords..." 
+                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Type keywords (e.g. hair, skin)..." 
                            class="w-full bg-brand-green-50/50 border border-brand-green-100 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-1 focus:ring-brand-gold-500 text-brand-green-900">
                 </div>
             </div>
+
+            <!-- Targeted Body Care Widget -->
+            @if(isset($bodyParts) && $bodyParts->count() > 0)
+            <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-serif text-sm font-semibold text-brand-green-900 uppercase tracking-wider">Targeted Body Care</h3>
+                    @if($body_part)
+                        <button wire:click="$set('body_part', '')" class="text-[10px] text-brand-gold-600 hover:underline font-semibold">Clear</button>
+                    @endif
+                </div>
+                <div class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+                    <label class="flex items-center gap-2.5 text-xs text-brand-green-800 font-medium cursor-pointer p-1 rounded-lg hover:bg-brand-green-50/50 transition-colors">
+                        <input type="radio" name="body_part_filter" wire:model.live="body_part" value="" 
+                               class="text-brand-green-800 focus:ring-brand-gold-500 h-4 w-4 border-brand-green-200">
+                        <span>All Body Areas</span>
+                    </label>
+                    @foreach($bodyParts as $bp)
+                        <label class="flex items-center gap-2.5 text-xs text-brand-green-800 font-medium cursor-pointer p-1 rounded-lg hover:bg-brand-green-50/50 transition-colors">
+                            <input type="radio" name="body_part_filter" wire:model.live="body_part" value="{{ $bp->slug }}" 
+                                   class="text-brand-green-800 focus:ring-brand-gold-500 h-4 w-4 border-brand-green-200">
+                            <span class="truncate">{{ $bp->name }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+            @endif
 
             <!-- Categories Widget -->
             <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
@@ -80,20 +106,56 @@
         <!-- Product Grid Content -->
         <section class="lg:col-span-3">
             <!-- Toolbar -->
-            <div class="bg-white px-5 py-4 rounded-2xl border border-brand-green-100/60 shadow-sm flex flex-wrap items-center justify-between gap-4 mb-6">
-                <p class="text-xs text-brand-green-700/80 font-medium">
-                    Showing <span class="font-bold text-brand-green-900">{{ $products->total() }}</span> Ayurvedic products
-                </p>
-                <div class="flex items-center gap-2">
-                    <label for="sort_select" class="text-xs text-brand-green-700/80 font-medium">Sort by:</label>
-                    <select id="sort_select" wire:model.live="sort" 
-                            class="bg-brand-green-50 border border-brand-green-100 rounded-xl py-1 px-3 text-xs font-medium text-brand-green-900 focus:outline-none">
-                        <option value="latest">Latest Arrivals</option>
-                        <option value="featured">Best Sellers</option>
-                        <option value="price_asc">Price: Low to High</option>
-                        <option value="price_desc">Price: High to Low</option>
-                    </select>
+            <div class="bg-white px-5 py-4 rounded-2xl border border-brand-green-100/60 shadow-sm mb-6 space-y-3">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <p class="text-xs text-brand-green-700/80 font-medium">
+                        Showing <span class="font-bold text-brand-green-900">{{ $products->total() }}</span> Ayurvedic products
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <label for="sort_select" class="text-xs text-brand-green-700/80 font-medium">Sort by:</label>
+                        <select id="sort_select" wire:model.live="sort" 
+                                class="bg-brand-green-50 border border-brand-green-100 rounded-xl py-1 px-3 text-xs font-medium text-brand-green-900 focus:outline-none">
+                            <option value="latest">Latest Arrivals</option>
+                            <option value="featured">Best Sellers</option>
+                            <option value="price_asc">Price: Low to High</option>
+                            <option value="price_desc">Price: High to Low</option>
+                        </select>
+                    </div>
                 </div>
+
+                <!-- Active Filter Chips -->
+                @if($body_part || $category || !empty($search))
+                    <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-brand-green-100/50">
+                        <span class="text-[10px] text-brand-green-700/60 font-semibold uppercase">Active Filters:</span>
+                        
+                        @if($body_part)
+                            @php $selectedBp = $bodyParts->firstWhere('slug', $body_part); @endphp
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-gold-100 text-brand-green-900 border border-brand-gold-300">
+                                <span>Target: {{ $selectedBp?->name ?? $body_part }}</span>
+                                <button type="button" wire:click="$set('body_part', '')" class="text-brand-green-800 hover:text-red-600 font-bold">&times;</button>
+                            </span>
+                        @endif
+
+                        @if($category)
+                            @php $selectedCat = $categories->firstWhere('slug', $category); @endphp
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-green-100 text-brand-green-900 border border-brand-green-200">
+                                <span>Category: {{ $selectedCat?->name ?? $category }}</span>
+                                <button type="button" wire:click="$set('category', '')" class="text-brand-green-800 hover:text-red-600 font-bold">&times;</button>
+                            </span>
+                        @endif
+
+                        @if(!empty($search))
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-green-50 text-brand-green-900 border border-brand-green-200">
+                                <span>Keyword: "{{ $search }}"</span>
+                                <button type="button" wire:click="$set('search', '')" class="text-brand-green-800 hover:text-red-600 font-bold">&times;</button>
+                            </span>
+                        @endif
+
+                        <button type="button" wire:click="resetFilters" class="text-[11px] text-brand-gold-600 hover:underline font-semibold ml-auto">
+                            Clear All
+                        </button>
+                    </div>
+                @endif
             </div>
 
             <!-- Products List -->
@@ -118,10 +180,21 @@
 
                             <!-- Info Container -->
                             <div class="p-5 flex-grow flex flex-col text-left">
-                                <span class="text-[9px] font-semibold text-brand-gold-600 uppercase tracking-wider break-words leading-snug">{{ $product->categories->pluck('name')->join(' • ') }}</span>
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="text-[9px] font-semibold text-brand-gold-600 uppercase tracking-wider break-words leading-snug">{{ $product->categories->pluck('name')->join(' • ') }}</span>
+                                </div>
                                 <h3 class="font-serif text-base font-bold text-brand-green-900 mt-1 hover:text-brand-green-700 transition-colors">
                                     <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
                                 </h3>
+                                @if($product->bodyParts->count() > 0)
+                                    <div class="flex flex-wrap gap-1 mt-1.5">
+                                        @foreach($product->bodyParts as $bp)
+                                            <span class="inline-flex items-center text-[9px] font-semibold px-2 py-0.5 rounded-full bg-brand-gold-50/70 text-brand-green-900 border border-brand-gold-200">
+                                                🧘 {{ $bp->name }}
+                                            </span>
+                                        @endforeach
+                                    </div>
+                                @endif
                                 @if($product->review_count > 0)
                                     <div class="flex items-center gap-1 mt-1">
                                         <div class="flex text-brand-gold-500">

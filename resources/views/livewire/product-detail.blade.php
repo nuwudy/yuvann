@@ -224,7 +224,20 @@
 
             <!-- Title & Price -->
             <div class="space-y-2">
-                <span class="text-xs font-bold text-brand-gold-600 uppercase tracking-widest">{{ $product->categories->pluck('name')->join(', ') }}</span>
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-bold text-brand-gold-600 uppercase tracking-widest">{{ $product->categories->pluck('name')->join(', ') }}</span>
+                    @if($product->bodyParts->count() > 0)
+                        <span class="text-brand-green-300">•</span>
+                        <div class="flex flex-wrap gap-1.5 items-center">
+                            <span class="text-[11px] font-semibold text-brand-green-700">Targeted For:</span>
+                            @foreach($product->bodyParts as $bp)
+                                <a href="/products?body_part={{ $bp->slug }}" class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-brand-gold-100/80 text-brand-green-900 border border-brand-gold-300 hover:bg-brand-gold-200 transition-colors">
+                                    🧘 {{ $bp->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
                 <h1 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900 leading-tight">{{ $product->name }}</h1>
                 
                 @if($product->review_count > 0)

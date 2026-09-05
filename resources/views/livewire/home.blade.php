@@ -238,6 +238,37 @@
         </div>
     </section>
 
+    <!-- Targeted Body Care Section (Shown directly above Shop by Category) -->
+    @if(isset($bodyParts) && $bodyParts->count() > 0)
+    <section class="py-14 bg-[#faf9f6] border-b border-brand-green-100/60 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <span class="text-[11px] font-bold text-brand-gold-600 uppercase tracking-widest block mb-1">Targeted Holistic Wellness</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-brand-green-900">Targeted Body Care</h2>
+                <p class="text-brand-green-700/70 mt-1.5 text-xs sm:text-sm max-w-xl mx-auto">Focus on what needs care today — doctor-guided formulations tailored for specific areas of your body.</p>
+            </div>
+
+            <!-- Smaller Compact Grid of Body Parts -->
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-5">
+                @foreach($bodyParts as $part)
+                    @php
+                        $partImg = $part->image_url ?? 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=400&auto=format&fit=crop';
+                    @endphp
+                    <a href="/products?body_part={{ $part->slug }}" 
+                       class="group flex flex-col items-center bg-white p-2.5 sm:p-3 rounded-2xl border border-brand-green-100/80 shadow-xs hover:shadow-md hover:border-brand-gold-400 hover:-translate-y-1 transition-all duration-300 w-[84px] sm:w-[100px] md:w-[112px] text-center">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden mb-2 bg-brand-green-50 border-2 border-brand-green-100/80 group-hover:border-brand-gold-500 transition-all duration-300 relative p-0.5 shadow-xs flex items-center justify-center">
+                            <img src="{{ $partImg }}" alt="{{ $part->name }}" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-500">
+                        </div>
+                        <span class="font-sans text-[11px] sm:text-xs font-semibold text-brand-green-900 leading-tight group-hover:text-brand-gold-600 transition-colors line-clamp-2">
+                            {{ $part->name }}
+                        </span>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
     <!-- 3. Categories -->
     <section class="py-16 bg-brand-green-900 relative">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

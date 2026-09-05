@@ -85,6 +85,7 @@ Route::middleware(['auth'])
         Route::get('/products', ProductManager::class);
         Route::get('/shops', \App\Livewire\Admin\ShopManager::class);
         Route::get('/categories', CategoryManager::class);
+        Route::get('/targeted-body-care', \App\Livewire\Admin\BodyPartManager::class);
         Route::get('/orders', OrderList::class);
         Route::get('/media', MediaLibrary::class);
         Route::get('/reviews', ReviewManager::class);
