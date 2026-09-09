@@ -14,7 +14,13 @@ class ProductDetail extends Component
 
     public function mount(string $slug): void
     {
-        $this->product = Product::with('variants')->where('slug', $slug)
+        $hasIsActive = \Illuminate\Support\Facades\Schema::hasColumn('product_variants', 'is_active');
+
+        $this->product = Product::with(['variants' => function ($q) use ($hasIsActive) {
+            if ($hasIsActive) {
+                $q->where('is_active', true);
+            }
+        }])->where('slug', $slug)
             ->where('is_active', true)
             ->firstOrFail();
 

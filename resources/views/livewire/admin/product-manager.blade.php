@@ -582,11 +582,21 @@
             <form wire:submit.prevent="saveVariants" class="flex flex-col overflow-hidden">
                 <div class="p-6 overflow-y-auto flex-1 bg-brand-green-50/10">
                     
-                    <div class="flex justify-between items-center mb-4">
-                        <p class="text-xs text-brand-green-700/80 font-medium">Add size or packaging variations (e.g., 100g, 250g). Base product details act as a fallback if no active variants exist.</p>
-                        <button type="button" wire:click="addVariantRow" class="px-4 py-2 bg-brand-green-100 text-brand-green-900 hover:bg-brand-green-200 rounded-lg text-[10px] font-bold uppercase tracking-wide transition-colors">
-                            + Add Variant
-                        </button>
+                    <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+                        <div>
+                            <p class="text-xs text-brand-green-700/80 font-medium">Add size or packaging variations (e.g., 30 Capsule, 60 Capsule, 100g, 250g).</p>
+                            <p class="text-[11px] text-brand-gold-600 font-semibold mt-0.5">Base product details act as a fallback if no active variants exist.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" wire:click="importBaseProductAsVariant" 
+                                    class="px-3 py-2 bg-brand-gold-100 hover:bg-brand-gold-200 border border-brand-gold-300 text-brand-green-900 rounded-lg text-[10px] font-bold uppercase tracking-wide transition-colors flex items-center gap-1 shadow-sm"
+                                    title="Restore base product size and price as a variant">
+                                <span>🔄</span> Restore Default Size
+                            </button>
+                            <button type="button" wire:click="addVariantRow" class="px-4 py-2 bg-brand-green-800 text-white hover:bg-brand-green-700 rounded-lg text-[10px] font-bold uppercase tracking-wide transition-colors shadow-sm">
+                                + Add Variant
+                            </button>
+                        </div>
                     </div>
 
                     @if(count($productVariants) > 0)
@@ -596,7 +606,7 @@
                                     <button type="button" wire:click="removeVariantRow({{ $index }})" 
                                             class="absolute -top-2 -right-2 bg-red-100 text-red-600 hover:bg-red-200 rounded-full w-6 h-6 flex items-center justify-center shadow transition-all focus:outline-none"
                                             title="Remove Variant"
-                                            onclick="confirm('Remove this variant? (Will be deleted if already saved)') || event.stopImmediatePropagation()">
+                                            onclick="confirm('Remove this variant from the list?') || event.stopImmediatePropagation()">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
                                     </button>
 

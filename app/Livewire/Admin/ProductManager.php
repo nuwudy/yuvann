@@ -308,17 +308,34 @@ class ProductManager extends Component
         $this->managingVariantsProductId = $product->id;
         $this->managingVariantsProductName = $product->name;
         
-        $this->productVariants = $product->variants->map(function ($variant) {
-            return [
-                'id' => $variant->id,
-                'sku' => $variant->sku,
-                'unit_size' => $variant->unit_size,
-                'price' => (float) $variant->price,
-                'sale_price' => $variant->sale_price !== null ? (float) $variant->sale_price : null,
-                'stock_quantity' => $variant->stock_quantity,
-                'is_active' => (bool) $variant->is_active,
+        $hasIsActive = \Illuminate\Support\Facades\Schema::hasColumn('product_variants', 'is_active');
+
+        if ($product->variants->isNotEmpty()) {
+            $this->productVariants = $product->variants->map(function ($variant) use ($hasIsActive) {
+                return [
+                    'id' => $variant->id,
+                    'sku' => $variant->sku ?? '',
+                    'unit_size' => $variant->unit_size ?? '',
+                    'price' => (float) $variant->price,
+                    'sale_price' => $variant->sale_price !== null ? (float) $variant->sale_price : null,
+                    'stock_quantity' => (int) $variant->stock_quantity,
+                    'is_active' => $hasIsActive ? (bool) ($variant->is_active ?? true) : true,
+                ];
+            })->toArray();
+        } else {
+            // Auto-populate from base product so default variant never disappears
+            $this->productVariants = [
+                [
+                    'id' => null,
+                    'sku' => $product->sku ?? '',
+                    'unit_size' => $product->unit_size ?? 'Standard',
+                    'price' => (float) ($product->price ?? 0),
+                    'sale_price' => $product->sale_price !== null ? (float) $product->sale_price : null,
+                    'stock_quantity' => (int) ($product->stock_quantity ?? 0),
+                    'is_active' => true,
+                ]
             ];
-        })->toArray();
+        }
         
         $this->isVariantFormOpen = true;
     }
@@ -343,18 +360,58 @@ class ProductManager extends Component
         ];
     }
 
+    public function importBaseProductAsVariant(): void
+    {
+        if (!$this->managingVariantsProductId) return;
+
+        $product = Product::find($this->managingVariantsProductId);
+        if (!$product) return;
+
+        $defaultSize = trim($product->unit_size ?? '');
+        if (empty($defaultSize)) {
+            $defaultSize = 'Standard';
+        }
+
+        $exists = collect($this->productVariants)->contains(function ($v) use ($defaultSize) {
+            return strtolower(trim($v['unit_size'] ?? '')) === strtolower($defaultSize);
+        });
+
+        if ($exists) {
+            $this->dispatch('notify', [
+                'type' => 'info',
+                'message' => "Default variant ({$defaultSize}) is already in the list.",
+            ]);
+            return;
+        }
+
+        array_unshift($this->productVariants, [
+            'id' => null,
+            'sku' => $product->sku ?? '',
+            'unit_size' => $defaultSize,
+            'price' => (float) ($product->price ?? 0),
+            'sale_price' => $product->sale_price !== null ? (float) $product->sale_price : null,
+            'stock_quantity' => (int) ($product->stock_quantity ?? 0),
+            'is_active' => true,
+        ]);
+
+        $this->dispatch('notify', [
+            'type' => 'success',
+            'message' => "Restored default product size ({$defaultSize}) to variants list!",
+        ]);
+    }
+
     public function removeVariantRow(int $index): void
     {
-        if (isset($this->productVariants[$index]['id']) && $this->productVariants[$index]['id']) {
-            \App\Models\ProductVariant::find($this->productVariants[$index]['id'])?->delete();
+        if (isset($this->productVariants[$index])) {
+            unset($this->productVariants[$index]);
+            $this->productVariants = array_values($this->productVariants);
         }
-        unset($this->productVariants[$index]);
-        $this->productVariants = array_values($this->productVariants);
     }
 
     public function saveVariants(): void
     {
         $this->validate([
+            'productVariants' => 'nullable|array',
             'productVariants.*.sku' => 'required|string|max:50',
             'productVariants.*.unit_size' => 'required|string|max:50',
             'productVariants.*.price' => 'required|numeric|min:0',
@@ -365,27 +422,61 @@ class ProductManager extends Component
             'productVariants.*.sku.required' => 'SKU is required',
             'productVariants.*.unit_size.required' => 'Size is required',
             'productVariants.*.price.required' => 'Price is required',
+            'productVariants.*.stock_quantity.required' => 'Stock quantity is required',
         ]);
 
+        if (empty($this->managingVariantsProductId)) {
+            $this->closeVariantManager();
+            return;
+        }
+
+        $hasIsActive = \Illuminate\Support\Facades\Schema::hasColumn('product_variants', 'is_active');
+        $keptIds = [];
+
         foreach ($this->productVariants as $vData) {
+            $data = [
+                'sku' => trim($vData['sku']),
+                'unit_size' => trim($vData['unit_size']),
+                'price' => (float) $vData['price'],
+                'sale_price' => !empty($vData['sale_price']) ? (float) $vData['sale_price'] : null,
+                'stock_quantity' => (int) $vData['stock_quantity'],
+            ];
+
+            if ($hasIsActive) {
+                $data['is_active'] = isset($vData['is_active']) ? (bool) $vData['is_active'] : true;
+            }
+
             if (!empty($vData['id'])) {
-                \App\Models\ProductVariant::where('id', $vData['id'])->update([
-                    'sku' => $vData['sku'],
-                    'unit_size' => $vData['unit_size'],
-                    'price' => $vData['price'],
-                    'sale_price' => $vData['sale_price'] ?: null,
-                    'stock_quantity' => $vData['stock_quantity'],
-                    'is_active' => $vData['is_active'],
-                ]);
+                \App\Models\ProductVariant::where('id', $vData['id'])
+                    ->where('product_id', $this->managingVariantsProductId)
+                    ->update($data);
+                $keptIds[] = (int) $vData['id'];
             } else {
-                \App\Models\ProductVariant::create([
-                    'product_id' => $this->managingVariantsProductId,
-                    'sku' => $vData['sku'],
-                    'unit_size' => $vData['unit_size'],
-                    'price' => $vData['price'],
-                    'sale_price' => $vData['sale_price'] ?: null,
-                    'stock_quantity' => $vData['stock_quantity'],
-                    'is_active' => $vData['is_active'],
+                $data['product_id'] = $this->managingVariantsProductId;
+                $newVariant = \App\Models\ProductVariant::create($data);
+                $keptIds[] = $newVariant->id;
+            }
+        }
+
+        // Delete any variants that were removed in the modal
+        \App\Models\ProductVariant::where('product_id', $this->managingVariantsProductId)
+            ->whereNotIn('id', $keptIds)
+            ->delete();
+
+        // Keep base product columns in sync with primary active variant
+        $product = Product::find($this->managingVariantsProductId);
+        if ($product) {
+            $primaryVariant = $product->variants()
+                ->when($hasIsActive, fn($q) => $q->where('is_active', true))
+                ->first();
+
+            if ($primaryVariant) {
+                $product->update([
+                    'sku' => $primaryVariant->sku,
+                    'unit_size' => $primaryVariant->unit_size,
+                    'price' => $primaryVariant->price,
+                    'sale_price' => $primaryVariant->sale_price,
+                    'stock_quantity' => $primaryVariant->stock_quantity,
                 ]);
             }
         }

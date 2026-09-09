@@ -17,6 +17,7 @@ class ProductVariant extends Model
         'sale_price',
         'sku',
         'stock_quantity',
+        'is_active',
     ];
 
     protected function casts(): array
@@ -25,7 +26,13 @@ class ProductVariant extends Model
             'price' => 'decimal:2',
             'sale_price' => 'decimal:2',
             'stock_quantity' => 'integer',
+            'is_active' => 'boolean',
         ];
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 
     public function product(): BelongsTo
