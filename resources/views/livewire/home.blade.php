@@ -19,32 +19,37 @@
     </div>
 
     <!-- Product Ticker -->
-    <div class="bg-brand-green-800 border-b border-brand-gold-500/20 overflow-hidden py-3 flex items-center group w-full">
-        <div class="product-marquee-content group-hover:[animation-play-state:paused]">
-            <!-- First Set -->
-            @foreach($featuredProducts as $product)
-                <a href="/products/{{ $product->slug }}" class="text-brand-gold-400 hover:text-white text-sm font-semibold tracking-wider mx-6 transition-colors inline-flex items-center gap-2">
-                    <span class="text-[10px]">✨</span> {{ $product->name }}
-                </a>
-            @endforeach
-            <!-- Second Set -->
-            @foreach($featuredProducts as $product)
-                <a href="/products/{{ $product->slug }}" class="text-brand-gold-400 hover:text-white text-sm font-semibold tracking-wider mx-6 transition-colors inline-flex items-center gap-2">
-                    <span class="text-[10px]">✨</span> {{ $product->name }}
-                </a>
-            @endforeach
-            <!-- Third Set -->
-            @foreach($featuredProducts as $product)
-                <a href="/products/{{ $product->slug }}" class="text-brand-gold-400 hover:text-white text-sm font-semibold tracking-wider mx-6 transition-colors inline-flex items-center gap-2">
-                    <span class="text-[10px]">✨</span> {{ $product->name }}
-                </a>
-            @endforeach
-            <!-- Fourth Set -->
-            @foreach($featuredProducts as $product)
-                <a href="/products/{{ $product->slug }}" class="text-brand-gold-400 hover:text-white text-sm font-semibold tracking-wider mx-6 transition-colors inline-flex items-center gap-2">
-                    <span class="text-[10px]">✨</span> {{ $product->name }}
-                </a>
-            @endforeach
+    <div class="bg-brand-green-900 border-b border-brand-gold-500/20 overflow-hidden py-3 sm:py-3.5 flex items-center group w-full shadow-inner relative">
+        <div class="product-marquee-content group-hover:[animation-play-state:paused] flex items-center">
+            @for($half = 0; $half < 2; $half++)
+                <div class="inline-flex items-center flex-shrink-0">
+                    @for($repeat = 0; $repeat < 2; $repeat++)
+                        @foreach($featuredProducts as $product)
+                            <a href="/products/{{ $product->slug }}" 
+                               class="inline-flex items-center gap-2 sm:gap-2.5 mx-2 sm:mx-3 px-3 py-1.5 rounded-full bg-white/[0.07] hover:bg-white/[0.15] border border-brand-gold-500/25 hover:border-brand-gold-400 text-brand-gold-200 hover:text-white transition-all duration-200 group/item shadow-xs hover:scale-105 flex-shrink-0">
+                                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden bg-brand-green-800 border border-brand-gold-400/50 flex-shrink-0 shadow-xs p-0.5">
+                                    <img src="{{ $product->featured_image_url }}" 
+                                         alt="{{ $product->name }}" 
+                                         class="w-full h-full object-cover rounded-full group-hover/item:scale-110 transition-transform duration-300"
+                                         loading="lazy">
+                                </div>
+                                <span class="text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap text-brand-gold-200 group-hover/item:text-white transition-colors">
+                                    {{ $product->name }}
+                                </span>
+                                @if($product->is_on_sale)
+                                    <span class="text-[10px] font-bold text-brand-green-950 bg-brand-gold-400 px-2 py-0.5 rounded-full shadow-xs">
+                                        ₹{{ number_format($product->active_price) }}
+                                    </span>
+                                @elseif($product->price > 0)
+                                    <span class="text-[10px] font-semibold text-brand-gold-300/80 bg-brand-green-800/80 px-2 py-0.5 rounded-full border border-brand-gold-500/20">
+                                        ₹{{ number_format($product->price) }}
+                                    </span>
+                                @endif
+                            </a>
+                        @endforeach
+                    @endfor
+                </div>
+            @endfor
         </div>
     </div>
 
@@ -831,9 +836,10 @@
         }
         
         .product-marquee-content {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             white-space: nowrap;
-            animation: marquee 120s linear infinite;
+            animation: marquee 80s linear infinite;
         }
 
         @keyframes marquee {
