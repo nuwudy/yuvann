@@ -840,7 +840,7 @@
             display: inline-flex;
             align-items: center;
             white-space: nowrap;
-            animation: marquee 80s linear infinite;
+            animation: marquee 160s linear infinite;
         }
 
         @keyframes marquee {
