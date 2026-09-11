@@ -111,10 +111,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="/" class="flex items-center gap-2.5 group">
-                        <img src="{{ asset('icons/icon-96.png') }}" alt="Yuvann" class="h-10 w-10 object-contain rounded-full border border-brand-gold-500/20 shadow-sm">
-                        <span class="font-serif font-bold text-xl text-brand-green-900 tracking-tight group-hover:text-brand-gold-600 transition-colors">Yuvann</span>
+                <div class="flex-shrink-0 flex items-center mr-2 sm:mr-4">
+                    <a href="/" class="flex items-center group transition-transform hover:scale-[1.02]">
+                        <img src="{{ asset('images/yuvann-logo.png') }}" alt="Yuvann Wellness Concepts" class="h-10 sm:h-12 w-auto object-contain">
                     </a>
                 </div>
 
