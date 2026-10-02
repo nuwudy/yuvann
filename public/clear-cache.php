@@ -11,10 +11,17 @@ $kernel->handle(
 try {
     \Illuminate\Support\Facades\Artisan::call('optimize:clear');
     echo "<h1>Cache Cleared Successfully!</h1>";
-    echo "<p>Return to your <a href='/'>website</a>.</p>";
 } catch (\Exception $e) {
     echo "<h1>Error clearing cache:</h1>";
     echo "<p>" . $e->getMessage() . "</p>";
+}
+
+try {
+    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+    $migrateOutput = \Illuminate\Support\Facades\Artisan::output();
+    echo "<h3>Database Migration:</h3><pre style='background:#eef;padding:8px;font-size:12px;'>" . htmlspecialchars($migrateOutput ?: 'Nothing to migrate.') . "</pre>";
+} catch (\Exception $e) {
+    echo "<h3>Migration Error:</h3><p style='color:red'>" . $e->getMessage() . "</p>";
 }
 
 echo "<h2>Diagnostic Check:</h2><ul>";

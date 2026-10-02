@@ -563,9 +563,11 @@ class ProductManager extends Component
         $products = Product::query()
             ->with(['categories', 'bodyParts', 'shop'])
             ->when(!empty($this->search), function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('sku', 'like', '%' . $this->search . '%')
-                  ->orWhere('short_description', 'like', '%' . $this->search . '%');
+                $q->where(function ($sub) {
+                    $sub->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('sku', 'like', '%' . $this->search . '%')
+                        ->orWhere('short_description', 'like', '%' . $this->search . '%');
+                });
             })
             ->when(!empty($this->categoryFilter), function ($q) {
                 $q->whereHas('categories', function ($query) {
