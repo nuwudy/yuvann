@@ -152,4 +152,57 @@ class Product extends Model
         }
         return Storage::url($this->product_video);
     }
+
+    /**
+     * Get the shareable JPEG/PNG image URL for WhatsApp / Facebook / Twitter cards.
+     * Social crawlers like WhatsApp do NOT render WebP images; they require JPEG or PNG.
+     */
+    public function getShareImageUrlAttribute(): string
+    {
+        if (empty($this->featured_image)) {
+            return asset('images/yuvann-share.jpg');
+        }
+
+        $featured = $this->featured_image;
+
+        // 1. If it's an Unsplash URL, ensure it returns a JPEG
+        if (str_contains($featured, 'images.unsplash.com')) {
+            $url = preg_replace('/(\?|&)auto=format/', '$1fm=jpg', $featured);
+            if (!str_contains($url, 'fm=jpg')) {
+                $url .= (str_contains($url, '?') ? '&' : '?') . 'fm=jpg';
+            }
+            return $url;
+        }
+
+        // 2. If it's an external third-party URL (not our domain) that is NOT webp
+        if ((str_starts_with($featured, 'http://') || str_starts_with($featured, 'https://')) 
+            && !str_contains($featured, 'yuvann.com') 
+            && !str_ends_with(strtolower(parse_url($featured, PHP_URL_PATH) ?? ''), '.webp')) {
+            return $featured;
+        }
+
+        // Extract relative storage path if it was saved with full yuvann.com domain
+        $cleanPath = preg_replace('#^https?://[^/]+/storage/#', '', $featured);
+
+        // 3. If it already ends with .jpg, .jpeg, or .png
+        $ext = strtolower(pathinfo($cleanPath, PATHINFO_EXTENSION));
+        if (in_array($ext, ['jpg', 'jpeg', 'png'])) {
+            return asset('storage/' . $cleanPath);
+        }
+
+        // 4. If companion .jpg exists in storage
+        $jpgPath = preg_replace('/\.webp$/i', '.jpg', $cleanPath);
+        if ($jpgPath !== $cleanPath && Storage::disk('public')->exists($jpgPath)) {
+            return asset('storage/' . $jpgPath);
+        }
+
+        // 5. If converted cache exists
+        $cacheRelPath = 'products/share-cache/' . $this->id . '.jpg';
+        if (Storage::disk('public')->exists($cacheRelPath)) {
+            return asset('storage/' . $cacheRelPath);
+        }
+
+        // 6. Fallback to dynamic share image route (which dynamically serves / converts to JPEG)
+        return route('product.share-image', ['slug' => $this->slug]);
+    }
 }

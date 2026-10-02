@@ -45,11 +45,19 @@ class ImageService
             $encoded = $image->toWebp(self::QUALITY);
 
             // Build a unique filename
-            $filename = Str::uuid() . '.webp';
+            $uuid     = Str::uuid()->toString();
+            $filename = $uuid . '.webp';
             $path     = $directory . '/' . $filename;
 
-            // Save to the public disk
+            // Save WebP to the public disk
             Storage::disk('public')->put($path, (string) $encoded);
+
+            // Also save a companion JPEG for social sharing (WhatsApp/Facebook do not support WebP)
+            try {
+                $jpgEncoded = $image->toJpeg(self::QUALITY);
+                Storage::disk('public')->put($directory . '/' . $uuid . '.jpg', (string) $jpgEncoded);
+            } catch (\Throwable $ignored) {
+            }
 
             return $path;
         } catch (\Throwable $e) {

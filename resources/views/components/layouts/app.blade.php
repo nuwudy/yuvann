@@ -13,9 +13,11 @@
         @yield('meta')
     @else
         @php
-            $defaultOgImg = url('/icons/icon-512.png');
-            if (app()->environment('production') && !str_starts_with($defaultOgImg, 'https://')) {
-                $defaultOgImg = str_replace('http://', 'https://', $defaultOgImg);
+            $shareBanner = url('/images/yuvann-share.jpg');
+            $emblemIcon = url('/icons/icon-512.png');
+            if (app()->environment('production')) {
+                if (!str_starts_with($shareBanner, 'https://')) $shareBanner = str_replace('http://', 'https://', $shareBanner);
+                if (!str_starts_with($emblemIcon, 'https://')) $emblemIcon = str_replace('http://', 'https://', $emblemIcon);
             }
         @endphp
         <meta name="description" content="Explore Yuvann Wellness Concepts by Dr. Sajeev Dev. Premium Ayurvedic oils, skin syrups, zero-calorie monk fruit, superfood soup mixes, and herbal powders. Rebalancing you.">
@@ -25,23 +27,34 @@
         <meta property="og:site_name" content="Yuvann - Rebalancing you">
         <meta property="og:title" content="{{ $title ?? 'Yuvann Wellness Concepts - Rebalancing you' }}">
         <meta property="og:description" content="Explore Yuvann Wellness Concepts by Dr. Sajeev Dev. Premium Ayurvedic oils, skin syrups, zero-calorie monk fruit, superfood soup mixes, and herbal powders. Rebalancing you.">
-        <meta property="og:image" content="{{ $defaultOgImg }}">
-        <meta property="og:image:secure_url" content="{{ $defaultOgImg }}">
+        
+        <!-- Primary Social Share Banner (1200x630 JPEG) -->
+        <meta property="og:image" content="{{ $shareBanner }}">
+        <meta property="og:image:secure_url" content="{{ $shareBanner }}">
+        <meta property="og:image:type" content="image/jpeg">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta property="og:image:alt" content="Yuvann Wellness Concepts - Rebalancing you">
+
+        <!-- Secondary Square Emblem (512x512 PNG) -->
+        <meta property="og:image" content="{{ $emblemIcon }}">
+        <meta property="og:image:secure_url" content="{{ $emblemIcon }}">
         <meta property="og:image:type" content="image/png">
         <meta property="og:image:width" content="512">
         <meta property="og:image:height" content="512">
-        <meta property="og:image:alt" content="Yuvann - Rebalancing you">
+        <meta property="og:image:alt" content="Yuvann Emblem">
+
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:type" content="website">
 
         <!-- Twitter Card defaults -->
-        <meta name="twitter:card" content="summary">
+        <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ $title ?? 'Yuvann Wellness Concepts - Rebalancing you' }}">
         <meta name="twitter:description" content="Explore Yuvann Wellness Concepts by Dr. Sajeev Dev. Premium Ayurvedic oils, skin syrups, zero-calorie monk fruit, superfood soup mixes, and herbal powders. Rebalancing you.">
-        <meta name="twitter:image" content="{{ $defaultOgImg }}">
+        <meta name="twitter:image" content="{{ $shareBanner }}">
 
         <!-- Fallback Image Link -->
-        <link rel="image_src" href="{{ $defaultOgImg }}">
+        <link rel="image_src" href="{{ $shareBanner }}">
     @endif
 
     <script type="application/ld+json">

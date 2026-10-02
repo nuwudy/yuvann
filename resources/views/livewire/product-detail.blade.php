@@ -1,17 +1,39 @@
 @section('meta')
-    <meta name="description" content="{{ Str::limit($product->short_description ?? 'Buy ' . $product->name . ' from Yuvann Wellness Concepts.', 160) }}">
-    <meta property="og:title" content="{{ $product->name }} | Yuvann Wellness Concepts">
-    <meta property="og:description" content="{{ Str::limit($product->short_description ?? 'Premium Ayurvedic & Herbal Products by Dr. Sajeev Dev.', 200) }}">
     @php
-        $ogImageUrl = $product->featured_image_url;
-        if (!str_starts_with($ogImageUrl, 'http')) {
-            $ogImageUrl = url(str_starts_with($ogImageUrl, '/') ? $ogImageUrl : '/storage/' . $ogImageUrl);
+        $shareImageUrl = $product->share_image_url;
+        if (app()->environment('production') && !str_starts_with($shareImageUrl, 'https://')) {
+            $shareImageUrl = str_replace('http://', 'https://', $shareImageUrl);
         }
+        $metaDesc = Str::limit($product->short_description ?: 'Explore ' . $product->name . ' by Yuvann Wellness Concepts — Rebalancing you.', 160);
+        $shareTitle = $product->name . ' | Yuvann - Rebalancing you';
+        $shareDesc = Str::limit($product->short_description ?: 'Explore ' . $product->name . ' by Yuvann Wellness Concepts — Rebalancing you.', 200);
+        $imgType = str_ends_with(strtolower(parse_url($shareImageUrl, PHP_URL_PATH) ?? ''), '.png') ? 'image/png' : 'image/jpeg';
     @endphp
-    <meta property="og:image" content="{{ $ogImageUrl }}">
+    <meta name="description" content="{{ $metaDesc }}">
+    <meta name="keywords" content="{{ $product->name }}, Yuvann, Ayurvedic Wellness, Rebalancing you, {{ $product->categories->pluck('name')->join(', ') }}">
+
+    <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
+    <meta property="og:site_name" content="Yuvann - Rebalancing you">
+    <meta property="og:title" content="{{ $shareTitle }}">
+    <meta property="og:description" content="{{ $shareDesc }}">
+    <meta property="og:image" content="{{ $shareImageUrl }}">
+    <meta property="og:image:secure_url" content="{{ $shareImageUrl }}">
+    <meta property="og:image:type" content="{{ $imgType }}">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="800">
+    <meta property="og:image:alt" content="{{ $product->name }} - Yuvann - Rebalancing you">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:type" content="product">
+
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $shareTitle }}">
+    <meta name="twitter:description" content="{{ $shareDesc }}">
+    <meta name="twitter:image" content="{{ $shareImageUrl }}">
+
+    <!-- Fallback Image Link -->
+    <link rel="image_src" href="{{ $shareImageUrl }}">
+
     @include('components.seo.product-schema', ['product' => $product])
 @endsection
 

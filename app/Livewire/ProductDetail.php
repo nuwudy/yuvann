@@ -110,6 +110,8 @@ class ProductDetail extends Component
 
         return view('livewire.product-detail', [
             'details' => $details ?? [],
-        ])->layout('components.layouts.app');
+        ])->layout('components.layouts.app', [
+            'title' => $this->product->name . ' | Yuvann - Rebalancing you',
+        ]);
     }
 }

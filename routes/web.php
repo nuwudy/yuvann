@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\Admin\BlogManager;
+use App\Http\Controllers\ProductShareImageController;
 use App\Livewire\BlogDetail;
 use App\Livewire\BlogList;
 use App\Livewire\BookLanding;
@@ -27,6 +28,7 @@ use App\Livewire\BookLanding;
 // Customer Storefront Routes
 Route::get('/', Home::class);
 Route::get('/products', ProductList::class);
+Route::get('/products/{slug}/share-image.jpg', [ProductShareImageController::class, 'show'])->name('product.share-image');
 Route::get('/products/{slug}', ProductDetail::class)->name('product.detail');
 Route::get('/you-are-money', BookLanding::class)->name('book.you-are-money');
 Route::get('/book/you-are-money', function () {
