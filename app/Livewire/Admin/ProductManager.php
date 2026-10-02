@@ -21,6 +21,7 @@ class ProductManager extends Component
     public string $search = '';
     public string $categoryFilter = '';
     public string $bodyPartFilter = '';
+    public string $shopFilter = '';
     public bool $isFormOpen = false;
     public ?int $productId = null;
 
@@ -69,7 +70,28 @@ class ProductManager extends Component
         'search' => ['except' => ''],
         'categoryFilter' => ['except' => ''],
         'bodyPartFilter' => ['except' => ''],
+        'shopFilter' => ['except' => ''],
     ];
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingCategoryFilter(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingBodyPartFilter(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingShopFilter(): void
+    {
+        $this->resetPage();
+    }
 
     public function updatedName($value): void
     {
@@ -555,6 +577,13 @@ class ProductManager extends Component
                     $query->where('body_parts.id', $this->bodyPartFilter);
                 });
             })
+            ->when(!empty($this->shopFilter), function ($q) {
+                if ($this->shopFilter === 'none') {
+                    $q->whereNull('shop_id');
+                } else {
+                    $q->where('shop_id', $this->shopFilter);
+                }
+            })
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
@@ -562,7 +591,7 @@ class ProductManager extends Component
             'products'   => $products,
             'categories' => Category::all(),
             'bodyParts'  => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
-            'shops'      => Shop::all(),
+            'shops'      => Shop::orderBy('name', 'asc')->get(),
         ])->layout('components.layouts.admin', ['header' => 'Product Management']);
     }
 }

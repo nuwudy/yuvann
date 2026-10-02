@@ -28,6 +28,20 @@
                     <option value="{{ $bp->id }}">{{ $bp->name }}</option>
                 @endforeach
             </select>
+            <select wire:model.live="shopFilter" 
+                    class="bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 shadow-sm">
+                <option value="">All Shops</option>
+                <option value="none">Direct / No Shop</option>
+                @foreach($shops as $shop)
+                    <option value="{{ $shop->id }}">{{ $shop->name }}</option>
+                @endforeach
+            </select>
+            @if($search || $categoryFilter || $bodyPartFilter || $shopFilter)
+                <button wire:click="$set('search', ''); $set('categoryFilter', ''); $set('bodyPartFilter', ''); $set('shopFilter', '');" 
+                        class="text-[11px] text-brand-gold-700 hover:text-brand-gold-800 font-medium underline self-center px-1 whitespace-nowrap">
+                    ✕ Clear filters
+                </button>
+            @endif
         </div>
         <!-- Add Button -->
         <button wire:click="openCreateForm" 
@@ -71,7 +85,12 @@
                                         </span>
                                     @endif
                                 </div>
-                                <div class="text-[10px] text-brand-green-700/60 font-medium">SKU: {{ $product->sku }} | Size: {{ $product->unit_size }}</div>
+                                <div class="text-[10px] text-brand-green-700/60 font-medium">
+                                    SKU: {{ $product->sku }} | Size: {{ $product->unit_size }}
+                                    @if($product->shop)
+                                        | <span class="text-brand-green-800 font-semibold">🏪 {{ $product->shop->name }}</span>
+                                    @endif
+                                </div>
                             </td>
                             <!-- Category & Body Care -->
                             <td class="px-6 py-4">
