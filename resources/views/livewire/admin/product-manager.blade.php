@@ -75,8 +75,14 @@
                             </td>
                             <!-- Category & Body Care -->
                             <td class="px-6 py-4">
-                                <div class="text-brand-green-800 font-medium">{{ $product->categories->pluck('name')->join(', ') }}</div>
-                                @if($product->bodyParts->count() > 0)
+                                <div class="text-brand-green-800 font-medium">
+                                    @if(\Illuminate\Support\Facades\Schema::hasTable('category_product'))
+                                        {{ $product->categories->pluck('name')->join(', ') }}
+                                    @elseif(isset($product->category_id))
+                                        {{ \App\Models\Category::find($product->category_id)?->name ?? '-' }}
+                                    @endif
+                                </div>
+                                @if(\Illuminate\Support\Facades\Schema::hasTable('body_part_product') && $product->bodyParts->count() > 0)
                                     <div class="flex flex-wrap gap-1 mt-1">
                                         @foreach($product->bodyParts as $bp)
                                             <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-semibold bg-brand-gold-100 text-brand-green-900 border border-brand-gold-300">
