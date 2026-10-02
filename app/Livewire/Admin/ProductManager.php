@@ -179,9 +179,9 @@ class ProductManager extends Component
             'is_featured' => 'boolean',
             'is_free_shipping' => 'boolean',
             'featured_order' => 'nullable|integer|min:1',
-            'benefits' => 'required|string',
-            'ingredients' => 'required|string',
-            'usage' => 'required|string',
+            'benefits' => 'nullable|string',
+            'ingredients' => 'nullable|string',
+            'usage' => 'nullable|string',
         ];
 
         // Featured image rule: required on create (unless picked from library), optional on edit
@@ -279,7 +279,7 @@ class ProductManager extends Component
             'featured_order' => $this->featured_order,
         ];
 
-        if (!empty($this->category_ids)) {
+        if (\Illuminate\Support\Facades\Schema::hasColumn('products', 'category_id') && !empty($this->category_ids)) {
             $productData['category_id'] = $this->category_ids[0];
         }
 

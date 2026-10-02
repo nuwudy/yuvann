@@ -329,7 +329,7 @@
                     
                     <!-- Key Benefits -->
                     <div>
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Key Benefits *</label>
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Key Benefits (Optional)</label>
                         <textarea wire:model="benefits" rows="3" placeholder="• Benefit 1&#10;• Benefit 2..." 
                                   class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('benefits') border-red-400 @enderror"></textarea>
                         @error('benefits') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
@@ -337,7 +337,7 @@
 
                     <!-- Ingredients -->
                     <div>
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Ingredients & Ayurvedic Breakdown *</label>
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Ingredients & Ayurvedic Breakdown (Optional)</label>
                         <textarea wire:model="ingredients" rows="3" placeholder="• Herb 1 (Botanical Name) - Qty&#10;• Herb 2..." 
                                   class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('ingredients') border-red-400 @enderror"></textarea>
                         @error('ingredients') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
@@ -345,7 +345,7 @@
 
                     <!-- Usage / Directions -->
                     <div>
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">How to Use / Directions *</label>
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">How to Use / Directions (Optional)</label>
                         <textarea wire:model="usage" rows="3" placeholder="Directions for safe topical or oral administration..." 
                                   class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('usage') border-red-400 @enderror"></textarea>
                         @error('usage') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
