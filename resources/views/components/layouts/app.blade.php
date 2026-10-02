@@ -5,41 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $title ?? 'Yuvann Wellness Concepts - Premium Ayurvedic & Herbal Products' }}</title>
-<link rel="canonical" href="{{ url()->current() }}" />
-<script type="application/ld+json">
-{
-  "@@context": "https://schema.org",
-  "@@type": "Organization",
-  "name": "Yuvann Wellness Concepts",
-  "url": "https://yuvann.com",
-  "logo": "{{ url('/icons/icon-512.png') }}",
-  "contactPoint": {
-    "@@type": "ContactPoint",
-    "telephone": "+91-7736609299",
-    "contactType": "customer service"
-  },
-  "sameAs": [
-    "https://www.facebook.com/YuvannWellness",
-    "https://www.instagram.com/YuvannWellness"
-  ]
-}
-</script>
-    
-    <!-- SEO Meta Tags -->
+    <title>{{ $title ?? 'Yuvann Wellness Concepts - Rebalancing you' }}</title>
+    <link rel="canonical" href="{{ url()->current() }}" />
+
+    <!-- SEO & Social Media Meta Tags -->
     @hasSection('meta')
         @yield('meta')
     @else
-        <meta name="description" content="Explore Yuvann Wellness Concepts by Dr. Sajeev Dev. Premium Ayurvedic oils, skin syrups, zero-calorie monk fruit, superfood soup mixes, and herbal powders.">
-        <meta name="keywords" content="Ayurveda, Herbal Products, Ruthu Santhi Oil, Skin Rich Syrup, Monk Fruit Powder, Moringa Leaves, Dr. Sajeev Dev, Wellness">
+        @php
+            $defaultOgImg = url('/icons/icon-512.png');
+            if (app()->environment('production') && !str_starts_with($defaultOgImg, 'https://')) {
+                $defaultOgImg = str_replace('http://', 'https://', $defaultOgImg);
+            }
+        @endphp
+        <meta name="description" content="Explore Yuvann Wellness Concepts by Dr. Sajeev Dev. Premium Ayurvedic oils, skin syrups, zero-calorie monk fruit, superfood soup mixes, and herbal powders. Rebalancing you.">
+        <meta name="keywords" content="Ayurveda, Herbal Products, Ruthu Santhi Oil, Skin Rich Syrup, Monk Fruit Powder, Moringa Leaves, Dr. Sajeev Dev, Wellness, Rebalancing you">
         
-        <!-- Open Graph / Social Media defaults -->
-        <meta property="og:title" content="{{ $title ?? 'Yuvann Wellness Concepts' }}">
-        <meta property="og:description" content="Explore Yuvann Wellness Concepts by Dr. Sajeev Dev. Premium Ayurvedic oils, skin syrups, zero-calorie monk fruit, superfood soup mixes, and herbal powders.">
-        <meta property="og:image" content="{{ url('/icons/icon-512.png') }}">
+        <!-- Open Graph / WhatsApp / Facebook defaults -->
+        <meta property="og:site_name" content="Yuvann - Rebalancing you">
+        <meta property="og:title" content="{{ $title ?? 'Yuvann Wellness Concepts - Rebalancing you' }}">
+        <meta property="og:description" content="Explore Yuvann Wellness Concepts by Dr. Sajeev Dev. Premium Ayurvedic oils, skin syrups, zero-calorie monk fruit, superfood soup mixes, and herbal powders. Rebalancing you.">
+        <meta property="og:image" content="{{ $defaultOgImg }}">
+        <meta property="og:image:secure_url" content="{{ $defaultOgImg }}">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="512">
+        <meta property="og:image:height" content="512">
+        <meta property="og:image:alt" content="Yuvann - Rebalancing you">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta property="og:type" content="website">
+
+        <!-- Twitter Card defaults -->
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="{{ $title ?? 'Yuvann Wellness Concepts - Rebalancing you' }}">
+        <meta name="twitter:description" content="Explore Yuvann Wellness Concepts by Dr. Sajeev Dev. Premium Ayurvedic oils, skin syrups, zero-calorie monk fruit, superfood soup mixes, and herbal powders. Rebalancing you.">
+        <meta name="twitter:image" content="{{ $defaultOgImg }}">
+
+        <!-- Fallback Image Link -->
+        <link rel="image_src" href="{{ $defaultOgImg }}">
     @endif
+
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Organization",
+      "name": "Yuvann Wellness Concepts",
+      "url": "https://yuvann.com",
+      "logo": "{{ url('/icons/icon-512.png') }}",
+      "contactPoint": {
+        "@@type": "ContactPoint",
+        "telephone": "+91-7736609299",
+        "contactType": "customer service"
+      },
+      "sameAs": [
+        "https://www.facebook.com/YuvannWellness",
+        "https://www.instagram.com/YuvannWellness"
+      ]
+    }
+    </script>
 
     <!-- ═══════════════ PWA Meta Tags ═══════════════ -->
     <!-- Web App Manifest -->
@@ -244,7 +266,10 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Branding column -->
                 <div class="space-y-4">
-                    <h3 class="text-xl font-serif text-brand-gold-400">Yuvann Wellness</h3>
+                    <div>
+                        <h3 class="text-xl font-serif text-brand-gold-400">Yuvann Wellness</h3>
+                        <p class="text-brand-gold-300 font-serif italic text-xs mt-0.5">Rebalancing you</p>
+                    </div>
                     <p class="text-xs text-brand-green-100/70 leading-relaxed">
                         Pioneering pure, traditional Ayurvedic formulations and plant-based foods to restore your body's natural harmony. Guided by Dr. Sajeev Dev (DBA).
                     </p>
@@ -328,7 +353,7 @@
                     <a href="{{ route('contact') }}" class="hover:text-white transition-colors">Contact Us</a>
                 </div>
                 <p class="text-xs text-brand-green-100/40">
-                    &copy; {{ date('Y') }} Yuvann Wellness Concepts. All rights reserved. Designed for health.
+                    &copy; {{ date('Y') }} Yuvann Wellness Concepts. All rights reserved. Rebalancing you.
                 </p>
             </div>
         </div>

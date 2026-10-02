@@ -1,3 +1,39 @@
+@section('meta')
+    @php
+        $ogImageUrl = url('/icons/icon-512.png');
+        if (app()->environment('production') && !str_starts_with($ogImageUrl, 'https://')) {
+            $ogImageUrl = str_replace('http://', 'https://', $ogImageUrl);
+        }
+        $metaDesc = Str::limit($shop->description ?: 'Explore curated Ayurvedic wellness products by ' . $shop->name . ' on Yuvann — Rebalancing you.', 160);
+        $shareTitle = $shop->name . ' | Yuvann - Rebalancing you';
+        $shareDesc = Str::limit($shop->description ?: 'Explore curated Ayurvedic wellness products by ' . $shop->name . ' on Yuvann — Rebalancing you.', 200);
+    @endphp
+    <meta name="description" content="{{ $metaDesc }}">
+    <meta name="keywords" content="{{ $shop->name }}, Yuvann, Ayurvedic Wellness, Rebalancing you, Herbal Products">
+
+    <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
+    <meta property="og:site_name" content="Yuvann - Rebalancing you">
+    <meta property="og:title" content="{{ $shareTitle }}">
+    <meta property="og:description" content="{{ $shareDesc }}">
+    <meta property="og:image" content="{{ $ogImageUrl }}">
+    <meta property="og:image:secure_url" content="{{ $ogImageUrl }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta property="og:image:alt" content="Yuvann - Rebalancing you">
+    <meta property="og:url" content="{{ request()->url() }}">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ $shareTitle }}">
+    <meta name="twitter:description" content="{{ $shareDesc }}">
+    <meta name="twitter:image" content="{{ $ogImageUrl }}">
+
+    <!-- Fallback Image Link -->
+    <link rel="image_src" href="{{ $ogImageUrl }}">
+@endsection
+
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
     <!-- Shop Header Profile -->
     <div class="bg-brand-green-900 rounded-3xl overflow-hidden shadow-xl mb-12 border border-brand-green-800 relative">
@@ -15,8 +51,15 @@
                 </div>
             </div>
             <div class="text-center md:text-left text-white flex-1">
-                <span class="inline-block px-3 py-1 bg-brand-gold-500/20 text-brand-gold-400 border border-brand-gold-500/30 text-[10px] font-bold rounded-full mb-3 uppercase tracking-widest backdrop-blur-sm">Verified Partner</span>
-                <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4 text-brand-gold-50">{{ $shop->name }}</h1>
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-3">
+                    <span class="inline-block px-3 py-1 bg-brand-gold-500/20 text-brand-gold-400 border border-brand-gold-500/30 text-[10px] font-bold rounded-full uppercase tracking-widest backdrop-blur-sm">Verified Partner</span>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-green-800/90 text-brand-gold-300 border border-brand-gold-500/30 text-[10px] font-medium rounded-full tracking-wider backdrop-blur-sm">
+                        <img src="{{ asset('icons/icon-512.png') }}" alt="Yuvann" class="w-3.5 h-3.5 rounded-full inline-block">
+                        <span>Yuvann &bull; Rebalancing you</span>
+                    </span>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-serif font-bold mb-2 text-brand-gold-50">{{ $shop->name }}</h1>
+                <p class="text-brand-gold-400/90 text-sm font-serif italic tracking-wide mb-3">Rebalancing you</p>
                 <p class="text-brand-green-100/90 text-sm md:text-base leading-relaxed max-w-2xl">
                     {{ $shop->description ?: 'Explore the curated collection of Ayurvedic wellness products by ' . $shop->name . '.' }}
                 </p>

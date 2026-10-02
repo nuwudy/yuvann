@@ -19,7 +19,7 @@ class ShopProfile extends Component
     public function render()
     {
         return view('livewire.shop-profile')->layout('components.layouts.app', [
-            'title' => $this->shop->name . ' | Yuvann',
+            'title' => $this->shop->name . ' | Yuvann - Rebalancing you',
         ]);
     }
 }
