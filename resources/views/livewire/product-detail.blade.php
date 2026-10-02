@@ -417,17 +417,68 @@
                 <div class="py-4 text-xs sm:text-sm text-brand-green-800/80 leading-relaxed font-medium">
                     <!-- Benefits Panel -->
                     <div x-show="activeTab === 'benefits'" x-transition>
-                        <p class="whitespace-pre-line text-left">{{ $details['benefits'] ?? 'Clinical benefits documentation coming soon.' }}</p>
+                        @php $benefitItems = $this->formatSectionContent($details['benefits'] ?? ''); @endphp
+                        @if(!empty($benefitItems))
+                            <div class="space-y-3.5">
+                                @foreach($benefitItems as $item)
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-brand-gold-600 mt-0.5 flex-shrink-0 text-xs">🌿</span>
+                                        <div class="text-left leading-relaxed">
+                                            @if($item['title'])
+                                                <strong class="text-brand-green-950 font-bold">{{ $item['title'] }}:</strong>
+                                            @endif
+                                            <span>{{ $item['content'] }}</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="whitespace-pre-line text-left text-brand-green-700/60">Clinical benefits documentation coming soon.</p>
+                        @endif
                     </div>
 
                     <!-- Ingredients Panel -->
                     <div x-show="activeTab === 'ingredients'" x-transition style="display: none;">
-                        <p class="whitespace-pre-line text-left">{{ $details['ingredients'] ?? 'Pure clinical-grade herbs formulate this remedy.' }}</p>
+                        @php $ingredientItems = $this->formatSectionContent($details['ingredients'] ?? ''); @endphp
+                        @if(!empty($ingredientItems))
+                            <div class="space-y-3.5">
+                                @foreach($ingredientItems as $item)
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-brand-gold-600 mt-0.5 flex-shrink-0 text-xs">🌱</span>
+                                        <div class="text-left leading-relaxed">
+                                            @if($item['title'])
+                                                <strong class="text-brand-green-950 font-bold">{{ $item['title'] }}:</strong>
+                                            @endif
+                                            <span>{{ $item['content'] }}</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="whitespace-pre-line text-left text-brand-green-700/60">Pure clinical-grade herbs formulate this remedy.</p>
+                        @endif
                     </div>
 
                     <!-- Usage Panel -->
                     <div x-show="activeTab === 'usage'" x-transition style="display: none;">
-                        <p class="whitespace-pre-line text-left">{{ $details['usage'] ?? 'Refer to primary packaging or consult Dr. Sajeev Dev for directions.' }}</p>
+                        @php $usageItems = $this->formatSectionContent($details['usage'] ?? ''); @endphp
+                        @if(!empty($usageItems))
+                            <div class="space-y-3.5">
+                                @foreach($usageItems as $item)
+                                    <div class="flex items-start gap-2.5">
+                                        <span class="text-brand-gold-600 mt-0.5 flex-shrink-0 text-xs">✨</span>
+                                        <div class="text-left leading-relaxed">
+                                            @if($item['title'])
+                                                <strong class="text-brand-green-950 font-bold">{{ $item['title'] }}:</strong>
+                                            @endif
+                                            <span>{{ $item['content'] }}</span>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="whitespace-pre-line text-left text-brand-green-700/60">Refer to primary packaging or consult Dr. Sajeev Dev for directions.</p>
+                        @endif
                     </div>
                 </div>
             </div>

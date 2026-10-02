@@ -101,6 +101,41 @@ class ProductDetail extends Component
         ]);
     }
 
+    public function formatSectionContent(?string $text): array
+    {
+        if (empty($text) || empty(trim($text))) {
+            return [];
+        }
+
+        $text = str_replace(["\r\n", "\r"], "\n", $text);
+
+        // Separate run-together sections (e.g. "soreness.Dual Cooling" or "minutes.For Cold")
+        $text = preg_replace('/([.!?])\s*([A-Z][A-Za-z0-9\s&()\/–\'-]{2,50}:)/', "$1\n\n$2", $text);
+
+        $lines = preg_split('/\n+/', $text);
+        $items = [];
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (empty($line)) continue;
+
+            $cleanLine = ltrim($line, "•-*\t ");
+
+            if (preg_match('/^([^:]+):\s*(.+)$/s', $cleanLine, $matches)) {
+                $items[] = [
+                    'title' => trim($matches[1]),
+                    'content' => trim($matches[2]),
+                ];
+            } else {
+                $items[] = [
+                    'title' => null,
+                    'content' => $cleanLine,
+                ];
+            }
+        }
+
+        return $items;
+    }
+
     public function render()
     {
         // Decode description JSON if it's stored as JSON string

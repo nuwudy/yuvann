@@ -251,11 +251,11 @@ class ProductManager extends Component
             );
         }
 
-        // Compile description fields as JSON
+        // Compile description fields as JSON with proper line breaks
         $descriptionData = [
-            'benefits' => $this->benefits,
-            'ingredients' => $this->ingredients,
-            'usage' => $this->usage,
+            'benefits' => $this->normalizeTabText($this->benefits),
+            'ingredients' => $this->normalizeTabText($this->ingredients),
+            'usage' => $this->normalizeTabText($this->usage),
         ];
 
         $productData = [
@@ -595,5 +595,19 @@ class ProductManager extends Component
             'bodyParts'  => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
             'shops'      => Shop::orderBy('name', 'asc')->get(),
         ])->layout('components.layouts.admin', ['header' => 'Product Management']);
+    }
+
+    private function normalizeTabText(?string $text): string
+    {
+        if (empty($text)) {
+            return '';
+        }
+
+        $text = str_replace(["\r\n", "\r"], "\n", $text);
+
+        // Separate run-together sections (e.g. "soreness.Dual Cooling" or "minutes.For Cold")
+        $text = preg_replace('/([.!?])\s*([A-Z][A-Za-z0-9\s&()\/–\'-]{2,50}:)/', "$1\n\n$2", $text);
+
+        return trim($text);
     }
 }

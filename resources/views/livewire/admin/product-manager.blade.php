@@ -325,7 +325,10 @@
 
                 <!-- Descriptive Information (Tabs content fields) -->
                 <div class="space-y-4 border-t border-brand-green-100/60 pt-6">
-                    <h4 class="font-serif text-sm font-bold text-brand-green-900">Product Tabs Description (for PDP layout)</h4>
+                    <div>
+                        <h4 class="font-serif text-sm font-bold text-brand-green-900">Product Tabs Description (for PDP layout)</h4>
+                        <p class="text-[11px] text-brand-green-700/60 mt-0.5">💡 Tip: Use <code>Title: Description</code> or bullet points for each item. They will automatically display with clean spacing and highlighted bold headings on the product page.</p>
+                    </div>
                     
                     <!-- Key Benefits -->
                     <div>
