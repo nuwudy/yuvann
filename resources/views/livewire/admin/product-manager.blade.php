@@ -63,7 +63,14 @@
                             </td>
                             <!-- Details -->
                             <td class="px-6 py-4">
-                                <div class="font-bold text-brand-green-900">{{ $product->name }}</div>
+                                <div class="font-bold text-brand-green-900 flex items-center gap-1.5 flex-wrap">
+                                    <span>{{ $product->name }}</span>
+                                    @if($product->is_free_shipping)
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                            🚚 Free Shipping
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="text-[10px] text-brand-green-700/60 font-medium">SKU: {{ $product->sku }} | Size: {{ $product->unit_size }}</div>
                             </td>
                             <!-- Category & Body Care -->
@@ -518,6 +525,13 @@
                     <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-brand-green-900 uppercase">
                         <input type="checkbox" wire:model="is_featured" class="h-4.5 w-4.5 text-brand-green-800 focus:ring-brand-gold-500 border-brand-green-200 rounded">
                         <span>Highlight as Featured</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer text-xs font-bold text-brand-green-900 uppercase">
+                        <input type="checkbox" wire:model="is_free_shipping" class="h-4.5 w-4.5 text-emerald-600 focus:ring-emerald-500 border-brand-green-200 rounded">
+                        <span class="inline-flex items-center gap-1.5">
+                            <span>🚚 Free Shipping</span>
+                            <span class="text-[10px] text-emerald-700 font-normal lowercase bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">(no shipping charge for this item)</span>
+                        </span>
                     </label>
                 </div>
 

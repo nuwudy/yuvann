@@ -45,6 +45,7 @@ class ProductManager extends Component
     public string $badge = '';
     public bool $is_active = true;
     public bool $is_featured = false;
+    public bool $is_free_shipping = false;
     public ?int $featured_order = null;
 
     // Tabs content fields
@@ -103,6 +104,7 @@ class ProductManager extends Component
         $this->badge = $product->badge ?? '';
         $this->is_active = $product->is_active;
         $this->is_featured = $product->is_featured;
+        $this->is_free_shipping = (bool) ($product->is_free_shipping ?? false);
         $this->featured_order = $product->featured_order;
 
         // Decode tab descriptions
@@ -122,7 +124,7 @@ class ProductManager extends Component
     {
         $this->reset([
             'productId', 'category_ids', 'body_part_ids', 'shop_id', 'name', 'slug', 'sku', 'short_description', 'price', 'sale_price',
-            'stock_quantity', 'unit_size', 'badge', 'is_active', 'is_featured', 'featured_order',
+            'stock_quantity', 'unit_size', 'badge', 'is_active', 'is_featured', 'is_free_shipping', 'featured_order',
             'benefits', 'ingredients', 'usage', 'featured_image', 'new_gallery_images',
             'existing_featured_image', 'existing_gallery_images',
             'product_video', 'existing_product_video',
@@ -153,6 +155,7 @@ class ProductManager extends Component
             'badge' => 'nullable|string|max:50',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
+            'is_free_shipping' => 'boolean',
             'featured_order' => 'nullable|integer|min:1',
             'benefits' => 'required|string',
             'ingredients' => 'required|string',
@@ -250,6 +253,7 @@ class ProductManager extends Component
             'description' => json_encode($descriptionData),
             'is_active' => $this->is_active,
             'is_featured' => $this->is_featured,
+            'is_free_shipping' => $this->is_free_shipping,
             'featured_order' => $this->featured_order,
         ];
 

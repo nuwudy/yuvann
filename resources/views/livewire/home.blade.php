@@ -161,6 +161,15 @@
                                 </span>
                             @endif
 
+                            @if($product->is_free_shipping)
+                                <span class="absolute top-4 right-4 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-600/95 backdrop-blur-sm text-[9px] font-extrabold text-white tracking-wider uppercase shadow-md">
+                                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                        <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                                    </svg>
+                                    <span>Free Shipping</span>
+                                </span>
+                            @endif
+
                             <!-- Image with Hover Reveal -->
                             <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl">
                                 <a href="/products/{{ $product->slug }}">
@@ -363,6 +372,15 @@
                                 </span>
                             @endif
 
+                            @if($product->is_free_shipping)
+                                <span class="absolute top-4 right-4 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-600/95 backdrop-blur-sm text-[9px] font-extrabold text-white tracking-wider uppercase shadow-md">
+                                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                        <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                                    </svg>
+                                    <span>Free Shipping</span>
+                                </span>
+                            @endif
+
                             <!-- Image with Hover Reveal -->
                             <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl">
                                 <a href="/products/{{ $product->slug }}">
@@ -464,6 +482,15 @@
                             @else
                                 <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-brand-green-800/90 backdrop-blur-sm text-[10px] font-bold text-white tracking-wider uppercase">
                                     New
+                                </span>
+                            @endif
+
+                            @if($product->is_free_shipping)
+                                <span class="absolute top-4 right-4 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-600/95 backdrop-blur-sm text-[9px] font-extrabold text-white tracking-wider uppercase shadow-md">
+                                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                        <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                                    </svg>
+                                    <span>Free Shipping</span>
                                 </span>
                             @endif
 

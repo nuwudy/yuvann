@@ -45,8 +45,9 @@ class Checkout extends Component
         
         $shippingChargeSetting = Setting::where('key', 'shipping_charge')->value('value') ?? 60;
         $freeShippingThreshold = Setting::where('key', 'free_shipping_threshold')->value('value') ?? 1000;
+        $hasFreeShipping = CartService::hasFreeShipping();
         
-        $shippingAmount = ($subtotal >= $freeShippingThreshold) ? 0 : $shippingChargeSetting;
+        $shippingAmount = ($hasFreeShipping || $subtotal >= $freeShippingThreshold) ? 0 : $shippingChargeSetting;
         $totalAmount = $subtotal + $shippingAmount;
         
         if ($totalAmount < 1) {
@@ -210,7 +211,8 @@ class Checkout extends Component
         $subtotal = CartService::getSubtotal();
         $shippingChargeSetting = Setting::where('key', 'shipping_charge')->value('value') ?? 60;
         $freeShippingThreshold = Setting::where('key', 'free_shipping_threshold')->value('value') ?? 1000;
-        $shippingAmount = ($subtotal >= $freeShippingThreshold) ? 0 : $shippingChargeSetting;
+        $hasFreeShipping = CartService::hasFreeShipping();
+        $shippingAmount = ($hasFreeShipping || $subtotal >= $freeShippingThreshold) ? 0 : $shippingChargeSetting;
         $totalAmount = $subtotal + $shippingAmount;
 
         return view('livewire.checkout', [
@@ -218,6 +220,7 @@ class Checkout extends Component
             'totalQuantity' => CartService::getTotalQuantity(),
             'subtotal' => $subtotal,
             'shippingAmount' => $shippingAmount,
+            'hasFreeShipping' => $hasFreeShipping,
             'freeShippingThreshold' => $freeShippingThreshold,
             'totalAmount' => $totalAmount,
         ])->layout('components.layouts.app');

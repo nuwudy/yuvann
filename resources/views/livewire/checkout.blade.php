@@ -11,7 +11,16 @@
         </div>
     @endif
     
-    @if($subtotal < $freeShippingThreshold)
+    @if($shippingAmount == 0)
+        <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold px-4 py-3 rounded-xl mb-6 text-left flex items-center gap-2 shadow-xs">
+            <span class="text-base">🎉</span>
+            @if($hasFreeShipping)
+                <span>You get <strong>FREE Shipping</strong> because your cart contains a free-shipping product!</span>
+            @else
+                <span>You unlocked <strong>FREE Shipping</strong> on this order!</span>
+            @endif
+        </div>
+    @elseif($subtotal < $freeShippingThreshold)
         <div class="bg-blue-50 border border-blue-200 text-blue-800 text-xs font-semibold px-4 py-3 rounded-xl mb-6 text-left">
             ℹ️ Add ₹{{ number_format($freeShippingThreshold - $subtotal, 2) }} more to your cart to get Free Shipping!
         </div>
@@ -167,7 +176,12 @@
                     <div class="flex justify-between text-brand-green-700/80 font-medium">
                         <span>Shipping Fee</span>
                         @if($shippingAmount == 0)
-                            <span class="text-green-700 font-semibold uppercase">Free</span>
+                            <span class="text-emerald-700 font-bold uppercase tracking-wide flex items-center gap-1">
+                                <span>Free</span>
+                                @if($hasFreeShipping)
+                                    <span class="text-[10px] text-emerald-600 font-semibold normal-case bg-emerald-100/70 px-1.5 py-0.5 rounded border border-emerald-200">Free Item</span>
+                                @endif
+                            </span>
                         @else
                             <span>₹{{ number_format($shippingAmount, 2) }}</span>
                         @endif

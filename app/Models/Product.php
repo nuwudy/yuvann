@@ -31,6 +31,7 @@ class Product extends Model
         'description',
         'is_active',
         'is_featured',
+        'is_free_shipping',
         'featured_order',
     ];
 
@@ -43,6 +44,7 @@ class Product extends Model
             'gallery_images' => 'array',
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
+            'is_free_shipping' => 'boolean',
         ];
     }
 

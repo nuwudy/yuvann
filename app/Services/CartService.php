@@ -38,6 +38,7 @@ class CartService
                 'original_price' => $variant ? (float) $variant->price : (float) $product->price,
                 'unit_size' => $variant ? $variant->unit_size : $product->unit_size,
                 'featured_image' => $product->featured_image,
+                'is_free_shipping' => (bool) ($product->is_free_shipping ?? false),
                 'quantity' => $quantity,
             ];
         }
@@ -115,6 +116,34 @@ class CartService
     public static function getFormattedSubtotal(): string
     {
         return '₹' . number_format(self::getSubtotal(), 2);
+    }
+
+    /**
+     * Check if the cart qualifies for free shipping due to containing free shipping products.
+     */
+    public static function hasFreeShipping(): bool
+    {
+        $items = self::getItems();
+        if (empty($items)) {
+            return false;
+        }
+
+        // Fast check from session
+        foreach ($items as $item) {
+            if (!empty($item['is_free_shipping'])) {
+                return true;
+            }
+        }
+
+        // DB fallback for sessions populated before free shipping was toggled
+        $productIds = array_filter(array_column($items, 'id'));
+        if (empty($productIds)) {
+            return false;
+        }
+
+        return Product::whereIn('id', $productIds)
+            ->where('is_free_shipping', true)
+            ->exists();
     }
 
     /**

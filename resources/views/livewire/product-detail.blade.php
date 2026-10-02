@@ -195,14 +195,22 @@
         <!-- Right Side: Details & Actions -->
         <div class="lg:col-span-6 space-y-6 text-left">
             <!-- Badge & Stock Status -->
-            <div class="flex items-center justify-between">
-                @if($product->badge)
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-gold-500 text-brand-green-900 tracking-wide uppercase shadow-sm">
-                        {{ $product->badge }}
-                    </span>
-                @else
-                    <div></div>
-                @endif
+            <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-2 flex-wrap">
+                    @if($product->badge)
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-gold-500 text-brand-green-900 tracking-wide uppercase shadow-sm">
+                            {{ $product->badge }}
+                        </span>
+                    @endif
+                    @if($product->is_free_shipping)
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300 tracking-wide uppercase shadow-xs">
+                            <svg class="w-3.5 h-3.5 fill-current text-emerald-700" viewBox="0 0 24 24">
+                                <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                            </svg>
+                            Free Shipping
+                        </span>
+                    @endif
+                </div>
                 
                 @php
                     $activeVariant = $this->getSelectedVariant();
@@ -288,6 +296,15 @@
                         </span>
                     @else
                         <span class="text-3xl font-serif font-bold text-brand-green-900">₹{{ number_format($displayPrice, 2) }}</span>
+                    @endif
+
+                    @if($product->is_free_shipping)
+                        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                            <svg class="w-3.5 h-3.5 fill-current text-emerald-600" viewBox="0 0 24 24">
+                                <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                            </svg>
+                            <span>Eligible for FREE Shipping</span>
+                        </div>
                     @endif
                 </div>
             </div>
