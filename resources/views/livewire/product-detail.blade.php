@@ -203,11 +203,12 @@
                         </span>
                     @endif
                     @if($product->is_free_shipping)
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300 tracking-wide uppercase shadow-xs">
-                            <svg class="w-3.5 h-3.5 fill-current text-emerald-700" viewBox="0 0 24 24">
+                        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black tracking-wide uppercase text-white shadow-md"
+                              style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4) !important; border: 1.5px solid #ffffff !important;">
+                            <svg class="w-4 h-4 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24">
                                 <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                             </svg>
-                            Free Shipping
+                            <span class="font-extrabold" style="text-shadow: 0 1px 2px rgba(0,0,0,0.25);">FREE SHIPPING</span>
                         </span>
                     @endif
                 </div>
@@ -299,11 +300,10 @@
                     @endif
 
                     @if($product->is_free_shipping)
-                        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
-                            <svg class="w-3.5 h-3.5 fill-current text-emerald-600" viewBox="0 0 24 24">
-                                <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-                            </svg>
-                            <span>Eligible for FREE Shipping</span>
+                        <div class="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold px-3 py-1.5 rounded-lg border shadow-xs"
+                             style="background-color: #ecfdf5 !important; color: #047857 !important; border-color: #a7f3d0 !important;">
+                            <span class="text-base">🚚</span>
+                            <span>Eligible for <strong>FREE Shipping</strong> (Save ₹60)</span>
                         </div>
                     @endif
                 </div>

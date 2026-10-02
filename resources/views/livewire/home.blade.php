@@ -162,11 +162,12 @@
                             @endif
 
                             @if($product->is_free_shipping)
-                                <span class="absolute top-4 right-4 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-600/95 backdrop-blur-sm text-[9px] font-extrabold text-white tracking-wider uppercase shadow-md">
-                                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                <span class="absolute top-3.5 right-3.5 z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-black tracking-wider uppercase shadow-xl"
+                                      style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45) !important; border: 1.5px solid #ffffff !important;">
+                                    <svg class="w-3.5 h-3.5 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24">
                                         <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                                     </svg>
-                                    <span>Free Shipping</span>
+                                    <span class="font-black leading-none" style="text-shadow: 0 1px 2px rgba(0,0,0,0.25);">FREE SHIPPING</span>
                                 </span>
                             @endif
 
@@ -373,11 +374,12 @@
                             @endif
 
                             @if($product->is_free_shipping)
-                                <span class="absolute top-4 right-4 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-600/95 backdrop-blur-sm text-[9px] font-extrabold text-white tracking-wider uppercase shadow-md">
-                                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                <span class="absolute top-3.5 right-3.5 z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-black tracking-wider uppercase shadow-xl"
+                                      style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45) !important; border: 1.5px solid #ffffff !important;">
+                                    <svg class="w-3.5 h-3.5 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24">
                                         <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                                     </svg>
-                                    <span>Free Shipping</span>
+                                    <span class="font-black leading-none" style="text-shadow: 0 1px 2px rgba(0,0,0,0.25);">FREE SHIPPING</span>
                                 </span>
                             @endif
 
@@ -486,11 +488,12 @@
                             @endif
 
                             @if($product->is_free_shipping)
-                                <span class="absolute top-4 right-4 z-10 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-600/95 backdrop-blur-sm text-[9px] font-extrabold text-white tracking-wider uppercase shadow-md">
-                                    <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24">
+                                <span class="absolute top-3.5 right-3.5 z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-black tracking-wider uppercase shadow-xl"
+                                      style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45) !important; border: 1.5px solid #ffffff !important;">
+                                    <svg class="w-3.5 h-3.5 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24">
                                         <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                                     </svg>
-                                    <span>Free Shipping</span>
+                                    <span class="font-black leading-none" style="text-shadow: 0 1px 2px rgba(0,0,0,0.25);">FREE SHIPPING</span>
                                 </span>
                             @endif
 

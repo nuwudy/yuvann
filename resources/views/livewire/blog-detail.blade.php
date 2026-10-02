@@ -213,9 +213,10 @@
                                     @endif
 
                                     @if($product->is_free_shipping)
-                                        <span class="absolute bottom-2.5 left-2.5 bg-emerald-600/95 backdrop-blur-sm text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full shadow-xs flex items-center gap-1 uppercase tracking-wider">
-                                            <svg class="w-2.5 h-2.5 fill-current" viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-                                            Free Shipping
+                                        <span class="absolute bottom-2.5 left-2.5 z-10 text-white font-black text-[9px] px-2.5 py-1 rounded-full shadow-lg flex items-center gap-1 uppercase tracking-wider"
+                                              style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 3px 10px rgba(5, 150, 105, 0.45) !important; border: 1px solid #ffffff !important;">
+                                            <svg class="w-2.5 h-2.5 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                                            <span class="font-extrabold leading-none">FREE SHIPPING</span>
                                         </span>
                                     @endif
                                 </div>
