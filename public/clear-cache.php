@@ -10,7 +10,8 @@ $kernel->handle(
 
 try {
     \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-    echo "<h1>Cache Cleared Successfully!</h1>";
+    \Illuminate\Support\Facades\Artisan::call('view:cache');
+    echo "<h1>Cache Cleared & Views Pre-Compiled Successfully!</h1>";
 } catch (\Exception $e) {
     echo "<h1>Error clearing cache:</h1>";
     echo "<p>" . $e->getMessage() . "</p>";

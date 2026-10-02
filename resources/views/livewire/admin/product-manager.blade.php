@@ -144,7 +144,10 @@
                             <!-- Actions -->
                             <td class="px-6 py-4 text-right space-x-2">
                                 <button wire:click="openVariantManager({{ $product->id }})" class="text-brand-green-600 hover:text-brand-green-800 font-bold">Variants</button>
-                                <button wire:click="openEditForm({{ $product->id }})" class="text-brand-gold-600 hover:text-brand-gold-700 font-bold">Edit</button>
+                                <button wire:click="openEditForm({{ $product->id }})" wire:loading.attr="disabled" class="text-brand-gold-600 hover:text-brand-gold-700 font-bold disabled:opacity-50">
+                                    <span wire:loading.remove wire:target="openEditForm({{ $product->id }})">Edit</span>
+                                    <span wire:loading wire:target="openEditForm({{ $product->id }})" class="text-[10px]">Loading...</span>
+                                </button>
                                 <button wire:click="deleteProduct({{ $product->id }})" 
                                         onclick="confirm('Are you sure you want to delete this product?') || event.stopImmediatePropagation()"
                                         class="text-red-600 hover:text-red-700 font-bold">Delete</button>
@@ -206,7 +209,7 @@
                     <!-- Title -->
                     <div class="md:col-span-6">
                         <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Product Title *</label>
-                        <input type="text" wire:model.live="name" placeholder="e.g. Ruthu Santhi Oil" 
+                        <input type="text" wire:model.blur="name" placeholder="e.g. Ruthu Santhi Oil" 
                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('name') border-red-400 @enderror">
                         @error('name') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
                     </div>
@@ -576,9 +579,16 @@
                                 class="px-5 py-2 border border-brand-green-200 rounded-full text-xs font-semibold text-brand-green-800 bg-white hover:bg-brand-green-50 transition-all">
                             Cancel
                         </button>
-                        <button type="submit"
-                                class="px-6 py-2 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all">
-                            Save Product
+                        <button type="submit" wire:loading.attr="disabled"
+                                class="px-6 py-2 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all flex items-center gap-2 disabled:opacity-50">
+                            <span wire:loading.remove wire:target="saveProduct">Save Product</span>
+                            <span wire:loading wire:target="saveProduct" class="inline-flex items-center gap-1.5">
+                                <svg class="animate-spin h-3.5 w-3.5 text-white" viewBox="0 0 24 24" fill="none">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                </svg>
+                                Saving...
+                            </span>
                         </button>
                     </div>
                 </div>
