@@ -163,11 +163,11 @@
                                 <span x-show="lang === 'ml'">ഹെൽപ്പ്‌ലൈൻ (Helpline)</span>
                                 <span x-show="lang === 'en'">Contact</span>
                             </span>
-                            <a href="tel:+917736609299" class="text-xs sm:text-sm font-bold text-white hover:text-brand-gold-300">77366 09299</a>
+                            <a href="tel:+919447365545" class="text-xs sm:text-sm font-bold text-white hover:text-brand-gold-300">94473 65545</a>
                         </div>
                     </div>
                     <div class="text-[11px] text-brand-green-200 space-y-0.5">
-                        <div>Alt: <a href="tel:+919447365545" class="underline hover:text-white">94473 65545</a></div>
+                        <div>Alt: <a href="tel:+917736609299" class="underline hover:text-white">77366 09299</a></div>
                         <div class="text-brand-gold-300 font-semibold">Dr. Sajeev Dev, DBA</div>
                         <div class="text-[10px] text-brand-green-300">Paramparya Vaidhyan</div>
                     </div>
@@ -381,10 +381,10 @@
                         <span x-show="lang === 'en'">Due to limited slots, contact directly via WhatsApp or phone call to confirm your appointment date.</span>
                     </p>
 
-                    <!-- WhatsApp CTA Buttons (Primary: 77366 09299 | Alternate: 94473 65545) -->
+                    <!-- WhatsApp CTA Buttons (Primary: 94473 65545 | Alternate: 77366 09299) -->
                     <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <!-- Primary WhatsApp Button (77366 09299) -->
-                        <a href="https://wa.me/917736609299?text={{ urlencode('നമസ്കാരം ഡോ. സജീവ് ദേവ്, കരിയാട് വെച്ച് നടക്കുന്ന മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സയ്ക്കായി (Migraine Ottamooli Treatment) അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്നു. ലഭ്യമായ തീയതിയും മറ്റു വിവരങ്ങളും അറിയിക്കാമോ?') }}" 
+                        <!-- Primary WhatsApp Button (94473 65545) -->
+                        <a href="https://wa.me/919447365545?text={{ urlencode('നമസ്കാരം ഡോ. സജീവ് ദേവ്, കരിയാട് വെച്ച് നടക്കുന്ന മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സയ്ക്കായി (Migraine Ottamooli Treatment) അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്നു. ലഭ്യമായ തീയതിയും മറ്റു വിവരങ്ങളും അറിയിക്കാമോ?') }}" 
                            target="_blank" 
                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 font-bold text-sm sm:text-base rounded-full shadow-2xl hover:scale-105 transition-all duration-300"
                            style="background-color: #25D366 !important; color: #07150f !important;">
@@ -396,12 +396,12 @@
                                     <span x-show="lang === 'ml'">വാട്സ്ആപ്പിൽ ബുക്ക് ചെയ്യുക</span>
                                     <span x-show="lang === 'en'">Book on WhatsApp</span>
                                 </div>
-                                <div class="text-base font-extrabold">77366 09299</div>
+                                <div class="text-base font-extrabold">94473 65545</div>
                             </div>
                         </a>
 
-                        <!-- Secondary WhatsApp Button (94473 65545) -->
-                        <a href="https://wa.me/919447365545?text={{ urlencode('നമസ്കാരം ഡോ. സജീവ് ദേവ്, കരിയാട് വെച്ച് നടക്കുന്ന മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സയ്ക്കായി (Migraine Ottamooli Treatment) അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്നു. ലഭ്യമായ തീയതിയും മറ്റു വിവരങ്ങളും അറിയിക്കാമോ?') }}" 
+                        <!-- Secondary WhatsApp Button (77366 09299) -->
+                        <a href="https://wa.me/917736609299?text={{ urlencode('നമസ്കാരം ഡോ. സജീവ് ദേവ്, കരിയാട് വെച്ച് നടക്കുന്ന മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സയ്ക്കായി (Migraine Ottamooli Treatment) അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്നു. ലഭ്യമായ തീയതിയും മറ്റു വിവരങ്ങളും അറിയിക്കാമോ?') }}" 
                            target="_blank" 
                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 font-bold text-sm sm:text-base rounded-full shadow-2xl hover:scale-105 transition-all duration-300"
                            style="background-color: #d4af37 !important; color: #07150f !important;">
@@ -413,7 +413,7 @@
                                     <span x-show="lang === 'ml'">വാട്സ്ആപ്പ് 2</span>
                                     <span x-show="lang === 'en'">WhatsApp 2</span>
                                 </div>
-                                <div class="text-base font-extrabold">94473 65545</div>
+                                <div class="text-base font-extrabold">77366 09299</div>
                             </div>
                         </a>
                     </div>
@@ -425,12 +425,12 @@
                             <span x-show="lang === 'ml'">ഫോണിൽ നേരിട്ട് വിളിക്കാൻ:</span>
                             <span x-show="lang === 'en'">Direct Phone Calls:</span>
                         </span>
-                        <a href="tel:+917736609299" class="underline font-bold hover:text-brand-gold-300" style="color: #ffffff !important;">
-                            📞 77366 09299
-                        </a>
-                        <span class="text-brand-gold-500">|</span>
                         <a href="tel:+919447365545" class="underline font-bold hover:text-brand-gold-300" style="color: #ffffff !important;">
                             📞 94473 65545
+                        </a>
+                        <span class="text-brand-gold-500">|</span>
+                        <a href="tel:+917736609299" class="underline font-bold hover:text-brand-gold-300" style="color: #ffffff !important;">
+                            📞 77366 09299
                         </a>
                     </div>
                 </div>
@@ -464,11 +464,11 @@
 
         <!-- Sticky Mobile Bottom Floating Action Bar -->
         <div class="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-brand-green-100 p-3 sm:hidden shadow-2xl flex items-center justify-between gap-3">
-            <a href="tel:+917736609299" 
+            <a href="tel:+919447365545" 
                class="flex-1 py-2.5 bg-gray-100 text-brand-green-950 font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 border border-gray-200 shadow-xs">
                 <span>📞 Call</span>
             </a>
-            <a href="https://wa.me/917736609299?text={{ urlencode('നമസ്കാരം ഡോ. സജീവ് ദേവ്, കരിയാട് വെച്ച് നടക്കുന്ന മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സയ്ക്കായി (Migraine Ottamooli Treatment) അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്നു. ലഭ്യമായ തീയതിയും മറ്റു വിവരങ്ങളും അറിയിക്കാമോ?') }}" 
+            <a href="https://wa.me/919447365545?text={{ urlencode('നമസ്കാരം ഡോ. സജീവ് ദേവ്, കരിയാട് വെച്ച് നടക്കുന്ന മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സയ്ക്കായി (Migraine Ottamooli Treatment) അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യാൻ ആഗ്രഹിക്കുന്നു. ലഭ്യമായ തീയതിയും മറ്റു വിവരങ്ങളും അറിയിക്കാമോ?') }}" 
                target="_blank" 
                class="flex-2 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-1.5 shadow-md">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
