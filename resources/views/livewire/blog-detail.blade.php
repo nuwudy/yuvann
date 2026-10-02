@@ -242,13 +242,20 @@
                                 <div>
                                     <div class="text-xs text-gray-400 font-normal">Price:</div>
                                     <div class="flex items-baseline gap-1.5">
-                                        <span class="text-base font-bold text-brand-green-900">
-                                            ₹{{ number_format($product->active_price, 2) }}
-                                        </span>
-                                        @if($product->is_on_sale)
-                                            <span class="text-xs text-gray-400 line-through">
-                                                ₹{{ number_format($product->price, 2) }}
+                                        @if($product->has_price_range)
+                                            <span class="text-xs text-brand-green-700/60 font-medium">From</span>
+                                            <span class="text-base font-bold text-brand-green-900">
+                                                ₹{{ number_format($product->min_price, 2) }}
                                             </span>
+                                        @else
+                                            <span class="text-base font-bold text-brand-green-900">
+                                                ₹{{ number_format($product->active_price, 2) }}
+                                            </span>
+                                            @if($product->is_on_sale)
+                                                <span class="text-xs text-gray-400 line-through">
+                                                    ₹{{ number_format($product->price, 2) }}
+                                                </span>
+                                            @endif
                                         @endif
                                     </div>
                                 </div>
@@ -259,14 +266,21 @@
                                         Details
                                     </a>
                                     @if($product->in_stock)
-                                        <button type="button" 
-                                                wire:click="addToCart({{ $product->id }})" 
-                                                class="px-3.5 py-1.5 bg-brand-green-800 hover:bg-brand-green-700 text-white text-xs font-semibold rounded-lg shadow-sm hover:shadow transition-all flex items-center gap-1">
-                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                                            </svg>
-                                            <span>Add to Cart</span>
-                                        </button>
+                                        @if($product->has_multiple_variants)
+                                            <a href="/products/{{ $product->slug }}" 
+                                               class="px-3.5 py-1.5 bg-brand-green-800 hover:bg-brand-green-700 text-white text-xs font-semibold rounded-lg shadow-sm hover:shadow transition-all flex items-center gap-1">
+                                                <span>Select Size</span>
+                                            </a>
+                                        @else
+                                            <button type="button" 
+                                                    wire:click="addToCart({{ $product->id }})" 
+                                                    class="px-3.5 py-1.5 bg-brand-green-800 hover:bg-brand-green-700 text-white text-xs font-semibold rounded-lg shadow-sm hover:shadow transition-all flex items-center gap-1">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                                                </svg>
+                                                <span>Add to Cart</span>
+                                            </button>
+                                        @endif
                                     @endif
                                 </div>
                             </div>

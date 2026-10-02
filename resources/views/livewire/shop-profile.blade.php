@@ -121,14 +121,38 @@
                             </div>
                         @endif
                         
-                        <div class="flex items-center justify-between mt-auto pt-4">
+                        @if($product->has_multiple_variants)
+                            <div class="mt-2 pt-2 border-t border-brand-green-50">
+                                <div class="flex flex-wrap gap-1.5">
+                                    @foreach($product->active_variants as $v)
+                                        <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
+                                           class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-green-50 border border-brand-green-200 text-brand-green-900 hover:border-brand-gold-500 hover:bg-brand-gold-50 hover:text-brand-gold-700 transition-colors"
+                                           title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
+                                            <span>{{ $v->unit_size }}</span>
+                                            <span class="text-[9px] text-brand-green-700/60 font-normal ml-1">· ₹{{ number_format($v->active_price, 0) }}</span>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @elseif($product->unit_size)
+                            <p class="text-xs text-brand-green-700/60 mt-1">{{ $product->unit_size }}</p>
+                        @endif
+                        
+                        <div class="flex items-center justify-between mt-auto pt-3">
                             <div class="flex flex-col">
-                                <span class="font-sans text-sm font-bold text-brand-green-900">₹{{ number_format($product->active_price, 2) }}</span>
-                                @if($product->is_on_sale)
-                                    <span class="text-[10px] text-brand-green-700/50 line-through">₹{{ number_format($product->price, 2) }}</span>
+                                @if($product->has_price_range)
+                                    <div class="flex items-baseline gap-1">
+                                        <span class="text-[10px] font-semibold text-brand-green-700/60">From</span>
+                                        <span class="font-sans text-sm font-bold text-brand-green-900">₹{{ number_format($product->min_price, 2) }}</span>
+                                    </div>
+                                @else
+                                    <span class="font-sans text-sm font-bold text-brand-green-900">₹{{ number_format($product->active_price, 2) }}</span>
+                                    @if($product->is_on_sale)
+                                        <span class="text-[10px] text-brand-green-700/50 line-through">₹{{ number_format($product->price, 2) }}</span>
+                                    @endif
                                 @endif
                             </div>
-                            <a href="/products/{{ $product->slug }}" class="w-8 h-8 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center hover:bg-brand-gold-500 hover:text-brand-green-900 transition-colors">
+                            <a href="/products/{{ $product->slug }}" class="w-8 h-8 rounded-full bg-brand-green-50 text-brand-green-800 flex items-center justify-center hover:bg-brand-gold-500 hover:text-brand-green-900 transition-colors" title="View Options">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
                         </div>

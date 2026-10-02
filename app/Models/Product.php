@@ -114,6 +114,55 @@ class Product extends Model
     }
 
     /**
+     * Get active variants collection (using loaded relation if present, otherwise querying).
+     */
+    public function getActiveVariantsAttribute()
+    {
+        if ($this->relationLoaded('variants')) {
+            return $this->variants->filter(fn($v) => (bool) ($v->is_active ?? true))->values();
+        }
+        return $this->variants()->where('is_active', true)->get();
+    }
+
+    /**
+     * Check if product has multiple active variants.
+     */
+    public function getHasMultipleVariantsAttribute(): bool
+    {
+        return $this->active_variants->count() > 1;
+    }
+
+    /**
+     * Get the lowest active price among variants, or base product active price.
+     */
+    public function getMinPriceAttribute(): float
+    {
+        if ($this->has_multiple_variants) {
+            return (float) $this->active_variants->min(fn($v) => (float) $v->active_price);
+        }
+        return (float) $this->active_price;
+    }
+
+    /**
+     * Get the highest active price among variants, or base product active price.
+     */
+    public function getMaxPriceAttribute(): float
+    {
+        if ($this->has_multiple_variants) {
+            return (float) $this->active_variants->max(fn($v) => (float) $v->active_price);
+        }
+        return (float) $this->active_price;
+    }
+
+    /**
+     * Check if the product has varying prices across active variants.
+     */
+    public function getHasPriceRangeAttribute(): bool
+    {
+        return $this->has_multiple_variants && ($this->min_price < $this->max_price);
+    }
+
+    /**
      * Check if the product has a sale price active.
      */
     public function getIsOnSaleAttribute(): bool

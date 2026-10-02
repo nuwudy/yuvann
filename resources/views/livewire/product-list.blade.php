@@ -220,12 +220,38 @@
                                 <p class="text-xs text-brand-green-700/60 mt-1.5 flex-grow line-clamp-2">
                                     {{ $product->short_description }}
                                 </p>
-                                <div class="flex items-center justify-between mt-4">
-                                    <span class="text-xs text-brand-green-800 font-medium bg-brand-green-50 px-2 py-0.5 rounded-md border border-brand-green-100">
-                                        {{ $product->unit_size }}
-                                    </span>
-                                    <div class="flex items-baseline gap-1.5">
-                                        @if($product->is_on_sale)
+                                @if($product->has_multiple_variants)
+                                    <div class="mt-3 pt-2 border-t border-brand-green-50/80">
+                                        <div class="text-[10px] uppercase font-bold text-brand-green-800/60 mb-1.5 flex items-center justify-between">
+                                            <span>Available Sizes:</span>
+                                            <span class="text-brand-gold-600 font-semibold lowercase">{{ $product->active_variants->count() }} options</span>
+                                        </div>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            @foreach($product->active_variants as $v)
+                                                <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
+                                                   class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-brand-green-50/70 border border-brand-green-200/80 text-brand-green-900 hover:border-brand-gold-500 hover:bg-brand-gold-50 hover:text-brand-gold-700 transition-all"
+                                                   title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
+                                                    <span>{{ $v->unit_size }}</span>
+                                                    <span class="text-[10px] text-brand-green-700/60 font-normal ml-1">· ₹{{ number_format($v->active_price, 0) }}</span>
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="flex items-center justify-between mt-3">
+                                    @if(!$product->has_multiple_variants && $product->unit_size)
+                                        <span class="text-xs text-brand-green-800 font-medium bg-brand-green-50 px-2 py-0.5 rounded-md border border-brand-green-100">
+                                            {{ $product->unit_size }}
+                                        </span>
+                                    @else
+                                        <div></div>
+                                    @endif
+                                    <div class="flex items-baseline gap-1.5 ml-auto">
+                                        @if($product->has_price_range)
+                                            <span class="text-xs text-brand-green-700/60 font-medium">From</span>
+                                            <span class="text-base font-bold text-brand-green-900">₹{{ number_format($product->min_price, 2) }}</span>
+                                        @elseif($product->is_on_sale)
                                             <span class="text-xs text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
                                             <span class="text-base font-bold text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
                                         @else
@@ -237,13 +263,23 @@
 
                             <!-- Actions Container -->
                             <div class="px-5 pb-5 pt-2 border-t border-brand-green-50 flex gap-2">
-                                <button wire:click="addToCart({{ $product->id }})" 
-                                        class="flex-1 py-2 px-3 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all focus:outline-none">
-                                    Add to Cart
-                                </button>
+                                @if($product->has_multiple_variants)
+                                    <a href="/products/{{ $product->slug }}" 
+                                       class="flex-1 py-2 px-3 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all text-center flex items-center justify-center gap-1">
+                                        <span>Select Size</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </a>
+                                @else
+                                    <button wire:click="addToCart({{ $product->id }})" 
+                                            class="flex-1 py-2 px-3 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all focus:outline-none">
+                                        Add to Cart
+                                    </button>
+                                @endif
                                 
                                 @php
-                                    $waMessage = "Hello Dr. Sajeev Dev, I would like to buy *" . $product->name . "* (" . $product->unit_size . ") priced at ₹" . number_format($product->active_price, 2) . ". Please guide me with payment details. Product link: " . url('/products/' . $product->slug);
+                                    $waUnit = $product->has_multiple_variants ? ($product->active_variants->first()->unit_size ?? $product->unit_size) : $product->unit_size;
+                                    $waPrice = $product->has_multiple_variants ? $product->min_price : $product->active_price;
+                                    $waMessage = "Hello Dr. Sajeev Dev, I would like to buy *" . $product->name . "* (" . $waUnit . ") priced at ₹" . number_format($waPrice, 2) . ". Please guide me with payment details. Product link: " . url('/products/' . $product->slug);
                                     $waUrl = "https://wa.me/917736609299?text=" . urlencode($waMessage);
                                 @endphp
                                 <a href="{{ $waUrl }}" target="_blank" 

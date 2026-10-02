@@ -27,7 +27,7 @@ class Home extends Component
 
     public function render()
     {
-        $allActiveProducts = Product::with(['categories', 'reviews'])
+        $allActiveProducts = Product::with(['categories', 'reviews', 'variants'])
             ->where('is_active', true)
             ->get();
 

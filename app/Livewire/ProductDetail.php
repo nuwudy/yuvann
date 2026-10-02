@@ -25,7 +25,12 @@ class ProductDetail extends Component
             ->firstOrFail();
 
         if ($this->product->variants->isNotEmpty()) {
-            $this->selectedVariantId = $this->product->variants->first()->id;
+            $requestedVariantId = request()->query('variant');
+            if ($requestedVariantId && $this->product->variants->contains('id', (int) $requestedVariantId)) {
+                $this->selectedVariantId = (int) $requestedVariantId;
+            } else {
+                $this->selectedVariantId = $this->product->variants->first()->id;
+            }
         }
     }
 

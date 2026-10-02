@@ -37,7 +37,11 @@
                                 <span class="text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap text-white group-hover/item:text-brand-gold-400 transition-colors" style="color: #ffffff;">
                                     {{ $product->name }}
                                 </span>
-                                @if($product->is_on_sale)
+                                @if($product->has_price_range)
+                                    <span class="text-[11px] font-bold text-brand-green-950 bg-brand-gold-400 px-2.5 py-0.5 rounded-full shadow-xs whitespace-nowrap">
+                                        From ₹{{ number_format($product->min_price) }}
+                                    </span>
+                                @elseif($product->is_on_sale)
                                     <span class="text-[11px] font-bold text-brand-green-950 bg-brand-gold-400 px-2.5 py-0.5 rounded-full shadow-xs whitespace-nowrap">
                                         ₹{{ number_format($product->active_price) }}
                                     </span>
@@ -179,9 +183,15 @@
                                 
                                 <!-- Desktop Quick Add Overlay -->
                                 <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
-                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
-                                        Quick Add - ₹{{ number_format($product->active_price, 2) }}
-                                    </button>
+                                    @if($product->has_multiple_variants)
+                                        <a href="/products/{{ $product->slug }}" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200 block text-center">
+                                            View Sizes · From ₹{{ number_format($product->min_price, 2) }}
+                                        </a>
+                                    @else
+                                        <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
+                                            Quick Add - ₹{{ number_format($product->active_price, 2) }}
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 
@@ -203,10 +213,27 @@
                                         <span class="text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
                                     </div>
                                 @endif
-                                <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size ?? '' }}</p>
                                 
-                                <div class="mt-auto flex items-center justify-center gap-3">
-                                    @if($product->is_on_sale)
+                                @if($product->has_multiple_variants)
+                                    <div class="flex flex-wrap items-center justify-center gap-1.5 mb-3">
+                                        @foreach($product->active_variants as $v)
+                                            <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
+                                               class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-green-50 border border-brand-green-200 text-brand-green-900 hover:border-brand-gold-500 hover:bg-brand-gold-50 hover:text-brand-gold-700 transition-colors"
+                                               title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
+                                                <span>{{ $v->unit_size }}</span>
+                                                <span class="text-[9px] text-brand-green-700/60 font-normal ml-1">· ₹{{ number_format($v->active_price, 0) }}</span>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @elseif($product->unit_size)
+                                    <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size }}</p>
+                                @endif
+                                
+                                <div class="mt-auto flex items-center justify-center gap-2">
+                                    @if($product->has_price_range)
+                                        <span class="text-xs text-brand-green-700/60 font-medium">From</span>
+                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->min_price, 2) }}</span>
+                                    @elseif($product->is_on_sale)
                                         <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
                                         <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
                                     @else
@@ -216,9 +243,15 @@
                                 
                                 <!-- Mobile / Tablet Add Button -->
                                 <div class="mt-5 lg:hidden">
-                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
-                                        Add to Cart
-                                    </button>
+                                    @if($product->has_multiple_variants)
+                                        <a href="/products/{{ $product->slug }}" class="block text-center w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
+                                            Select Size
+                                        </a>
+                                    @else
+                                        <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
+                                            Add to Cart
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -391,9 +424,15 @@
                                 
                                 <!-- Desktop Quick Add Overlay -->
                                 <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
-                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
-                                        Quick Add - ₹{{ number_format($product->active_price, 2) }}
-                                    </button>
+                                    @if($product->has_multiple_variants)
+                                        <a href="/products/{{ $product->slug }}" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200 block text-center">
+                                            View Sizes · From ₹{{ number_format($product->min_price, 2) }}
+                                        </a>
+                                    @else
+                                        <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
+                                            Quick Add - ₹{{ number_format($product->active_price, 2) }}
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 
@@ -415,10 +454,27 @@
                                         <span class="text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
                                     </div>
                                 @endif
-                                <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size ?? '' }}</p>
                                 
-                                <div class="mt-auto flex items-center justify-center gap-3">
-                                    @if($product->is_on_sale)
+                                @if($product->has_multiple_variants)
+                                    <div class="flex flex-wrap items-center justify-center gap-1.5 mb-3">
+                                        @foreach($product->active_variants as $v)
+                                            <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
+                                               class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-green-50 border border-brand-green-200 text-brand-green-900 hover:border-brand-gold-500 hover:bg-brand-gold-50 hover:text-brand-gold-700 transition-colors"
+                                               title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
+                                                <span>{{ $v->unit_size }}</span>
+                                                <span class="text-[9px] text-brand-green-700/60 font-normal ml-1">· ₹{{ number_format($v->active_price, 0) }}</span>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @elseif($product->unit_size)
+                                    <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size }}</p>
+                                @endif
+                                
+                                <div class="mt-auto flex items-center justify-center gap-2">
+                                    @if($product->has_price_range)
+                                        <span class="text-xs text-brand-green-700/60 font-medium">From</span>
+                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->min_price, 2) }}</span>
+                                    @elseif($product->is_on_sale)
                                         <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
                                         <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
                                     @else
@@ -428,9 +484,15 @@
                                 
                                 <!-- Mobile / Tablet Add Button -->
                                 <div class="mt-5 lg:hidden">
-                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
-                                        Add to Cart
-                                    </button>
+                                    @if($product->has_multiple_variants)
+                                        <a href="/products/{{ $product->slug }}" class="block text-center w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
+                                            Select Size
+                                        </a>
+                                    @else
+                                        <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
+                                            Add to Cart
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -505,9 +567,15 @@
                                 
                                 <!-- Desktop Quick Add Overlay -->
                                 <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
-                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
-                                        Quick Add - ₹{{ number_format($product->active_price, 2) }}
-                                    </button>
+                                    @if($product->has_multiple_variants)
+                                        <a href="/products/{{ $product->slug }}" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200 block text-center">
+                                            View Sizes · From ₹{{ number_format($product->min_price, 2) }}
+                                        </a>
+                                    @else
+                                        <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
+                                            Quick Add - ₹{{ number_format($product->active_price, 2) }}
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 
@@ -529,10 +597,27 @@
                                         <span class="text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
                                     </div>
                                 @endif
-                                <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size ?? '' }}</p>
                                 
-                                <div class="mt-auto flex items-center justify-center gap-3">
-                                    @if($product->is_on_sale)
+                                @if($product->has_multiple_variants)
+                                    <div class="flex flex-wrap items-center justify-center gap-1.5 mb-3">
+                                        @foreach($product->active_variants as $v)
+                                            <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
+                                               class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-green-50 border border-brand-green-200 text-brand-green-900 hover:border-brand-gold-500 hover:bg-brand-gold-50 hover:text-brand-gold-700 transition-colors"
+                                               title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
+                                                <span>{{ $v->unit_size }}</span>
+                                                <span class="text-[9px] text-brand-green-700/60 font-normal ml-1">· ₹{{ number_format($v->active_price, 0) }}</span>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @elseif($product->unit_size)
+                                    <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size }}</p>
+                                @endif
+                                
+                                <div class="mt-auto flex items-center justify-center gap-2">
+                                    @if($product->has_price_range)
+                                        <span class="text-xs text-brand-green-700/60 font-medium">From</span>
+                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->min_price, 2) }}</span>
+                                    @elseif($product->is_on_sale)
                                         <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
                                         <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
                                     @else
@@ -542,9 +627,15 @@
                                 
                                 <!-- Mobile / Tablet Add Button -->
                                 <div class="mt-5 lg:hidden">
-                                    <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
-                                        Add to Cart
-                                    </button>
+                                    @if($product->has_multiple_variants)
+                                        <a href="/products/{{ $product->slug }}" class="block text-center w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
+                                            Select Size
+                                        </a>
+                                    @else
+                                        <button wire:click="addToCart({{ $product->id }})" class="w-full py-2.5 border-2 border-brand-green-800 text-brand-green-800 font-semibold text-xs rounded-lg hover:bg-brand-green-800 hover:text-white active:scale-95 transition-all duration-200">
+                                            Add to Cart
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -74,7 +74,7 @@ class ProductList extends Component
 
     public function render()
     {
-        $query = Product::with(['categories', 'reviews'])->where('is_active', true);
+        $query = Product::with(['categories', 'reviews', 'bodyParts', 'variants'])->where('is_active', true);
 
         // Search Filter (Includes product name, description, SKU, and tagged body parts)
         if (!empty($this->search)) {
