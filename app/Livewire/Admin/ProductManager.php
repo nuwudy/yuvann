@@ -258,6 +258,15 @@ class ProductManager extends Component
             'usage' => $this->normalizeTabText($this->usage),
         ];
 
+        // Ensure featured image is never null (keep existing on edit, or fallback to default)
+        if (empty($featuredImagePath) && $this->productId) {
+            $existingProduct = Product::find($this->productId);
+            $featuredImagePath = $existingProduct?->featured_image;
+        }
+        if (empty($featuredImagePath)) {
+            $featuredImagePath = '/images/yuvann-share.jpg';
+        }
+
         $productData = [
             'name' => $this->name,
             'slug' => $this->slug,
@@ -590,10 +599,14 @@ class ProductManager extends Component
             ->paginate(10);
 
         return view('livewire.admin.product-manager', [
-            'products'   => $products,
-            'categories' => Category::all(),
-            'bodyParts'  => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
-            'shops'      => Shop::orderBy('name', 'asc')->get(),
+            'products'       => $products,
+            'categories'     => Category::all(),
+            'bodyParts'      => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
+            'shops'          => Shop::orderBy('name', 'asc')->get(),
+            'search'         => $this->search,
+            'categoryFilter' => $this->categoryFilter,
+            'bodyPartFilter' => $this->bodyPartFilter,
+            'shopFilter'     => $this->shopFilter,
         ])->layout('components.layouts.admin', ['header' => 'Product Management']);
     }
 

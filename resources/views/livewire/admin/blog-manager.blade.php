@@ -67,7 +67,7 @@
                 <!-- Clear Filters / Quick Count -->
                 <div class="flex items-center justify-between sm:justify-end gap-2 text-xs text-gray-500">
                     <span>Total: <strong class="text-brand-green-900">{{ $posts->total() }}</strong> posts</span>
-                    @if($search || $categoryFilter || $statusFilter)
+                    @if(!empty($search) || !empty($categoryFilter) || !empty($statusFilter))
                         <button wire:click="$set('search', ''); $set('categoryFilter', ''); $set('statusFilter', '');" 
                                 class="text-brand-gold-600 hover:underline font-medium ml-2">
                             Reset

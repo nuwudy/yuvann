@@ -256,6 +256,9 @@ class BlogManager extends Component
             'posts' => $posts,
             'categories' => $categories,
             'availableProducts' => $availableProducts,
+            'search' => $this->search,
+            'categoryFilter' => $this->categoryFilter,
+            'statusFilter' => $this->statusFilter,
         ])->layout('components.layouts.admin', ['header' => 'Blog & Wellness Guides']);
     }
 }

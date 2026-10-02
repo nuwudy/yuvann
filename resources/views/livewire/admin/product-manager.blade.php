@@ -36,7 +36,7 @@
                     <option value="{{ $shop->id }}">{{ $shop->name }}</option>
                 @endforeach
             </select>
-            @if($search || $categoryFilter || $bodyPartFilter || $shopFilter)
+            @if(!empty($search) || !empty($categoryFilter) || !empty($bodyPartFilter) || !empty($shopFilter))
                 <button wire:click="$set('search', ''); $set('categoryFilter', ''); $set('bodyPartFilter', ''); $set('shopFilter', '');" 
                         class="text-[11px] text-brand-gold-700 hover:text-brand-gold-800 font-medium underline self-center px-1 whitespace-nowrap">
                     ✕ Clear filters
