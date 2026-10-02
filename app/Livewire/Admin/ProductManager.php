@@ -90,16 +90,8 @@ class ProductManager extends Component
         $product = Product::findOrFail($id);
 
         $this->productId = $product->id;
-        if (\Illuminate\Support\Facades\Schema::hasTable('category_product')) {
-            $this->category_ids = $product->categories->pluck('id')->toArray();
-        } elseif (isset($product->category_id)) {
-            $this->category_ids = [$product->category_id];
-        } else {
-            $this->category_ids = [];
-        }
-        $this->body_part_ids = \Illuminate\Support\Facades\Schema::hasTable('body_part_product') 
-            ? $product->bodyParts->pluck('id')->toArray() 
-            : [];
+        $this->category_ids = $product->categories->pluck('id')->toArray();
+        $this->body_part_ids = $product->bodyParts->pluck('id')->toArray();
         $this->shop_id = $product->shop_id;
         $this->name = $product->name;
         $this->slug = $product->slug;
@@ -265,8 +257,8 @@ class ProductManager extends Component
             'featured_order' => $this->featured_order,
         ];
 
-        if (\Illuminate\Support\Facades\Schema::hasColumn('products', 'category_id')) {
-            $productData['category_id'] = !empty($this->category_ids) ? $this->category_ids[0] : 1;
+        if (!empty($this->category_ids)) {
+            $productData['category_id'] = $this->category_ids[0];
         }
 
         $product = Product::updateOrCreate(
@@ -274,12 +266,8 @@ class ProductManager extends Component
             $productData
         );
 
-        if (\Illuminate\Support\Facades\Schema::hasTable('category_product')) {
-            $product->categories()->sync($this->category_ids);
-        }
-        if (\Illuminate\Support\Facades\Schema::hasTable('body_part_product')) {
-            $product->bodyParts()->sync($this->body_part_ids);
-        }
+        $product->categories()->sync($this->category_ids);
+        $product->bodyParts()->sync($this->body_part_ids);
 
         session()->flash('success', $this->productId ? 'Product updated successfully!' : 'Product created successfully!');
         $this->closeForm();
@@ -551,26 +539,21 @@ class ProductManager extends Component
     public function render()
     {
         $products = Product::query()
+            ->with(['categories', 'bodyParts', 'shop'])
             ->when(!empty($this->search), function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%')
                   ->orWhere('sku', 'like', '%' . $this->search . '%')
                   ->orWhere('short_description', 'like', '%' . $this->search . '%');
             })
             ->when(!empty($this->categoryFilter), function ($q) {
-                if (\Illuminate\Support\Facades\Schema::hasTable('category_product')) {
-                    $q->whereHas('categories', function ($query) {
-                        $query->where('categories.id', $this->categoryFilter);
-                    });
-                } elseif (\Illuminate\Support\Facades\Schema::hasColumn('products', 'category_id')) {
-                    $q->where('category_id', $this->categoryFilter);
-                }
+                $q->whereHas('categories', function ($query) {
+                    $query->where('categories.id', $this->categoryFilter);
+                });
             })
             ->when(!empty($this->bodyPartFilter), function ($q) {
-                if (\Illuminate\Support\Facades\Schema::hasTable('body_part_product')) {
-                    $q->whereHas('bodyParts', function ($query) {
-                        $query->where('body_parts.id', $this->bodyPartFilter);
-                    });
-                }
+                $q->whereHas('bodyParts', function ($query) {
+                    $query->where('body_parts.id', $this->bodyPartFilter);
+                });
             })
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -578,12 +561,8 @@ class ProductManager extends Component
         return view('livewire.admin.product-manager', [
             'products'   => $products,
             'categories' => Category::all(),
-            'bodyParts'  => \Illuminate\Support\Facades\Schema::hasTable('body_parts') 
-                ? BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get() 
-                : collect(),
-            'shops'      => \Illuminate\Support\Facades\Schema::hasTable('shops') 
-                ? Shop::all() 
-                : collect(),
+            'bodyParts'  => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
+            'shops'      => Shop::all(),
         ])->layout('components.layouts.admin', ['header' => 'Product Management']);
     }
 }

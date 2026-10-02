@@ -85,12 +85,25 @@ class Product extends Model
 
     public function getAverageRatingAttribute(): float
     {
-        return (float) $this->reviews()->where('is_approved', true)->avg('rating') ?? 0.0;
+        if (array_key_exists('reviews_avg_rating', $this->attributes)) {
+            return (float) ($this->attributes['reviews_avg_rating'] ?? 0.0);
+        }
+        if ($this->relationLoaded('reviews')) {
+            $approved = $this->reviews->where('is_approved', true);
+            return (float) ($approved->count() > 0 ? $approved->avg('rating') : 0.0);
+        }
+        return (float) ($this->reviews()->where('is_approved', true)->avg('rating') ?? 0.0);
     }
 
     public function getReviewCountAttribute(): int
     {
-        return $this->reviews()->where('is_approved', true)->count();
+        if (array_key_exists('reviews_count', $this->attributes)) {
+            return (int) ($this->attributes['reviews_count'] ?? 0);
+        }
+        if ($this->relationLoaded('reviews')) {
+            return $this->reviews->where('is_approved', true)->count();
+        }
+        return (int) $this->reviews()->where('is_approved', true)->count();
     }
 
     /**

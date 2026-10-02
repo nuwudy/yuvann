@@ -13,7 +13,7 @@ class ShopProfile extends Component
     public function mount($slug)
     {
         $this->shop = Shop::where('slug', $slug)->where('is_active', true)->firstOrFail();
-        $this->products = $this->shop->products()->where('is_active', true)->get();
+        $this->products = $this->shop->products()->with(['categories', 'reviews'])->where('is_active', true)->get();
     }
 
     public function render()
