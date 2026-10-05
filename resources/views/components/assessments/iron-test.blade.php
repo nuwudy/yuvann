@@ -7,7 +7,7 @@
             </span>
             <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-gray-900">Iron & Blood Vitality Self-Assessment</h2>
             <p class="text-sm sm:text-base text-gray-600 max-w-xl mx-auto mt-2">
-                A structured 6-question clinical screening by Dr. Sajeev Dev to evaluate Rakta Dhatu (blood tissue) vitality and nutrient absorption.
+                A personalized clinical screening by Dr. Sajeev Dev to evaluate Rakta Dhatu (blood tissue) vitality, ferritin depletion indicators, and nutrient absorption.
             </p>
         </div>
 
@@ -23,24 +23,24 @@
                 
                 <h3 class="text-xl sm:text-2xl font-serif font-bold text-gray-900 mb-3">Understand Your Body's Iron & Vitality Status</h3>
                 <p class="text-sm sm:text-base text-gray-600 max-w-lg mx-auto mb-8 leading-relaxed">
-                    Unexplained fatigue, breathlessness on stairs, cold hands, or brittle nails often signal depleted ferritin and sluggish Rakta Dhatu. This quick, confidential assessment walks you through one symptom at a time.
+                    Unexplained fatigue, breathlessness on stairs, cold hands, or brittle nails often signal depleted ferritin and sluggish Rakta Dhatu. This quick, confidential assessment walks you through one question at a time and sends your full clinical report directly to your WhatsApp.
                 </p>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto mb-8 text-left">
                     <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200">
                         <span class="text-lg block mb-1">⏱️</span>
                         <h4 class="font-bold text-xs uppercase tracking-wide text-gray-900">Takes 2 Minutes</h4>
-                        <p class="text-[11px] text-gray-600 mt-0.5">6 simple, focused questions one at a time.</p>
+                        <p class="text-[11px] text-gray-600 mt-0.5">Quick single-question stepper tailored for you.</p>
+                    </div>
+                    <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200">
+                        <span class="text-lg block mb-1">📲</span>
+                        <h4 class="font-bold text-xs uppercase tracking-wide text-gray-900">WhatsApp Report</h4>
+                        <p class="text-[11px] text-gray-600 mt-0.5">Receive your detailed score & report directly.</p>
                     </div>
                     <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200">
                         <span class="text-lg block mb-1">🌿</span>
-                        <h4 class="font-bold text-xs uppercase tracking-wide text-gray-900">Ayurvedic Insight</h4>
-                        <p class="text-[11px] text-gray-600 mt-0.5">Evaluates both digestive Agni & Rakta tissue.</p>
-                    </div>
-                    <div class="p-3.5 rounded-xl bg-gray-50 border border-gray-200">
-                        <span class="text-lg block mb-1">📋</span>
-                        <h4 class="font-bold text-xs uppercase tracking-wide text-gray-900">Personal Report</h4>
-                        <p class="text-[11px] text-gray-600 mt-0.5">Instant score and doctor-grade recommendations.</p>
+                        <h4 class="font-bold text-xs uppercase tracking-wide text-gray-900">Doctor-Guided</h4>
+                        <p class="text-[11px] text-gray-600 mt-0.5">Ayurvedic guidance by Dr. Sajeev Dev.</p>
                     </div>
                 </div>
 
@@ -52,25 +52,101 @@
                 </button>
             </div>
 
-            <!-- Quiz Stepper Header (Steps 1 to 6) -->
-            <div x-show="step >= 1 && step <= 6" class="mb-6">
+            <!-- Quiz Stepper Header (Steps 1 to 7) -->
+            <div x-show="step >= 1 && step <= 7" class="mb-6">
                 <div class="flex items-center justify-between text-xs font-semibold text-gray-500 mb-2">
                     <span class="text-brand-green-800 uppercase tracking-wider font-bold" x-text="stepCategory"></span>
-                    <span class="font-bold text-gray-700" x-text="`Question ${step} of 6`"></span>
+                    <span class="font-bold text-gray-700" x-text="`Step ${step} of 7`"></span>
                 </div>
                 <div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                     <div class="h-full bg-gradient-to-r from-brand-green-700 to-emerald-500 transition-all duration-300 ease-out"
-                         :style="`width: ${(step / 6) * 100}%`"></div>
+                         :style="`width: ${(step / 7) * 100}%`"></div>
                 </div>
             </div>
 
             <!-- ONE QUESTION AT A TIME -->
 
-            <!-- QUESTION 1: Daily Energy Pattern -->
+            <!-- STEP 1: Personal Demographic Details -->
             <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        1. Which statement best describes your daily energy curve?
+                        1. Tell us about yourself
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-1">To personalize your clinical evaluation and send your report directly to your WhatsApp:</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Full Name -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Full Name <span class="text-red-500">*</span></label>
+                        <input type="text" 
+                               x-model.trim="profile.name" 
+                               placeholder="e.g. Priya Sharma"
+                               class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green-700 focus:bg-white text-gray-900">
+                    </div>
+
+                    <!-- Gender Selection -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Gender <span class="text-red-500">*</span></label>
+                        <div class="grid grid-cols-3 gap-2.5">
+                            <button type="button" 
+                                    @click="profile.gender = 'Female'" 
+                                    class="py-2.5 px-3 rounded-xl border-2 text-xs font-bold transition-all text-center cursor-pointer"
+                                    :class="profile.gender === 'Female' ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs ring-1 ring-emerald-600' : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'">
+                                Female
+                            </button>
+                            <button type="button" 
+                                    @click="profile.gender = 'Male'" 
+                                    class="py-2.5 px-3 rounded-xl border-2 text-xs font-bold transition-all text-center cursor-pointer"
+                                    :class="profile.gender === 'Male' ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs ring-1 ring-emerald-600' : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'">
+                                Male
+                            </button>
+                            <button type="button" 
+                                    @click="profile.gender = 'Other'" 
+                                    class="py-2.5 px-3 rounded-xl border-2 text-xs font-bold transition-all text-center cursor-pointer"
+                                    :class="profile.gender === 'Other' ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs ring-1 ring-emerald-600' : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'">
+                                Other
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Age Group Selection -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Age Group <span class="text-red-500">*</span></label>
+                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                            <template x-for="age in ['Under 18', '18–29', '30–45', '46–60', '60+']" :key="age">
+                                <button type="button" 
+                                        @click="profile.ageGroup = age" 
+                                        class="py-2.5 px-2 rounded-xl border-2 text-xs font-bold transition-all text-center cursor-pointer"
+                                        :class="profile.ageGroup === age ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs ring-1 ring-emerald-600' : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'">
+                                    <span x-text="age"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp Phone Number -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">WhatsApp Phone Number <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-xs text-gray-500 font-semibold">
+                                💬 +91
+                            </div>
+                            <input type="tel" 
+                                   x-model.trim="profile.phone" 
+                                   placeholder="9876543210"
+                                   class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-16 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green-700 focus:bg-white text-gray-900">
+                        </div>
+                        <span class="text-[11px] text-gray-500 mt-1 block">Your results will be formatted and ready to receive on WhatsApp.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: Daily Energy Pattern -->
+            <div x-show="step === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+                <div class="mb-5">
+                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
+                        2. Which statement best describes your daily energy curve?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Select the option that most closely matches your typical day:</p>
                 </div>
@@ -134,11 +210,11 @@
                 </div>
             </div>
 
-            <!-- QUESTION 2: Physical Exertion & Breath -->
-            <div x-show="step === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 3: Physical Exertion & Breath -->
+            <div x-show="step === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        2. How does your breathing respond during light exertion (e.g. stairs, brisk walk)?
+                        3. How does your breathing respond during light exertion (e.g. stairs, brisk walk)?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Evaluates red blood cell oxygenation throughout your tissues:</p>
                 </div>
@@ -188,11 +264,11 @@
                 </div>
             </div>
 
-            <!-- QUESTION 3: Physical Biomarkers -->
-            <div x-show="step === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 4: Physical Biomarkers -->
+            <div x-show="step === 4" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        3. Have you observed any of these physical biomarkers recently?
+                        4. Have you observed any of these physical biomarkers recently?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Select all that apply to you (multiple selections allowed):</p>
                 </div>
@@ -292,11 +368,11 @@
                 </div>
             </div>
 
-            <!-- QUESTION 4: Dietary Pattern -->
-            <div x-show="step === 4" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 5: Dietary Pattern -->
+            <div x-show="step === 5" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        4. What best represents your primary dietary pattern?
+                        5. What best represents your primary dietary pattern?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Helps estimate baseline intake of bioavailable heme vs. non-heme iron:</p>
                 </div>
@@ -346,11 +422,11 @@
                 </div>
             </div>
 
-            <!-- QUESTION 5: Digestion & Absorption Blockers -->
-            <div x-show="step === 5" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 6: Digestion & Absorption Blockers -->
+            <div x-show="step === 6" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        5. Do any of these daily digestive or absorption habits apply to you?
+                        6. Do any of these daily digestive or absorption habits apply to you?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">In Ayurveda, blood health depends directly on your digestive fire (Agni) to assimilate nutrients:</p>
                 </div>
@@ -408,11 +484,11 @@
                 </div>
             </div>
 
-            <!-- QUESTION 6: Physiological Factors & Iron Demand -->
-            <div x-show="step === 6" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 7: Physiological Factors & Iron Demand -->
+            <div x-show="step === 7" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        6. Do any of these physiological factors or health history apply to you?
+                        7. Do any of these physiological factors or health history apply to you?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Identifies biological life stages or medical factors that accelerate iron depletion:</p>
                 </div>
@@ -484,8 +560,8 @@
                 </div>
             </div>
 
-            <!-- Navigation Controls (Bottom Bar for Steps 1-6) -->
-            <div class="mt-8 pt-5 border-t border-gray-100 flex items-center justify-between" x-show="step >= 1 && step <= 6">
+            <!-- Navigation Controls (Bottom Bar for Steps 1-7) -->
+            <div class="mt-8 pt-5 border-t border-gray-100 flex items-center justify-between" x-show="step >= 1 && step <= 7">
                 <button type="button" 
                         @click="prevStep()" 
                         class="px-5 py-2.5 rounded-xl font-semibold text-xs uppercase tracking-wider text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors border border-gray-200 cursor-pointer">
@@ -495,15 +571,14 @@
                 <button type="button" 
                         @click="nextStep()" 
                         :disabled="!canProceed" 
-                        class="px-7 py-3 rounded-xl font-bold text-white transition-all transform active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer"
-                        :class="step === 6 ? 'bg-brand-green-800 hover:bg-brand-green-700 text-sm' : 'bg-brand-green-800 hover:bg-brand-green-700 text-sm'">
-                    <span x-text="step === 6 ? 'Complete & View Results' : 'Next Question'"></span>
+                        class="px-7 py-3 rounded-xl font-bold text-white transition-all transform active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer bg-brand-green-800 hover:bg-brand-green-700 text-sm">
+                    <span x-text="step === 7 ? 'Complete & View Results' : 'Next Question'"></span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </button>
             </div>
 
-            <!-- Step 7: Comprehensive Clinical Results Screen -->
-            <div x-show="step === 7" style="display: none;" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-98 translate-y-3" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
+            <!-- Step 8: Comprehensive Clinical Results Screen -->
+            <div x-show="step === 8" style="display: none;" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-98 translate-y-3" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
                 
                 <!-- Result Status Badge & Summary -->
                 <div class="text-center mb-8 pt-2">
@@ -517,16 +592,45 @@
                         <svg x-show="result.risk !== 'Low Risk'" class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                     </div>
                     
-                    <div class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-2"
-                         :class="{
-                             'bg-emerald-100 text-emerald-800': result.risk === 'Low Risk',
-                             'bg-amber-100 text-amber-800': result.risk === 'Moderate Risk',
-                             'bg-red-100 text-red-800': result.risk === 'High Indicator'
-                         }">
-                        Clinical Indicator Score: <span x-text="score"></span> Points
+                    <div class="flex flex-wrap items-center justify-center gap-2 mb-2.5">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 text-gray-800 border border-gray-200" 
+                              x-show="profile.name" 
+                              x-text="'Patient: ' + profile.name"></span>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 text-gray-700 border border-gray-200" 
+                              x-show="profile.gender" 
+                              x-text="profile.gender + ' • ' + (profile.ageGroup || '')"></span>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest"
+                              :class="{
+                                  'bg-emerald-100 text-emerald-800 border border-emerald-300': result.risk === 'Low Risk',
+                                  'bg-amber-100 text-amber-800 border border-amber-300': result.risk === 'Moderate Risk',
+                                  'bg-red-100 text-red-800 border border-red-300': result.risk === 'High Indicator'
+                              }">
+                            Score: <span x-text="score"></span> Points
+                        </span>
                     </div>
+
                     <h3 class="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-2.5" x-text="result.risk + ' of Iron Depletion'"></h3>
                     <p class="text-sm sm:text-base text-gray-600 max-w-xl mx-auto leading-relaxed" x-text="result.message"></p>
+                </div>
+
+                <!-- WHATSAPP REPORT DELIVERY BUTTON -->
+                <div class="bg-emerald-50/80 rounded-2xl p-4 sm:p-5 mb-8 border border-emerald-200 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-left">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-950 flex items-center gap-1.5">
+                            <span>📲</span>
+                            <span>Receive Full Assessment Report on WhatsApp</span>
+                        </h4>
+                        <p class="text-xs text-emerald-800 mt-0.5">
+                            Get your complete score, diagnostic findings, and doctor's dosage recommendations on your phone.
+                        </p>
+                    </div>
+                    <a :href="whatsappReportLink" target="_blank" 
+                       class="inline-flex items-center justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white font-bold px-6 py-3 rounded-xl transition-all shadow-sm hover:shadow-md text-xs sm:text-sm gap-2 shrink-0 cursor-pointer">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                            <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.976L2 22l5.174-1.357a9.923 9.923 0 004.838 1.259h.005c5.505 0 9.988-4.479 9.988-9.985S17.518 2 12.012 2zM12.012 20.202h-.004a8.273 8.273 0 01-4.223-1.155l-.303-.18-3.138.823.836-3.062-.197-.314A8.252 8.252 0 013.69 11.984C3.691 7.42 7.408 3.702 11.97 3.702c4.545 0 8.243 3.714 8.243 8.283 0 4.56-3.7 8.272-8.201 8.217zM16.55 13.992c-.248-.124-1.472-.727-1.7-.811-.228-.084-.395-.124-.56.124-.167.248-.646.811-.79 9.977-.146.166-.293.187-.54.062-1.071-.539-2.583-1.638-3.197-2.317-.168-.186-.334-.187-.582-.062-.248.125-1.05.388-1.602 1.341-.55 1.05.021 1.554.499 2.502.167.332.083.623-.042.871-.125.248-.56 1.348-.767 1.846-.2.482-.403.417-.56.425-.145.008-.312.008-.479.008a.911.911 0 00-.663.309c-.228.248-.871.851-.871 2.073s.893 2.404 1.018 2.57c.125.166 1.752 2.673 4.246 3.75.594.256 1.057.41 1.419.524.595.189 1.137.162 1.564.098.48-.073 1.472-.602 1.68-1.184.208-.582.208-1.08.146-1.184-.062-.104-.228-.166-.476-.29z"/>
+                        </svg>
+                        <span>Send to My WhatsApp</span>
+                    </a>
                 </div>
 
                 <!-- Detected Diagnostic Observations -->
@@ -545,12 +649,12 @@
                     </ul>
                 </div>
 
-                <!-- GENTLE & PROFESSIONAL PRODUCT INTRODUCTION -->
+                <!-- GENTLE & PROFESSIONAL PRODUCT INVITATION -->
                 <div class="bg-gradient-to-br from-brand-gold-50 via-white to-brand-green-50/50 rounded-3xl p-6 sm:p-8 mb-8 border border-brand-gold-200 shadow-md relative overflow-hidden">
                     
-                    <div class="flex items-center gap-2 mb-3">
+                    <div class="flex items-center gap-2 mb-2">
                         <span class="w-6 h-6 rounded-full bg-brand-green-800 text-white flex items-center justify-center text-xs font-bold">🌿</span>
-                        <span class="text-xs font-bold uppercase tracking-wider text-brand-green-900">Dr. Sajeev Dev's Clinical Perspective</span>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-green-900">Dr. Sajeev Dev's Therapeutic Perspective</span>
                     </div>
 
                     <h4 class="text-xl sm:text-2xl font-serif font-bold text-gray-900 mb-3">
@@ -562,48 +666,116 @@
                             Many individuals stop taking standard iron supplements because chemical iron tablets (like ferrous sulfate) frequently trigger uncomfortable constipation, stomach burning, and nausea.
                         </p>
                         <p>
-                            In Ayurvedic practice, we prioritize <strong>Ahar Kalpana</strong>—delivering essential micronutrients embedded within an easily digested, natural food matrix. For gentle daily replenishment that protects the stomach lining and enhances absorption, Dr. Sajeev Dev recommends <strong>VeaChoc Daily Iron</strong>.
+                            In Ayurvedic practice, we prioritize <strong>Ahar Kalpana</strong>—delivering micronutrients embedded in an easily digested, natural chocolate matrix that protects the gastric lining and promotes smooth mucosal absorption.
                         </p>
                     </div>
 
-                    <!-- Gentle Features Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-                        <div class="p-3.5 bg-white/80 rounded-xl border border-gray-200 shadow-2xs">
-                            <span class="text-xs font-bold text-brand-green-900 block mb-0.5">🍫 Gentle on Digestion</span>
-                            <span class="text-[11px] text-gray-600 block">Smooth milk chocolate matrix; zero constipation, stomach irritation, or metallic taste.</span>
+                    <!-- 3 SPECIFIC VEACHOC FORMULATIONS TO EXPERIENCE -->
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <h5 class="text-xs font-bold uppercase tracking-wider text-brand-green-950">
+                                Recommended VeaChoc Formulations to Experience:
+                            </h5>
+                            <span class="text-[11px] text-brand-gold-700 font-semibold">Clinically Formulated</span>
                         </div>
-                        <div class="p-3.5 bg-white/80 rounded-xl border border-gray-200 shadow-2xs">
-                            <span class="text-xs font-bold text-brand-green-900 block mb-0.5">⚡ High Bioavailability</span>
-                            <span class="text-[11px] text-gray-600 block">Natural lipids facilitate mucosal transport, helping restore ferritin stores.</span>
-                        </div>
-                        <div class="p-3.5 bg-white/80 rounded-xl border border-gray-200 shadow-2xs">
-                            <span class="text-xs font-bold text-brand-green-900 block mb-0.5">🩺 Doctor Recommended</span>
-                            <span class="text-[11px] text-gray-600 block">Formulated by Dr. Sajeev Dev for easy, enjoyable daily compliance.</span>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                            
+                            <!-- Product 1: Sugar-Free -->
+                            <a href="https://yuvann.com/products/veachoc-sugar-free-rakthapushti-chocolate" 
+                               target="_blank"
+                               class="group block p-4 bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-md transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">Sugar-Free</span>
+                                        <span class="text-xs text-gray-400 group-hover:text-brand-green-700 transition-colors">↗</span>
+                                    </div>
+                                    <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2">
+                                        VeaChoc Sugar-Free Rakthapushti Chocolate
+                                    </h6>
+                                    <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
+                                        Pure blood-nourishing formulation created specifically for sugar-conscious individuals, diabetics, or those managing weight without compromising iron absorption.
+                                    </p>
+                                </div>
+                                <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-green-800">
+                                    <span>Learn More</span>
+                                    <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+                                </div>
+                            </a>
+
+                            <!-- Product 2: Dark Chocolate Blood Builder -->
+                            <a href="https://yuvann.com/products/veachoc-rakthapushti-dark-chocolate-iron-vitamin-c-blood-builder-supplement" 
+                               target="_blank"
+                               class="group block p-4 bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-md transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">Dark Cacao + Vit C</span>
+                                        <span class="text-xs text-gray-400 group-hover:text-brand-green-700 transition-colors">↗</span>
+                                    </div>
+                                    <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2">
+                                        VeaChoc Rakthapushti Dark Chocolate
+                                    </h6>
+                                    <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
+                                        Intense antioxidant dark cacao blended with bioavailable iron and natural Vitamin C co-factors to dramatically enhance red cell oxygenation.
+                                    </p>
+                                </div>
+                                <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-green-800">
+                                    <span>Learn More</span>
+                                    <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+                                </div>
+                            </a>
+
+                            <!-- Product 3: Milk Chocolate Daily Iron -->
+                            <a href="https://yuvann.com/products/veachoc-milk-chocolate-daily-iron-delicious-iron-supplement-with-seeds-nuts-vitamin-c" 
+                               target="_blank"
+                               class="group block p-4 bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-md transition-all flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-brand-gold-100 text-brand-gold-800">Seeds & Nuts</span>
+                                        <span class="text-xs text-gray-400 group-hover:text-brand-green-700 transition-colors">↗</span>
+                                    </div>
+                                    <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2">
+                                        VeaChoc Milk Chocolate Daily Iron
+                                    </h6>
+                                    <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
+                                        Smooth, delightful daily milk chocolate with crunchy pumpkin seeds, almonds, and Vitamin C. Makes daily Rakta replenishment a treat for the whole family.
+                                    </p>
+                                </div>
+                                <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-green-800">
+                                    <span>Learn More</span>
+                                    <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+                                </div>
+                            </a>
+
                         </div>
                     </div>
 
-                    <!-- Direct Link to Shop Page -->
-                    <div class="flex flex-col sm:flex-row items-center gap-3.5 pt-2 border-t border-brand-gold-200/60">
+                    <!-- DIRECT GATEWAY TO VEACHOC SHOP PAGE -->
+                    <div class="p-4 sm:p-5 bg-brand-green-900 text-white rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-center sm:text-left">
+                            <span class="text-xs font-bold uppercase tracking-widest text-brand-gold-400 block mb-0.5">Explore the Full Collection</span>
+                            <h5 class="font-serif font-bold text-base sm:text-lg text-white">Visit the Official VeaChoc Brand Shop</h5>
+                            <p class="text-xs text-brand-green-100/80 mt-0.5">
+                                Browse all sizes, multi-packs, and complete nutritional facts at <span class="text-brand-gold-300 font-mono">yuvann.com/shops/veachoc</span>
+                            </p>
+                        </div>
                         <a href="https://yuvann.com/shops/veachoc" 
-                           class="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 bg-brand-green-800 hover:bg-brand-green-700 text-white font-bold text-sm rounded-xl shadow-sm hover:shadow-md transition-all gap-2 cursor-pointer">
-                            <span>View VeaChoc on the Official Shop</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                           class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 bg-brand-gold-500 hover:bg-brand-gold-400 text-brand-green-950 font-black text-xs sm:text-sm rounded-xl transition-all shadow-md shrink-0 gap-2 cursor-pointer">
+                            <span>Explore VeaChoc Shop</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </a>
-                        <span class="text-xs text-gray-500">
-                            Shop URL: <a href="https://yuvann.com/shops/veachoc" class="font-semibold text-brand-green-900 underline">yuvann.com/shops/veachoc</a>
-                        </span>
                     </div>
                 </div>
 
-                <!-- Direct WhatsApp Consultation CTA -->
+                <!-- Direct WhatsApp Consultation with Dr. Sajeev Dev -->
                 <div class="text-center pt-2">
-                    <p class="text-xs sm:text-sm text-gray-600 mb-3 font-medium">Would you like Dr. Sajeev Dev to review your answers first?</p>
-                    <a :href="whatsappLink" target="_blank" 
+                    <p class="text-xs sm:text-sm text-gray-600 mb-3 font-medium">Have specific health questions or need dosage advice?</p>
+                    <a :href="whatsappReportLink" target="_blank" 
                        class="inline-flex items-center justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white font-bold px-6 py-3.5 rounded-xl transition-all shadow-sm hover:shadow-md text-sm gap-2.5 w-full sm:w-auto cursor-pointer">
                         <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                             <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.976L2 22l5.174-1.357a9.923 9.923 0 004.838 1.259h.005c5.505 0 9.988-4.479 9.988-9.985S17.518 2 12.012 2zM12.012 20.202h-.004a8.273 8.273 0 01-4.223-1.155l-.303-.18-3.138.823.836-3.062-.197-.314A8.252 8.252 0 013.69 11.984C3.691 7.42 7.408 3.702 11.97 3.702c4.545 0 8.243 3.714 8.243 8.283 0 4.56-3.7 8.272-8.201 8.217zM16.55 13.992c-.248-.124-1.472-.727-1.7-.811-.228-.084-.395-.124-.56.124-.167.248-.646.811-.79 9.977-.146.166-.293.187-.54.062-1.071-.539-2.583-1.638-3.197-2.317-.168-.186-.334-.187-.582-.062-.248.125-1.05.388-1.602 1.341-.55 1.05.021 1.554.499 2.502.167.332.083.623-.042.871-.125.248-.56 1.348-.767 1.846-.2.482-.403.417-.56.425-.145.008-.312.008-.479.008a.911.911 0 00-.663.309c-.228.248-.871.851-.871 2.073s.893 2.404 1.018 2.57c.125.166 1.752 2.673 4.246 3.75.594.256 1.057.41 1.419.524.595.189 1.137.162 1.564.098.48-.073 1.472-.602 1.68-1.184.208-.582.208-1.08.146-1.184-.062-.104-.228-.166-.476-.29z"/>
                         </svg>
-                        <span>Consult Dr. Sajeev Dev with My Results</span>
+                        <span>Chat with Dr. Sajeev Dev on WhatsApp</span>
                     </a>
                 </div>
 
@@ -624,6 +796,12 @@
     function ironQuiz() {
         return {
             step: 0,
+            profile: {
+                name: '',
+                gender: '',
+                ageGroup: '',
+                phone: ''
+            },
             answers: {
                 q1: null,
                 q1_breath: null,
@@ -659,25 +837,32 @@
                 }
             },
             get stepCategory() {
-                if (this.step === 1) return 'Dimension 1: Daily Energy Pattern';
-                if (this.step === 2) return 'Dimension 1: Exertion & Stamina';
-                if (this.step === 3) return 'Dimension 2: Physical Biomarkers';
-                if (this.step === 4) return 'Dimension 3: Dietary Pattern';
-                if (this.step === 5) return 'Dimension 3: Digestive Absorption';
-                if (this.step === 6) return 'Dimension 4: Physiological Factors';
+                if (this.step === 1) return 'Personal Profile';
+                if (this.step === 2) return 'Dimension 1: Daily Energy Pattern';
+                if (this.step === 3) return 'Dimension 1: Exertion & Stamina';
+                if (this.step === 4) return 'Dimension 2: Physical Biomarkers';
+                if (this.step === 5) return 'Dimension 3: Dietary Pattern';
+                if (this.step === 6) return 'Dimension 3: Digestive Absorption';
+                if (this.step === 7) return 'Dimension 4: Physiological Factors';
                 return 'Assessment';
             },
             get canProceed() {
-                if (this.step === 1) return this.answers.q1 !== null;
-                if (this.step === 2) return this.answers.q1_breath !== null;
-                if (this.step === 3) return true; // Optional checklist
-                if (this.step === 4) return this.answers.q3_diet !== null;
-                if (this.step === 5) return true; // Optional checklist
+                if (this.step === 1) {
+                    return this.profile.name.length >= 2 && 
+                           this.profile.gender !== '' && 
+                           this.profile.ageGroup !== '' && 
+                           this.profile.phone.replace(/[^0-9]/g, '').length >= 10;
+                }
+                if (this.step === 2) return this.answers.q1 !== null;
+                if (this.step === 3) return this.answers.q1_breath !== null;
+                if (this.step === 4) return true; // Optional checklist
+                if (this.step === 5) return this.answers.q3_diet !== null;
                 if (this.step === 6) return true; // Optional checklist
+                if (this.step === 7) return true; // Optional checklist
                 return false;
             },
             nextStep() {
-                if (this.canProceed && this.step < 7) {
+                if (this.canProceed && this.step < 8) {
                     this.step++;
                     this.scrollToTop();
                 }
@@ -690,6 +875,12 @@
             },
             resetQuiz() {
                 this.step = 0;
+                this.profile = {
+                    name: '',
+                    gender: '',
+                    ageGroup: '',
+                    phone: ''
+                };
                 this.answers = {
                     q1: null,
                     q1_breath: null,
@@ -767,20 +958,31 @@
                 }
                 return flags;
             },
-            get whatsappLink() {
-                const phone = "917736609299";
-                let text = `Hello Dr. Sajeev Dev, I just completed the *Iron & Blood Vitality Clinical Assessment* on Yuvann.\n\n`;
-                text += `*Result:* ${this.result.risk} (Score: ${this.score})\n`;
-                text += `*Summary:* ${this.result.message}\n\n`;
+            get whatsappReportLink() {
+                const clinicPhone = "917736609299";
+                let text = `🌿 *YUVANN CLINICAL REPORT: IRON & BLOOD VITALITY*\n`;
+                text += `----------------------------------------\n`;
+                text += `👤 *Patient:* ${this.profile.name || 'Anonymous'}\n`;
+                text += `⚧ *Gender:* ${this.profile.gender || 'Not specified'} | *Age Group:* ${this.profile.ageGroup || 'Not specified'}\n`;
+                text += `📱 *WhatsApp:* +91 ${this.profile.phone || ''}\n\n`;
                 
-                text += `*Key Observations:*\n`;
+                text += `📊 *Assessment Result:* ${this.result.risk} (Score: ${this.score} pts)\n`;
+                text += `📝 *Clinical Summary:* ${this.result.message}\n\n`;
+                
+                text += `📋 *Key Observations:*\n`;
                 this.diagnosticFlags.forEach(f => {
                     text += `• ${f}\n`;
                 });
                 
-                text += `\nI would like to order *VeaChoc Daily Iron* from your shop (https://yuvann.com/shops/veachoc). Could you please advise me on the ideal dosage for my condition?`;
+                text += `\n🍫 *Recommended VeaChoc Products to Experience:*\n`;
+                text += `1. *Sugar-Free Rakthapushti Chocolate:*\nhttps://yuvann.com/products/veachoc-sugar-free-rakthapushti-chocolate\n`;
+                text += `2. *Dark Chocolate (Iron + Vit C):*\nhttps://yuvann.com/products/veachoc-rakthapushti-dark-chocolate-iron-vitamin-c-blood-builder-supplement\n`;
+                text += `3. *Milk Chocolate Daily Iron:*\nhttps://yuvann.com/products/veachoc-milk-chocolate-daily-iron-delicious-iron-supplement-with-seeds-nuts-vitamin-c\n\n`;
                 
-                return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+                text += `🛒 *Complete VeaChoc Shop Page:*\nhttps://yuvann.com/shops/veachoc\n\n`;
+                text += `Hello Dr. Sajeev Dev, please guide me on the ideal VeaChoc formulation and daily dosage for my report!`;
+                
+                return `https://wa.me/${clinicPhone}?text=${encodeURIComponent(text)}`;
             }
         }
     }
