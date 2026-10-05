@@ -76,35 +76,35 @@
     </div>
 
     @if($products->count() > 0)
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             @foreach($products as $product)
-                <div class="bg-white rounded-2xl overflow-hidden border border-brand-green-100/60 shadow-sm hover:shadow-md hover:border-brand-gold-500/30 transition-all flex flex-col group relative">
+                <div class="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-brand-green-100/60 shadow-sm hover:shadow-md hover:border-brand-gold-500/30 transition-all flex flex-col group relative">
                     
                     @if($product->badge)
-                        <span class="absolute top-4 left-4 z-10 inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-brand-gold-500 text-brand-green-900 tracking-wide uppercase shadow-sm">
+                        <span class="absolute top-2 left-2 sm:top-4 sm:left-4 z-10 inline-flex items-center px-1.5 sm:px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-brand-gold-500 text-brand-green-900 tracking-wide uppercase shadow-sm">
                             {{ $product->badge }}
                         </span>
                     @endif
 
                     @if($product->is_free_shipping)
-                        <span class="absolute top-3.5 right-3.5 z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-black tracking-wider uppercase shadow-xl"
-                              style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45) !important; border: 1.5px solid #ffffff !important;">
-                            <svg class="w-3.5 h-3.5 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24">
+                        <span class="absolute top-2 right-2 sm:top-3.5 sm:right-3.5 z-20 inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-3 py-0.5 sm:py-1.5 rounded-full text-[8px] sm:text-[10px] font-black tracking-wider uppercase shadow-md"
+                              style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45) !important; border: 1px solid #ffffff !important;">
+                            <svg class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24">
                                 <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                             </svg>
                             <span class="font-black leading-none" style="text-shadow: 0 1px 2px rgba(0,0,0,0.25);">FREE SHIPPING</span>
                         </span>
                     @endif
 
-                    <div class="h-56 w-full overflow-hidden bg-brand-green-50">
+                    <div class="aspect-square sm:h-56 w-full overflow-hidden bg-brand-green-50">
                         <a href="/products/{{ $product->slug }}">
                             <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </a>
                     </div>
 
-                    <div class="p-5 flex-grow flex flex-col text-left">
-                        <span class="text-[9px] font-semibold text-brand-gold-600 uppercase tracking-wider break-words leading-snug">{{ $product->categories->pluck('name')->join(' • ') }}</span>
-                        <h3 class="font-serif text-base font-bold text-brand-green-900 mt-1 hover:text-brand-green-700 transition-colors">
+                    <div class="p-3 sm:p-5 flex-grow flex flex-col text-left">
+                        <span class="text-[8px] sm:text-[9px] font-semibold text-brand-gold-600 uppercase tracking-wider break-words leading-snug">{{ $product->categories->pluck('name')->join(' • ') }}</span>
+                        <h3 class="font-serif text-xs sm:text-base font-bold text-brand-green-900 mt-1 hover:text-brand-green-700 transition-colors line-clamp-2 leading-tight min-h-[2rem] sm:min-h-0">
                             <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
                         </h3>
                         
@@ -112,52 +112,52 @@
                             <div class="flex items-center gap-1 mt-1">
                                 <div class="flex text-brand-gold-500">
                                     @for($i = 1; $i <= 5; $i++)
-                                        <svg class="w-3 h-3 {{ $i <= round($product->average_rating) ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 20 20">
+                                        <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 {{ $i <= round($product->average_rating) ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                         </svg>
                                     @endfor
                                 </div>
-                                <span class="text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
+                                <span class="text-[9px] sm:text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
                             </div>
                         @endif
                         
                         @if($product->has_multiple_variants)
-                            <div class="mt-2.5 pt-2 border-t border-brand-green-100/80">
-                                <div class="text-[10px] uppercase font-bold text-brand-green-800/70 tracking-wider mb-1.5 flex items-center justify-between">
-                                    <span>Sizes & Prices:</span>
-                                    <span class="text-brand-gold-700 font-bold lowercase text-[10px] bg-brand-gold-50 px-1.5 py-0.5 rounded border border-brand-gold-200">{{ $product->active_variants->count() }} sizes</span>
+                            <div class="mt-2 sm:mt-2.5 pt-1.5 sm:pt-2 border-t border-brand-green-100/80">
+                                <div class="text-[9px] sm:text-[10px] uppercase font-bold text-brand-green-800/70 tracking-wider mb-1 sm:mb-1.5 flex items-center justify-between">
+                                    <span>Sizes:</span>
+                                    <span class="text-brand-gold-700 font-bold lowercase text-[9px] sm:text-[10px] bg-brand-gold-50 px-1.5 py-0.2 rounded border border-brand-gold-200">{{ $product->active_variants->count() }} sizes</span>
                                 </div>
-                                <div class="flex flex-wrap gap-1.5">
+                                <div class="flex flex-wrap gap-1 sm:gap-1.5">
                                     @foreach($product->active_variants as $v)
                                         <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
-                                           class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs bg-white border border-brand-green-200 hover:border-brand-gold-500 hover:bg-brand-gold-50/70 transition-all shadow-2xs group/pill"
+                                           class="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs bg-white border border-brand-green-200 hover:border-brand-gold-500 hover:bg-brand-gold-50/70 transition-all shadow-2xs group/pill"
                                            title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
                                             <span class="font-bold text-brand-green-900">{{ $v->unit_size }}</span>
-                                            <span class="font-black text-[11px] text-brand-green-950 bg-brand-gold-100 px-1.5 py-0.5 rounded border border-brand-gold-300 group-hover/pill:bg-brand-gold-200 transition-colors">₹{{ number_format($v->active_price, 0) }}</span>
+                                            <span class="font-black text-[9px] sm:text-[11px] text-brand-green-950 bg-brand-gold-100 px-1 sm:px-1.5 py-0.2 sm:py-0.5 rounded border border-brand-gold-300 group-hover/pill:bg-brand-gold-200 transition-colors">₹{{ number_format($v->active_price, 0) }}</span>
                                         </a>
                                     @endforeach
                                 </div>
                             </div>
                         @elseif($product->unit_size)
-                            <p class="text-xs text-brand-green-700/60 mt-1">{{ $product->unit_size }}</p>
+                            <p class="text-[10px] sm:text-xs text-brand-green-700/60 mt-1">{{ $product->unit_size }}</p>
                         @endif
                         
-                        <div class="flex items-center justify-between mt-auto pt-3">
+                        <div class="flex items-center justify-between mt-auto pt-2 sm:pt-3">
                             <div class="flex flex-col">
                                 @if($product->has_price_range)
-                                    <span class="text-[10px] font-bold uppercase tracking-wider text-brand-gold-700">Price Range</span>
+                                    <span class="text-[8px] sm:text-[10px] font-bold uppercase tracking-wider text-brand-gold-700">Price Range</span>
                                     <div class="flex items-baseline gap-1">
-                                        <span class="font-serif text-base sm:text-lg font-black text-brand-green-950 tracking-tight">₹{{ number_format($product->min_price, 0) }} – ₹{{ number_format($product->max_price, 0) }}</span>
+                                        <span class="font-serif text-xs sm:text-lg font-black text-brand-green-950 tracking-tight">₹{{ number_format($product->min_price, 0) }}–₹{{ number_format($product->max_price, 0) }}</span>
                                     </div>
                                 @else
-                                    <span class="font-sans text-base font-bold text-brand-green-900">₹{{ number_format($product->active_price, 2) }}</span>
+                                    <span class="font-sans text-xs sm:text-base font-bold text-brand-green-900">₹{{ number_format($product->active_price, 0) }}</span>
                                     @if($product->is_on_sale)
-                                        <span class="text-[10px] text-brand-green-700/50 line-through">₹{{ number_format($product->price, 2) }}</span>
+                                        <span class="text-[9px] sm:text-[10px] text-brand-green-700/50 line-through">₹{{ number_format($product->price, 0) }}</span>
                                     @endif
                                 @endif
                             </div>
-                            <a href="/products/{{ $product->slug }}" class="w-8 h-8 rounded-full bg-brand-green-800 text-white flex items-center justify-center hover:bg-brand-gold-500 hover:text-brand-green-950 transition-colors shadow-xs" title="View Options">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            <a href="/products/{{ $product->slug }}" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-brand-green-800 text-white flex items-center justify-center hover:bg-brand-gold-500 hover:text-brand-green-950 transition-colors shadow-xs" title="View Options">
+                                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </a>
                         </div>
                     </div>

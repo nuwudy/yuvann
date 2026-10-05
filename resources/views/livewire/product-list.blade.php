@@ -160,21 +160,21 @@
 
             <!-- Products List -->
             @if($products->count() > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
                     @foreach($products as $product)
-                        <div class="bg-white rounded-2xl overflow-hidden border border-brand-green-100/60 shadow-sm hover:shadow-md hover:border-brand-gold-500/30 transition-all flex flex-col group relative">
+                        <div class="bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-brand-green-100/60 shadow-sm hover:shadow-md hover:border-brand-gold-500/30 transition-all flex flex-col group relative">
                             
                             <!-- Badge -->
                             @if($product->badge)
-                                <span class="absolute top-4 left-4 z-10 inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-brand-gold-500 text-brand-green-900 tracking-wide uppercase shadow-sm">
+                                <span class="absolute top-2 left-2 sm:top-4 sm:left-4 z-10 inline-flex items-center px-1.5 sm:px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold bg-brand-gold-500 text-brand-green-900 tracking-wide uppercase shadow-sm">
                                     {{ $product->badge }}
                                 </span>
                             @endif
 
                             @if($product->is_free_shipping)
-                                <span class="absolute top-3.5 right-3.5 z-20 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-black tracking-wider uppercase shadow-xl"
-                                      style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45) !important; border: 1.5px solid #ffffff !important;">
-                                    <svg class="w-3.5 h-3.5 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24">
+                                <span class="absolute top-2 right-2 sm:top-3.5 sm:right-3.5 z-20 inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-3 py-0.5 sm:py-1.5 rounded-full text-[8px] sm:text-[10px] font-black tracking-wider uppercase shadow-md"
+                                      style="background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45) !important; border: 1px solid #ffffff !important;">
+                                    <svg class="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current text-white shrink-0 drop-shadow-xs" viewBox="0 0 24 24">
                                         <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                                     </svg>
                                     <span class="font-black leading-none" style="text-shadow: 0 1px 2px rgba(0,0,0,0.25);">FREE SHIPPING</span>
@@ -182,22 +182,22 @@
                             @endif
 
                             <!-- Image Container -->
-                            <div class="h-56 w-full overflow-hidden bg-brand-green-50">
+                            <div class="aspect-square sm:h-56 w-full overflow-hidden bg-brand-green-50">
                                 <a href="/products/{{ $product->slug }}">
                                     <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 </a>
                             </div>
 
                             <!-- Info Container -->
-                            <div class="p-5 flex-grow flex flex-col text-left">
+                            <div class="p-3 sm:p-5 flex-grow flex flex-col text-left">
                                 <div class="flex items-center justify-between gap-2">
-                                    <span class="text-[9px] font-semibold text-brand-gold-600 uppercase tracking-wider break-words leading-snug">{{ $product->categories->pluck('name')->join(' • ') }}</span>
+                                    <span class="text-[8px] sm:text-[9px] font-semibold text-brand-gold-600 uppercase tracking-wider line-clamp-1 leading-snug">{{ $product->categories->pluck('name')->join(' • ') }}</span>
                                 </div>
-                                <h3 class="font-serif text-base font-bold text-brand-green-900 mt-1 hover:text-brand-green-700 transition-colors">
+                                <h3 class="font-serif text-xs sm:text-base font-bold text-brand-green-900 mt-1 hover:text-brand-green-700 transition-colors line-clamp-2 leading-tight min-h-[2rem] sm:min-h-0">
                                     <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>
                                 </h3>
                                 @if($product->bodyParts->count() > 0)
-                                    <div class="flex flex-wrap gap-1 mt-1.5">
+                                    <div class="hidden sm:flex flex-wrap gap-1 mt-1.5">
                                         @foreach($product->bodyParts as $bp)
                                             <span class="inline-flex items-center text-[9px] font-semibold px-2 py-0.5 rounded-full bg-brand-gold-50/70 text-brand-green-900 border border-brand-gold-200">
                                                 🧘 {{ $bp->name }}
@@ -209,39 +209,39 @@
                                     <div class="flex items-center gap-1 mt-1">
                                         <div class="flex text-brand-gold-500">
                                             @for($i = 1; $i <= 5; $i++)
-                                                <svg class="w-3 h-3 {{ $i <= round($product->average_rating) ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 20 20">
+                                                <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 {{ $i <= round($product->average_rating) ? 'fill-current' : 'text-gray-300 fill-current' }}" viewBox="0 0 20 20">
                                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                                                 </svg>
                                             @endfor
                                         </div>
-                                        <span class="text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
+                                        <span class="text-[9px] sm:text-[10px] text-brand-green-700/60 font-medium">({{ $product->review_count }})</span>
                                     </div>
                                 @endif
-                                <p class="text-xs text-brand-green-700/60 mt-1.5 flex-grow line-clamp-2">
+                                <p class="hidden sm:block text-xs text-brand-green-700/60 mt-1.5 flex-grow line-clamp-2">
                                     {{ $product->short_description }}
                                 </p>
                                 @if($product->has_multiple_variants)
-                                    <div class="mt-3 pt-2.5 border-t border-brand-green-100/80">
-                                        <div class="text-[10px] uppercase font-bold text-brand-green-800/70 mb-1.5 flex items-center justify-between">
-                                            <span>Sizes & Prices:</span>
-                                            <span class="text-brand-gold-700 font-bold lowercase text-[10px] bg-brand-gold-50 px-1.5 py-0.5 rounded border border-brand-gold-200">{{ $product->active_variants->count() }} sizes</span>
+                                    <div class="mt-2 sm:mt-3 pt-1.5 sm:pt-2.5 border-t border-brand-green-100/80">
+                                        <div class="text-[9px] sm:text-[10px] uppercase font-bold text-brand-green-800/70 mb-1 flex items-center justify-between">
+                                            <span>Sizes:</span>
+                                            <span class="text-brand-gold-700 font-bold lowercase text-[9px] sm:text-[10px] bg-brand-gold-50 px-1 py-0.2 rounded border border-brand-gold-200">{{ $product->active_variants->count() }}</span>
                                         </div>
-                                        <div class="flex flex-wrap gap-1.5">
+                                        <div class="flex flex-wrap gap-1 sm:gap-1.5">
                                             @foreach($product->active_variants as $v)
                                                 <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
-                                                   class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs bg-white border border-brand-green-200 hover:border-brand-gold-500 hover:bg-brand-gold-50/70 transition-all shadow-2xs group/pill"
+                                                   class="inline-flex items-center gap-1 px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs bg-white border border-brand-green-200 hover:border-brand-gold-500 hover:bg-brand-gold-50/70 transition-all shadow-2xs group/pill"
                                                    title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
                                                     <span class="font-bold text-brand-green-900">{{ $v->unit_size }}</span>
-                                                    <span class="font-black text-[11px] text-brand-green-950 bg-brand-gold-100 px-1.5 py-0.5 rounded border border-brand-gold-300 group-hover/pill:bg-brand-gold-200 transition-colors">₹{{ number_format($v->active_price, 0) }}</span>
+                                                    <span class="font-black text-[9px] sm:text-[11px] text-brand-green-950 bg-brand-gold-100 px-1 py-0.2 rounded border border-brand-gold-300">₹{{ number_format($v->active_price, 0) }}</span>
                                                 </a>
                                             @endforeach
                                         </div>
                                     </div>
                                 @endif
 
-                                <div class="flex items-center justify-between mt-3 pt-1">
+                                <div class="flex items-center justify-between mt-2 sm:mt-3 pt-1">
                                     @if(!$product->has_multiple_variants && $product->unit_size)
-                                        <span class="text-xs text-brand-green-800 font-semibold bg-brand-green-50 px-2.5 py-0.5 rounded-md border border-brand-green-100">
+                                        <span class="text-[10px] sm:text-xs text-brand-green-800 font-semibold bg-brand-green-50 px-1.5 sm:px-2.5 py-0.5 rounded-md border border-brand-green-100">
                                             {{ $product->unit_size }}
                                         </span>
                                     @else
@@ -249,33 +249,33 @@
                                     @endif
                                     <div class="flex flex-col items-end ml-auto">
                                         @if($product->has_price_range)
-                                            <div class="flex items-baseline gap-1.5">
-                                                <span class="text-[11px] font-bold uppercase tracking-wider text-brand-gold-700">Range:</span>
-                                                <span class="text-base sm:text-lg font-black font-serif text-brand-green-950 tracking-tight">₹{{ number_format($product->min_price, 0) }} – ₹{{ number_format($product->max_price, 0) }}</span>
+                                            <div class="flex items-baseline gap-1">
+                                                <span class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider text-brand-gold-700">Range:</span>
+                                                <span class="text-xs sm:text-lg font-black font-serif text-brand-green-950 tracking-tight">₹{{ number_format($product->min_price, 0) }}–₹{{ number_format($product->max_price, 0) }}</span>
                                             </div>
                                         @elseif($product->is_on_sale)
-                                            <div class="flex items-baseline gap-1.5">
-                                                <span class="text-xs text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
-                                                <span class="text-base sm:text-lg font-bold text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
+                                            <div class="flex items-baseline gap-1">
+                                                <span class="text-[10px] sm:text-xs text-brand-green-700/40 line-through">₹{{ number_format($product->price, 0) }}</span>
+                                                <span class="text-xs sm:text-lg font-bold text-brand-green-900">₹{{ number_format($product->sale_price, 0) }}</span>
                                             </div>
                                         @else
-                                            <span class="text-base sm:text-lg font-bold text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
+                                            <span class="text-xs sm:text-lg font-bold text-brand-green-900">₹{{ number_format($product->price, 0) }}</span>
                                         @endif
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Actions Container -->
-                            <div class="px-5 pb-5 pt-2 border-t border-brand-green-50 flex gap-2">
+                            <div class="p-2 sm:px-5 sm:pb-5 sm:pt-2 border-t border-brand-green-50 flex gap-1.5 sm:gap-2">
                                 @if($product->has_multiple_variants)
                                     <a href="/products/{{ $product->slug }}" 
-                                       class="flex-1 py-2 px-3 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all text-center flex items-center justify-center gap-1">
+                                       class="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-lg sm:rounded-full text-[11px] sm:text-xs font-semibold shadow-xs transition-all text-center flex items-center justify-center gap-1">
                                         <span>Select Size</span>
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                        <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                                     </a>
                                 @else
                                     <button wire:click="addToCart({{ $product->id }})" 
-                                            class="flex-1 py-2 px-3 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all focus:outline-none">
+                                            class="flex-1 py-1.5 sm:py-2 px-2 sm:px-3 bg-brand-green-800 hover:bg-brand-green-700 text-white rounded-lg sm:rounded-full text-[11px] sm:text-xs font-semibold shadow-xs transition-all focus:outline-none">
                                         Add to Cart
                                     </button>
                                 @endif
@@ -287,15 +287,15 @@
                                     $waUrl = "https://wa.me/917736609299?text=" . urlencode($waMessage);
                                 @endphp
                                 <a href="{{ $waUrl }}" target="_blank" 
-                                   class="py-2 px-3 border border-green-600 bg-green-50 text-green-700 hover:bg-green-100 rounded-full text-xs font-semibold flex items-center justify-center gap-1 transition-all" title="Buy via WhatsApp">
+                                   class="py-1.5 sm:py-2 px-2 sm:px-3 border border-green-600 bg-green-50 text-green-700 hover:bg-green-100 rounded-lg sm:rounded-full text-[11px] sm:text-xs font-semibold flex items-center justify-center gap-1 transition-all" title="Buy via WhatsApp">
                                     <svg class="w-3.5 h-3.5 fill-current text-green-600" viewBox="0 0 24 24">
                                         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
                                     </svg>
-                                    Buy
+                                    <span class="hidden sm:inline">Buy</span>
                                 </a>
                                 
                                 <button x-data @click="if (navigator.share) { navigator.share({ title: '{{ addslashes($product->name) }}', url: '{{ url('/products/' . $product->slug) }}' }) } else { navigator.clipboard.writeText('{{ url('/products/' . $product->slug) }}'); window.dispatchEvent(new CustomEvent('notify', { detail: [{ message: 'Link copied to clipboard!' }] })); }" 
-                                        class="py-2 px-3 border border-brand-green-200 bg-white text-brand-green-800 hover:bg-brand-green-50 rounded-full flex items-center justify-center transition-all" title="Share Product">
+                                        class="hidden sm:flex py-2 px-3 border border-brand-green-200 bg-white text-brand-green-800 hover:bg-brand-green-50 rounded-full items-center justify-center transition-all" title="Share Product">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
                                     </svg>
