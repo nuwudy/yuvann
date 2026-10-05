@@ -186,14 +186,16 @@
                         <!-- WhatsApp Phone Number -->
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">WhatsApp Phone Number <span class="text-red-500">*</span></label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-xs text-gray-500 font-semibold">
-                                    💬 +91
+                            <div class="flex rounded-xl overflow-hidden border border-gray-300 bg-white shadow-2xs focus-within:ring-2 focus-within:ring-brand-green-700 focus-within:border-brand-green-700 transition-all">
+                                <div class="bg-gray-100 px-3.5 py-3 border-r border-gray-300 flex items-center gap-1.5 shrink-0 text-gray-700 font-bold text-xs select-none">
+                                    <span>🇮🇳</span>
+                                    <span>+91</span>
                                 </div>
                                 <input type="tel" 
                                        x-model.trim="profile.phone" 
-                                       placeholder="9876543210"
-                                       class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-16 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green-700 focus:bg-white text-gray-900">
+                                       maxlength="10"
+                                       placeholder="Enter 10-digit mobile number"
+                                       class="flex-1 w-full bg-white px-3.5 py-3 text-sm focus:outline-none text-gray-900 placeholder:text-gray-400">
                             </div>
                             <span class="text-[11px] text-gray-500 mt-1 block">Your report will be formatted and ready to receive on WhatsApp.</span>
                         </div>
@@ -737,71 +739,110 @@
                                 <span class="text-[11px] text-brand-gold-700 font-semibold">Clinically Formulated</span>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 
                                 <!-- Product 1: Sugar-Free -->
                                 <a href="https://yuvann.com/products/veachoc-sugar-free-rakthapushti-chocolate" 
                                    target="_blank"
-                                   class="group block p-4 bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-md transition-all flex flex-col justify-between">
+                                   class="group block bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-lg transition-all flex flex-col justify-between overflow-hidden">
                                     <div>
-                                        <div class="flex items-center justify-between mb-2">
-                                            <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800">Sugar-Free</span>
-                                            <span class="text-xs text-gray-400 group-hover:text-brand-green-700 transition-colors">↗</span>
+                                        <!-- Product Image Container -->
+                                        <div class="relative bg-gradient-to-b from-brand-gold-50/40 to-gray-50/70 p-3 flex items-center justify-center border-b border-gray-100 overflow-hidden">
+                                            <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 shadow-2xs">
+                                                Sugar-Free
+                                            </span>
+                                            <span class="absolute top-2.5 right-2.5 z-10 text-xs font-bold text-emerald-900 bg-white/95 px-2 py-0.5 rounded-md shadow-2xs border border-gray-200">
+                                                ₹780
+                                            </span>
+                                            <img src="https://yuvann.com/storage/products/37d1d0f4-1df5-4956-8902-a00b75be0415.webp" 
+                                                 alt="VeaChoc Sugar-Free Rakthapushti Chocolate" 
+                                                 loading="lazy"
+                                                 class="w-full h-44 object-contain group-hover:scale-105 transition-transform duration-300">
                                         </div>
-                                        <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2">
-                                            VeaChoc Sugar-Free Rakthapushti Chocolate
-                                        </h6>
-                                        <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
-                                            Pure blood-nourishing formulation created specifically for sugar-conscious individuals, diabetics, or those managing weight without compromising iron absorption.
-                                        </p>
+                                        <div class="p-4">
+                                            <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2 leading-snug">
+                                                VeaChoc Sugar-Free Rakthapushti Chocolate
+                                            </h6>
+                                            <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
+                                                Pure blood-nourishing formulation created specifically for sugar-conscious individuals, diabetics, or weight management without compromising iron bioavailability.
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-green-800">
-                                        <span>Learn More</span>
-                                        <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+                                    <div class="px-4 pb-4 pt-1">
+                                        <div class="w-full py-2 px-3 bg-brand-green-50 group-hover:bg-brand-green-800 text-brand-green-900 group-hover:text-white rounded-xl text-xs font-bold flex items-center justify-between transition-colors">
+                                            <span>View Product</span>
+                                            <span class="group-hover:translate-x-1 transition-transform">→</span>
+                                        </div>
                                     </div>
                                 </a>
 
                                 <!-- Product 2: Dark Chocolate Blood Builder -->
                                 <a href="https://yuvann.com/products/veachoc-rakthapushti-dark-chocolate-iron-vitamin-c-blood-builder-supplement" 
                                    target="_blank"
-                                   class="group block p-4 bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-md transition-all flex flex-col justify-between">
+                                   class="group block bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-lg transition-all flex flex-col justify-between overflow-hidden">
                                     <div>
-                                        <div class="flex items-center justify-between mb-2">
-                                            <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800">Dark Cacao + Vit C</span>
-                                            <span class="text-xs text-gray-400 group-hover:text-brand-green-700 transition-colors">↗</span>
+                                        <!-- Product Image Container -->
+                                        <div class="relative bg-gradient-to-b from-brand-gold-50/40 to-gray-50/70 p-3 flex items-center justify-center border-b border-gray-100 overflow-hidden">
+                                            <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-amber-100 text-amber-800 shadow-2xs">
+                                                Dark Cacao + Vit C
+                                            </span>
+                                            <span class="absolute top-2.5 right-2.5 z-10 text-xs font-bold text-emerald-900 bg-white/95 px-2 py-0.5 rounded-md shadow-2xs border border-gray-200">
+                                                From ₹299
+                                            </span>
+                                            <img src="https://yuvann.com/storage/products/cb7c2e61-02e4-4988-afff-d8f4c6c17151.webp" 
+                                                 alt="VeaChoc Rakthapushti Dark Chocolate" 
+                                                 loading="lazy"
+                                                 class="w-full h-44 object-contain group-hover:scale-105 transition-transform duration-300">
                                         </div>
-                                        <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2">
-                                            VeaChoc Rakthapushti Dark Chocolate
-                                        </h6>
-                                        <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
-                                            Intense antioxidant dark cacao blended with bioavailable iron and natural Vitamin C co-factors to dramatically enhance red cell oxygenation.
-                                        </p>
+                                        <div class="p-4">
+                                            <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2 leading-snug">
+                                                VeaChoc Rakthapushti Dark Chocolate
+                                            </h6>
+                                            <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
+                                                Intense antioxidant dark cacao blended with bioavailable iron and natural Vitamin C co-factors to dramatically enhance red cell oxygenation.
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-green-800">
-                                        <span>Learn More</span>
-                                        <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+                                    <div class="px-4 pb-4 pt-1">
+                                        <div class="w-full py-2 px-3 bg-brand-green-50 group-hover:bg-brand-green-800 text-brand-green-900 group-hover:text-white rounded-xl text-xs font-bold flex items-center justify-between transition-colors">
+                                            <span>View Product</span>
+                                            <span class="group-hover:translate-x-1 transition-transform">→</span>
+                                        </div>
                                     </div>
                                 </a>
 
                                 <!-- Product 3: Milk Chocolate Daily Iron -->
                                 <a href="https://yuvann.com/products/veachoc-milk-chocolate-daily-iron-delicious-iron-supplement-with-seeds-nuts-vitamin-c" 
                                    target="_blank"
-                                   class="group block p-4 bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-md transition-all flex flex-col justify-between">
+                                   class="group block bg-white rounded-2xl border border-gray-200 hover:border-brand-gold-500 hover:shadow-lg transition-all flex flex-col justify-between overflow-hidden">
                                     <div>
-                                        <div class="flex items-center justify-between mb-2">
-                                            <span class="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-brand-gold-100 text-brand-gold-800">Seeds & Nuts</span>
-                                            <span class="text-xs text-gray-400 group-hover:text-brand-green-700 transition-colors">↗</span>
+                                        <!-- Product Image Container -->
+                                        <div class="relative bg-gradient-to-b from-brand-gold-50/40 to-gray-50/70 p-3 flex items-center justify-center border-b border-gray-100 overflow-hidden">
+                                            <span class="absolute top-2.5 left-2.5 z-10 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider bg-brand-gold-100 text-brand-gold-800 shadow-2xs">
+                                                Seeds & Nuts
+                                            </span>
+                                            <span class="absolute top-2.5 right-2.5 z-10 text-xs font-bold text-emerald-900 bg-white/95 px-2 py-0.5 rounded-md shadow-2xs border border-gray-200">
+                                                From ₹299
+                                            </span>
+                                            <img src="https://yuvann.com/storage/products/b9314dc9-4c7c-4318-a346-07abbe1b4b52.webp" 
+                                                 alt="VeaChoc Milk Chocolate Daily Iron" 
+                                                 loading="lazy"
+                                                 class="w-full h-44 object-contain group-hover:scale-105 transition-transform duration-300">
                                         </div>
-                                        <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2">
-                                            VeaChoc Milk Chocolate Daily Iron
-                                        </h6>
-                                        <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
-                                            Smooth, delightful daily milk chocolate with crunchy pumpkin seeds, almonds, and Vitamin C. Makes daily Rakta replenishment a treat for the whole family.
-                                        </p>
+                                        <div class="p-4">
+                                            <h6 class="font-serif font-bold text-sm text-gray-900 group-hover:text-brand-green-800 transition-colors line-clamp-2 leading-snug">
+                                                VeaChoc Milk Chocolate Daily Iron
+                                            </h6>
+                                            <p class="text-[11px] text-gray-600 mt-1.5 line-clamp-3 leading-relaxed">
+                                                Smooth, delightful daily milk chocolate with crunchy pumpkin seeds, almonds, and Vitamin C. Makes daily Rakta replenishment a treat for the whole family.
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-xs font-bold text-brand-green-800">
-                                        <span>Learn More</span>
-                                        <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+                                    <div class="px-4 pb-4 pt-1">
+                                        <div class="w-full py-2 px-3 bg-brand-green-50 group-hover:bg-brand-green-800 text-brand-green-900 group-hover:text-white rounded-xl text-xs font-bold flex items-center justify-between transition-colors">
+                                            <span>View Product</span>
+                                            <span class="group-hover:translate-x-1 transition-transform">→</span>
+                                        </div>
                                     </div>
                                 </a>
 
