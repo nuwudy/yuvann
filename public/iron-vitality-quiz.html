@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iron & Blood Vitality Quiz | Yuvann Wellness Concepts</title>
+    <title>Iron & Blood Vitality Clinical Assessment | Yuvann Wellness Concepts</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
     
     <!-- Tailwind & Alpine -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,6 +46,7 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     }
                 }
             }
@@ -54,38 +55,39 @@
     <style>
         [x-cloak] { display: none !important; }
         .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(229, 221, 217, 0.7);
         }
     </style>
 </head>
 <body class="bg-gradient-to-br from-cocoa-50 via-white to-cocoa-100 min-h-screen text-cocoa-900 font-sans antialiased selection:bg-amber-100 selection:text-amber-900 flex flex-col p-4 md:p-8">
     
-    <div x-data="ironQuiz()" class="w-full max-w-4xl mx-auto flex-1 flex flex-col justify-center" x-cloak>
+    <div x-data="ironQuiz()" class="w-full max-w-4xl mx-auto flex-1 flex flex-col justify-center my-auto py-6" x-cloak>
         
         <!-- Step 0: Hero Section -->
-        <div x-show="step === 0" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-8" class="text-center py-12 md:py-20">
+        <div x-show="step === 0" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" class="text-center py-8 md:py-16">
             
             <div class="inline-flex items-center justify-center mb-6">
-                <span class="px-4 py-1.5 bg-emerald-100 text-emerald-800 text-sm font-bold rounded-full uppercase tracking-widest shadow-sm">Yuvann Wellness Concepts</span>
+                <span class="px-4 py-1.5 bg-red-100 text-[#8a1c1c] text-xs font-bold rounded-full uppercase tracking-widest shadow-sm">
+                    Clinical Ayurvedic Assessment
+                </span>
             </div>
             
-            <h1 class="text-4xl md:text-6xl font-extrabold text-cocoa-900 mb-6 tracking-tight leading-tight">
+            <h1 class="text-3xl md:text-5xl font-serif font-bold text-cocoa-900 mb-6 tracking-tight leading-tight">
                 Iron & Blood Vitality <br class="hidden md:block" /> Self-Assessment
             </h1>
             
-            <p class="text-lg md:text-xl text-cocoa-700 max-w-2xl mx-auto mb-12 leading-relaxed">
-                Are you constantly fatigued? Do you experience cold hands, brittle nails, or pale skin? 
-                Take our quick Ayurvedic assessment to discover your Rakta Dhatu balance and find out if your body needs gentle, bioavailable nourishment.
+            <p class="text-base md:text-lg text-cocoa-700 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Chronic fatigue, pale inner eyelids, brittle nails, and cold hands are often early warnings of depleted ferritin and suboptimal blood nourishment. This assessment examines your daily stamina, physical biomarkers, dietary absorption, and physiological demand.
             </p>
             
-            <div class="flex justify-center mb-16">
-                <button @click="startQuiz" class="group relative inline-flex items-center justify-center px-10 py-5 text-xl font-bold text-white bg-[#8a1c1c] rounded-full overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
+            <div class="flex justify-center mb-12">
+                <button @click="startQuiz" class="group relative inline-flex items-center justify-center px-10 py-5 text-lg font-bold text-white bg-[#8a1c1c] rounded-full overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-105">
                     <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-[#6b1515] rounded-full group-hover:w-full group-hover:h-56"></span>
                     <span class="relative flex items-center gap-2">
-                        <svg class="w-6 h-6 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                        Start Iron Test
+                        <svg class="w-5 h-5 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        Start Clinical Assessment
                     </span>
                 </button>
             </div>
@@ -94,44 +96,44 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto text-left">
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-100">
                     <div class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                     </div>
-                    <h3 class="font-bold text-cocoa-900 mb-2">Takes 2 Minutes</h3>
-                    <p class="text-sm text-cocoa-600">Answer 3 simple questions about your daily energy and physical symptoms.</p>
+                    <h3 class="font-bold text-cocoa-900 mb-1.5">4 Clinical Dimensions</h3>
+                    <p class="text-xs text-cocoa-600">Evaluates daily stamina, physical signs, gut absorption, and physiological loss.</p>
                 </div>
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-100">
                     <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center mb-4">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <h3 class="font-bold text-cocoa-900 mb-2">Instant Results</h3>
-                    <p class="text-sm text-cocoa-600">Get an immediate analysis of your Rakta Dhatu (blood tissue) health.</p>
+                    <h3 class="font-bold text-cocoa-900 mb-1.5">Ayurvedic Insight</h3>
+                    <p class="text-xs text-cocoa-600">Grounded in Rakta Dhatu Kshaya & Agni bioavailability principles.</p>
                 </div>
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-cocoa-100">
                     <div class="w-10 h-10 bg-cocoa-100 text-cocoa-700 rounded-xl flex items-center justify-center mb-4">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
                     </div>
-                    <h3 class="font-bold text-cocoa-900 mb-2">Expert Guidance</h3>
-                    <p class="text-sm text-cocoa-600">Connect directly with Dr. Sajeev Dev for personalized Ayurvedic advice.</p>
+                    <h3 class="font-bold text-cocoa-900 mb-1.5">Targeted Solution</h3>
+                    <p class="text-xs text-cocoa-600">Direct recommendations for gentle VeaChoc milk chocolate iron nourishment.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Quiz Interface (Steps 1-4) -->
-        <div x-show="step > 0" style="display: none;" class="w-full max-w-2xl mx-auto" x-transition:enter="transition ease-out duration-500 delay-300" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
+        <!-- Quiz Interface (Steps 1-5) -->
+        <div x-show="step > 0" style="display: none;" class="w-full max-w-3xl mx-auto" x-transition:enter="transition ease-out duration-500 delay-300" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
             
             <!-- Header for Quiz -->
-            <div class="text-center mb-8" x-show="step < 4">
-                <h2 class="text-2xl font-bold text-cocoa-900 mb-2">Iron & Blood Vitality Quiz</h2>
-                <p class="text-sm text-cocoa-500">Discover your Rakta Dhatu balance</p>
+            <div class="text-center mb-6" x-show="step < 5">
+                <span class="text-xs font-bold text-[#8a1c1c] uppercase tracking-wider block mb-1">Dr. Sajeev Dev Clinical Screening</span>
+                <h2 class="text-2xl font-serif font-bold text-cocoa-900" x-text="stepTitle"></h2>
             </div>
 
             <!-- Progress Bar -->
-            <div class="mb-8" x-show="step < 4">
+            <div class="mb-8" x-show="step < 5">
                 <div class="h-2 w-full bg-cocoa-100 rounded-full overflow-hidden shadow-inner">
-                    <div class="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700 ease-out"
-                         :style="`width: ${(step / 3) * 100}%`"></div>
+                    <div class="h-full bg-gradient-to-r from-[#8a1c1c] to-amber-500 transition-all duration-500 ease-out"
+                         :style="`width: ${(step / 4) * 100}%`"></div>
                 </div>
-                <div class="mt-2 text-xs font-medium text-cocoa-500 text-right uppercase tracking-wider" x-text="`Step ${step} of 3`"></div>
+                <div class="mt-2 text-xs font-semibold text-cocoa-500 text-right uppercase tracking-wider" x-text="`Step ${step} of 4`"></div>
             </div>
 
             <!-- Quiz Container -->
@@ -139,204 +141,388 @@
                 
                 <div class="absolute -top-20 -right-20 w-40 h-40 bg-amber-100 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
                 
-                <!-- Step 1 -->
-                <div x-show="step === 1" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-4">
-                    <h2 class="text-xl md:text-2xl font-semibold mb-6 flex items-center">
-                        <span class="bg-amber-100 text-amber-600 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm flex-shrink-0 shadow-sm">1</span>
-                        Energy & Fatigue Check
-                    </h2>
-                    
-                    <div class="space-y-4">
-                        <label class="block p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-amber-400 bg-amber-50 shadow-md ring-2 ring-amber-400 ring-opacity-20': answers.q1 === 0}">
-                            <input type="radio" class="hidden" x-model="answers.q1" :value="0">
-                            <span class="font-medium text-cocoa-800">I have consistent, vibrant energy all day.</span>
+                <!-- Step 1: Energy & Physical Stamina -->
+                <div x-show="step === 1" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-cocoa-900 mb-3">1. Which best describes your daily energy curve?</label>
+                            <div class="space-y-3">
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q1 === 0}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q1" :value="0">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Vibrant & Steady Energy</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">Consistent stamina from morning until evening with normal wakefulness.</span>
+                                </label>
+                                
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q1 === 1}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q1" :value="1">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Mild Mid-Afternoon Dip</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">Feel sluggish between 2 PM and 5 PM, but manage with rest or hydration.</span>
+                                </label>
+                                
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q1 === 2}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q1" :value="2">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Wake Up Unrefreshed / Morning Heavy</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">Feel drained even after a full night's sleep; rely on coffee/tea to get going.</span>
+                                </label>
+
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q1 === 3}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q1" :value="3">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Severe Chronic Fatigue</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">Persistent weakness throughout the day; struggling to accomplish normal daily tasks.</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="pt-5 border-t border-cocoa-100">
+                            <label class="block text-sm font-bold text-cocoa-900 mb-3">2. How does your breathing respond to mild physical exertion (e.g. stairs, brisk walk)?</label>
+                            <div class="space-y-3">
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q1_breath === 0}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q1_breath" :value="0">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Normal & Comfortable</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">I comfortably handle 2+ flights of stairs or fast walking without catching my breath.</span>
+                                </label>
+
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q1_breath === 1}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q1_breath" :value="1">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Mild Shortness of Breath</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">I feel winded or heavy-legged after climbing just 1 or 2 flights of stairs.</span>
+                                </label>
+
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q1_breath === 2}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q1_breath" :value="2">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Frequent Breathlessness & Rapid Heartbeat</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">Noticeable heart pounding (palpitations) or feeling breathless with light everyday movement.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Physical Signs -->
+                <div x-show="step === 2" style="display: none;" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                    <p class="text-cocoa-600 mb-4 text-xs md:text-sm font-medium">Select all physical indicators that apply to you (optional):</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-emerald-500 bg-emerald-50/60 shadow-sm': answers.q2.includes('pale')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="pale">
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-semibold text-cocoa-900 text-xs sm:text-sm block">Pale Inner Eyelids or Gums</span>
+                                <span class="text-[11px] text-cocoa-500 mt-0.5 block">Inner eyelids or gums appear pale rather than healthy red.</span>
+                            </div>
                         </label>
-                        
-                        <label class="block p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-amber-400 bg-amber-50 shadow-md ring-2 ring-amber-400 ring-opacity-20': answers.q1 === 1}">
-                            <input type="radio" class="hidden" x-model="answers.q1" :value="1">
-                            <span class="font-medium text-cocoa-800">I feel a bit tired in the afternoon, but generally okay.</span>
+
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-emerald-500 bg-emerald-50/60 shadow-sm': answers.q2.includes('nails')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="nails">
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-semibold text-cocoa-900 text-xs sm:text-sm block">Brittle, Peeling, or Ridged Nails</span>
+                                <span class="text-[11px] text-cocoa-500 mt-0.5 block">Nails split easily or show flattened/vertical ridges.</span>
+                            </div>
                         </label>
-                        
-                        <label class="block p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-amber-400 bg-amber-50 shadow-md ring-2 ring-amber-400 ring-opacity-20': answers.q1 === 2}">
-                            <input type="radio" class="hidden" x-model="answers.q1" :value="2">
-                            <span class="font-medium text-cocoa-800">I wake up tired and often feel breathless with mild exertion.</span>
+
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-emerald-500 bg-emerald-50/60 shadow-sm': answers.q2.includes('hair')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="hair">
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-semibold text-cocoa-900 text-xs sm:text-sm block">Unexplained Hair Shedding</span>
+                                <span class="text-[11px] text-cocoa-500 mt-0.5 block">Diffuse thinning or excessive hair on comb without scalp issues.</span>
+                            </div>
+                        </label>
+
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-emerald-500 bg-emerald-50/60 shadow-sm': answers.q2.includes('cold')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="cold">
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-semibold text-cocoa-900 text-xs sm:text-sm block">Persistently Cold Hands & Feet</span>
+                                <span class="text-[11px] text-cocoa-500 mt-0.5 block">Extremities feel icy cold even in warm indoor temperatures.</span>
+                            </div>
+                        </label>
+
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-emerald-500 bg-emerald-50/60 shadow-sm': answers.q2.includes('dizzy')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="dizzy">
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-semibold text-cocoa-900 text-xs sm:text-sm block">Postural Dizziness / Headaches</span>
+                                <span class="text-[11px] text-cocoa-500 mt-0.5 block">Feeling lightheaded when standing quickly; recurring dull frontal headaches.</span>
+                            </div>
+                        </label>
+
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-emerald-500 bg-emerald-50/60 shadow-sm': answers.q2.includes('brain_fog')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="brain_fog">
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-semibold text-cocoa-900 text-xs sm:text-sm block">Brain Fog & Concentration Dips</span>
+                                <span class="text-[11px] text-cocoa-500 mt-0.5 block">Mental sluggishness, difficulty sustaining focus during work or study.</span>
+                            </div>
                         </label>
                     </div>
                 </div>
 
-                <!-- Step 2 -->
-                <div x-show="step === 2" style="display: none;" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-4">
-                    <h2 class="text-xl md:text-2xl font-semibold mb-6 flex items-center">
-                        <span class="bg-emerald-100 text-emerald-700 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm flex-shrink-0 shadow-sm">2</span>
-                        Physical Signs
-                    </h2>
-                    
-                    <p class="text-cocoa-600 mb-4 text-sm font-medium">Check all that apply to you (optional):</p>
-                    <div class="space-y-4">
-                        <label class="relative flex items-start p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-emerald-400 bg-emerald-50 shadow-md ring-2 ring-emerald-400 ring-opacity-20': answers.q2.includes('pale')}">
-                            <div class="flex items-center h-5">
-                                <input type="checkbox" class="w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="pale">
+                <!-- Step 3: Diet & Gut Bioavailability -->
+                <div x-show="step === 3" style="display: none;" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-cocoa-900 mb-3">1. What is your primary dietary pattern?</label>
+                            <div class="space-y-3">
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q3_diet === 0}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q3_diet" :value="0">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Omnivorous Diet</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">Regular intake of poultry, fish, eggs, or meat (higher in bioavailable heme iron).</span>
+                                </label>
+
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q3_diet === 1}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q3_diet" :value="1">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Balanced Vegetarian / Vegan Diet</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">Regular consumption of lentils, legumes, spinach, seeds, nuts, and whole grains.</span>
+                                </label>
+
+                                <label class="block p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm ring-1 ring-amber-400': answers.q3_diet === 2}">
+                                    <input type="radio" class="hidden" x-model.number="answers.q3_diet" :value="2">
+                                    <span class="font-semibold text-cocoa-900 text-sm block">Vegetarian with Irregular Meals / Low Iron-Dense Foods</span>
+                                    <span class="text-xs text-cocoa-600 mt-0.5 block">Infrequent intake of leafy dark greens; reliance on simple refined carbs or processed snacks.</span>
+                                </label>
                             </div>
-                            <div class="ml-3">
-                                <span class="font-medium text-cocoa-800 block">Pale inner eyelids or gums</span>
-                                <span class="text-xs text-cocoa-500 mt-1 block">A common physical indicator of low iron levels.</span>
+                        </div>
+
+                        <div class="pt-5 border-t border-cocoa-100">
+                            <label class="block text-sm font-bold text-cocoa-900 mb-3">2. Do any of these iron-absorption inhibitors apply to your daily routine?</label>
+                            <div class="space-y-3">
+                                <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm': answers.q3_gut.includes('tannins')}">
+                                    <div class="flex items-center h-5 mt-0.5">
+                                        <input type="checkbox" class="w-4 h-4 text-amber-800 border-gray-300 rounded focus:ring-amber-800" x-model="answers.q3_gut" value="tannins">
+                                    </div>
+                                    <div class="ml-3">
+                                        <span class="font-semibold text-cocoa-900 text-sm block">Drink Tea, Coffee, or Milk within 45 mins of meals</span>
+                                        <span class="text-xs text-cocoa-500 mt-0.5 block">Tannins, polyphenols, and high calcium can bind dietary iron and reduce absorption by up to 60%.</span>
+                                    </div>
+                                </label>
+
+                                <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm': answers.q3_gut.includes('gut')}">
+                                    <div class="flex items-center h-5 mt-0.5">
+                                        <input type="checkbox" class="w-4 h-4 text-amber-800 border-gray-300 rounded focus:ring-amber-800" x-model="answers.q3_gut" value="gut">
+                                    </div>
+                                    <div class="ml-3">
+                                        <span class="font-semibold text-cocoa-900 text-sm block">Frequent Acidity, Bloating, or Regular Antacid Use</span>
+                                        <span class="text-xs text-cocoa-500 mt-0.5 block">Healthy gastric acid is vital to convert ferric iron into absorbable ferrous iron in the duodenum.</span>
+                                    </div>
+                                </label>
+
+                                <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-amber-300 hover:shadow-sm transition-all bg-white"
+                                       :class="{'border-amber-500 bg-amber-50/70 shadow-sm': answers.q3_gut.includes('low_vitc')}">
+                                    <div class="flex items-center h-5 mt-0.5">
+                                        <input type="checkbox" class="w-4 h-4 text-amber-800 border-gray-300 rounded focus:ring-amber-800" x-model="answers.q3_gut" value="low_vitc">
+                                    </div>
+                                    <div class="ml-3">
+                                        <span class="font-semibold text-cocoa-900 text-sm block">Rarely consume Vitamin C (Amla, lemon, citrus) with meals</span>
+                                        <span class="text-xs text-cocoa-500 mt-0.5 block">Ascorbic acid dramatically enhances plant-based non-heme iron absorption.</span>
+                                    </div>
+                                </label>
                             </div>
-                        </label>
-                        
-                        <label class="relative flex items-start p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-emerald-400 bg-emerald-50 shadow-md ring-2 ring-emerald-400 ring-opacity-20': answers.q2.includes('nails')}">
-                            <div class="flex items-center h-5">
-                                <input type="checkbox" class="w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="nails">
-                            </div>
-                            <div class="ml-3">
-                                <span class="font-medium text-cocoa-800 block">Brittle nails or hair fall</span>
-                            </div>
-                        </label>
-                        
-                        <label class="relative flex items-start p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-emerald-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-emerald-400 bg-emerald-50 shadow-md ring-2 ring-emerald-400 ring-opacity-20': answers.q2.includes('cold')}">
-                            <div class="flex items-center h-5">
-                                <input type="checkbox" class="w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500" x-model="answers.q2" value="cold">
-                            </div>
-                            <div class="ml-3">
-                                <span class="font-medium text-cocoa-800 block">Unusually cold hands and feet</span>
-                            </div>
-                        </label>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Step 3 -->
-                <div x-show="step === 3" style="display: none;" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-4">
-                    <h2 class="text-xl md:text-2xl font-semibold mb-6 flex items-center">
-                        <span class="bg-cocoa-200 text-cocoa-800 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm flex-shrink-0 shadow-sm">3</span>
-                        Daily Lifestyle & Diet
-                    </h2>
-                    
-                    <p class="text-cocoa-600 mb-4 text-sm font-medium">Check all that apply to you (optional):</p>
-                    <div class="space-y-4">
-                        <label class="relative flex items-start p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-cocoa-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-cocoa-400 bg-cocoa-50 shadow-md': answers.q3.includes('veg')}">
-                            <div class="flex items-center h-5">
-                                <input type="checkbox" class="w-5 h-5 text-cocoa-800 border-gray-300 rounded focus:ring-cocoa-800" x-model="answers.q3" value="veg">
+                <!-- Step 4: Physiological Demand -->
+                <div x-show="step === 4" style="display: none;" x-transition:enter="transition ease-out duration-300 delay-100" x-transition:enter-start="opacity-0 translate-x-4" x-transition:enter-end="opacity-100 translate-x-0">
+                    <p class="text-cocoa-600 mb-4 text-xs md:text-sm font-medium">Select any physiological factors or clinical history that apply to you:</p>
+                    <div class="space-y-3">
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-red-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-red-500 bg-red-50/50 shadow-sm': answers.q4_factors.includes('heavy_cycle')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500" x-model="answers.q4_factors" value="heavy_cycle">
                             </div>
                             <div class="ml-3">
-                                <span class="font-medium text-cocoa-800 block">Strict vegetarian / vegan diet</span>
+                                <span class="font-semibold text-cocoa-900 text-sm block">Heavy or Prolonged Menstrual Cycles</span>
+                                <span class="text-xs text-cocoa-500 mt-0.5 block">Bleeding > 5 days, passing blood clots, or changing pads every 1-2 hours.</span>
                             </div>
                         </label>
-                        
-                        <label class="relative flex items-start p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-cocoa-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-cocoa-400 bg-cocoa-50 shadow-md': answers.q3.includes('tea')}">
-                            <div class="flex items-center h-5">
-                                <input type="checkbox" class="w-5 h-5 text-cocoa-800 border-gray-300 rounded focus:ring-cocoa-800" x-model="answers.q3" value="tea">
+
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-red-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-red-500 bg-red-50/50 shadow-sm': answers.q4_factors.includes('past_anemia')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500" x-model="answers.q4_factors" value="past_anemia">
                             </div>
                             <div class="ml-3">
-                                <span class="font-medium text-cocoa-800 block">Consume heavy tea/coffee right after meals</span>
-                                <span class="text-xs text-cocoa-500 mt-1 block">Tannins can inhibit iron absorption.</span>
+                                <span class="font-semibold text-cocoa-900 text-sm block">Past History of Low Hemoglobin or Low Ferritin</span>
+                                <span class="text-xs text-cocoa-500 mt-0.5 block">Previous blood tests showed Hb below 12 g/dL or physician recommended iron therapy.</span>
                             </div>
                         </label>
-                        
-                        <label class="relative flex items-start p-5 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-cocoa-300 hover:shadow-md transition-all duration-200 bg-white"
-                               :class="{'border-cocoa-400 bg-cocoa-50 shadow-md': answers.q3.includes('female')}">
-                            <div class="flex items-center h-5">
-                                <input type="checkbox" class="w-5 h-5 text-cocoa-800 border-gray-300 rounded focus:ring-cocoa-800" x-model="answers.q3" value="female">
+
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-red-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-red-500 bg-red-50/50 shadow-sm': answers.q4_factors.includes('postpartum')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500" x-model="answers.q4_factors" value="postpartum">
                             </div>
                             <div class="ml-3">
-                                <span class="font-medium text-cocoa-800 block">Experience significant fatigue during menstruation</span>
+                                <span class="font-semibold text-cocoa-900 text-sm block">Pregnancy, Postpartum, or Lactation Stage</span>
+                                <span class="text-xs text-cocoa-500 mt-0.5 block">Substantially elevated biological demand for fetal growth and milk production.</span>
+                            </div>
+                        </label>
+
+                        <label class="relative flex items-start p-4 border-2 border-cocoa-100 rounded-2xl cursor-pointer hover:border-red-300 hover:shadow-sm transition-all bg-white"
+                               :class="{'border-red-500 bg-red-50/50 shadow-sm': answers.q4_factors.includes('endurance')}">
+                            <div class="flex items-center h-5 mt-0.5">
+                                <input type="checkbox" class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500" x-model="answers.q4_factors" value="endurance">
+                            </div>
+                            <div class="ml-3">
+                                <span class="font-semibold text-cocoa-900 text-sm block">High-Intensity Athletics or Running</span>
+                                <span class="text-xs text-cocoa-500 mt-0.5 block">Heavy sweating and foot-strike hemolysis accelerate red blood cell breakdown.</span>
                             </div>
                         </label>
                     </div>
                 </div>
 
                 <!-- Navigation Buttons -->
-                <div class="mt-10 flex justify-between items-center" x-show="step < 4">
+                <div class="mt-8 flex justify-between items-center" x-show="step < 5">
                     <button @click="step--" 
-                            class="px-6 py-2.5 rounded-xl font-medium text-cocoa-600 hover:bg-cocoa-100 hover:text-cocoa-900 transition-colors border border-transparent focus:outline-none focus:ring-2 focus:ring-cocoa-200">
+                            class="px-6 py-2.5 rounded-xl font-semibold text-xs uppercase tracking-wider text-cocoa-600 hover:bg-cocoa-100 hover:text-cocoa-900 transition-colors border border-cocoa-200">
                         Back
                     </button>
                     
                     <button @click="nextStep" :disabled="!canProceed" 
-                            class="px-8 py-3 rounded-xl font-semibold text-white transition-all duration-200 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
-                            :class="step === 3 ? 'bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500' : 'bg-cocoa-800 hover:bg-cocoa-900 focus:ring-cocoa-800'">
-                        <span x-text="step === 3 ? 'See Results' : 'Continue'" class="flex items-center"></span>
+                            class="px-8 py-3 rounded-xl font-bold text-white transition-all duration-200 transform active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg focus:outline-none flex items-center gap-2"
+                            :class="step === 4 ? 'bg-[#8a1c1c] hover:bg-[#6b1515] ring-2 ring-red-400/40 text-sm uppercase tracking-wider' : 'bg-emerald-600 hover:bg-emerald-700 text-sm'">
+                        <span x-text="step === 4 ? 'Analyze My Clinical Results' : 'Continue'"></span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </button>
                 </div>
 
-                <!-- Step 4: Results -->
-                <div x-show="step === 4" style="display: none;" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
-                    <div class="text-center mb-8 pt-4">
-                        <div class="inline-flex items-center justify-center w-24 h-24 rounded-full mb-6 shadow-inner ring-8 ring-opacity-20"
+                <!-- Step 5: Comprehensive Clinical Results -->
+                <div x-show="step === 5" style="display: none;" x-transition:enter="transition ease-out duration-700" x-transition:enter-start="opacity-0 scale-95 translate-y-4" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
+                    
+                    <!-- Result Status Card -->
+                    <div class="text-center mb-8 pt-2">
+                        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full mb-4 shadow-inner ring-8 ring-opacity-20"
                              :class="{
                                  'bg-emerald-100 text-emerald-600 ring-emerald-500': result.risk === 'Low Risk',
-                                 'bg-amber-100 text-amber-500 ring-amber-400': result.risk === 'Moderate Risk',
-                                 'bg-red-100 text-red-500 ring-red-400': result.risk === 'High Indicator'
+                                 'bg-amber-100 text-amber-600 ring-amber-400': result.risk === 'Moderate Risk',
+                                 'bg-red-100 text-red-600 ring-red-400': result.risk === 'High Indicator'
                              }">
-                            <svg x-show="result.risk === 'Low Risk'" class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <svg x-show="result.risk !== 'Low Risk'" class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <svg x-show="result.risk === 'Low Risk'" class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                            <svg x-show="result.risk !== 'Low Risk'" class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         </div>
                         
-                        <h2 class="text-sm font-bold tracking-widest text-cocoa-500 uppercase mb-2">Your Result</h2>
-                        <h3 class="text-3xl md:text-4xl font-bold text-cocoa-900 mb-4" x-text="result.risk + ' of Iron Depletion'"></h3>
-                        <p class="text-lg text-cocoa-700 max-w-lg mx-auto" x-text="result.message"></p>
+                        <div class="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-2"
+                             :class="{
+                                 'bg-emerald-100 text-emerald-800': result.risk === 'Low Risk',
+                                 'bg-amber-100 text-amber-800': result.risk === 'Moderate Risk',
+                                 'bg-red-100 text-red-800': result.risk === 'High Indicator'
+                             }">
+                            Clinical Score: <span x-text="score"></span> Points
+                        </div>
+                        <h4 class="text-2xl md:text-4xl font-serif font-bold text-cocoa-900 mb-3" x-text="result.risk + ' of Iron Depletion'"></h4>
+                        <p class="text-base text-cocoa-700 max-w-xl mx-auto leading-relaxed" x-text="result.message"></p>
                     </div>
 
-                    <div class="bg-gradient-to-br from-amber-50 to-white rounded-2xl p-6 mb-8 border border-amber-100 shadow-sm relative overflow-hidden">
-                        <div class="absolute top-0 right-0 p-4 opacity-10">
-                            <svg class="w-16 h-16 text-amber-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
-                        </div>
-                        <h4 class="text-lg font-bold mb-3 text-cocoa-900 flex items-center">
-                            <svg class="w-5 h-5 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path></svg>
-                            Ayurvedic Insight: Rakta Dhatu
+                    <!-- Clinical Findings Breakdown -->
+                    <div class="bg-brand-gold-50/70 rounded-2xl p-5 mb-8 border border-brand-gold-200">
+                        <h4 class="text-xs font-bold text-cocoa-900 uppercase tracking-widest mb-3 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-[#8a1c1c]"></span>
+                            Key Diagnostic Observations from Your Assessment:
                         </h4>
-                        <p class="text-cocoa-700 leading-relaxed text-sm md:text-base relative z-10">
-                            In Ayurveda, <strong>Rakta Dhatu</strong> (blood tissue) is responsible for oxygenating the body and providing <em>Jeevana</em> (life and vitality). 
-                            When Rakta is depleted—often due to poor absorption—we experience fatigue and weakness. Nourishing your blood requires bioavailable nutrition that your body can easily digest without gastric distress.
+                        <ul class="space-y-2 text-xs md:text-sm text-cocoa-800">
+                            <template x-for="flag in diagnosticFlags" :key="flag">
+                                <li class="flex items-start gap-2">
+                                    <svg class="w-4 h-4 text-[#8a1c1c] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    <span x-text="flag"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+
+                    <!-- Ayurvedic Medical Insight -->
+                    <div class="bg-gradient-to-br from-amber-50 to-white rounded-2xl p-6 mb-8 border border-amber-200 shadow-sm relative overflow-hidden">
+                        <h4 class="text-base font-bold mb-2 text-cocoa-900 flex items-center">
+                            <svg class="w-5 h-5 text-amber-600 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path></svg>
+                            Ayurvedic Principle: Rakta Dhatu & Jeevana Karma
+                        </h4>
+                        <p class="text-cocoa-700 leading-relaxed text-xs md:text-sm">
+                            In Ayurveda, <strong>Rakta Dhatu</strong> (blood tissue) is the carrier of <em>Prana</em> (life oxygen) and vitality throughout all 7 bodily tissues. When Rakta is depleted, organs starve of oxygen, leading to persistent fatigue, cold limbs, and hair loss. Conventional synthetic iron pills often trigger severe constipation, stomach burning, and poor absorption. The solution is <strong>bioavailable, food-matrix nourishment</strong> that your gut assimilates seamlessly.
                         </p>
                     </div>
 
-                    <!-- Product Spotlight -->
-                    <div class="bg-cocoa-900 rounded-3xl p-1 relative overflow-hidden shadow-2xl mb-8 group">
-                        <div class="absolute inset-0 bg-gradient-to-r from-cocoa-800 to-cocoa-900 opacity-90"></div>
-                        
-                        <div class="relative bg-gradient-to-br from-cocoa-800 to-cocoa-900 rounded-[22px] p-6 md:p-8 flex flex-col md:flex-row items-center gap-8">
-                            <div class="flex-shrink-0 w-40 h-40 bg-gradient-to-br from-amber-400 to-amber-600 rounded-2xl flex items-center justify-center shadow-xl border border-amber-300 transform group-hover:scale-105 group-hover:rotate-2 transition-all duration-500">
-                                <div class="text-center p-2 bg-white/20 backdrop-blur-sm w-full h-full rounded-xl flex flex-col justify-center items-center border border-white/30">
-                                    <span class="block text-3xl font-extrabold text-cocoa-900 drop-shadow-sm">VeaChoc</span>
-                                    <div class="w-12 h-1 bg-cocoa-900 my-2 rounded-full opacity-50"></div>
-                                    <span class="block text-[10px] font-bold text-cocoa-900 uppercase tracking-widest">Milk Chocolate</span>
-                                    <span class="block text-[10px] font-bold text-cocoa-900 uppercase tracking-widest">Daily Iron</span>
+                    <!-- RECOMMENDED PRODUCT SPOTLIGHT: VEACHOC -->
+                    <div class="bg-gradient-to-r from-[#4b342c] via-[#3a2923] to-[#2b1e19] rounded-3xl p-1 relative overflow-hidden shadow-2xl mb-8 group border border-amber-500/30">
+                        <div class="relative rounded-[22px] p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+                            
+                            <!-- Chocolate Visual -->
+                            <a href="https://yuvann.com/shops/veachoc" class="flex-shrink-0 w-36 h-36 bg-gradient-to-br from-amber-300 via-amber-500 to-amber-700 rounded-2xl flex items-center justify-center shadow-xl border-2 border-amber-300/80 transform group-hover:scale-105 group-hover:rotate-1 transition-all duration-500">
+                                <div class="text-center p-2.5 bg-[#2b1e19]/20 backdrop-blur-xs w-full h-full rounded-xl flex flex-col justify-center items-center">
+                                    <span class="block text-2xl font-black text-amber-100 tracking-tight drop-shadow-md">VeaChoc</span>
+                                    <div class="w-10 h-0.5 bg-amber-200/60 my-1.5 rounded-full"></div>
+                                    <span class="block text-[9px] font-bold text-amber-200 uppercase tracking-widest">Milk Chocolate</span>
+                                    <span class="block text-[9px] font-extrabold text-amber-300 uppercase tracking-widest mt-0.5">Daily Iron</span>
                                 </div>
-                            </div>
+                            </a>
                             
                             <div class="flex-1 text-center md:text-left text-white">
-                                <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-bold rounded-full mb-3 uppercase tracking-wider backdrop-blur-sm">Recommended For You</span>
-                                <h4 class="text-2xl md:text-3xl font-bold mb-3">VeaChoc Daily Iron</h4>
-                                <p class="text-cocoa-200 mb-6 text-sm md:text-base leading-relaxed">
-                                    A delicious, gentle milk chocolate supplement designed to nourish your Rakta Dhatu. Formulated for high absorption without the common side effects of traditional iron pills.
+                                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-2">
+                                    <span class="px-2.5 py-0.5 bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                        Clinical Solution For You
+                                    </span>
+                                    <span class="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                                        Zero Constipation
+                                    </span>
+                                </div>
+                                <h4 class="text-2xl md:text-3xl font-serif font-bold text-white mb-2">VeaChoc Daily Iron Supplement</h4>
+                                <p class="text-amber-100/90 mb-5 text-xs md:text-sm leading-relaxed">
+                                    A delicious, high-bioavailability milk chocolate supplement designed to nourish Rakta Dhatu and replenish ferritin stores without the metallic taste, nausea, or digestive distress of conventional iron tablets.
                                 </p>
-                                <a href="#" class="inline-flex items-center justify-center bg-amber-500 text-cocoa-900 font-bold px-8 py-3 rounded-xl hover:bg-amber-400 transition-all duration-300 shadow-lg hover:shadow-amber-500/30 transform hover:-translate-y-0.5">
-                                    Shop VeaChoc Now
-                                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </a>
+
+                                <!-- Direct Shop Link -->
+                                <div class="flex flex-col sm:flex-row items-center gap-3">
+                                    <a href="https://yuvann.com/shops/veachoc" 
+                                       class="w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-cocoa-900 font-extrabold text-sm md:text-base px-8 py-3.5 rounded-xl transition-all duration-300 shadow-lg hover:shadow-amber-400/30 transform hover:-translate-y-0.5 gap-2">
+                                        <span>Shop VeaChoc Now</span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                    </a>
+                                    <a href="https://yuvann.com/shops/veachoc" class="text-xs text-amber-200/80 hover:text-white underline underline-offset-2">
+                                        yuvann.com/shops/veachoc
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- WhatsApp CTA -->
-                    <div class="text-center border-t border-cocoa-100 pt-8 mt-2">
-                        <p class="text-cocoa-600 mb-4 font-medium">Want personalized guidance based on your results?</p>
-                        <a :href="whatsappLink" target="_blank" class="inline-flex items-center justify-center bg-[#25D366] text-white font-bold px-8 py-4 rounded-xl hover:bg-[#1ebd5b] transition-all duration-300 shadow-lg hover:shadow-[#25d366]/40 transform hover:-translate-y-1 w-full md:w-auto text-lg group">
-                            <svg class="w-7 h-7 mr-3 fill-current group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.976L2 22l5.174-1.357a9.923 9.923 0 004.838 1.259h.005c5.505 0 9.988-4.479 9.988-9.985S17.518 2 12.012 2zM12.012 20.202h-.004a8.273 8.273 0 01-4.223-1.155l-.303-.18-3.138.823.836-3.062-.197-.314A8.252 8.252 0 013.69 11.984C3.691 7.42 7.408 3.702 11.97 3.702c4.545 0 8.243 3.714 8.243 8.283 0 4.56-3.7 8.272-8.201 8.217zM16.55 13.992c-.248-.124-1.472-.727-1.7-.811-.228-.084-.395-.124-.56.124-.167.248-.646.811-.79 9.977-.146.166-.293.187-.54.062-1.071-.539-2.583-1.638-3.197-2.317-.168-.186-.334-.187-.582-.062-.248.125-1.05.388-1.602 1.341-.55 1.05.021 1.554.499 2.502.167.332.083.623-.042.871-.125.248-.56 1.348-.767 1.846-.2.482-.403.417-.56.425-.145.008-.312.008-.479.008a.911.911 0 00-.663.309c-.228.248-.871.851-.871 2.073s.893 2.404 1.018 2.57c.125.166 1.752 2.673 4.246 3.75.594.256 1.057.41 1.419.524.595.189 1.137.162 1.564.098.48-.073 1.472-.602 1.68-1.184.208-.582.208-1.08.146-1.184-.062-.104-.228-.166-.476-.29z"></path></svg>
-                            Share Results with Dr. Sajeev Dev
+                    <div class="text-center border-t border-cocoa-100 pt-6 mt-2">
+                        <p class="text-xs md:text-sm text-cocoa-600 mb-3 font-medium">Want personalized dosage guidance from Dr. Sajeev Dev?</p>
+                        <a :href="whatsappLink" target="_blank" 
+                           class="inline-flex items-center justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white font-bold px-6 py-3.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-[#25d366]/40 transform hover:-translate-y-0.5 text-sm md:text-base gap-2.5 w-full sm:w-auto">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.976L2 22l5.174-1.357a9.923 9.923 0 004.838 1.259h.005c5.505 0 9.988-4.479 9.988-9.985S17.518 2 12.012 2zM12.012 20.202h-.004a8.273 8.273 0 01-4.223-1.155l-.303-.18-3.138.823.836-3.062-.197-.314A8.252 8.252 0 013.69 11.984C3.691 7.42 7.408 3.702 11.97 3.702c4.545 0 8.243 3.714 8.243 8.283 0 4.56-3.7 8.272-8.201 8.217zM16.55 13.992c-.248-.124-1.472-.727-1.7-.811-.228-.084-.395-.124-.56.124-.167.248-.646.811-.79 9.977-.146.166-.293.187-.54.062-1.071-.539-2.583-1.638-3.197-2.317-.168-.186-.334-.187-.582-.062-.248.125-1.05.388-1.602 1.341-.55 1.05.021 1.554.499 2.502.167.332.083.623-.042.871-.125.248-.56 1.348-.767 1.846-.2.482-.403.417-.56.425-.145.008-.312.008-.479.008a.911.911 0 00-.663.309c-.228.248-.871.851-.871 2.073s.893 2.404 1.018 2.57c.125.166 1.752 2.673 4.246 3.75.594.256 1.057.41 1.419.524.595.189 1.137.162 1.564.098.48-.073 1.472-.602 1.68-1.184.208-.582.208-1.08.146-1.184-.062-.104-.228-.166-.476-.29z"/>
+                            </svg>
+                            <span>Consult Dr. Sajeev Dev with My Results</span>
                         </a>
                     </div>
                     
-                    <div class="mt-8 text-center">
-                        <button @click="resetQuiz" class="text-sm text-cocoa-500 hover:text-cocoa-800 font-medium underline underline-offset-4 transition-colors">
-                            Back to Home
+                    <div class="mt-6 text-center">
+                        <button @click="resetQuiz" class="text-xs text-cocoa-500 hover:text-cocoa-800 font-semibold underline underline-offset-4 transition-colors">
+                            ← Retake Assessment
                         </button>
                     </div>
                 </div>
@@ -351,75 +537,125 @@
                 step: 0,
                 answers: {
                     q1: null,
+                    q1_breath: null,
                     q2: [],
-                    q3: []
-                },
-                get canProceed() {
-                    if (this.step === 1) return this.answers.q1 !== null;
-                    if (this.step === 2) return true; // Optional
-                    if (this.step === 3) return true; // Optional
-                    return false;
+                    q3_diet: null,
+                    q3_gut: [],
+                    q4_factors: []
                 },
                 startQuiz() {
                     this.step = 1;
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 },
+                get stepTitle() {
+                    if (this.step === 1) return 'Dimension 1: Daily Energy & Stamina';
+                    if (this.step === 2) return 'Dimension 2: Physical Biomarkers';
+                    if (this.step === 3) return 'Dimension 3: Diet & Gut Bioavailability';
+                    if (this.step === 4) return 'Dimension 4: Physiological Demand';
+                    return 'Assessment';
+                },
+                get canProceed() {
+                    if (this.step === 1) return this.answers.q1 !== null && this.answers.q1_breath !== null;
+                    if (this.step === 2) return true; // Optional checklist
+                    if (this.step === 3) return this.answers.q3_diet !== null;
+                    if (this.step === 4) return true; // Optional checklist
+                    return false;
+                },
                 nextStep() {
-                    if (this.canProceed && this.step < 4) {
+                    if (this.canProceed && this.step < 5) {
                         this.step++;
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     }
                 },
                 resetQuiz() {
                     this.step = 0;
-                    this.answers = { q1: null, q2: [], q3: [] };
+                    this.answers = {
+                        q1: null,
+                        q1_breath: null,
+                        q2: [],
+                        q3_diet: null,
+                        q3_gut: [],
+                        q4_factors: []
+                    };
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 },
                 get score() {
                     let s = 0;
+                    // Step 1: Energy & Breath
                     if (this.answers.q1 === 1) s += 1;
-                    if (this.answers.q1 === 2) s += 3;
-                    s += this.answers.q2.length * 2;
-                    s += this.answers.q3.length * 1;
-                    return s;
+                    if (this.answers.q1 === 2) s += 2.5;
+                    if (this.answers.q1 === 3) s += 4;
+
+                    if (this.answers.q1_breath === 1) s += 1.5;
+                    if (this.answers.q1_breath === 2) s += 3;
+
+                    // Step 2: Physical Signs
+                    if (this.answers.q2.includes('pale')) s += 2.5;
+                    if (this.answers.q2.includes('nails')) s += 2;
+                    if (this.answers.q2.includes('hair')) s += 1.5;
+                    if (this.answers.q2.includes('cold')) s += 1.5;
+                    if (this.answers.q2.includes('dizzy')) s += 2;
+                    if (this.answers.q2.includes('brain_fog')) s += 1.5;
+
+                    // Step 3: Diet & Gut
+                    if (this.answers.q3_diet === 1) s += 1;
+                    if (this.answers.q3_diet === 2) s += 2.5;
+
+                    if (this.answers.q3_gut.includes('tannins')) s += 2;
+                    if (this.answers.q3_gut.includes('gut')) s += 2;
+                    if (this.answers.q3_gut.includes('low_vitc')) s += 1;
+
+                    // Step 4: Physiological Factors
+                    if (this.answers.q4_factors.includes('heavy_cycle')) s += 3.5;
+                    if (this.answers.q4_factors.includes('past_anemia')) s += 3;
+                    if (this.answers.q4_factors.includes('postpartum')) s += 2.5;
+                    if (this.answers.q4_factors.includes('endurance')) s += 1.5;
+
+                    return Math.round(s * 10) / 10;
                 },
                 get result() {
                     let risk = 'Low Risk';
-                    let message = 'Your Rakta Dhatu seems relatively balanced, but maintaining healthy iron levels is always beneficial for vital energy.';
+                    let message = 'Your Rakta Dhatu and cellular oxygenation markers reflect healthy balance. Maintaining consistent dietary iron and gut Agni supports peak energy.';
                     
-                    if (this.score >= 5) {
+                    if (this.score >= 8.5) {
                         risk = 'High Indicator';
-                        message = 'Your symptoms strongly suggest iron depletion and weakened Rakta Dhatu. Immediate, gentle nourishment is highly recommended to restore your vitality.';
-                    } else if (this.score >= 2) {
+                        message = 'Your symptoms and clinical indicators strongly point to depleted ferritin stores and weakened Rakta Dhatu. Introducing gentle, bioavailable iron nourishment without gastric distress is highly recommended.';
+                    } else if (this.score >= 4) {
                         risk = 'Moderate Risk';
-                        message = 'You are showing early signs of iron depletion. It is a great time to start gentle blood nourishment to prevent further fatigue.';
+                        message = 'You are exhibiting early warning signs of iron depletion and suboptimal blood nourishment. Addressing absorption blockers and providing gentle daily nutritional support will help prevent further fatigue.';
                     }
                     
                     return { risk, message };
                 },
+                get diagnosticFlags() {
+                    let flags = [];
+                    if (this.answers.q1 >= 2) flags.push("Elevated chronic fatigue and unrefreshed mornings flag low tissue oxygenation.");
+                    if (this.answers.q1_breath >= 1) flags.push("Exertional shortness of breath suggests reduced red blood cell oxygen-carrying capacity.");
+                    if (this.answers.q2.includes('pale')) flags.push("Pallor of conjunctiva/mucous membranes is a hallmark physical sign of depleted hemoglobin.");
+                    if (this.answers.q2.includes('nails') || this.answers.q2.includes('hair')) flags.push("Brittle nails and diffuse hair shedding point to long-standing low ferritin stores.");
+                    if (this.answers.q2.includes('cold')) flags.push("Persistent cold extremities indicate reduced peripheral Rakta circulation.");
+                    if (this.answers.q3_gut.includes('tannins')) flags.push("Post-meal tea/coffee/milk consumption is inhibiting up to 60% of dietary iron absorption.");
+                    if (this.answers.q3_gut.includes('gut')) flags.push("Compromised stomach acidity or antacid usage impairs conversion to absorbable ferrous iron.");
+                    if (this.answers.q4_factors.includes('heavy_cycle')) flags.push("Heavy menstrual cycles substantially increase monthly blood and ferritin loss.");
+                    if (this.answers.q4_factors.includes('past_anemia')) flags.push("Prior history of anemia increases predisposition to recurrent iron dips.");
+                    if (flags.length === 0) {
+                        flags.push("No severe depletion red flags detected; your current symptoms are within a mild/manageable range.");
+                        flags.push("Continue nourishing meals and balanced digestive habits to maintain optimal Rakta vitality.");
+                    }
+                    return flags;
+                },
                 get whatsappLink() {
                     const phone = "917736609299";
-                    let text = `Hello Dr. Sajeev Dev, I just completed the *Iron & Blood Vitality Quiz* on Yuvann.\n\n`;
-                    text += `*My Result:* ${this.result.risk} of Iron Depletion\n\n`;
-                    text += `*Symptoms & Lifestyle:*\n`;
+                    let text = `Hello Dr. Sajeev Dev, I just completed the *Iron & Blood Vitality Clinical Assessment* on Yuvann.\n\n`;
+                    text += `*Result:* ${this.result.risk} (Score: ${this.score})\n`;
+                    text += `*Summary:* ${this.result.message}\n\n`;
                     
-                    if (this.answers.q1 === 2) text += `- Wake up tired / breathless\n`;
-                    if (this.answers.q1 === 1) text += `- Afternoon fatigue\n`;
-                    if (this.answers.q1 === 0) text += `- Consistent energy\n`;
+                    text += `*Key Observations:*\n`;
+                    this.diagnosticFlags.forEach(f => {
+                        text += `• ${f}\n`;
+                    });
                     
-                    if (this.answers.q2.includes('pale')) text += `- Pale inner eyelids/gums\n`;
-                    if (this.answers.q2.includes('nails')) text += `- Brittle nails or hair fall\n`;
-                    if (this.answers.q2.includes('cold')) text += `- Unusually cold hands/feet\n`;
-                    
-                    if (this.answers.q3.includes('veg')) text += `- Vegetarian / Vegan diet\n`;
-                    if (this.answers.q3.includes('tea')) text += `- Heavy tea/coffee after meals\n`;
-                    if (this.answers.q3.includes('female')) text += `- Menstrual fatigue\n`;
-                    
-                    if (this.answers.q2.length === 0 && this.answers.q3.length === 0) {
-                        text += `- No specific physical signs checked.\n`;
-                    }
-                    
-                    text += `\nI would love some personalized guidance on nourishing my Rakta Dhatu and using VeaChoc!`;
+                    text += `\nI would like to order *VeaChoc Daily Iron* from your shop (https://yuvann.com/shops/veachoc). Could you please advise me on the ideal dosage for my condition?`;
                     
                     return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
                 }
