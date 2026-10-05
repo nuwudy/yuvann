@@ -185,7 +185,7 @@
                                 <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
                                     @if($product->has_multiple_variants)
                                         <a href="/products/{{ $product->slug }}" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200 block text-center">
-                                            View Sizes · From ₹{{ number_format($product->min_price, 2) }}
+                                            View Sizes · ₹{{ number_format($product->min_price, 0) }} – ₹{{ number_format($product->max_price, 0) }}
                                         </a>
                                     @else
                                         <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
@@ -218,10 +218,10 @@
                                     <div class="flex flex-wrap items-center justify-center gap-1.5 mb-3">
                                         @foreach($product->active_variants as $v)
                                             <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
-                                               class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-green-50 border border-brand-green-200 text-brand-green-900 hover:border-brand-gold-500 hover:bg-brand-gold-50 hover:text-brand-gold-700 transition-colors"
+                                               class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs bg-white border border-brand-green-200 hover:border-brand-gold-500 hover:bg-brand-gold-50/70 transition-all shadow-2xs group/pill"
                                                title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
-                                                <span>{{ $v->unit_size }}</span>
-                                                <span class="text-[9px] text-brand-green-700/60 font-normal ml-1">· ₹{{ number_format($v->active_price, 0) }}</span>
+                                                <span class="font-bold text-brand-green-900">{{ $v->unit_size }}</span>
+                                                <span class="font-black text-[11px] text-brand-green-950 bg-brand-gold-100 px-1.5 py-0.5 rounded border border-brand-gold-300 group-hover/pill:bg-brand-gold-200 transition-colors">₹{{ number_format($v->active_price, 0) }}</span>
                                             </a>
                                         @endforeach
                                     </div>
@@ -229,15 +229,15 @@
                                     <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size }}</p>
                                 @endif
                                 
-                                <div class="mt-auto flex items-center justify-center gap-2">
+                                <div class="mt-auto flex items-center justify-center gap-1.5">
                                     @if($product->has_price_range)
-                                        <span class="text-xs text-brand-green-700/60 font-medium">From</span>
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->min_price, 2) }}</span>
+                                        <span class="text-xs font-bold uppercase tracking-wider text-brand-gold-700">Range:</span>
+                                        <span class="text-lg font-black font-serif text-brand-green-950 tracking-tight">₹{{ number_format($product->min_price, 0) }} – ₹{{ number_format($product->max_price, 0) }}</span>
                                     @elseif($product->is_on_sale)
                                         <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
+                                        <span class="text-lg font-bold text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
                                     @else
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
+                                        <span class="text-lg font-bold text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
                                     @endif
                                 </div>
                                 
@@ -426,7 +426,7 @@
                                 <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
                                     @if($product->has_multiple_variants)
                                         <a href="/products/{{ $product->slug }}" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200 block text-center">
-                                            View Sizes · From ₹{{ number_format($product->min_price, 2) }}
+                                            View Sizes · ₹{{ number_format($product->min_price, 0) }} – ₹{{ number_format($product->max_price, 0) }}
                                         </a>
                                     @else
                                         <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
@@ -459,10 +459,10 @@
                                     <div class="flex flex-wrap items-center justify-center gap-1.5 mb-3">
                                         @foreach($product->active_variants as $v)
                                             <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
-                                               class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-green-50 border border-brand-green-200 text-brand-green-900 hover:border-brand-gold-500 hover:bg-brand-gold-50 hover:text-brand-gold-700 transition-colors"
+                                               class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs bg-white border border-brand-green-200 hover:border-brand-gold-500 hover:bg-brand-gold-50/70 transition-all shadow-2xs group/pill"
                                                title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
-                                                <span>{{ $v->unit_size }}</span>
-                                                <span class="text-[9px] text-brand-green-700/60 font-normal ml-1">· ₹{{ number_format($v->active_price, 0) }}</span>
+                                                <span class="font-bold text-brand-green-900">{{ $v->unit_size }}</span>
+                                                <span class="font-black text-[11px] text-brand-green-950 bg-brand-gold-100 px-1.5 py-0.5 rounded border border-brand-gold-300 group-hover/pill:bg-brand-gold-200 transition-colors">₹{{ number_format($v->active_price, 0) }}</span>
                                             </a>
                                         @endforeach
                                     </div>
@@ -470,15 +470,15 @@
                                     <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size }}</p>
                                 @endif
                                 
-                                <div class="mt-auto flex items-center justify-center gap-2">
+                                <div class="mt-auto flex items-center justify-center gap-1.5">
                                     @if($product->has_price_range)
-                                        <span class="text-xs text-brand-green-700/60 font-medium">From</span>
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->min_price, 2) }}</span>
+                                        <span class="text-xs font-bold uppercase tracking-wider text-brand-gold-700">Range:</span>
+                                        <span class="text-lg font-black font-serif text-brand-green-950 tracking-tight">₹{{ number_format($product->min_price, 0) }} – ₹{{ number_format($product->max_price, 0) }}</span>
                                     @elseif($product->is_on_sale)
                                         <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
+                                        <span class="text-lg font-bold text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
                                     @else
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
+                                        <span class="text-lg font-bold text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
                                     @endif
                                 </div>
                                 
@@ -569,7 +569,7 @@
                                 <div class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover/card:translate-y-0 transition-transform duration-300 ease-out hidden lg:block bg-gradient-to-t from-black/60 to-transparent">
                                     @if($product->has_multiple_variants)
                                         <a href="/products/{{ $product->slug }}" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200 block text-center">
-                                            View Sizes · From ₹{{ number_format($product->min_price, 2) }}
+                                            View Sizes · ₹{{ number_format($product->min_price, 0) }} – ₹{{ number_format($product->max_price, 0) }}
                                         </a>
                                     @else
                                         <button wire:click="addToCart({{ $product->id }})" class="w-full py-3 bg-white text-brand-green-900 font-semibold text-sm rounded shadow hover:bg-brand-gold-500 active:scale-95 transition-all duration-200">
@@ -602,10 +602,10 @@
                                     <div class="flex flex-wrap items-center justify-center gap-1.5 mb-3">
                                         @foreach($product->active_variants as $v)
                                             <a href="/products/{{ $product->slug }}?variant={{ $v->id }}" 
-                                               class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-brand-green-50 border border-brand-green-200 text-brand-green-900 hover:border-brand-gold-500 hover:bg-brand-gold-50 hover:text-brand-gold-700 transition-colors"
+                                               class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs bg-white border border-brand-green-200 hover:border-brand-gold-500 hover:bg-brand-gold-50/70 transition-all shadow-2xs group/pill"
                                                title="{{ $v->unit_size }} - ₹{{ number_format($v->active_price, 2) }}">
-                                                <span>{{ $v->unit_size }}</span>
-                                                <span class="text-[9px] text-brand-green-700/60 font-normal ml-1">· ₹{{ number_format($v->active_price, 0) }}</span>
+                                                <span class="font-bold text-brand-green-900">{{ $v->unit_size }}</span>
+                                                <span class="font-black text-[11px] text-brand-green-950 bg-brand-gold-100 px-1.5 py-0.5 rounded border border-brand-gold-300 group-hover/pill:bg-brand-gold-200 transition-colors">₹{{ number_format($v->active_price, 0) }}</span>
                                             </a>
                                         @endforeach
                                     </div>
@@ -613,15 +613,15 @@
                                     <p class="text-sm text-brand-green-700/60 mb-4">{{ $product->unit_size }}</p>
                                 @endif
                                 
-                                <div class="mt-auto flex items-center justify-center gap-2">
+                                <div class="mt-auto flex items-center justify-center gap-1.5">
                                     @if($product->has_price_range)
-                                        <span class="text-xs text-brand-green-700/60 font-medium">From</span>
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->min_price, 2) }}</span>
+                                        <span class="text-xs font-bold uppercase tracking-wider text-brand-gold-700">Range:</span>
+                                        <span class="text-lg font-black font-serif text-brand-green-950 tracking-tight">₹{{ number_format($product->min_price, 0) }} – ₹{{ number_format($product->max_price, 0) }}</span>
                                     @elseif($product->is_on_sale)
                                         <span class="text-sm text-brand-green-700/40 line-through">₹{{ number_format($product->price, 2) }}</span>
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
+                                        <span class="text-lg font-bold text-brand-green-900">₹{{ number_format($product->sale_price, 2) }}</span>
                                     @else
-                                        <span class="text-lg font-medium text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
+                                        <span class="text-lg font-bold text-brand-green-900">₹{{ number_format($product->price, 2) }}</span>
                                     @endif
                                 </div>
                                 
