@@ -31,10 +31,19 @@ class Home extends Component
             ->where('is_active', true)
             ->get();
 
+        $prioritySorted = $allActiveProducts->sort(function ($a, $b) {
+            $orderA = $a->featured_order !== null ? (int) $a->featured_order : PHP_INT_MAX;
+            $orderB = $b->featured_order !== null ? (int) $b->featured_order : PHP_INT_MAX;
+            if ($orderA !== $orderB) {
+                return $orderA <=> $orderB;
+            }
+            return $b->created_at <=> $a->created_at;
+        })->values();
+
         return view('livewire.home', [
-            'featuredProducts' => $allActiveProducts->filter(fn($p) => $p->featured_order !== null)->sortBy('featured_order')->values(),
+            'featuredProducts' => $prioritySorted->filter(fn($p) => $p->featured_order !== null || $p->is_featured)->values(),
             'trendingProducts' => $allActiveProducts->shuffle()->take(8)->values(),
-            'latestProducts'   => $allActiveProducts->sortByDesc('created_at')->take(8)->values(),
+            'latestProducts'   => $prioritySorted->take(8)->values(),
             'bodyParts'        => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
             'categories'       => Category::where('is_active', true)->get(),
             'shops'            => \App\Models\Shop::where('is_active', true)->get(),

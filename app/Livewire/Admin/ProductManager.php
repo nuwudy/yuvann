@@ -326,12 +326,16 @@ class ProductManager extends Component
         $product->save();
     }
 
-    public function updateFeaturedOrder(int $id, ?int $order): void
+    public function updateFeaturedOrder(int $id, $order = null): void
     {
         $product = Product::findOrFail($id);
-        $product->featured_order = $order;
+        $orderVal = ($order !== null && $order !== '' && is_numeric($order)) ? (int) $order : null;
+        $product->featured_order = $orderVal;
+        if ($orderVal !== null) {
+            $product->is_featured = true;
+        }
         $product->save();
-        session()->flash('success', 'Featured order updated!');
+        session()->flash('success', "Priority order for '{$product->name}' updated to " . ($orderVal !== null ? "#{$orderVal}" : 'none') . "!");
     }
 
     // ─── Variant Management ──────────────────────────────────────────────────
@@ -592,6 +596,8 @@ class ProductManager extends Component
                     $q->where('shop_id', $this->shopFilter);
                 }
             })
+            ->orderByRaw('CASE WHEN featured_order IS NOT NULL THEN 0 ELSE 1 END')
+            ->orderBy('featured_order', 'asc')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 

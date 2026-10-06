@@ -61,7 +61,7 @@
                         <th class="px-6 py-4">Category</th>
                         <th class="px-6 py-4">Price</th>
                         <th class="px-6 py-4">Stock</th>
-                        <th class="px-6 py-4 text-center">Featured</th>
+                        <th class="px-6 py-4 text-center" title="Set 1, 2, 3... to display on top of Shop and Home pages">Priority</th>
                         <th class="px-6 py-4 text-center">Status</th>
                         <th class="px-6 py-4 text-right">Actions</th>
                     </tr>
@@ -123,13 +123,14 @@
                                     {{ $product->stock_quantity }} items
                                 </span>
                             </td>
-                            <!-- Featured -->
+                            <!-- Priority / Featured Order -->
                             <td class="px-6 py-4 text-center">
                                 <input type="number" 
-                                       wire:change="updateFeaturedOrder({{ $product->id }}, $event.target.value || null)"
+                                       wire:change="updateFeaturedOrder({{ $product->id }}, $event.target.value)"
+                                       wire:keydown.enter.prevent="updateFeaturedOrder({{ $product->id }}, $event.target.value)"
                                        value="{{ $product->featured_order }}"
                                        min="1"
-                                       class="w-16 bg-white border border-brand-green-200 rounded py-1 px-2 text-xs text-center text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 shadow-sm transition-all"
+                                       class="w-16 bg-white border border-brand-green-200 rounded py-1 px-2 text-xs text-center font-bold text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 shadow-sm transition-all"
                                        placeholder="-">
                             </td>
                             <!-- Status -->
@@ -319,9 +320,12 @@
 
                     <!-- Featured Order -->
                     <div class="md:col-span-3">
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Home Slider Order</label>
+                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">
+                            Display Priority / Featured Order (1, 2, 3...)
+                        </label>
                         <input type="number" wire:model="featured_order" placeholder="e.g. 1" min="1"
                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('featured_order') border-red-400 @enderror">
+                        <p class="text-[10px] text-brand-green-700/60 mt-1">Lower numbers (1, 2, 3...) appear first on the Shop page & Home page.</p>
                         @error('featured_order') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
                     </div>
                 </div>
