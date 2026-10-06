@@ -16,6 +16,273 @@ class BlogSeeder extends Seeder
     {
         $articles = [
             [
+                'title' => 'The Science of Soothing Period Cramps: How Ruthu Santhi Oil Relieves Dysmenorrhea Naturally',
+                'slug' => 'science-of-soothing-period-cramps-ruthu-santhi-oil',
+                'excerpt' => 'Explore the medical science behind menstrual cramps (dysmenorrhea) and discover how Ruthu Santhi Oil by Ambolil Arya Vaidya Sala leverages transdermal herbal botanicals to calm uterine spasms without the side effects of painkiller pills.',
+                'category' => 'Women\'s Care',
+                'featured_image' => 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop',
+                'author_name' => 'Dr. Sajeev Dev & Ambolil Arya Vaidya Sala',
+                'author_title' => 'Chief Ayurvedic Consultant & Heritage Vaidyashala',
+                'read_time' => '5 min read',
+                'status' => 'published',
+                'is_published' => true,
+                'published_at' => now(),
+                'meta_title' => 'Relieve Menstrual Cramps Naturally | Ruthu Santhi Oil | Yuvann',
+                'meta_description' => 'Scientific guide on soothing period pain and dysmenorrhea naturally with Ruthu Santhi Oil from Ambolil Arya Vaidya Sala, Kerala.',
+                'content' => <<<'HTML'
+<p class="lead">For millions of women around the globe, the arrival of each menstrual cycle brings not just a natural biological transition, but debilitating abdominal cramps, pelvic heaviness, and muscular lower-back aches. Known medically as <strong>primary dysmenorrhea</strong>, menstrual cramps are frequently met with a quick reach for over-the-counter NSAID painkillers (like mefenamic acid or ibuprofen). But what if there is a scientifically grounded, non-invasive Ayurvedic alternative that addresses the root cause of muscle spasm without tearing up your stomach lining?</p>
+
+<h2>What Actually Causes Period Cramps? The Physiology of Dysmenorrhea</h2>
+<p>To understand why topical Ayurvedic intervention works, we first need to examine what happens biochemically inside the pelvic cavity during menstruation:</p>
+<ul>
+    <li><strong>Prostaglandin Surge:</strong> As the endometrial lining prepares to shed, cells release pro-inflammatory lipid compounds called <em>prostaglandins (PGF2α)</em>.</li>
+    <li><strong>Myometrial Spasms:</strong> Elevated prostaglandins trigger intense, rhythmic contractions in the myometrium (the smooth muscle wall of the uterus).</li>
+    <li><strong>Localized Ischemia:</strong> When these contractions become violently tight, they compress microscopic blood vessels, temporarily cutting off oxygen supply to uterine tissue. Nerve fibers sense this oxygen starvation as acute, throbbing, radiating pain.</li>
+</ul>
+
+<div class="ayurveda-tip-box">
+    <strong>⚠️ The Hidden Cost of Frequent Painkiller Pills:</strong>
+    <p>While oral NSAIDs block systemic prostaglandin production, routine use can irritate gastric mucosal barriers, causing acid reflux, gastritis, nausea, and rebound lethargy. A targeted topical solution bypasses the digestive tract entirely, delivering herbal relief directly to the pelvic muscle bed.</p>
+</div>
+
+<h2>The Transdermal Advantage: Why Topical Herbal Oil Works</h2>
+<p>The skin over the lower abdomen and sacral lower back is rich in blood capillaries and subcutaneous nerve endings. Transdermal herbal application works through localized cutaneous diffusion:</p>
+<p>When lipid-soluble botanical extracts are formulated in a micro-penetrating carrier oil, their bioactive molecules pass through the <em>stratum corneum</em> (the skin's outermost barrier) and reach the tense abdominal fascia and underlying muscular receptors within minutes.</p>
+
+<h2>Deconstructing Ruthu Santhi Oil: The Bioactive Formula</h2>
+<p>Crafted by the renowned <strong>Ambolil Arya Vaidya Sala (Puthuval, Pathanapuram, Kerala)</strong>, <strong>Ruthu Santhi Oil (Rithusanthi Menstrual Pain Relief Oil)</strong> is a classical masterclass in phytotherapy:</p>
+
+<h3>1. Tila Taila (Pure Sesame Seed Oil Base)</h3>
+<p>Unlike mineral oils or synthetic petroleum bases, cold-pressed sesame oil is rich in linoleic acid, sesamin, and natural Vitamin E. In Ayurveda, it is the premier <em>Sukshma</em> (subtle and deep-penetrating) medium, allowing bioactive herbal alkaloids to penetrate deep into abdominal tissue without leaving a sticky or heavy residue on clothing.</p>
+
+<h3>2. Shatavari (Asparagus racemosus) – The Uterine Balancer</h3>
+<p>Shatavari contains steroidal saponins (shatavarins) that act as natural spasmolytics. Clinical research indicates that Shatavari exhibits a calming effect on erratic smooth muscle contractions, moderating the intensity of uterine spasms.</p>
+
+<h3>3. Ashwagandha (Withania somnifera) – Somatic Stress Reducer</h3>
+<p>Rich in withanolides, Ashwagandha provides neuro-protective and anti-inflammatory support. It relaxes surrounding pelvic floor muscles, eases tension in the sacral lower back, and calms systemic stress that often amplifies pain perception during periods.</p>
+
+<h3>4. Devadaru (Cedrus deodara) – Deep Analgesic Wood</h3>
+<p>The essential extracts of Himalayan Cedar (Devadaru) have been revered for centuries in Kerala Ayurveda for their potent analgesic and anti-inflammatory properties, providing soothing relief to dull, aching pelvic and thigh soreness.</p>
+
+<h3>5. Natural Camphor (Karpoora) – Immediate Thermal Comfort</h3>
+<p>Camphor activates sensory temperature receptors (TRPM8 and TRPV1 pathways), creating a delicate warming sensation followed by soothing coolness. This sensory modulation gently "distracts" pain nerves while encouraging local vasodilation, restoring healthy oxygen flow to oxygen-deprived muscles.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌿 Heritage of Ambolil Arya Vaidya Sala:</strong>
+    <p>Originating from Puthuval, Pathanapuram in the Ayurvedic heartland of Kerala, Ambolil Arya Vaidya Sala meticulously brews Ruthu Santhi Oil according to classical pharmacological guidelines—ensuring 100% natural, chemical-free, and paraben-free comfort.</p>
+</div>
+
+<h2>How to Use Ruthu Santhi Oil for Maximum Comfort</h2>
+<ol class="space-y-2">
+    <li><strong>Proactive Priming (2–3 Days Before):</strong> Start applying 5–10 drops over the lower abdomen and sacral lower back 2–3 days prior to your expected cycle onset. This primes and relaxes the pelvic muscle bed before peak prostaglandin release.</li>
+    <li><strong>During Menstrual Days:</strong> Take a few drops of warmed oil into your palms. Massage gently in clockwise circular motions over the lower abdomen, lower back, and inner thighs where cramps are localized.</li>
+    <li><strong>Thermal Enhancement:</strong> Allow the non-greasy formula to absorb for 20–30 minutes. Placing a warm hot-water bottle over the area significantly amplifies transdermal absorption and muscle relaxation.</li>
+</ol>
+
+<h2>Conclusion: Empowering Your Monthly Cycle</h2>
+<p>Periods are a natural sign of reproductive health, but debilitating cramps should never hold you back from living your life, excelling at work, or pursuing your passions. With Ruthu Santhi Oil, you can step away from harsh chemical pills and embrace gentle, scientifically validated, doctor-formulated Ayurvedic comfort.</p>
+
+<div class="my-6 p-4 rounded-2xl bg-amber-50/80 border border-brand-gold-300 text-center">
+    <p class="font-serif font-bold text-brand-green-900 text-base mb-1">Experience Gentle, Period-Safe Pain Relief</p>
+    <p class="text-xs text-brand-green-800/80 mb-3">Authentically prepared by Ambolil Arya Vaidya Sala, Kerala. Quick-absorbing, non-staining, and 100% natural.</p>
+    <a href="https://yuvann.com/products/ruthu-santhi-oil" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand-green-900 text-brand-gold-300 hover:bg-brand-green-800 text-xs font-bold transition-all shadow-md">
+        <span>🛒 Order Ruthu Santhi Oil (30 ml)</span>
+        <span>→</span>
+    </a>
+</div>
+HTML
+                ,
+                'translations' => [
+                    'en' => [
+                        'locale' => 'en',
+                        'title' => 'The Science of Soothing Period Cramps: How Ruthu Santhi Oil Relieves Dysmenorrhea Naturally',
+                        'excerpt' => 'Explore the medical science behind menstrual cramps (dysmenorrhea) and discover how Ruthu Santhi Oil by Ambolil Arya Vaidya Sala leverages transdermal herbal botanicals to calm uterine spasms without the side effects of painkiller pills.',
+                        'content' => <<<'HTML'
+<p class="lead">For millions of women around the globe, the arrival of each menstrual cycle brings not just a natural biological transition, but debilitating abdominal cramps, pelvic heaviness, and muscular lower-back aches. Known medically as <strong>primary dysmenorrhea</strong>, menstrual cramps are frequently met with a quick reach for over-the-counter NSAID painkillers (like mefenamic acid or ibuprofen). But what if there is a scientifically grounded, non-invasive Ayurvedic alternative that addresses the root cause of muscle spasm without tearing up your stomach lining?</p>
+
+<h2>What Actually Causes Period Cramps? The Physiology of Dysmenorrhea</h2>
+<p>To understand why topical Ayurvedic intervention works, we first need to examine what happens biochemically inside the pelvic cavity during menstruation:</p>
+<ul>
+    <li><strong>Prostaglandin Surge:</strong> As the endometrial lining prepares to shed, cells release pro-inflammatory lipid compounds called <em>prostaglandins (PGF2α)</em>.</li>
+    <li><strong>Myometrial Spasms:</strong> Elevated prostaglandins trigger intense, rhythmic contractions in the myometrium (the smooth muscle wall of the uterus).</li>
+    <li><strong>Localized Ischemia:</strong> When these contractions become violently tight, they compress microscopic blood vessels, temporarily cutting off oxygen supply to uterine tissue. Nerve fibers sense this oxygen starvation as acute, throbbing, radiating pain.</li>
+</ul>
+
+<div class="ayurveda-tip-box">
+    <strong>⚠️ The Hidden Cost of Frequent Painkiller Pills:</strong>
+    <p>While oral NSAIDs block systemic prostaglandin production, routine use can irritate gastric mucosal barriers, causing acid reflux, gastritis, nausea, and rebound lethargy. A targeted topical solution bypasses the digestive tract entirely, delivering herbal relief directly to the pelvic muscle bed.</p>
+</div>
+
+<h2>The Transdermal Advantage: Why Topical Herbal Oil Works</h2>
+<p>The skin over the lower abdomen and sacral lower back is rich in blood capillaries and subcutaneous nerve endings. Transdermal herbal application works through localized cutaneous diffusion:</p>
+<p>When lipid-soluble botanical extracts are formulated in a micro-penetrating carrier oil, their bioactive molecules pass through the <em>stratum corneum</em> (the skin's outermost barrier) and reach the tense abdominal fascia and underlying muscular receptors within minutes.</p>
+
+<h2>Deconstructing Ruthu Santhi Oil: The Bioactive Formula</h2>
+<p>Crafted by the renowned <strong>Ambolil Arya Vaidya Sala (Puthuval, Pathanapuram, Kerala)</strong>, <strong>Ruthu Santhi Oil (Rithusanthi Menstrual Pain Relief Oil)</strong> is a classical masterclass in phytotherapy:</p>
+
+<h3>1. Tila Taila (Pure Sesame Seed Oil Base)</h3>
+<p>Unlike mineral oils or synthetic petroleum bases, cold-pressed sesame oil is rich in linoleic acid, sesamin, and natural Vitamin E. In Ayurveda, it is the premier <em>Sukshma</em> (subtle and deep-penetrating) medium, allowing bioactive herbal alkaloids to penetrate deep into abdominal tissue without leaving a sticky or heavy residue on clothing.</p>
+
+<h3>2. Shatavari (Asparagus racemosus) – The Uterine Balancer</h3>
+<p>Shatavari contains steroidal saponins (shatavarins) that act as natural spasmolytics. Clinical research indicates that Shatavari exhibits a calming effect on erratic smooth muscle contractions, moderating the intensity of uterine spasms.</p>
+
+<h3>3. Ashwagandha (Withania somnifera) – Somatic Stress Reducer</h3>
+<p>Rich in withanolides, Ashwagandha provides neuro-protective and anti-inflammatory support. It relaxes surrounding pelvic floor muscles, eases tension in the sacral lower back, and calms systemic stress that often amplifies pain perception during periods.</p>
+
+<h3>4. Devadaru (Cedrus deodara) – Deep Analgesic Wood</h3>
+<p>The essential extracts of Himalayan Cedar (Devadaru) have been revered for centuries in Kerala Ayurveda for their potent analgesic and anti-inflammatory properties, providing soothing relief to dull, aching pelvic and thigh soreness.</p>
+
+<h3>5. Natural Camphor (Karpoora) – Immediate Thermal Comfort</h3>
+<p>Camphor activates sensory temperature receptors (TRPM8 and TRPV1 pathways), creating a delicate warming sensation followed by soothing coolness. This sensory modulation gently "distracts" pain nerves while encouraging local vasodilation, restoring healthy oxygen flow to oxygen-deprived muscles.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌿 Heritage of Ambolil Arya Vaidya Sala:</strong>
+    <p>Originating from Puthuval, Pathanapuram in the Ayurvedic heartland of Kerala, Ambolil Arya Vaidya Sala meticulously brews Ruthu Santhi Oil according to classical pharmacological guidelines—ensuring 100% natural, chemical-free, and paraben-free comfort.</p>
+</div>
+
+<h2>How to Use Ruthu Santhi Oil for Maximum Comfort</h2>
+<ol class="space-y-2">
+    <li><strong>Proactive Priming (2–3 Days Before):</strong> Start applying 5–10 drops over the lower abdomen and sacral lower back 2–3 days prior to your expected cycle onset. This primes and relaxes the pelvic muscle bed before peak prostaglandin release.</li>
+    <li><strong>During Menstrual Days:</strong> Take a few drops of warmed oil into your palms. Massage gently in clockwise circular motions over the lower abdomen, lower back, and inner thighs where cramps are localized.</li>
+    <li><strong>Thermal Enhancement:</strong> Allow the non-greasy formula to absorb for 20–30 minutes. Placing a warm hot-water bottle over the area significantly amplifies transdermal absorption and muscle relaxation.</li>
+</ol>
+
+<h2>Conclusion: Empowering Your Monthly Cycle</h2>
+<p>Periods are a natural sign of reproductive health, but debilitating cramps should never hold you back from living your life, excelling at work, or pursuing your passions. With Ruthu Santhi Oil, you can step away from harsh chemical pills and embrace gentle, scientifically validated, doctor-formulated Ayurvedic comfort.</p>
+
+<div class="my-6 p-4 rounded-2xl bg-amber-50/80 border border-brand-gold-300 text-center">
+    <p class="font-serif font-bold text-brand-green-900 text-base mb-1">Experience Gentle, Period-Safe Pain Relief</p>
+    <p class="text-xs text-brand-green-800/80 mb-3">Authentically prepared by Ambolil Arya Vaidya Sala, Kerala. Quick-absorbing, non-staining, and 100% natural.</p>
+    <a href="https://yuvann.com/products/ruthu-santhi-oil" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand-green-900 text-brand-gold-300 hover:bg-brand-green-800 text-xs font-bold transition-all shadow-md">
+        <span>🛒 Order Ruthu Santhi Oil (30 ml)</span>
+        <span>→</span>
+    </a>
+</div>
+HTML
+                        ,
+                        'audio_url' => null,
+                        'meta_title' => 'Relieve Menstrual Cramps Naturally | Ruthu Santhi Oil | Yuvann',
+                        'meta_description' => 'Scientific guide on soothing period pain and dysmenorrhea naturally with Ruthu Santhi Oil from Ambolil Arya Vaidya Sala, Kerala.',
+                    ],
+                    'ml' => [
+                        'locale' => 'ml',
+                        'title' => 'ആർത്തവ വേദനയ്ക്ക് ശാസ്ത്രീയ ആശ്വാസം: ഋതു ശാന്തി തൈലത്തിന്റെ സവിശേഷതകൾ',
+                        'excerpt' => 'ആർത്തവ ദിനങ്ങളിലെ കടുത്ത വയറുവേദനയ്ക്കും നടുവേദനയ്ക്കും വേദനസംഹാരി ഗുളികകൾ ഒഴിവാക്കാം. അംബോലിൽ ആര്യവൈദ്യശാലയുടെ ഋതു ശാന്തി തൈലത്തിലൂടെ പ്രകൃതിദത്ത ആശ്വാസം നേടാം.',
+                        'content' => <<<'HTML'
+<p class="lead">ആർത്തവ ദിനങ്ങളിൽ സ്ത്രീകളെ ഏറ്റവും കൂടുതൽ അലട്ടുന്ന ഒന്നാണ് കഠിനമായ വയറുവേദനയും നടുവേദനയും (Dysmenorrhea). വേദനാസംഹാരി ഗുളികകൾ താത്കാലിക ആശ്വാസം നൽകുമെങ്കിലും, ദഹനവ്യവസ്ഥയെ ദോഷകരമായി ബാധിക്കാറുണ്ട്. എന്നാൽ ഔഷധസസ്യങ്ങളുടെ സ്വാഭാവിക ഗുണങ്ങളിലൂടെ ഇതിന് ആശ്വാസം കണ്ടെത്താൻ ആയുർവേദത്തിന് സാധിക്കും.</p>
+
+<h2>എന്തുകൊണ്ടാണ് ആർത്തവ വേദന ഉണ്ടാകുന്നത്?</h2>
+<p>ഗർഭാശയ ഭിത്തിയിലെ കോശങ്ങൾ വിഘടിക്കുമ്പോൾ ഉൽപ്പാദിപ്പിക്കപ്പെടുന്ന <strong>പ്രോസ്റ്റാഗ്ലാന്റിൻ (Prostaglandin)</strong> എന്ന ഹോർമോണുകളാണ് ഗർഭാശയ പേശികളുടെ കടുത്ത സങ്കോചത്തിന് കാരണമാകുന്നത്. പേശികൾ വലിഞ്ഞുമുറുകുമ്പോൾ രക്തയോട്ടം കുറയുകയും, ഇത് ശക്തമായ വേദനയായി അനുഭവപ്പെടുകയും ചെയ്യുന്നു.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>⚠️ വേദനസംഹാരി ഗുളികകളുടെ പാർശ്വഫലങ്ങൾ:</strong>
+    <p>പതിവായി പെയിൻകില്ലറുകൾ കഴിക്കുന്നത് അസിഡിറ്റി, ഗ്യാസ്, അൾസർ, ഛർദ്ദി എന്നിവയ്ക്ക് കാരണമാകാം. എന്നാൽ ചർമ്മത്തിലൂടെ ആഗിരണം ചെയ്യപ്പെടുന്ന തൈലങ്ങൾ ആമാശയത്തെ ബാധിക്കാതെ നേരിട്ട് പേശികളിലേക്ക് പ്രവർത്തിക്കുന്നു.</p>
+</div>
+
+<h2>ഋതു ശാന്തി തൈലത്തിന്റെ ഔഷധക്കൂട്ടുകൾ</h2>
+<p>കേരളത്തിലെ പ്രശസ്തമായ <strong>അംബോലിൽ ആര്യവൈദ്യശാല (പുതുവൽ, പത്തനാപുരം)</strong> തയ്യാറാക്കുന്ന ഋതു ശാന്തി തൈലം പാരമ്പര്യ ഔഷധക്കൂട്ടുകളാൽ സമ്പന്നമാണ്:</p>
+
+<ul>
+    <li><strong>എള്ളെണ്ണ (തില തൈലം):</strong> ചർമ്മത്തിന്റെ ആഴങ്ങളിലേക്ക് വേഗത്തിൽ ഇറങ്ങിച്ചെന്ന് ഔഷധഗുണങ്ങൾ പേശികളിലേക്ക് എത്തിക്കുന്നു. വസ്ത്രങ്ങളിൽ കറ പിടിക്കാത്ത നേർത്ത ഫോർമുലയാണിത്.</li>
+    <li><strong>ശതാവരി:</strong> ഗർഭാശയ പേശികളെ ശാന്തമാക്കാനും അമിതമായ പേശിവലിവിനെ തടയാനും സഹായിക്കുന്നു.</li>
+    <li><strong>അശ്വഗന്ധ:</strong> നടുവേദനയ്ക്കും പെൽവിക് പേശികളുടെ തളർച്ചയ്ക്കും ശമനം നൽകുന്നു.</li>
+    <li><strong>ദേവദാരം:</strong> പ്രകൃതിദത്തമായ വേദനസംഹാരിയായി പ്രവർത്തിച്ച് കടുത്ത വേദനയെ ലഘൂകരിക്കുന്നു.</li>
+    <li><strong>കർപ്പൂരം:</strong> പേശികളിൽ മൃദുവായ ചൂടും തുടർന്ന് കുളിർമ്മയും പകർന്ന് രക്തയോട്ടം വർദ്ധിപ്പിക്കുന്നു.</li>
+</ul>
+
+<h2>ഉപയോഗിക്കേണ്ട വിധം</h2>
+<p>ആർത്തവ തീയതിക്ക് 2-3 ദിവസം മുൻപ് മുതൽ തന്നെ അടിവയറ്റിലും നടുവിലും തുടകളിലും കുറച്ചു തുള്ളികൾ പുരട്ടി തടവുന്നത് വേദന മുൻകൂട്ടി തടയാൻ സഹായിക്കും. ആർത്തവ സമയത്ത് തൈലം പുരട്ടിയ ശേഷം ചൂടുവെള്ള ബാഗ് വെക്കുന്നത് ഇരട്ടി ആശ്വാസം നൽകും.</p>
+
+<div class="my-6 p-4 rounded-2xl bg-amber-50/80 border border-brand-gold-300 text-center">
+    <p class="font-serif font-bold text-brand-green-900 text-base mb-1">ഋതു ശാന്തി തൈലം ഇപ്പോൾ ഓൺലൈനായി വാങ്ങാം</p>
+    <p class="text-xs text-brand-green-800/80 mb-3">അംബോലിൽ ആര്യവൈദ്യശാല, പുതുവൽ, പത്തനാപുരം | 100% പ്രകൃതിദത്തം</p>
+    <a href="https://yuvann.com/products/ruthu-santhi-oil" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand-green-900 text-brand-gold-300 hover:bg-brand-green-800 text-xs font-bold transition-all shadow-md">
+        <span>🛒 ഓർഡർ ചെയ്യൂ (₹285)</span>
+        <span>→</span>
+    </a>
+</div>
+HTML
+                        ,
+                        'audio_url' => null,
+                        'meta_title' => 'ആർത്തവ വേദനയ്ക്ക് ആയുർവേദ പരിഹാരം | Yuvann',
+                        'meta_description' => 'അംബോലിൽ ആര്യവൈദ്യശാലയുടെ ഋതു ശാന്തി തൈലത്തിലൂടെ ആർത്തവ വേദനയിൽ നിന്നും പ്രകൃതിദത്ത ആശ്വാസം നേടാം.',
+                    ],
+                    'hi' => [
+                        'locale' => 'hi',
+                        'title' => 'पीरियड्स के दर्द (क्रैम्प्स) का वैज्ञानिक समाधान: रुतु शांति तेल के फायदे',
+                        'excerpt' => 'मासिक धर्म के दौरान होने वाले गंभीर पेट दर्द और कमर दर्द के लिए पेनकिलर गोलियों से बचें। अंबोलिल आर्य वैद्यशाला के रुतु शांति तेल से पाएं प्राकृतिक और सुरक्षित राहत।',
+                        'content' => <<<'HTML'
+<p class="lead">मासिक धर्म (Periods) के दौरान होने वाले असहनीय ऐंठन और कमर दर्द (Dysmenorrhea) से हर महीने करोड़ों महिलाएं जूझती हैं। बार-बार पेनकिलर गोलियां खाना पेट के लिए हानिकारक हो सकता है। आयुर्वेद का रुतु शांति तेल बिना किसी साइड इफेक्ट के प्राकृतिक राहत देता है।</p>
+
+<h2>पीरियड्स में दर्द क्यों होता है?</h2>
+<p>गर्भाशय की परत टूटने पर शरीर में <strong>प्रोस्टाग्लैंडीन (Prostaglandin)</strong> हार्मोन का स्राव होता है, जो गर्भाशय की मांसपेशियों में तेज संकुचन पैदा करता है। इससे रक्त संचार में रुकावट आती है और गंभीर ऐंठन महसूस होती है।</p>
+
+<h2>रुतु शांति तेल की विशेषता और प्रमुख सामग्रियां</h2>
+<p>केरल की प्रतिष्ठित <strong>अंबोलिल आर्य वैद्यशाला (पथानापुरम)</strong> द्वारा तैयार यह तेल 100% आयुर्वेदिक है:</p>
+<ul>
+    <li><strong>तिल का तेल:</strong> त्वचा में गहराई तक जाकर जड़ी-बूटियों के प्रभाव को तुरंत मांसपेशियों तक पहुंचाता है।</li>
+    <li><strong>शतावरी:</strong> गर्भाशय की मांसपेशियों को आराम देती है और ऐंठन को कम करती है।</li>
+    <li><strong>अश्वगंधा:</strong> कमर दर्द और तनाव से राहत दिलाता है।</li>
+    <li><strong>देवदारु:</strong> सूजन और तेज दर्द को शांत करने में सहायक है।</li>
+    <li><strong>कपूर:</strong> रक्त संचार बढ़ाकर गर्माहट और शांति प्रदान करता है।</li>
+</ul>
+
+<h2>उपयोग की विधि</h2>
+<p>पीरियड्स शुरू होने से 2-3 दिन पहले और पीरियड्स के दौरान नाभि के निचले हिस्से, कमर और जांघों पर हल्के हाथों से मालिश करें। इसके बाद गर्म पानी की थैली से सिकाई करने पर तुरंत आराम मिलता है।</p>
+
+<div class="my-6 p-4 rounded-2xl bg-amber-50/80 border border-brand-gold-300 text-center">
+    <p class="font-serif font-bold text-brand-green-900 text-base mb-1">रुतु शांति तेल अभी ऑर्डर करें</p>
+    <a href="https://yuvann.com/products/ruthu-santhi-oil" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand-green-900 text-brand-gold-300 hover:bg-brand-green-800 text-xs font-bold transition-all shadow-md">
+        <span>🛒 खरीदें (₹285)</span>
+        <span>→</span>
+    </a>
+</div>
+HTML
+                        ,
+                        'audio_url' => null,
+                        'meta_title' => 'पीरियड्स दर्द का आयुर्वेदिक उपाय | रुतु शांति तेल',
+                        'meta_description' => 'मासिक धर्म के गंभीर दर्द से राहत पाने के लिए अंबोलिल आर्य वैद्यशाला का प्राकृतिक रुतु शांति तेल अपनाएं।',
+                    ],
+                    'ta' => [
+                        'locale' => 'ta',
+                        'title' => 'மாதவிடாய் வலிக்கு (பீரியட்ஸ் கிராம்பஸ்) அறிவியல் தீர்வு: ருது சாந்தி தைலம்',
+                        'excerpt' => 'மாதவிடாய் கால வயிற்று வலி மற்றும் முதுகு வலிக்கு வலி நிவாரணி மாத்திரைகளை தவிருங்கள். அம்போலில் ஆர்ய வைத்யசாலையின் ருது சாந்தி தைலம் மூலம் இயற்கை நிவாரணம் பெறுங்கள்.',
+                        'content' => <<<'HTML'
+<p class="lead">மாதவிடாய் காலங்களில் ஏற்படும் கடுமையான வயிற்று வலி மற்றும் தசைப்பிடிப்புக்கு (Dysmenorrhea) மாத்திரைகளை அடிக்கடி உட்கொள்வது அசிடிட்டி போன்ற பக்கவிளைவுகளை உண்டாக்கும். பாரம்பரிய ஆயுர்வேதத்தின் ருது சாந்தி தைலம் இதற்கு பக்கவிளைவுகளற்ற இயற்கை தீர்வாகும்.</p>
+
+<h2>மாதவிடாய் வலி ஏன் ஏற்படுகிறது?</h2>
+<p>கருப்பையில் சுரக்கும் <strong>புரோஸ்டாக்லாண்டின் (Prostaglandin)</strong> ஹார்மோன்களின் அதிகரிப்பால் கருப்பை தசைகள் தீவிரமாக சுருங்கி விரிகின்றன. இதனால் இரத்த ஓட்டம் தடைபட்டு கடுமையான வலி ஏற்படுகிறது.</p>
+
+<h2>ருது சாந்தி தைலத்தின் இயற்கை மூலிகைகள்</h2>
+<p>கேரளாவின் பாரம்பரியமிக்க <strong>அம்போலில் ஆர்ய வைத்யசாலா (பத்தானாபுரம்)</strong> தயாரித்த இந்த தைலம் 100% இயற்கையானது:</p>
+<ul>
+    <li><strong>நல்லெண்ணெய் (எள்ளெண்ணெய்):</strong> தோலில் ஆழமாக ஊடுருவி மூலிகைகளின் பலனை தசைகளுக்கு நேரடியாக கொண்டு சேர்க்கிறது.</li>
+    <li><strong>சதாவரி:</strong> கருப்பை தசைகளை தளர்த்தி அதிகப்படியான பிடிப்புகளை நீக்குகிறது.</li>
+    <li><strong>அஸ்வகந்தா:</strong> முதுகு வலி மற்றும் உடல் சோர்வை குறைக்கிறது.</li>
+    <li><strong>தேவதாரு:</strong> இயற்கையான வலி நிவாரணியாக செயல்படுகிறது.</li>
+    <li><strong>கற்பூரம்:</strong> இரத்த ஓட்டத்தை சீராக்கி இதமான வெப்பத்தையும் அமைதியையும் தருகிறது.</li>
+</ul>
+
+<h2>பயன்படுத்தும் முறை</h2>
+<p>மாதவிடாய் தொடங்குவதற்கு 2-3 நாட்களுக்கு முன்பிருந்தே அடிவயிறு மற்றும் கீழ் முதுகில் வட்ட வடிவில் மென்மையாக மசாஜ் செய்யவும். ஆடை மீது கறை படியாத மிருதுவான ஃபார்முலா.</p>
+
+<div class="my-6 p-4 rounded-2xl bg-amber-50/80 border border-brand-gold-300 text-center">
+    <p class="font-serif font-bold text-brand-green-900 text-base mb-1">ருது சாந்தி தைலத்தை இப்போதே ஆர்டர் செய்யுங்கள்</p>
+    <a href="https://yuvann.com/products/ruthu-santhi-oil" class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-brand-green-900 text-brand-gold-300 hover:bg-brand-green-800 text-xs font-bold transition-all shadow-md">
+        <span>🛒 வாங்கவும் (₹285)</span>
+        <span>→</span>
+    </a>
+</div>
+HTML
+                        ,
+                        'audio_url' => null,
+                        'meta_title' => 'மாதவிடாய் வலிக்கு இயற்கை தீர்வு | ருது சாந்தி தைலம்',
+                        'meta_description' => 'மாதவிடாய் வலிக்கு அம்போலில் ஆர்ய வைத்யசாலையின் ருது சாந்தி தைலம் வழங்கும் அறிவியல் பூர்வமான தீர்வு.',
+                    ],
+                ],
+                'product_slugs' => ['ruthu-santhi-oil']
+            ],
+            [
                 'title' => 'Why Iron Nutrition Matters: Common Signs of Low Iron & The Story of VeaChoc',
                 'slug' => 'why-iron-nutrition-matters-veachoc-story',
                 'excerpt' => 'Iron deficiency is one of the world’s most common nutrient gaps. Discover the 5 vital signs of low iron, how purposeful chocolate snacking bridges the gap, and the true founder story behind VeaChoc.',
