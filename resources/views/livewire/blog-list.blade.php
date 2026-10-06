@@ -142,7 +142,7 @@
                 @foreach($posts as $post)
                     <article class="group bg-white rounded-2xl overflow-hidden border border-brand-green-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full">
                         <!-- Card Image -->
-                        <a href="/blog/{{ $post->slug }}" class="relative block h-52 overflow-hidden bg-gray-100">
+                        <a href="/blog/{{ $post->slug }}" class="relative block aspect-video overflow-hidden bg-gray-100">
                             <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" 
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out">
                             <div class="absolute top-3 left-3">

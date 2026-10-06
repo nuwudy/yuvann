@@ -23,23 +23,28 @@ class ImageService
     private const QUALITY = 85;
 
     /**
-     * Process and save a product image as WebP.
+     * Process and save an image as WebP.
      *
-     * Accepts any browser-uploadable image (JPEG, PNG, GIF, BMP, WEBP, AVIF).
-     * Resizes to 800×800 (cover crop) and encodes as WebP at quality 85.
+     * - For products: 800×800 (1:1 square)
+     * - For blog: 1200×675 (16:9 landscape)
      *
      * @param  \Illuminate\Http\UploadedFile  $file        The uploaded file
-     * @param  string                         $directory   Storage sub-path (e.g. 'products')
+     * @param  string                         $directory   Storage sub-path (e.g. 'products', 'blog')
+     * @param  int|null                       $targetWidth Optional custom width
+     * @param  int|null                       $targetHeight Optional custom height
      * @return string                                      The stored file path relative to disk root
      */
-    public function storeAsWebP(UploadedFile $file, string $directory = 'products'): string
+    public function storeAsWebP(UploadedFile $file, string $directory = 'products', ?int $targetWidth = null, ?int $targetHeight = null): string
     {
         try {
             $manager = $this->makeManager();
 
+            $w = $targetWidth ?? ($directory === 'blog' ? 1200 : self::WIDTH);
+            $h = $targetHeight ?? ($directory === 'blog' ? 675 : self::HEIGHT);
+
             // Read and process
             $image = $manager->read($file->getRealPath());
-            $image->cover(self::WIDTH, self::HEIGHT);
+            $image->cover($w, $h);
 
             // Encode to WebP
             $encoded = $image->toWebp(self::QUALITY);

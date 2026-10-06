@@ -87,8 +87,8 @@
 
         <!-- Featured Image -->
         @if($post->featured_image)
-            <div class="mb-8 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 max-h-[460px] bg-gray-100">
-                <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
+            <div class="mb-8 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 aspect-video max-h-[520px] bg-gray-100">
+                <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover object-center">
             </div>
         @endif
 

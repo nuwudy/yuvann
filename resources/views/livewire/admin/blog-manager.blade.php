@@ -316,7 +316,14 @@
 
                         <!-- 2. Featured Cover Image Section -->
                         <div class="p-4 rounded-xl bg-white border border-gray-200">
-                            <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-2">Featured Cover Image</label>
+                            <div class="flex items-center justify-between mb-2">
+                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider">
+                                    Featured Cover Image (Hero Banner)
+                                </label>
+                                <span class="text-[11px] font-semibold text-brand-gold-700 bg-brand-gold-50 px-2 py-0.5 rounded border border-brand-gold-200">
+                                    📐 Ideal Size: 1200 × 675 px (16:9)
+                                </span>
+                            </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                 <div>
                                     <div class="flex items-center gap-3">
@@ -327,18 +334,22 @@
                                         Or paste an external high-res image URL:
                                     </p>
                                     <input type="url" wire:model="image_url" placeholder="https://images.unsplash.com/..." class="mt-1 w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
+                                    <p class="text-[10px] text-brand-green-700/70 mt-1.5">
+                                        💡 <strong>Tip:</strong> Use landscape images (16:9 ratio). Keep the main subject centered so it displays without cropping on mobile & desktop.
+                                    </p>
                                 </div>
 
-                                <!-- Image Preview -->
+                                <!-- Image Preview (16:9) -->
                                 <div class="flex items-center justify-center md:justify-end">
                                     @if ($featured_image)
-                                        <img src="{{ $featured_image->temporaryUrl() }}" alt="Preview" class="h-24 w-40 object-cover rounded-lg border border-brand-green-200 shadow-xs">
+                                        <img src="{{ $featured_image->temporaryUrl() }}" alt="Preview" class="aspect-video w-48 object-cover rounded-lg border border-brand-green-200 shadow-xs">
                                     @elseif ($existing_featured_image)
-                                        <img src="{{ str_starts_with($existing_featured_image, 'http') ? $existing_featured_image : Storage::url($existing_featured_image) }}" alt="Current Image" class="h-24 w-40 object-cover rounded-lg border border-brand-green-200 shadow-xs">
+                                        <img src="{{ str_starts_with($existing_featured_image, 'http') ? $existing_featured_image : Storage::url($existing_featured_image) }}" alt="Current Image" class="aspect-video w-48 object-cover rounded-lg border border-brand-green-200 shadow-xs">
                                     @else
-                                        <div class="h-24 w-40 rounded-lg bg-gray-100 border border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 text-xs text-center p-2">
-                                            <span>📷</span>
-                                            <span class="mt-1">No cover image</span>
+                                        <div class="aspect-video w-48 rounded-lg bg-gray-100 border border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 text-xs text-center p-2">
+                                            <span class="text-lg">📷</span>
+                                            <span class="mt-1 text-[11px]">16:9 Landscape Cover</span>
+                                            <span class="text-[9px] text-gray-400">1200 × 675 px</span>
                                         </div>
                                     @endif
                                 </div>
