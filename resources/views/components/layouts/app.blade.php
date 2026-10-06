@@ -210,21 +210,29 @@
                 </div>
             </div>
 
-            <!-- Mobile Sticky Search Bar (High Prominence across all mobile views) -->
-            <div class="md:hidden pb-3 pt-0">
-                <form action="/products" method="GET" class="relative flex items-center shadow-xs rounded-full bg-white border-2 border-brand-green-200/90 focus-within:border-brand-gold-500 focus-within:ring-2 focus-within:ring-brand-gold-400/30 transition-all">
-                    <span class="pl-3.5 pr-2 text-brand-green-800 pointer-events-none">
+            <!-- Mobile Sticky Search Bar (Clean, spacious, zero overlap) -->
+            <div class="md:hidden pb-2.5 pt-0.5">
+                <form action="/products" method="GET" class="relative block w-full">
+                    <!-- Search Icon (Pinned to Left) -->
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-brand-green-700">
                         <svg class="w-4 h-4 text-brand-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
-                    </span>
-                    <input type="text" name="search" 
-                           placeholder="Search remedies, veachoc, oils, superfoods..." 
-                           class="w-full py-2 sm:py-2.5 pr-16 bg-transparent text-xs font-semibold text-brand-green-950 placeholder-brand-green-700/60 focus:outline-none">
-                    <button type="submit" 
-                            class="absolute right-1 px-3.5 py-1.5 bg-gradient-to-r from-brand-gold-500 to-brand-gold-400 hover:from-brand-gold-400 text-brand-green-950 text-[11px] font-black rounded-full transition-all shadow-xs">
-                        Search
-                    </button>
+                    </div>
+
+                    <!-- Input with clear, generous left (pl-10) and right (pr-20) padding -->
+                    <input type="text" 
+                           name="search" 
+                           placeholder="Search remedies, veachoc, oils..." 
+                           class="w-full bg-white border-2 border-brand-green-200/90 focus:border-brand-gold-500 rounded-full py-2 pl-10 pr-20 text-xs font-semibold text-brand-green-950 placeholder-brand-green-700/60 shadow-2xs focus:outline-none focus:ring-2 focus:ring-brand-gold-400/30">
+
+                    <!-- Search Button (Pinned to Right) -->
+                    <div class="absolute inset-y-1 right-1.5 flex items-center">
+                        <button type="submit" 
+                                class="px-3.5 py-1 bg-gradient-to-r from-brand-gold-500 to-brand-gold-400 hover:from-brand-gold-400 text-brand-green-950 text-[11px] font-black rounded-full shadow-2xs transition-all uppercase tracking-wider">
+                            Search
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

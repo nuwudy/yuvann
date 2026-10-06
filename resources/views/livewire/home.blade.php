@@ -81,16 +81,16 @@
         <div class="max-w-4xl mx-auto space-y-2.5">
             <!-- Search Form -->
             <form action="/products" method="GET" class="relative flex items-center shadow-xl rounded-2xl bg-white p-1 sm:p-1.5 border-2 border-brand-gold-400 focus-within:border-brand-gold-500 focus-within:ring-4 focus-within:ring-brand-gold-400/30 transition-all">
-                <span class="pl-3 sm:pl-4 pr-2 text-brand-green-800">
+                <span class="pl-3 sm:pl-4 pr-1.5 sm:pr-2 text-brand-green-800 shrink-0">
                     <svg class="w-5 h-5 sm:w-6 sm:h-6 text-brand-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </span>
                 <input type="text" name="search" 
-                       placeholder="Search remedies, veachoc, oils, superfoods, brands..." 
-                       class="w-full py-2 sm:py-2.5 pr-2 text-xs sm:text-base font-bold text-brand-green-950 placeholder-brand-green-700/60 bg-transparent focus:outline-none">
+                       placeholder="Search remedies, veachoc, oils, superfoods..." 
+                       class="w-full py-2 sm:py-2.5 px-2 text-xs sm:text-base font-bold text-brand-green-950 placeholder-brand-green-700/60 bg-transparent focus:outline-none">
                 <button type="submit" 
-                        class="px-5 sm:px-8 py-2 sm:py-2.5 bg-gradient-to-r from-brand-gold-500 via-brand-gold-400 to-brand-gold-500 hover:from-brand-gold-400 text-brand-green-950 font-black text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center gap-1.5 shrink-0 tracking-wide">
+                        class="px-4 sm:px-8 py-2 sm:py-2.5 bg-gradient-to-r from-brand-gold-500 via-brand-gold-400 to-brand-gold-500 hover:from-brand-gold-400 text-brand-green-950 font-black text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center gap-1.5 shrink-0 tracking-wide">
                     <span>Search</span>
                     <span class="hidden sm:inline">&rarr;</span>
                 </button>
