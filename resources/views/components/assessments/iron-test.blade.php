@@ -52,103 +52,182 @@
                 </button>
             </div>
 
-            <!-- Quiz Stepper Header (Steps 1 to 7) -->
-            <div x-show="step >= 1 && step <= 7" class="mb-6">
+            <!-- Quiz Stepper Header (Steps 1 to 10) -->
+            <div x-show="step >= 1 && step <= 10" class="mb-6">
                 <div class="flex items-center justify-between text-xs font-semibold text-gray-500 mb-2">
                     <span class="text-brand-green-800 uppercase tracking-wider font-bold" x-text="stepCategory"></span>
-                    <span class="font-bold text-gray-700" x-text="`Step ${step} of 7`"></span>
+                    <span class="font-bold text-gray-700" x-text="`Step ${step} of 10`"></span>
                 </div>
                 <div class="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                     <div class="h-full bg-gradient-to-r from-brand-green-700 to-emerald-500 transition-all duration-300 ease-out"
-                         :style="`width: ${(step / 7) * 100}%`"></div>
+                         :style="`width: ${(step / 10) * 100}%`"></div>
                 </div>
             </div>
 
             <!-- ONE QUESTION AT A TIME -->
 
-            <!-- STEP 1: Personal Demographic Details -->
+            <!-- STEP 1: Full Name -->
             <div x-show="step === 1" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
-                <div class="mb-5">
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        1. Tell us about yourself
+                <div class="mb-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 1 of 10</span>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
+                        1. What is your full name?
                     </h3>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-1">To personalize your clinical evaluation and send your report directly to your WhatsApp:</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-1">To personalize your confidential health evaluation and official report:</p>
                 </div>
 
                 <div class="space-y-4">
-                    <!-- Full Name -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Full Name <span class="text-red-500">*</span></label>
+                    <div class="relative">
                         <input type="text" 
                                x-model.trim="profile.name" 
+                               @keydown.enter.prevent="if (canProceed) nextStep()"
+                               autofocus
                                placeholder="e.g. Priya Sharma"
-                               class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-green-700 focus:bg-white text-gray-900">
+                               class="w-full bg-white border-2 border-gray-300 rounded-2xl px-5 py-4 text-base focus:outline-none focus:border-brand-green-700 focus:ring-4 focus:ring-brand-green-100 text-gray-900 shadow-2xs font-medium placeholder:text-gray-400">
                     </div>
+                    <p class="text-xs text-gray-500 flex items-center gap-1.5">
+                        <span>💡</span>
+                        <span>Type your name and press <strong>Enter ↵</strong> or click <strong>Next Step →</strong> below.</span>
+                    </p>
+                </div>
+            </div>
 
-                    <!-- Gender Selection -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Gender <span class="text-red-500">*</span></label>
-                        <div class="grid grid-cols-3 gap-2.5">
-                            <button type="button" 
-                                    @click="profile.gender = 'Female'" 
-                                    class="py-2.5 px-3 rounded-xl border-2 text-xs font-bold transition-all text-center cursor-pointer"
-                                    :class="profile.gender === 'Female' ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs ring-1 ring-emerald-600' : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'">
-                                Female
-                            </button>
-                            <button type="button" 
-                                    @click="profile.gender = 'Male'" 
-                                    class="py-2.5 px-3 rounded-xl border-2 text-xs font-bold transition-all text-center cursor-pointer"
-                                    :class="profile.gender === 'Male' ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs ring-1 ring-emerald-600' : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'">
-                                Male
-                            </button>
-                            <button type="button" 
-                                    @click="profile.gender = 'Other'" 
-                                    class="py-2.5 px-3 rounded-xl border-2 text-xs font-bold transition-all text-center cursor-pointer"
-                                    :class="profile.gender === 'Other' ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs ring-1 ring-emerald-600' : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'">
-                                Other
-                            </button>
-                        </div>
-                    </div>
+            <!-- STEP 2: Biological Gender -->
+            <div x-show="step === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+                <div class="mb-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 2 of 10</span>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
+                        2. What is your gender?
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-1">Ferritin depletion risks and biological blood volume demands vary by gender:</p>
+                </div>
 
-                    <!-- Age Group Selection -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">Age Group <span class="text-red-500">*</span></label>
-                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
-                            <template x-for="age in ['Under 18', '18–29', '30–45', '46–60', '60+']" :key="age">
-                                <button type="button" 
-                                        @click="profile.ageGroup = age" 
-                                        class="py-2.5 px-2 rounded-xl border-2 text-xs font-bold transition-all text-center cursor-pointer"
-                                        :class="profile.ageGroup === age ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs ring-1 ring-emerald-600' : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'">
-                                    <span x-text="age"></span>
-                                </button>
-                            </template>
-                        </div>
-                    </div>
-
-                    <!-- WhatsApp Phone Number -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5">WhatsApp Phone Number <span class="text-red-500">*</span></label>
-                        <div class="flex rounded-xl overflow-hidden border border-gray-300 bg-white shadow-2xs focus-within:ring-2 focus-within:ring-brand-green-700 focus-within:border-brand-green-700 transition-all">
-                            <div class="bg-gray-100 px-3.5 py-3 border-r border-gray-300 flex items-center gap-1.5 shrink-0 text-gray-700 font-bold text-xs select-none">
-                                <span>🇮🇳</span>
-                                <span>+91</span>
+                <div class="space-y-3">
+                    <button type="button" 
+                            @click="profile.gender = 'Female'" 
+                            class="w-full text-left p-4 sm:p-5 rounded-2xl border-2 transition-all flex items-center justify-between cursor-pointer"
+                            :class="profile.gender === 'Female' ? 'border-emerald-600 bg-emerald-50/70 shadow-sm ring-2 ring-emerald-600/20' : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'">
+                        <div class="flex items-center gap-3.5">
+                            <span class="text-2xl">👩</span>
+                            <div>
+                                <span class="font-bold text-base block text-gray-900" :class="{'text-emerald-950': profile.gender === 'Female'}">Female</span>
+                                <span class="text-xs text-gray-500">Higher monthly iron demand due to menstrual cycle, pregnancy, or postpartum</span>
                             </div>
-                            <input type="tel" 
-                                   x-model.trim="profile.phone" 
-                                   maxlength="10"
-                                   placeholder="Enter 10-digit mobile number"
-                                   class="flex-1 w-full bg-white px-3.5 py-3 text-sm focus:outline-none text-gray-900 placeholder:text-gray-400">
                         </div>
-                        <span class="text-[11px] text-gray-500 mt-1 block">Your results will be formatted and ready to receive on WhatsApp.</span>
+                        <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ml-3"
+                             :class="profile.gender === 'Female' ? 'border-emerald-600 bg-emerald-600' : 'border-gray-300 bg-white'">
+                            <div x-show="profile.gender === 'Female'" class="w-2.5 h-2.5 rounded-full bg-white"></div>
+                        </div>
+                    </button>
+
+                    <button type="button" 
+                            @click="profile.gender = 'Male'" 
+                            class="w-full text-left p-4 sm:p-5 rounded-2xl border-2 transition-all flex items-center justify-between cursor-pointer"
+                            :class="profile.gender === 'Male' ? 'border-emerald-600 bg-emerald-50/70 shadow-sm ring-2 ring-emerald-600/20' : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'">
+                        <div class="flex items-center gap-3.5">
+                            <span class="text-2xl">👨</span>
+                            <div>
+                                <span class="font-bold text-base block text-gray-900" :class="{'text-emerald-950': profile.gender === 'Male'}">Male</span>
+                                <span class="text-xs text-gray-500">Standard ferritin baseline, physical stamina, and muscular oxygenation</span>
+                            </div>
+                        </div>
+                        <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ml-3"
+                             :class="profile.gender === 'Male' ? 'border-emerald-600 bg-emerald-600' : 'border-gray-300 bg-white'">
+                            <div x-show="profile.gender === 'Male'" class="w-2.5 h-2.5 rounded-full bg-white"></div>
+                        </div>
+                    </button>
+
+                    <button type="button" 
+                            @click="profile.gender = 'Other'" 
+                            class="w-full text-left p-4 sm:p-5 rounded-2xl border-2 transition-all flex items-center justify-between cursor-pointer"
+                            :class="profile.gender === 'Other' ? 'border-emerald-600 bg-emerald-50/70 shadow-sm ring-2 ring-emerald-600/20' : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'">
+                        <div class="flex items-center gap-3.5">
+                            <span class="text-2xl">🧑</span>
+                            <div>
+                                <span class="font-bold text-base block text-gray-900" :class="{'text-emerald-950': profile.gender === 'Other'}">Other / Prefer not to say</span>
+                                <span class="text-xs text-gray-500">General metabolic vitality and tissue oxygenation evaluation</span>
+                            </div>
+                        </div>
+                        <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ml-3"
+                             :class="profile.gender === 'Other' ? 'border-emerald-600 bg-emerald-600' : 'border-gray-300 bg-white'">
+                            <div x-show="profile.gender === 'Other'" class="w-2.5 h-2.5 rounded-full bg-white"></div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Age Group -->
+            <div x-show="step === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+                <div class="mb-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 3 of 10</span>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
+                        3. Which age group do you belong to?
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-1">Age directly impacts digestive fire (Agni), iron absorption, and daily cellular energy:</p>
+                </div>
+
+                <div class="space-y-3">
+                    <template x-for="item in [
+                        { label: 'Under 18', desc: 'Rapid physical growth and heightened developmental iron requirement' },
+                        { label: '18–29', desc: 'Peak physical activity, career entry, reproductive and muscle vitality' },
+                        { label: '30–45', desc: 'High-stress working years, busy lifestyle, and hormonal balance' },
+                        { label: '46–60', desc: 'Perimenopause / metabolic transition and cellular nourishment phase' },
+                        { label: '60+', desc: 'Gentle Agni stage, requiring non-constipating, easy mucosal absorption' }
+                    ]" :key="item.label">
+                        <button type="button" 
+                                @click="profile.ageGroup = item.label" 
+                                class="w-full text-left p-4 rounded-2xl border-2 transition-all flex items-center justify-between cursor-pointer"
+                                :class="profile.ageGroup === item.label ? 'border-emerald-600 bg-emerald-50/70 shadow-sm ring-2 ring-emerald-600/20' : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/60'">
+                            <div>
+                                <span class="font-bold text-base block text-gray-900" :class="{'text-emerald-950': profile.ageGroup === item.label}" x-text="item.label"></span>
+                                <span class="text-xs text-gray-500 mt-0.5 block" x-text="item.desc"></span>
+                            </div>
+                            <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ml-3"
+                                 :class="profile.ageGroup === item.label ? 'border-emerald-600 bg-emerald-600' : 'border-gray-300 bg-white'">
+                                <div x-show="profile.ageGroup === item.label" class="w-2.5 h-2.5 rounded-full bg-white"></div>
+                            </div>
+                        </button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- STEP 4: WhatsApp Phone Number -->
+            <div x-show="step === 4" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+                <div class="mb-6">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 4 of 10</span>
+                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 leading-snug">
+                        4. What is your WhatsApp phone number?
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-1">We will send your complete personalized clinical score, diagnostic findings, and doctor's advice directly to your WhatsApp:</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex rounded-2xl overflow-hidden border-2 border-gray-300 bg-white shadow-2xs focus-within:ring-4 focus-within:ring-brand-green-100 focus-within:border-brand-green-700 transition-all">
+                        <div class="bg-gray-100 px-4 py-4 border-r border-gray-300 flex items-center gap-2 shrink-0 text-gray-800 font-bold text-sm select-none">
+                            <span class="text-lg">🇮🇳</span>
+                            <span>+91</span>
+                        </div>
+                        <input type="tel" 
+                               x-model.trim="profile.phone" 
+                               @keydown.enter.prevent="if (canProceed) nextStep()"
+                               maxlength="10"
+                               autofocus
+                               placeholder="Enter 10-digit mobile number"
+                               class="flex-1 w-full bg-white px-4 py-4 text-base focus:outline-none text-gray-900 font-medium placeholder:text-gray-400">
+                    </div>
+                    <div class="bg-emerald-50 rounded-xl p-3 border border-emerald-200/80 flex items-start gap-2.5 text-xs text-emerald-900">
+                        <span class="text-base shrink-0">🔒</span>
+                        <span>Confidential. Your number is only used to deliver your assessment report and doctor consultation.</span>
                     </div>
                 </div>
             </div>
 
-            <!-- STEP 2: Daily Energy Pattern -->
-            <div x-show="step === 2" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 5: Daily Energy Pattern -->
+            <div x-show="step === 5" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 5 of 10</span>
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        2. Which statement best describes your daily energy curve?
+                        5. Which statement best describes your daily energy curve?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Select the option that most closely matches your typical day:</p>
                 </div>
@@ -212,11 +291,12 @@
                 </div>
             </div>
 
-            <!-- STEP 3: Physical Exertion & Breath -->
-            <div x-show="step === 3" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 6: Physical Exertion & Breath -->
+            <div x-show="step === 6" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 6 of 10</span>
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        3. How does your breathing respond during light exertion (e.g. stairs, brisk walk)?
+                        6. How does your breathing respond during light exertion (e.g. stairs, brisk walk)?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Evaluates red blood cell oxygenation throughout your tissues:</p>
                 </div>
@@ -266,11 +346,12 @@
                 </div>
             </div>
 
-            <!-- STEP 4: Physical Biomarkers -->
-            <div x-show="step === 4" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 7: Physical Biomarkers -->
+            <div x-show="step === 7" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 7 of 10</span>
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        4. Have you observed any of these physical biomarkers recently?
+                        7. Have you observed any of these physical biomarkers recently?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Select all that apply to you (multiple selections allowed):</p>
                 </div>
@@ -370,11 +451,12 @@
                 </div>
             </div>
 
-            <!-- STEP 5: Dietary Pattern -->
-            <div x-show="step === 5" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 8: Dietary Pattern -->
+            <div x-show="step === 8" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 8 of 10</span>
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        5. What best represents your primary dietary pattern?
+                        8. What best represents your primary dietary pattern?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Helps estimate baseline intake of bioavailable heme vs. non-heme iron:</p>
                 </div>
@@ -424,11 +506,12 @@
                 </div>
             </div>
 
-            <!-- STEP 6: Digestion & Absorption Blockers -->
-            <div x-show="step === 6" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 9: Digestion & Absorption Blockers -->
+            <div x-show="step === 9" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 9 of 10</span>
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        6. Do any of these daily digestive or absorption habits apply to you?
+                        9. Do any of these daily digestive or absorption habits apply to you?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">In Ayurveda, blood health depends directly on your digestive fire (Agni) to assimilate nutrients:</p>
                 </div>
@@ -486,11 +569,12 @@
                 </div>
             </div>
 
-            <!-- STEP 7: Physiological Factors & Iron Demand -->
-            <div x-show="step === 7" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
+            <!-- STEP 10: Physiological Factors & Iron Demand -->
+            <div x-show="step === 10" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0">
                 <div class="mb-5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-brand-green-800 bg-brand-green-100 px-3 py-1 rounded-full inline-block mb-2">Step 10 of 10</span>
                     <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-snug">
-                        7. Do any of these physiological factors or health history apply to you?
+                        10. Do any of these physiological factors or health history apply to you?
                     </h3>
                     <p class="text-xs sm:text-sm text-gray-500 mt-1">Identifies biological life stages or medical factors that accelerate iron depletion:</p>
                 </div>
@@ -562,8 +646,8 @@
                 </div>
             </div>
 
-            <!-- Navigation Controls (Bottom Bar for Steps 1-7) -->
-            <div class="mt-8 pt-5 border-t border-gray-100 flex items-center justify-between" x-show="step >= 1 && step <= 7">
+            <!-- Navigation Controls (Bottom Bar for Steps 1-10) -->
+            <div class="mt-8 pt-5 border-t border-gray-100 flex items-center justify-between" x-show="step >= 1 && step <= 10">
                 <button type="button" 
                         @click="prevStep()" 
                         class="px-5 py-2.5 rounded-xl font-semibold text-xs uppercase tracking-wider text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors border border-gray-200 cursor-pointer">
@@ -574,13 +658,13 @@
                         @click="nextStep()" 
                         :disabled="!canProceed" 
                         class="px-7 py-3 rounded-xl font-bold text-white transition-all transform active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed shadow-md hover:shadow-lg flex items-center gap-2 cursor-pointer bg-brand-green-800 hover:bg-brand-green-700 text-sm">
-                    <span x-text="step === 7 ? 'Complete & View Results' : 'Next Question'"></span>
+                    <span x-text="step === 10 ? 'Complete & View Results' : 'Next Step'"></span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </button>
             </div>
 
-            <!-- Step 8: Comprehensive Clinical Results Screen -->
-            <div x-show="step === 8" style="display: none;" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-98 translate-y-3" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
+            <!-- Step 11: Comprehensive Clinical Results Screen -->
+            <div x-show="step === 11" style="display: none;" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0 scale-98 translate-y-3" x-transition:enter-end="opacity-100 scale-100 translate-y-0">
                 
                 <!-- Result Status Badge & Summary -->
                 <div class="text-center mb-8 pt-2">
@@ -878,32 +962,33 @@
                 }
             },
             get stepCategory() {
-                if (this.step === 1) return 'Personal Profile';
-                if (this.step === 2) return 'Dimension 1: Daily Energy Pattern';
-                if (this.step === 3) return 'Dimension 1: Exertion & Stamina';
-                if (this.step === 4) return 'Dimension 2: Physical Biomarkers';
-                if (this.step === 5) return 'Dimension 3: Dietary Pattern';
-                if (this.step === 6) return 'Dimension 3: Digestive Absorption';
-                if (this.step === 7) return 'Dimension 4: Physiological Factors';
+                if (this.step === 1) return 'Profile: Full Name';
+                if (this.step === 2) return 'Profile: Gender';
+                if (this.step === 3) return 'Profile: Age Group';
+                if (this.step === 4) return 'Contact: WhatsApp';
+                if (this.step === 5) return 'Dimension 1: Energy Curve';
+                if (this.step === 6) return 'Dimension 1: Exertion & Stamina';
+                if (this.step === 7) return 'Dimension 2: Physical Signs';
+                if (this.step === 8) return 'Dimension 3: Dietary Pattern';
+                if (this.step === 9) return 'Dimension 3: Digestive Absorption';
+                if (this.step === 10) return 'Dimension 4: Life Stage Factors';
                 return 'Assessment';
             },
             get canProceed() {
-                if (this.step === 1) {
-                    return this.profile.name.length >= 2 && 
-                           this.profile.gender !== '' && 
-                           this.profile.ageGroup !== '' && 
-                           this.profile.phone.replace(/[^0-9]/g, '').length >= 10;
-                }
-                if (this.step === 2) return this.answers.q1 !== null;
-                if (this.step === 3) return this.answers.q1_breath !== null;
-                if (this.step === 4) return true; // Optional checklist
-                if (this.step === 5) return this.answers.q3_diet !== null;
-                if (this.step === 6) return true; // Optional checklist
+                if (this.step === 1) return this.profile.name.trim().length >= 2;
+                if (this.step === 2) return this.profile.gender !== '';
+                if (this.step === 3) return this.profile.ageGroup !== '';
+                if (this.step === 4) return this.profile.phone.replace(/[^0-9]/g, '').length >= 10;
+                if (this.step === 5) return this.answers.q1 !== null;
+                if (this.step === 6) return this.answers.q1_breath !== null;
                 if (this.step === 7) return true; // Optional checklist
+                if (this.step === 8) return this.answers.q3_diet !== null;
+                if (this.step === 9) return true; // Optional checklist
+                if (this.step === 10) return true; // Optional checklist
                 return false;
             },
             nextStep() {
-                if (this.canProceed && this.step < 8) {
+                if (this.canProceed && this.step < 11) {
                     this.step++;
                     this.scrollToTop();
                 }
