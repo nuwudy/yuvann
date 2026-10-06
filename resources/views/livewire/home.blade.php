@@ -76,6 +76,57 @@
         </div>
     </a>
 
+    <!-- Top Product Discovery & High-Prominence Search Section (Focus on Mobile & Desktop Discoverability) -->
+    <section class="bg-gradient-to-r from-brand-green-950 via-brand-green-900 to-brand-green-950 py-3.5 sm:py-4 px-4 sm:px-6 lg:px-8 border-b-2 border-brand-gold-400/40 shadow-lg relative z-20">
+        <div class="max-w-4xl mx-auto space-y-2.5">
+            <!-- Search Form -->
+            <form action="/products" method="GET" class="relative flex items-center shadow-xl rounded-2xl bg-white p-1 sm:p-1.5 border-2 border-brand-gold-400 focus-within:border-brand-gold-500 focus-within:ring-4 focus-within:ring-brand-gold-400/30 transition-all">
+                <span class="pl-3 sm:pl-4 pr-2 text-brand-green-800">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-brand-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </span>
+                <input type="text" name="search" 
+                       placeholder="Search remedies, veachoc, oils, superfoods, brands..." 
+                       class="w-full py-2 sm:py-2.5 pr-2 text-xs sm:text-base font-bold text-brand-green-950 placeholder-brand-green-700/60 bg-transparent focus:outline-none">
+                <button type="submit" 
+                        class="px-5 sm:px-8 py-2 sm:py-2.5 bg-gradient-to-r from-brand-gold-500 via-brand-gold-400 to-brand-gold-500 hover:from-brand-gold-400 text-brand-green-950 font-black text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center gap-1.5 shrink-0 tracking-wide">
+                    <span>Search</span>
+                    <span class="hidden sm:inline">&rarr;</span>
+                </button>
+            </form>
+
+            <!-- 1-Tap Quick Discovery Carousel (Instant Thumb Access on Mobile) -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 pt-0.5 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 text-xs">
+                <span class="text-brand-gold-300 font-extrabold uppercase tracking-wider text-[10px] shrink-0">Quick Discover:</span>
+                <a href="/products?search=veachoc" class="shrink-0 inline-flex items-center gap-1 bg-white/10 hover:bg-brand-gold-400 hover:text-brand-green-950 text-white px-3 py-1 rounded-full border border-brand-gold-400/40 transition-all font-semibold shadow-2xs whitespace-nowrap">
+                    <span>🍫</span> VeaChoc Iron
+                </a>
+                <a href="/products?search=sushupti" class="shrink-0 inline-flex items-center gap-1 bg-white/10 hover:bg-brand-gold-400 hover:text-brand-green-950 text-white px-3 py-1 rounded-full border border-brand-gold-400/40 transition-all font-semibold shadow-2xs whitespace-nowrap">
+                    <span>💤</span> Sushupti Sleep Oil
+                </a>
+                <a href="/products?search=moringa" class="shrink-0 inline-flex items-center gap-1 bg-white/10 hover:bg-brand-gold-400 hover:text-brand-green-950 text-white px-3 py-1 rounded-full border border-brand-gold-400/40 transition-all font-semibold shadow-2xs whitespace-nowrap">
+                    <span>🌿</span> Moringa Powder
+                </a>
+                <a href="/products?search=ragi" class="shrink-0 inline-flex items-center gap-1 bg-white/10 hover:bg-brand-gold-400 hover:text-brand-green-950 text-white px-3 py-1 rounded-full border border-brand-gold-400/40 transition-all font-semibold shadow-2xs whitespace-nowrap">
+                    <span>🥣</span> Ragi Soup Mix
+                </a>
+                <a href="/products?category=womens-care" class="shrink-0 inline-flex items-center gap-1 bg-white/10 hover:bg-brand-gold-400 hover:text-brand-green-950 text-white px-3 py-1 rounded-full border border-brand-gold-400/40 transition-all font-semibold shadow-2xs whitespace-nowrap">
+                    <span>👩</span> Women's Care
+                </a>
+                <a href="/products?category=superfoods" class="shrink-0 inline-flex items-center gap-1 bg-white/10 hover:bg-brand-gold-400 hover:text-brand-green-950 text-white px-3 py-1 rounded-full border border-brand-gold-400/40 transition-all font-semibold shadow-2xs whitespace-nowrap">
+                    <span>🥑</span> Superfoods
+                </a>
+                <a href="/products?shop=veachoc" class="shrink-0 inline-flex items-center gap-1 bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 px-3 py-1 rounded-full font-black shadow-xs whitespace-nowrap">
+                    <span>🏪</span> VeaChoc Shop
+                </a>
+                <a href="/products" class="shrink-0 inline-flex items-center gap-1 bg-brand-green-800 hover:bg-brand-green-700 text-brand-gold-300 px-3 py-1 rounded-full border border-brand-gold-400/50 font-bold shadow-2xs whitespace-nowrap">
+                    <span>✨</span> All Products
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- 1. Immersive Hero Section with Video -->
     <section class="relative h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-brand-green-900">
         <!-- Background Video -->
@@ -89,7 +140,7 @@
         </div>
 
         <!-- Hero Content -->
-        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto space-y-6 mt-16">
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto space-y-6 mt-8 sm:mt-16">
             <span class="block text-brand-gold-300 text-sm md:text-base font-semibold tracking-[0.2em] uppercase mb-4 opacity-0 animate-[fadeInUp_1s_ease-out_forwards]">
                 CURATED AYURVEDIC WELLNESS
             </span>

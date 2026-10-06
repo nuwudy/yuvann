@@ -166,7 +166,7 @@
                     <a href="/products?category=womens-care" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Women's Care</a>
                     <a href="/products?category=superfoods" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Superfoods</a>
                     <a href="/products?category=herbal-powders" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors">Herbal Powders</a>
-                    <a href="/blog" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors {{ request()->is('blog*') ? 'text-brand-gold-600 font-semibold' : '' }}">Wellness Journal</a>
+                    <a href="/blog" class="text-sm font-medium text-brand-green-800 hover:text-brand-gold-600 transition-colors {{ request()->is('blog*') ? 'text-brand-gold-600 font-semibold' : '' }}">Blog</a>
                     <a href="/migraine-treatment" class="whitespace-nowrap inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 border border-brand-gold-500 shadow-sm transition-all hover:scale-105 {{ request()->is('migraine-treatment*') ? 'ring-2 ring-brand-gold-600' : '' }}">
                         <span class="text-brand-green-950">⚡</span>
                         <span>മൈഗ്രെയ്ൻ ചികിത്സ</span>
@@ -175,14 +175,14 @@
                 </nav>
 
                 <!-- Header Actions -->
-                <div class="flex items-center gap-4">
-                    <!-- Search Bar (Simple Redirect) -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <!-- Desktop Search Bar (Prominent & Expanding) -->
                     <form action="/products" method="GET" class="hidden lg:flex items-center relative">
-                        <input type="text" name="search" placeholder="Search wellness..." 
-                               class="bg-brand-green-50 border border-brand-green-100 rounded-full py-1.5 pl-4 pr-10 text-xs focus:outline-none focus:ring-1 focus:ring-brand-gold-500 focus:border-brand-gold-500 text-brand-green-900 w-48 transition-all focus:w-60">
-                        <button type="submit" class="absolute right-3 text-brand-green-600 hover:text-brand-gold-600">
+                        <input type="text" name="search" placeholder="Search remedies, oils, veachoc..." 
+                               class="bg-white border-2 border-brand-green-200/90 focus:border-brand-gold-500 rounded-full py-1.5 sm:py-2 pl-4 pr-10 text-xs focus:outline-none focus:ring-2 focus:ring-brand-gold-400/30 text-brand-green-950 w-52 sm:w-64 transition-all focus:w-80 shadow-2xs placeholder-brand-green-700/60 font-medium">
+                        <button type="submit" class="absolute right-3 text-brand-green-800 hover:text-brand-gold-600" title="Search">
                             <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
                         </button>
                     </form>
@@ -190,7 +190,7 @@
                     <!-- WhatsApp Button -->
                     <a href="https://wa.me/917736609299?text=Hi%20Dr.%20Sajeev,%20I%20would%20like%20to%20consult%20regarding%20Yuvann%20Wellness%20products." 
                        target="_blank" 
-                       class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 border border-green-600 text-xs font-semibold rounded-full text-green-700 bg-green-50 hover:bg-green-100 transition-all shadow-sm">
+                       class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 border border-green-600 text-xs font-semibold rounded-full text-green-700 bg-green-50 hover:bg-green-100 transition-all shadow-sm">
                         <svg class="w-4 h-4 text-green-600 fill-current" viewBox="0 0 24 24">
                             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.504-5.713-1.463L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.793 1.453 5.461.002 9.9-4.432 9.903-9.892.002-2.646-1.02-5.133-2.88-6.996C16.544 1.858 14.06 1.83 11.414 1.83c-5.461 0-9.9 4.431-9.903 9.892 0 2.03.535 4.017 1.549 5.754L2.08 21.82l4.567-1.198z"/>
                         </svg>
@@ -201,7 +201,7 @@
                     <livewire:mini-cart />
 
                     <!-- Mobile Menu Button -->
-                    <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-brand-green-800 hover:text-brand-gold-600 focus:outline-none">
+                    <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-brand-green-800 hover:text-brand-gold-600 focus:outline-none p-1">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" x-show="!mobileMenuOpen"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" x-show="mobileMenuOpen" style="display: none;"/>
@@ -209,31 +209,38 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Mobile Sticky Search Bar (High Prominence across all mobile views) -->
+            <div class="md:hidden pb-3 pt-0">
+                <form action="/products" method="GET" class="relative flex items-center shadow-xs rounded-full bg-white border-2 border-brand-green-200/90 focus-within:border-brand-gold-500 focus-within:ring-2 focus-within:ring-brand-gold-400/30 transition-all">
+                    <span class="pl-3.5 pr-2 text-brand-green-800 pointer-events-none">
+                        <svg class="w-4 h-4 text-brand-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" name="search" 
+                           placeholder="Search remedies, veachoc, oils, superfoods..." 
+                           class="w-full py-2 sm:py-2.5 pr-16 bg-transparent text-xs font-semibold text-brand-green-950 placeholder-brand-green-700/60 focus:outline-none">
+                    <button type="submit" 
+                            class="absolute right-1 px-3.5 py-1.5 bg-gradient-to-r from-brand-gold-500 to-brand-gold-400 hover:from-brand-gold-400 text-brand-green-950 text-[11px] font-black rounded-full transition-all shadow-xs">
+                        Search
+                    </button>
+                </form>
+            </div>
         </div>
 
         <!-- Mobile Menu (Alpine.js) -->
         <div class="md:hidden bg-[#faf9f6] border-t border-brand-green-100" x-show="mobileMenuOpen" x-transition style="display: none;">
-            <div class="px-2 pt-2 pb-4 space-y-1 sm:px-3">
+            <div class="px-3 pt-2 pb-4 space-y-1 sm:px-4">
                 <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Home</a>
                 <a href="/products" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Shop All</a>
                 <a href="/you-are-money" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">📖 Book: You Are Money</a>
                 <a href="/products?category=womens-care" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Women's Care</a>
                 <a href="/products?category=superfoods" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Superfoods</a>
                 <a href="/products?category=herbal-powders" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Herbal Powders</a>
-                <a href="/blog" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">Wellness Journal</a>
+                <a href="/blog" class="block px-3 py-2 rounded-md text-base font-bold text-brand-green-900 bg-brand-gold-50/70 border border-brand-gold-200">📰 Blog (Wellness Articles)</a>
                 <a href="/migraine-treatment" class="block px-3 py-2 rounded-md text-base font-bold bg-amber-100 text-amber-950 border border-amber-300">⚡ മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സ (Migraine Relief)</a>
                 <a href="{{ route('dr-sajeev-dev') }}" class="block px-3 py-2 rounded-md text-base font-medium text-brand-green-800 hover:bg-brand-green-50">About</a>
-                <div class="mt-4 px-3">
-                    <form action="/products" method="GET" class="relative">
-                        <input type="text" name="search" placeholder="Search..." 
-                               class="bg-brand-green-50 border border-brand-green-100 rounded-full py-2 pl-4 pr-10 text-sm w-full focus:outline-none">
-                        <button type="submit" class="absolute right-3 top-2.5 text-brand-green-600">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                        </button>
-                    </form>
-                </div>
             </div>
         </div>
     </header>
