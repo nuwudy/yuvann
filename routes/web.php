@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Livewire\Admin\BlogManager;
 use App\Http\Controllers\ProductShareImageController;
+use App\Http\Controllers\TtsController;
 use App\Livewire\BlogDetail;
 use App\Livewire\BlogList;
 use App\Livewire\BookLanding;
@@ -36,6 +37,7 @@ Route::get('/book/you-are-money', function () {
 });
 Route::get('/blog', BlogList::class)->name('blog.index');
 Route::get('/blog/{slug}', BlogDetail::class)->name('blog.show');
+Route::get('/api/tts/stream', [TtsController::class, 'stream'])->name('tts.stream');
 Route::get('/shops/{slug}', ShopProfile::class)->name('shop.profile');
 Route::get('/checkout', Checkout::class);
 Route::get('/order-success/{order_number}', function ($order_number) {

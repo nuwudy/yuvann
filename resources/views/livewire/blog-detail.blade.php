@@ -372,7 +372,7 @@ document.addEventListener('alpine:init', () => {
                     audioUrl: trans.audio_url || null
                 });
             } else {
-                // Inline resilient Web Speech API fallback
+                // Fallback player
                 this.nativeSpeakFallback(fullText, this.activeLocale, trans.audio_url);
             }
         },
@@ -380,6 +380,9 @@ document.addEventListener('alpine:init', () => {
         pauseAudio() {
             if (window.YuvannTTS) {
                 window.YuvannTTS.pause();
+            } else if (this._streamAudio) {
+                this._streamAudio.pause();
+                this.audioState = 'paused';
             } else if (window.speechSynthesis && window.speechSynthesis.speaking) {
                 window.speechSynthesis.pause();
                 this.audioState = 'paused';
@@ -389,6 +392,9 @@ document.addEventListener('alpine:init', () => {
         resumeAudio() {
             if (window.YuvannTTS) {
                 window.YuvannTTS.resume();
+            } else if (this._streamAudio && this.audioState === 'paused') {
+                this._streamAudio.play();
+                this.audioState = 'playing';
             } else if (window.speechSynthesis && this.audioState === 'paused') {
                 window.speechSynthesis.resume();
                 this.audioState = 'playing';
@@ -398,7 +404,15 @@ document.addEventListener('alpine:init', () => {
         stopAudio() {
             if (window.YuvannTTS) {
                 window.YuvannTTS.stop();
-            } else if (window.speechSynthesis) {
+            }
+            if (this._streamAudio) {
+                try {
+                    this._streamAudio.pause();
+                    this._streamAudio.currentTime = 0;
+                } catch(e) {}
+                this._streamAudio = null;
+            }
+            if (window.speechSynthesis) {
                 window.speechSynthesis.cancel();
             }
             this.audioState = 'idle';
@@ -406,27 +420,68 @@ document.addEventListener('alpine:init', () => {
         },
 
         nativeSpeakFallback(rawHtml, locale, audioUrl) {
+            this.stopAudio();
+
             if (audioUrl) {
-                const a = new Audio(audioUrl);
+                this._streamAudio = new Audio(audioUrl);
                 this.audioState = 'playing';
-                a.onended = () => { this.audioState = 'idle'; };
-                a.play().catch(() => { this.audioState = 'idle'; });
+                this._streamAudio.onended = () => { this.audioState = 'idle'; };
+                this._streamAudio.play().catch(() => { this.audioState = 'idle'; });
                 return;
             }
 
-            if (!('speechSynthesis' in window)) {
-                alert('Audio reading is not supported on this browser.');
-                return;
-            }
-
-            window.speechSynthesis.cancel();
+            // Clean text
             const tmp = document.createElement('div');
-            tmp.innerHTML = rawHtml.replace(/<\/(h[1-6]|p|li|div|blockquote)>/gi, '. ');
+            tmp.innerHTML = rawHtml.replace(/<\/(h[1-6]|p|li|div|blockquote)>/gi, '. ').replace(/<[^>]+>/g, ' ');
             const cleanText = (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
 
+            // Check if browser has voice for this locale
+            let hasVoice = false;
+            if (window.speechSynthesis) {
+                const voices = window.speechSynthesis.getVoices() || [];
+                const prefix = locale.toLowerCase();
+                hasVoice = voices.some(v => (v.lang || '').toLowerCase().startsWith(prefix));
+            }
+
+            // For Malayalam and Tamil (or any language without installed OS voice):
+            // Use high-fidelity Regional Audio Streamer (/api/tts/stream)
+            if (!hasVoice || locale === 'ml' || locale === 'ta') {
+                const sentences = cleanText.match(/[^.!?\n]+[.!?\n]+|[^.!?\n]+$/g) || [cleanText];
+                let idx = 0;
+                this.audioState = 'playing';
+
+                const playNext = () => {
+                    if (this.audioState !== 'playing' || idx >= sentences.length) {
+                        this.audioState = 'idle';
+                        return;
+                    }
+                    const chunk = sentences[idx].trim();
+                    if (!chunk) {
+                        idx++;
+                        return playNext();
+                    }
+                    const url = '/api/tts/stream?locale=' + encodeURIComponent(locale) + '&text=' + encodeURIComponent(chunk.slice(0, 180));
+                    this._streamAudio = new Audio(url);
+                    this._streamAudio.onended = () => {
+                        idx++;
+                        playNext();
+                    };
+                    this._streamAudio.onerror = () => {
+                        idx++;
+                        playNext();
+                    };
+                    this._streamAudio.play().catch(() => {
+                        this.audioState = 'idle';
+                    });
+                };
+
+                playNext();
+                return;
+            }
+
+            // Web Speech fallback for English / Hindi
             const utterance = new SpeechSynthesisUtterance(cleanText);
-            const map = { en: 'en-IN', ml: 'ml-IN', hi: 'hi-IN', ta: 'ta-IN' };
-            utterance.lang = map[locale] || 'en-IN';
+            utterance.lang = locale === 'hi' ? 'hi-IN' : 'en-IN';
             utterance.rate = 0.95;
 
             utterance.onstart = () => { this.audioState = 'playing'; };
