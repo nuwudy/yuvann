@@ -44,6 +44,7 @@ class Product extends Model
             'is_active' => 'boolean',
             'is_featured' => 'boolean',
             'is_free_shipping' => 'boolean',
+            'featured_order' => 'integer',
         ];
     }
 

@@ -268,26 +268,30 @@ class ProductManager extends Component
             $featuredImagePath = '/images/yuvann-share.jpg';
         }
 
-        $productData = [
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'shop_id' => $this->shop_id ?: null,
-            'sku' => $this->sku,
-            'short_description' => $this->short_description,
-            'price' => $this->price,
-            'sale_price' => $this->sale_price ?: null,
-            'stock_quantity' => $this->stock_quantity,
-            'unit_size' => $this->unit_size,
-            'badge' => $this->badge ?: null,
-            'featured_image' => $featuredImagePath,
-            'gallery_images' => $galleryPaths,
-            'product_video' => $videoPath,
-            'description' => json_encode($descriptionData),
-            'is_active' => $this->is_active,
-            'is_featured' => $this->is_featured,
-            'is_free_shipping' => $this->is_free_shipping,
-            'featured_order' => $this->featured_order,
-        ];
+            $orderVal = (!empty($this->featured_order) && is_numeric($this->featured_order) && (int) $this->featured_order > 0)
+                ? (int) $this->featured_order
+                : null;
+
+            $productData = [
+                'name' => $this->name,
+                'slug' => $this->slug,
+                'shop_id' => $this->shop_id ?: null,
+                'sku' => $this->sku,
+                'short_description' => $this->short_description,
+                'price' => $this->price,
+                'sale_price' => $this->sale_price ?: null,
+                'stock_quantity' => $this->stock_quantity,
+                'unit_size' => $this->unit_size,
+                'badge' => $this->badge ?: null,
+                'featured_image' => $featuredImagePath,
+                'gallery_images' => $galleryPaths,
+                'product_video' => $videoPath,
+                'description' => json_encode($descriptionData),
+                'is_active' => (bool) $this->is_active,
+                'is_featured' => (bool) $this->is_featured || ($orderVal !== null),
+                'is_free_shipping' => (bool) $this->is_free_shipping,
+                'featured_order' => $orderVal,
+            ];
 
         if (\Illuminate\Support\Facades\Schema::hasColumn('products', 'category_id') && !empty($this->category_ids)) {
             $productData['category_id'] = $this->category_ids[0];
@@ -300,6 +304,10 @@ class ProductManager extends Component
 
         $product->categories()->sync($this->category_ids);
         $product->bodyParts()->sync($this->body_part_ids);
+
+        try {
+            \Illuminate\Support\Facades\Artisan::call('view:clear');
+        } catch (\Throwable $e) {}
 
         session()->flash('success', $this->productId ? 'Product updated successfully!' : 'Product created successfully!');
         $this->closeForm();
@@ -329,12 +337,17 @@ class ProductManager extends Component
     public function updateFeaturedOrder(int $id, $order = null): void
     {
         $product = Product::findOrFail($id);
-        $orderVal = ($order !== null && $order !== '' && is_numeric($order)) ? (int) $order : null;
+        $orderVal = ($order !== null && $order !== '' && is_numeric($order) && (int) $order > 0) ? (int) $order : null;
         $product->featured_order = $orderVal;
         if ($orderVal !== null) {
             $product->is_featured = true;
         }
         $product->save();
+
+        try {
+            \Illuminate\Support\Facades\Artisan::call('view:clear');
+        } catch (\Throwable $e) {}
+
         session()->flash('success', "Priority order for '{$product->name}' updated to " . ($orderVal !== null ? "#{$orderVal}" : 'none') . "!");
     }
 
@@ -596,7 +609,7 @@ class ProductManager extends Component
                     $q->where('shop_id', $this->shopFilter);
                 }
             })
-            ->orderByRaw('CASE WHEN featured_order IS NOT NULL THEN 0 ELSE 1 END')
+            ->orderByRaw('CASE WHEN featured_order IS NOT NULL AND featured_order > 0 THEN 0 ELSE 1 END')
             ->orderBy('featured_order', 'asc')
             ->orderBy('created_at', 'desc')
             ->paginate(10);

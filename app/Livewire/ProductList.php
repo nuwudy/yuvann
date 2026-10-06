@@ -134,7 +134,7 @@ class ProductList extends Component
                     $query->orderByRaw('COALESCE(sale_price, price) DESC');
                     break;
                 case 'featured':
-                    $query->orderByRaw('CASE WHEN featured_order IS NOT NULL THEN 0 ELSE 1 END')
+                    $query->orderByRaw('CASE WHEN featured_order IS NOT NULL AND featured_order > 0 THEN 0 ELSE 1 END')
                           ->orderBy('featured_order', 'asc')
                           ->orderBy('is_featured', 'desc')
                           ->orderBy('created_at', 'desc');
@@ -142,7 +142,7 @@ class ProductList extends Component
                 case 'latest':
                 default:
                     // Display products on priority basis (featured_order: 1, 2, 3...) first, then newest
-                    $query->orderByRaw('CASE WHEN featured_order IS NOT NULL THEN 0 ELSE 1 END')
+                    $query->orderByRaw('CASE WHEN featured_order IS NOT NULL AND featured_order > 0 THEN 0 ELSE 1 END')
                           ->orderBy('featured_order', 'asc')
                           ->orderBy('created_at', 'desc');
                     break;

@@ -32,16 +32,24 @@ class Home extends Component
             ->get();
 
         $prioritySorted = $allActiveProducts->sort(function ($a, $b) {
-            $orderA = $a->featured_order !== null ? (int) $a->featured_order : PHP_INT_MAX;
-            $orderB = $b->featured_order !== null ? (int) $b->featured_order : PHP_INT_MAX;
+            $orderA = ($a->featured_order !== null && (int) $a->featured_order > 0) ? (int) $a->featured_order : PHP_INT_MAX;
+            $orderB = ($b->featured_order !== null && (int) $b->featured_order > 0) ? (int) $b->featured_order : PHP_INT_MAX;
             if ($orderA !== $orderB) {
                 return $orderA <=> $orderB;
+            }
+            if ($a->is_featured !== $b->is_featured) {
+                return $b->is_featured <=> $a->is_featured;
             }
             return $b->created_at <=> $a->created_at;
         })->values();
 
+        $featured = $prioritySorted->filter(fn($p) => ($p->featured_order !== null && (int) $p->featured_order > 0) || $p->is_featured)->values();
+        if ($featured->isEmpty()) {
+            $featured = $prioritySorted->take(10)->values();
+        }
+
         return view('livewire.home', [
-            'featuredProducts' => $prioritySorted->filter(fn($p) => $p->featured_order !== null || $p->is_featured)->values(),
+            'featuredProducts' => $featured,
             'trendingProducts' => $allActiveProducts->shuffle()->take(8)->values(),
             'latestProducts'   => $prioritySorted->take(8)->values(),
             'bodyParts'        => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),

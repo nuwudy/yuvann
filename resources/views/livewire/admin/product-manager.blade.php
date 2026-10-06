@@ -68,7 +68,7 @@
                 </thead>
                 <tbody class="divide-y divide-brand-green-100/30 text-xs text-brand-green-900 font-medium">
                     @forelse($products as $product)
-                        <tr class="hover:bg-brand-green-50/20 transition-colors">
+                        <tr wire:key="product-row-{{ $product->id }}" class="hover:bg-brand-green-50/20 transition-colors">
                             <!-- Thumbnail -->
                             <td class="px-6 py-4">
                                 <div class="h-10 w-10 rounded-lg overflow-hidden border border-brand-green-100 bg-white">
@@ -124,14 +124,24 @@
                                 </span>
                             </td>
                             <!-- Priority / Featured Order -->
-                            <td class="px-6 py-4 text-center">
-                                <input type="number" 
-                                       wire:change="updateFeaturedOrder({{ $product->id }}, $event.target.value)"
-                                       wire:keydown.enter.prevent="updateFeaturedOrder({{ $product->id }}, $event.target.value)"
-                                       value="{{ $product->featured_order }}"
-                                       min="1"
-                                       class="w-16 bg-white border border-brand-green-200 rounded py-1 px-2 text-xs text-center font-bold text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 shadow-sm transition-all"
-                                       placeholder="-">
+                            <td class="px-6 py-4 text-center" wire:key="product-priority-cell-{{ $product->id }}">
+                                <div class="inline-flex items-center gap-1 justify-center" x-data="{ val: '{{ $product->featured_order ?? '' }}' }">
+                                    <input type="number" 
+                                           wire:key="priority-input-{{ $product->id }}"
+                                           x-model="val"
+                                           wire:change="updateFeaturedOrder({{ $product->id }}, $event.target.value)"
+                                           wire:blur="updateFeaturedOrder({{ $product->id }}, $event.target.value)"
+                                           wire:keydown.enter.prevent="updateFeaturedOrder({{ $product->id }}, $event.target.value)"
+                                           min="1"
+                                           class="w-14 bg-white border border-brand-green-200 rounded py-1 px-1.5 text-xs text-center font-bold text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 shadow-sm transition-all"
+                                           placeholder="-">
+                                    <button type="button" 
+                                            @click="$wire.updateFeaturedOrder({{ $product->id }}, val)"
+                                            title="Save Priority"
+                                            class="p-1 rounded text-brand-green-700 hover:text-brand-green-900 hover:bg-brand-green-100/60 transition-colors cursor-pointer">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                    </button>
+                                </div>
                             </td>
                             <!-- Status -->
                             <td class="px-6 py-4 text-center">
