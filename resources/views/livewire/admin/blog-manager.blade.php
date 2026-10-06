@@ -3,14 +3,14 @@
         <!-- Page Header & Action -->
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <div>
-                <h1 class="text-2xl font-serif font-bold text-brand-green-900">Blog & Wellness Articles</h1>
+                <h1 class="text-2xl font-serif font-bold text-brand-green-900">Multilingual Blog & Wellness Articles</h1>
                 <p class="text-sm text-gray-500 mt-1">
-                    Publish doctor-guided health tips, Ayurvedic wisdom, and product spotlights with direct store integration.
+                    Publish doctor-guided health tips in English, Malayalam, Hindi & Tamil with native regional TTS voice reading.
                 </p>
             </div>
             <div>
                 <button wire:click="openCreateForm" 
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-green-800 hover:bg-brand-green-700 text-white text-sm font-semibold rounded-lg shadow transition-all">
+                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-green-800 hover:bg-brand-green-700 text-white text-sm font-semibold rounded-lg shadow transition-all cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -61,6 +61,7 @@
                         <option value="">All Statuses</option>
                         <option value="published">Published Only</option>
                         <option value="draft">Drafts Only</option>
+                        <option value="archived">Archived Only</option>
                     </select>
                 </div>
 
@@ -69,7 +70,7 @@
                     <span>Total: <strong class="text-brand-green-900">{{ $posts->total() }}</strong> posts</span>
                     @if(!empty($search) || !empty($categoryFilter) || !empty($statusFilter))
                         <button wire:click="$set('search', ''); $set('categoryFilter', ''); $set('statusFilter', '');" 
-                                class="text-brand-gold-600 hover:underline font-medium ml-2">
+                                class="text-brand-gold-600 hover:underline font-medium ml-2 cursor-pointer">
                             Reset
                         </button>
                     @endif
@@ -84,9 +85,9 @@
                     <thead class="bg-[#fbfaf8] text-brand-green-900 text-xs font-semibold uppercase tracking-wider">
                         <tr>
                             <th class="px-6 py-3.5">Article</th>
+                            <th class="px-6 py-3.5">Languages</th>
                             <th class="px-6 py-3.5">Category</th>
                             <th class="px-6 py-3.5">Featured Products</th>
-                            <th class="px-6 py-3.5">Author</th>
                             <th class="px-6 py-3.5">Status</th>
                             <th class="px-6 py-3.5">Date</th>
                             <th class="px-6 py-3.5 text-right">Actions</th>
@@ -110,6 +111,21 @@
                                             </a>
                                             <span class="text-xs text-gray-400 mt-0.5 block line-clamp-1 font-mono">/blog/{{ $post->slug }}</span>
                                         </div>
+                                    </div>
+                                </td>
+
+                                <!-- Available Language Badges -->
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center gap-1 flex-wrap">
+                                        @php
+                                            $locs = $post->getAvailableLocales();
+                                            $flags = ['en' => '🇬🇧 EN', 'ml' => '🌴 ML', 'hi' => '🇮🇳 HI', 'ta' => '🌺 TA'];
+                                        @endphp
+                                        @foreach($locs as $l)
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-brand-green-50 text-brand-green-900 border border-brand-green-200">
+                                                {{ $flags[$l] ?? strtoupper($l) }}
+                                            </span>
+                                        @endforeach
                                     </div>
                                 </td>
 
@@ -137,19 +153,25 @@
                                     @endif
                                 </td>
 
-                                <!-- Author -->
-                                <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-600">
-                                    <div class="font-medium text-brand-green-900">{{ $post->author_name }}</div>
-                                    <div class="text-[11px] text-gray-400">{{ $post->read_time }}</div>
-                                </td>
-
-                                <!-- Status toggle -->
+                                <!-- Status -->
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <button wire:click="togglePublish({{ $post->id }})" 
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-all {{ $post->is_published ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }}">
-                                        <span class="w-1.5 h-1.5 rounded-full {{ $post->is_published ? 'bg-emerald-600' : 'bg-gray-400' }}"></span>
-                                        <span>{{ $post->is_published ? 'Published' : 'Draft' }}</span>
-                                    </button>
+                                    @if(($post->status ?? '') === 'published' || $post->is_published)
+                                        <button wire:click="togglePublish({{ $post->id }})" 
+                                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 cursor-pointer">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                            Published
+                                        </button>
+                                    @elseif(($post->status ?? '') === 'archived')
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
+                                            Archived
+                                        </span>
+                                    @else
+                                        <button wire:click="togglePublish({{ $post->id }})" 
+                                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200 cursor-pointer">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                                            Draft
+                                        </button>
+                                    @endif
                                 </td>
 
                                 <!-- Date -->
@@ -158,24 +180,32 @@
                                 </td>
 
                                 <!-- Actions -->
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-xs font-medium">
                                     <div class="flex items-center justify-end gap-2">
                                         <button wire:click="openEditForm({{ $post->id }})" 
-                                                class="text-xs font-medium text-brand-green-800 hover:text-brand-green-950 bg-brand-green-50 hover:bg-brand-green-100 px-2.5 py-1.5 rounded-md border border-brand-green-200/60 transition-all">
-                                            Edit
+                                                class="p-1.5 text-brand-green-800 hover:text-brand-gold-600 rounded-lg hover:bg-brand-green-50 transition-colors cursor-pointer" title="Edit article">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                            </svg>
                                         </button>
                                         <button wire:click="delete({{ $post->id }})" 
-                                                wire:confirm="Are you sure you want to delete '{{ $post->title }}'?" 
-                                                class="text-xs font-medium text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 px-2.5 py-1.5 rounded-md border border-red-200/60 transition-all">
-                                            Delete
+                                                wire:confirm="Are you sure you want to delete this article? Linked products will remain safe." 
+                                                class="p-1.5 text-red-500 hover:text-red-700 rounded-lg hover:bg-red-50 transition-colors cursor-pointer" title="Delete article">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                            </svg>
                                         </button>
                                     </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="px-6 py-12 text-center text-gray-500 text-sm">
-                                    No articles found matching your criteria.
+                                <td colspan="7" class="px-6 py-12 text-center text-gray-500 text-xs">
+                                    <div class="max-w-sm mx-auto space-y-2">
+                                        <span class="text-3xl block">📜</span>
+                                        <p class="font-medium text-brand-green-900">No wellness articles found.</p>
+                                        <p class="text-gray-400">Click "Write New Article" above to create doctor-guided posts.</p>
+                                    </div>
                                 </td>
                             </tr>
                         @endforelse
@@ -185,33 +215,34 @@
 
             <!-- Pagination -->
             @if($posts->hasPages())
-                <div class="px-6 py-4 border-t border-brand-green-100/60">
+                <div class="px-6 py-4 border-t border-brand-green-100/60 bg-[#fbfaf8]">
                     {{ $posts->links() }}
                 </div>
             @endif
         </div>
     </div>
 
-    <!-- Create / Edit Slide-Over / Modal Form -->
-    @if($isFormOpen)
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- EDIT / CREATE MULTILINGUAL ARTICLE MODAL                    -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    @if ($isFormOpen)
         <div class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <!-- Backdrop -->
-            <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-xs transition-opacity" wire:click="closeForm"></div>
+            <div class="fixed inset-0 bg-brand-green-950/60 backdrop-blur-xs transition-opacity" wire:click="closeForm"></div>
 
             <div class="flex items-center justify-center min-h-screen p-4 text-center sm:p-0">
-                <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-4xl sm:w-full border border-brand-green-100 flex flex-col max-h-[90vh]">
+                <div class="relative bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-4xl sm:w-full border border-brand-green-100 flex flex-col max-h-[92vh]">
                     
                     <!-- Modal Header -->
                     <div class="px-6 py-4 bg-[#fbfaf8] border-b border-brand-green-100 flex items-center justify-between flex-shrink-0">
                         <div>
                             <h3 class="text-lg font-serif font-bold text-brand-green-900">
-                                {{ $postId ? 'Edit Article: ' . $title : 'Write New Wellness Article' }}
+                                {{ $postId ? 'Edit Multilingual Article: ' . ($translations['en']['title'] ?: 'Post #' . $postId) : 'Write New Multilingual Article' }}
                             </h3>
                             <p class="text-xs text-gray-500 mt-0.5">
-                                Share wellness tips and connect products to guide your readers.
+                                Provide content in English, Malayalam, Hindi & Tamil. Browser TTS reads in the reader's native voice.
                             </p>
                         </div>
-                        <button type="button" wire:click="closeForm" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
+                        <button type="button" wire:click="closeForm" class="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
@@ -220,25 +251,15 @@
 
                     <!-- Modal Body (Scrollable) -->
                     <form wire:submit.prevent="save" class="flex-grow overflow-y-auto p-6 space-y-6">
-                        <!-- Top details grid -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!-- Title -->
-                            <div class="md:col-span-2">
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1.5">
-                                    Article Title <span class="text-red-500">*</span>
-                                </label>
-                                <input type="text" wire:model.live.debounce.300ms="title" 
-                                       placeholder="e.g. 5 Ayurvedic Morning Habits for Vitality & Digestion" 
-                                       class="w-full bg-white border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-1 focus:ring-brand-gold-500 focus:border-brand-gold-500 text-brand-green-900">
-                                @error('title') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-                            </div>
-
+                        
+                        <!-- 1. Common Metadata Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-xl bg-brand-green-50/30 border border-brand-green-100">
                             <!-- Slug -->
                             <div>
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1.5">
+                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">
                                     URL Slug <span class="text-red-500">*</span>
                                 </label>
-                                <div class="flex items-center rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-xs text-gray-500">
+                                <div class="flex items-center rounded-lg border border-gray-300 bg-white px-2.5 py-1.5 text-xs text-gray-500">
                                     <span>/blog/</span>
                                     <input type="text" wire:model="slug" class="bg-transparent border-none p-0 focus:ring-0 text-brand-green-900 w-full ml-1 font-mono text-xs">
                                 </div>
@@ -247,12 +268,12 @@
 
                             <!-- Category -->
                             <div>
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1.5">
+                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">
                                     Category <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" list="categorySuggestions" wire:model="category" 
                                        placeholder="Wellness Tips, Product Spotlights, etc." 
-                                       class="w-full bg-white border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-1 focus:ring-brand-gold-500 focus:border-brand-gold-500 text-brand-green-900">
+                                       class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900 focus:ring-1 focus:ring-brand-gold-500">
                                 <datalist id="categorySuggestions">
                                     <option value="Wellness Tips">
                                     <option value="Product Spotlights">
@@ -264,26 +285,42 @@
                                 @error('category') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                             </div>
 
+                            <!-- Publication Status -->
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">Status</label>
+                                <select wire:model="status" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900 focus:ring-1 focus:ring-brand-gold-500">
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="archived">Archived</option>
+                                </select>
+                            </div>
+
                             <!-- Author Name -->
                             <div>
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1.5">Author Name</label>
-                                <input type="text" wire:model="author_name" class="w-full bg-white border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-1 focus:ring-brand-gold-500 focus:border-brand-gold-500 text-brand-green-900">
+                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">Author Name</label>
+                                <input type="text" wire:model="author_name" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
                             </div>
 
                             <!-- Read Time -->
                             <div>
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1.5">Read Time</label>
-                                <input type="text" wire:model="read_time" placeholder="e.g. 5 min read" class="w-full bg-white border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-1 focus:ring-brand-gold-500 focus:border-brand-gold-500 text-brand-green-900">
+                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">Read Time</label>
+                                <input type="text" wire:model="read_time" placeholder="e.g. 5 min read" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
+                            </div>
+
+                            <!-- Publish Date -->
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">Publication Date</label>
+                                <input type="datetime-local" wire:model="published_at" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
                             </div>
                         </div>
 
-                        <!-- Featured Cover Image Section -->
-                        <div class="p-4 rounded-xl bg-brand-green-50/40 border border-brand-green-100">
+                        <!-- 2. Featured Cover Image Section -->
+                        <div class="p-4 rounded-xl bg-white border border-gray-200">
                             <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-2">Featured Cover Image</label>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                                 <div>
                                     <div class="flex items-center gap-3">
-                                        <input type="file" wire:model="featured_image" accept="image/*" class="text-xs text-gray-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-green-800 file:text-white hover:file:bg-brand-green-700 cursor-pointer">
+                                        <input type="file" wire:model="featured_image" accept="image/*" class="text-xs text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-green-800 file:text-white hover:file:bg-brand-green-700 cursor-pointer">
                                         <div wire:loading wire:target="featured_image" class="text-xs text-brand-gold-600 font-medium">Uploading...</div>
                                     </div>
                                     <p class="text-[11px] text-gray-500 mt-2">
@@ -295,11 +332,11 @@
                                 <!-- Image Preview -->
                                 <div class="flex items-center justify-center md:justify-end">
                                     @if ($featured_image)
-                                        <img src="{{ $featured_image->temporaryUrl() }}" alt="Preview" class="h-28 w-44 object-cover rounded-lg border border-brand-green-200 shadow-xs">
+                                        <img src="{{ $featured_image->temporaryUrl() }}" alt="Preview" class="h-24 w-40 object-cover rounded-lg border border-brand-green-200 shadow-xs">
                                     @elseif ($existing_featured_image)
-                                        <img src="{{ str_starts_with($existing_featured_image, 'http') ? $existing_featured_image : Storage::url($existing_featured_image) }}" alt="Current Image" class="h-28 w-44 object-cover rounded-lg border border-brand-green-200 shadow-xs">
+                                        <img src="{{ str_starts_with($existing_featured_image, 'http') ? $existing_featured_image : Storage::url($existing_featured_image) }}" alt="Current Image" class="h-24 w-40 object-cover rounded-lg border border-brand-green-200 shadow-xs">
                                     @else
-                                        <div class="h-28 w-44 rounded-lg bg-gray-100 border border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 text-xs text-center p-2">
+                                        <div class="h-24 w-40 rounded-lg bg-gray-100 border border-dashed border-gray-300 flex flex-col items-center justify-center text-gray-400 text-xs text-center p-2">
                                             <span>📷</span>
                                             <span class="mt-1">No cover image</span>
                                         </div>
@@ -308,16 +345,128 @@
                             </div>
                         </div>
 
-                        <!-- Excerpt -->
-                        <div>
-                            <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1.5">
-                                Summary / Excerpt <span class="text-gray-400 font-normal">(Brief hook shown in article cards)</span>
-                            </label>
-                            <textarea wire:model="excerpt" rows="2" placeholder="A 1-2 sentence hook highlighting the wellness tips or products introduced..." class="w-full bg-white border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-1 focus:ring-brand-gold-500 focus:border-brand-gold-500 text-brand-green-900"></textarea>
-                            @error('excerpt') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
+                        <!-- 3. CENTRALIZED MULTILINGUAL CONTENT TABS (en, ml, hi, ta) -->
+                        <div class="border border-brand-gold-500/40 rounded-2xl bg-white overflow-hidden shadow-xs">
+                            <!-- Tab Bar -->
+                            <div class="bg-gradient-to-r from-brand-green-950 via-brand-green-900 to-brand-green-950 p-2.5 flex items-center justify-between gap-2 flex-wrap">
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    @php
+                                        $languages = [
+                                            'en' => ['name' => 'English', 'native' => 'English', 'flag' => '🇬🇧'],
+                                            'ml' => ['name' => 'Malayalam', 'native' => 'മലയാളം', 'flag' => '🌴'],
+                                            'hi' => ['name' => 'Hindi', 'native' => 'हिन्दी', 'flag' => '🇮🇳'],
+                                            'ta' => ['name' => 'Tamil', 'native' => 'தமிழ்', 'flag' => '🌺'],
+                                        ];
+                                    @endphp
+
+                                    @foreach($languages as $code => $info)
+                                        @php
+                                            $hasContent = $this->hasLocaleContent($code);
+                                            $isActive = ($activeLocaleTab === $code);
+                                        @endphp
+                                        <button type="button" 
+                                                wire:click="setLocaleTab('{{ $code }}')"
+                                                class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer {{ $isActive ? 'bg-brand-gold-400 text-brand-green-950 shadow-md ring-1 ring-white/50' : 'text-brand-green-100 hover:bg-white/10' }}">
+                                            <span>{{ $info['flag'] }}</span>
+                                            <span>{{ $info['native'] }}</span>
+                                            @if($hasContent)
+                                                <span class="w-1.5 h-1.5 rounded-full {{ $isActive ? 'bg-brand-green-950' : 'bg-emerald-400' }}" title="Content present"></span>
+                                            @endif
+                                        </button>
+                                    @endforeach
+                                </div>
+
+                                <div class="text-[11px] text-brand-gold-300 font-medium hidden sm:block">
+                                    Editing: <strong>{{ $languages[$activeLocaleTab]['name'] }}</strong>
+                                </div>
+                            </div>
+
+                            <!-- Tab Content Area for $activeLocaleTab -->
+                            <div class="p-5 space-y-4">
+                                <!-- Article Title -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">
+                                        Title ({{ $languages[$activeLocaleTab]['name'] }})
+                                        @if($activeLocaleTab === 'en') <span class="text-red-500">*</span> @endif
+                                    </label>
+                                    <input type="text" 
+                                           wire:model.live.debounce.300ms="translations.{{ $activeLocaleTab }}.title" 
+                                           placeholder="Article Title in {{ $languages[$activeLocaleTab]['name'] }}..." 
+                                           class="w-full bg-white border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-1 focus:ring-brand-gold-500 text-brand-green-900">
+                                    @error("translations.{$activeLocaleTab}.title") <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
+                                </div>
+
+                                <!-- Excerpt -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">
+                                        Summary / Excerpt ({{ $languages[$activeLocaleTab]['name'] }})
+                                    </label>
+                                    <textarea wire:model="translations.{{ $activeLocaleTab }}.excerpt" rows="2" 
+                                              placeholder="Brief summary in {{ $languages[$activeLocaleTab]['name'] }} shown in cards and preview..." 
+                                              class="w-full bg-white border border-gray-300 rounded-lg px-3.5 py-2 text-xs focus:ring-1 focus:ring-brand-gold-500 text-brand-green-900"></textarea>
+                                </div>
+
+                                <!-- Rich Article Content -->
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider">
+                                            Article Content ({{ $languages[$activeLocaleTab]['name'] }})
+                                            @if($activeLocaleTab === 'en') <span class="text-red-500">*</span> @endif
+                                        </label>
+                                        <div class="flex items-center gap-1.5 text-[11px] text-gray-500">
+                                            <span>Quick inserts:</span>
+                                            <button type="button" 
+                                                    onclick="let el = document.getElementById('blog-content-area'); el.value += '\n<h2>Subheading Title</h2>\n<p>Paragraph text...</p>\n'; el.dispatchEvent(new Event('input'));"
+                                                    class="bg-gray-100 hover:bg-gray-200 text-brand-green-900 px-2 py-0.5 rounded border border-gray-200 cursor-pointer">
+                                                + Subheading
+                                            </button>
+                                            <button type="button" 
+                                                    onclick="let el = document.getElementById('blog-content-area'); el.value += '\n<div class=\'ayurveda-tip-box\'>\n    <strong>🌿 Dr. Sajeev\'s Tip:</strong>\n    <p>Your advice here...</p>\n</div>\n'; el.dispatchEvent(new Event('input'));"
+                                                    class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200 cursor-pointer">
+                                                + Tip Box
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <textarea id="blog-content-area" 
+                                              wire:model="translations.{{ $activeLocaleTab }}.content" rows="12" 
+                                              placeholder="Write rich formatted content in {{ $languages[$activeLocaleTab]['name'] }}. HTML tags like <h2>, <p>, <ul>, <div class='ayurveda-tip-box'> are supported." 
+                                              class="w-full font-mono text-xs bg-white border border-gray-300 rounded-lg p-3 focus:ring-1 focus:ring-brand-gold-500 text-brand-green-900 leading-relaxed"></textarea>
+                                    @error("translations.{$activeLocaleTab}.content") <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
+                                </div>
+
+                                <!-- Studio Audio URL (Optional) -->
+                                <div class="p-3 rounded-xl bg-brand-gold-50/50 border border-brand-gold-200">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <label class="block text-xs font-bold text-brand-green-950 uppercase tracking-wider flex items-center gap-1.5">
+                                            <span>🎙️</span>
+                                            <span>Studio Audio Recording URL (Optional)</span>
+                                        </label>
+                                        <span class="text-[10px] text-brand-gold-700 font-semibold">TTS will be used if left blank</span>
+                                    </div>
+                                    <input type="url" 
+                                           wire:model="translations.{{ $activeLocaleTab }}.audio_url" 
+                                           placeholder="https://.../audio-{{ $activeLocaleTab }}.mp3" 
+                                           class="w-full bg-white border border-brand-gold-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900 focus:ring-1 focus:ring-brand-gold-500">
+                                    <p class="text-[11px] text-gray-500 mt-1">
+                                        If provided, users will hear this custom recording. If blank, zero-dependency browser TTS in the {{ $languages[$activeLocaleTab]['name'] }} voice is spoken automatically!
+                                    </p>
+                                </div>
+
+                                <!-- SEO Meta for this language -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2 border-t border-gray-100">
+                                    <div>
+                                        <label class="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1">SEO Meta Title ({{ $activeLocaleTab }})</label>
+                                        <input type="text" wire:model="translations.{{ $activeLocaleTab }}.meta_title" placeholder="Defaults to Title" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[11px] font-semibold text-gray-600 uppercase tracking-wider mb-1">SEO Meta Description ({{ $activeLocaleTab }})</label>
+                                        <input type="text" wire:model="translations.{{ $activeLocaleTab }}.meta_description" placeholder="Defaults to Excerpt" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Featured / Introduced Products Selector -->
+                        <!-- 4. Featured / Introduced Products Selector -->
                         <div class="p-4 rounded-xl bg-amber-50/40 border border-amber-200/70" x-data="{ openDropdown: false }">
                             <div class="flex items-center justify-between mb-2">
                                 <div>
@@ -325,7 +474,7 @@
                                         ✨ Tag Products Featured in this Article / Wellness Tip
                                     </label>
                                     <p class="text-[11px] text-amber-800/80">
-                                        Tagged products will appear in an interactive "Featured Remedies" showcase with instant "Add to Cart" and details buttons.
+                                        Tagged products appear in an interactive "Featured Remedies" showcase with instant "Add to Cart" and size selection.
                                     </p>
                                 </div>
                                 <span class="text-xs font-bold text-amber-900 bg-amber-200/60 px-2 py-0.5 rounded-full">
@@ -366,67 +515,12 @@
                             </div>
                         </div>
 
-                        <!-- Content Editor with Quick Insert Helpers -->
-                        <div>
-                            <div class="flex items-center justify-between mb-1.5">
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider">
-                                    Article Content (HTML supported) <span class="text-red-500">*</span>
-                                </label>
-                                <div class="flex items-center gap-1.5 text-[11px] text-gray-500">
-                                    <span>Quick inserts:</span>
-                                    <button type="button" 
-                                            onclick="let el = document.getElementById('blog-content-area'); el.value += '\n<h2>Subheading Title</h2>\n<p>Paragraph text...</p>\n'; el.dispatchEvent(new Event('input'));"
-                                            class="bg-gray-100 hover:bg-gray-200 text-brand-green-900 px-2 py-0.5 rounded border border-gray-200">
-                                        + Subheading
-                                    </button>
-                                    <button type="button" 
-                                            onclick="let el = document.getElementById('blog-content-area'); el.value += '\n<div class=\'ayurveda-tip-box\'>\n    <strong>🌿 Dr. Sajeev\'s Ayurvedic Tip:</strong>\n    <p>Your advice here...</p>\n</div>\n'; el.dispatchEvent(new Event('input'));"
-                                            class="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded border border-emerald-200">
-                                        + Tip Box
-                                    </button>
-                                </div>
-                            </div>
-                            <textarea id="blog-content-area" wire:model="content" rows="12" 
-                                      placeholder="Write rich article content. Use <h2> for headers, <p> for paragraphs, <ul>/<li> for lists, and <div class='ayurveda-tip-box'> for highlighted wellness tips." 
-                                      class="w-full font-mono text-xs bg-white border border-gray-300 rounded-lg p-3 focus:ring-1 focus:ring-brand-gold-500 focus:border-brand-gold-500 text-brand-green-900 leading-relaxed"></textarea>
-                            @error('content') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-                        </div>
-
-                        <!-- Publishing Options & SEO Meta -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-200">
-                            <!-- Publishing Checkbox -->
-                            <div class="flex items-center gap-3">
-                                <input type="checkbox" id="is_published" wire:model="is_published" class="rounded text-brand-green-800 focus:ring-brand-green-800 h-4 w-4 border-gray-300">
-                                <label for="is_published" class="text-xs font-semibold text-brand-green-900 cursor-pointer">
-                                    Publish this article immediately
-                                </label>
-                            </div>
-
-                            <!-- Publish Date -->
-                            <div>
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">Publication Date</label>
-                                <input type="datetime-local" wire:model="published_at" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
-                            </div>
-
-                            <!-- SEO Meta Title -->
-                            <div class="md:col-span-2">
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">SEO Meta Title (Optional)</label>
-                                <input type="text" wire:model="meta_title" placeholder="Defaults to Article Title" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
-                            </div>
-
-                            <!-- SEO Meta Description -->
-                            <div class="md:col-span-2">
-                                <label class="block text-xs font-semibold text-brand-green-900 uppercase tracking-wider mb-1">SEO Meta Description (Optional)</label>
-                                <input type="text" wire:model="meta_description" placeholder="Defaults to excerpt" class="w-full bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-xs text-brand-green-900">
-                            </div>
-                        </div>
-
                         <!-- Modal Footer -->
                         <div class="pt-4 border-t border-brand-green-100 flex items-center justify-end gap-3 flex-shrink-0">
-                            <button type="button" wire:click="closeForm" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-lg transition-colors">
+                            <button type="button" wire:click="closeForm" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium rounded-lg transition-colors cursor-pointer">
                                 Cancel
                             </button>
-                            <button type="submit" class="px-5 py-2 bg-brand-green-800 hover:bg-brand-green-700 text-white text-xs font-semibold rounded-lg shadow transition-all flex items-center gap-2">
+                            <button type="submit" class="px-5 py-2 bg-brand-green-800 hover:bg-brand-green-700 text-white text-xs font-semibold rounded-lg shadow transition-all flex items-center gap-2 cursor-pointer">
                                 <span wire:loading.remove wire:target="save">
                                     {{ $postId ? 'Save Changes' : 'Publish Article' }}
                                 </span>

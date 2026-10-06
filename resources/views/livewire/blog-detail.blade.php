@@ -1,4 +1,9 @@
-<div class="bg-[#faf9f6] min-h-screen py-10" x-data="{ copied: false }">
+<div class="bg-[#faf9f6] min-h-screen py-10" 
+     x-data="blogPostReader({
+         translations: {{ Js::from($translations) }},
+         defaultLocale: '{{ $defaultLocale }}',
+         availableLocales: {{ Js::from($availableLocales) }}
+     })">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Breadcrumbs -->
@@ -22,8 +27,8 @@
             </ol>
         </nav>
 
-        <!-- Article Header -->
-        <header class="space-y-4 mb-8">
+        <!-- Article Header Metadata -->
+        <header class="space-y-4 mb-6">
             <div class="flex flex-wrap items-center gap-2">
                 <a href="/blog?category={{ urlencode($post->category) }}" 
                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-gold-100 text-brand-green-900 border border-brand-gold-300/60 hover:bg-brand-gold-200 transition-colors">
@@ -34,16 +39,6 @@
                 <span class="text-xs text-gray-400">•</span>
                 <span class="text-xs text-gray-500">{{ $post->published_at ? $post->published_at->format('F d, Y') : $post->created_at->format('F d, Y') }}</span>
             </div>
-
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-bold text-brand-green-900 leading-tight">
-                {{ $post->title }}
-            </h1>
-
-            @if($post->excerpt)
-                <p class="text-base sm:text-lg text-brand-green-900/80 font-light leading-relaxed">
-                    {{ $post->excerpt }}
-                </p>
-            @endif
 
             <!-- Author & Share Bar -->
             <div class="pt-4 border-t border-b border-brand-green-100 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -66,7 +61,7 @@
                 <div class="flex items-center gap-2">
                     <span class="text-xs text-gray-400 font-medium mr-1">Share:</span>
                     <!-- WhatsApp Share -->
-                    <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' - ' . url()->current()) }}" 
+                    <a :href="'https://api.whatsapp.com/send?text=' + encodeURIComponent(currentTranslation.title + ' - ' + window.location.href)" 
                        target="_blank" 
                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-colors"
                        title="Share on WhatsApp">
@@ -92,87 +87,16 @@
 
         <!-- Featured Image -->
         @if($post->featured_image)
-            <div class="mb-10 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 max-h-[460px] bg-gray-100">
+            <div class="mb-8 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 max-h-[460px] bg-gray-100">
                 <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" class="w-full h-full object-cover">
             </div>
         @endif
 
-        <!-- Article Prose Content -->
-        <article class="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-brand-green-100 mb-12">
-            <style>
-                .blog-prose h2 {
-                    font-family: 'Playfair Display', serif;
-                    font-size: 1.65rem;
-                    font-weight: 700;
-                    color: #1a2a22;
-                    margin-top: 2rem;
-                    margin-bottom: 0.85rem;
-                    line-height: 1.3;
-                }
-                .blog-prose h3 {
-                    font-family: 'Playfair Display', serif;
-                    font-size: 1.3rem;
-                    font-weight: 600;
-                    color: #1a2a22;
-                    margin-top: 1.5rem;
-                    margin-bottom: 0.5rem;
-                }
-                .blog-prose p {
-                    font-size: 1rem;
-                    line-height: 1.8;
-                    color: #2c3e34;
-                    margin-bottom: 1.25rem;
-                }
-                .blog-prose p.lead {
-                    font-size: 1.15rem;
-                    font-weight: 400;
-                    color: #1a2a22;
-                    line-height: 1.85;
-                    border-left: 3px solid #c89d53;
-                    padding-left: 1rem;
-                    font-style: italic;
-                    margin-bottom: 1.75rem;
-                }
-                .blog-prose ul, .blog-prose ol {
-                    margin-bottom: 1.25rem;
-                    padding-left: 1.5rem;
-                    color: #2c3e34;
-                    line-height: 1.8;
-                }
-                .blog-prose ul {
-                    list-style-type: disc;
-                }
-                .blog-prose ol {
-                    list-style-type: decimal;
-                }
-                .blog-prose li {
-                    margin-bottom: 0.5rem;
-                }
-                .blog-prose .ayurveda-tip-box {
-                    background-color: #f3f8f4;
-                    border: 1px solid #b7dbbf;
-                    border-left: 5px solid #235338;
-                    border-radius: 0.75rem;
-                    padding: 1.25rem 1.5rem;
-                    margin: 2rem 0;
-                }
-                .blog-prose .ayurveda-tip-box strong {
-                    color: #1a422b;
-                    display: block;
-                    font-size: 0.95rem;
-                    margin-bottom: 0.35rem;
-                }
-                .blog-prose .ayurveda-tip-box p {
-                    margin-bottom: 0;
-                    font-size: 0.95rem;
-                    color: #1e3f2d;
-                }
-            </style>
+        <!-- REUSABLE COMPONENT 1: Interactive Blog Controls (Language Switcher & Audio Player) -->
+        <x-blog.controls :availableLocales="$availableLocales" :translations="$translations" />
 
-            <div class="blog-prose">
-                {!! $post->content !!}
-            </div>
-        </article>
+        <!-- REUSABLE COMPONENT 2: Multilingual Article Body with Indic Typography -->
+        <x-blog.article-body :post="$post" />
 
         <!-- FEATURED / INTRODUCED PRODUCTS SPOTLIGHT -->
         @if($post->products->isNotEmpty())
@@ -361,3 +285,175 @@
 
     </div>
 </div>
+
+<!-- Alpine Blog Reader & Text-To-Speech Controller Component -->
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('blogPostReader', (config) => ({
+        translations: config.translations || {},
+        activeLocale: config.defaultLocale || 'en',
+        availableLocales: config.availableLocales || ['en'],
+        audioState: 'idle', // 'idle' | 'playing' | 'paused'
+        activeAudioBadge: 'Ready to listen',
+        copied: false,
+
+        init() {
+            // Check if URL has a specific locale requested (?lang=ml)
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            if (langParam && this.availableLocales.includes(langParam)) {
+                this.activeLocale = langParam;
+            }
+
+            // Sync with global TTS Manager if present
+            if (window.YuvannTTS) {
+                window.YuvannTTS.onStateChange((detail) => {
+                    this.audioState = detail.state;
+                    if (detail.state === 'playing') {
+                        this.activeAudioBadge = window.YuvannTTS.getLabel(this.activeLocale, 'playing');
+                    } else if (detail.state === 'paused') {
+                        this.activeAudioBadge = window.YuvannTTS.getLabel(this.activeLocale, 'paused');
+                    } else if (detail.finished) {
+                        this.activeAudioBadge = window.YuvannTTS.getLabel(this.activeLocale, 'completed');
+                    } else if (detail.error) {
+                        this.activeAudioBadge = 'Audio unavailable';
+                    } else {
+                        this.activeAudioBadge = 'Ready to listen';
+                    }
+                });
+            }
+        },
+
+        get currentTranslation() {
+            return this.translations[this.activeLocale] || this.translations['en'] || {
+                title: '{{ addslashes($post->title) }}',
+                excerpt: '{{ addslashes($post->excerpt ?? '') }}',
+                content: ''
+            };
+        },
+
+        switchLocale(locale) {
+            if (this.activeLocale === locale) return;
+
+            // Interruption Guard: Immediately cancel existing audio on language change
+            this.stopAudio();
+
+            this.activeLocale = locale;
+            this.activeAudioBadge = 'Ready to listen';
+
+            // Smooth URL update without full page reload
+            try {
+                const url = new URL(window.location);
+                url.searchParams.set('lang', locale);
+                window.history.replaceState({}, '', url);
+            } catch (e) {}
+        },
+
+        toggleAudio() {
+            if (this.audioState === 'playing') {
+                this.pauseAudio();
+            } else if (this.audioState === 'paused') {
+                this.resumeAudio();
+            } else {
+                this.playAudio();
+            }
+        },
+
+        playAudio() {
+            const trans = this.currentTranslation;
+            const fullText = (trans.title ? trans.title + '. ' : '') + 
+                             (trans.excerpt ? trans.excerpt + '. ' : '') + 
+                             (trans.content || '');
+
+            if (window.YuvannTTS) {
+                window.YuvannTTS.play({
+                    text: fullText,
+                    locale: this.activeLocale,
+                    audioUrl: trans.audio_url || null
+                });
+            } else {
+                // Inline resilient Web Speech API fallback
+                this.nativeSpeakFallback(fullText, this.activeLocale, trans.audio_url);
+            }
+        },
+
+        pauseAudio() {
+            if (window.YuvannTTS) {
+                window.YuvannTTS.pause();
+            } else if (window.speechSynthesis && window.speechSynthesis.speaking) {
+                window.speechSynthesis.pause();
+                this.audioState = 'paused';
+            }
+        },
+
+        resumeAudio() {
+            if (window.YuvannTTS) {
+                window.YuvannTTS.resume();
+            } else if (window.speechSynthesis && this.audioState === 'paused') {
+                window.speechSynthesis.resume();
+                this.audioState = 'playing';
+            }
+        },
+
+        stopAudio() {
+            if (window.YuvannTTS) {
+                window.YuvannTTS.stop();
+            } else if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+            this.audioState = 'idle';
+            this.activeAudioBadge = 'Ready to listen';
+        },
+
+        nativeSpeakFallback(rawHtml, locale, audioUrl) {
+            if (audioUrl) {
+                const a = new Audio(audioUrl);
+                this.audioState = 'playing';
+                a.onended = () => { this.audioState = 'idle'; };
+                a.play().catch(() => { this.audioState = 'idle'; });
+                return;
+            }
+
+            if (!('speechSynthesis' in window)) {
+                alert('Audio reading is not supported on this browser.');
+                return;
+            }
+
+            window.speechSynthesis.cancel();
+            const tmp = document.createElement('div');
+            tmp.innerHTML = rawHtml.replace(/<\/(h[1-6]|p|li|div|blockquote)>/gi, '. ');
+            const cleanText = (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            const map = { en: 'en-IN', ml: 'ml-IN', hi: 'hi-IN', ta: 'ta-IN' };
+            utterance.lang = map[locale] || 'en-IN';
+            utterance.rate = 0.95;
+
+            utterance.onstart = () => { this.audioState = 'playing'; };
+            utterance.onend = () => { this.audioState = 'idle'; };
+            utterance.onerror = () => { this.audioState = 'idle'; };
+
+            this.audioState = 'playing';
+            window.speechSynthesis.speak(utterance);
+        },
+
+        getAudioLabel() {
+            const labels = {
+                en: { listen: 'Listen to article', playing: 'Playing audio...', paused: 'Resume audio' },
+                ml: { listen: 'ലേഖനം കേൾക്കുക', playing: 'ഓഡിയോ കേൾക്കുന്നു...', paused: 'തുടരുക' },
+                hi: { listen: 'लेख सुनें', playing: 'ऑडियो चल रहा है...', paused: 'जारी रखें' },
+                ta: { listen: 'கட்டுரையை கேளுங்கள்', playing: 'ஆடியோ ஒலிக்கிறது...', paused: 'தொடரவும்' }
+            };
+            const map = labels[this.activeLocale] || labels.en;
+            if (this.audioState === 'playing') return map.playing;
+            if (this.audioState === 'paused') return map.paused;
+            return map.listen;
+        },
+
+        getStopLabel() {
+            const stops = { en: 'Stop', ml: 'നിർത്തുക', hi: 'रोकें', ta: 'நிறுத்து' };
+            return stops[this.activeLocale] || 'Stop';
+        }
+    }));
+});
+</script>

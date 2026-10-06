@@ -22,19 +22,53 @@ class BlogManager extends Component
     public bool $isFormOpen = false;
     public ?int $postId = null;
 
-    // Form fields
-    public string $title = '';
+    // Common article metadata
     public string $slug = '';
     public string $category = 'Wellness Tips';
     public string $author_name = 'Dr. Sajeev Dev';
     public string $author_title = 'Chief Ayurvedic Consultant';
     public string $read_time = '5 min read';
-    public string $excerpt = '';
-    public string $content = '';
-    public bool $is_published = true;
+    public string $status = 'published'; // 'published' | 'draft' | 'archived'
     public ?string $published_at = null;
-    public string $meta_title = '';
-    public string $meta_description = '';
+
+    // Active Multilingual Editor Tab
+    public string $activeLocaleTab = 'en'; // 'en' | 'ml' | 'hi' | 'ta'
+
+    // Multilingual Translations Form State
+    public array $translations = [
+        'en' => [
+            'title' => '',
+            'excerpt' => '',
+            'content' => '',
+            'audio_url' => '',
+            'meta_title' => '',
+            'meta_description' => '',
+        ],
+        'ml' => [
+            'title' => '',
+            'excerpt' => '',
+            'content' => '',
+            'audio_url' => '',
+            'meta_title' => '',
+            'meta_description' => '',
+        ],
+        'hi' => [
+            'title' => '',
+            'excerpt' => '',
+            'content' => '',
+            'audio_url' => '',
+            'meta_title' => '',
+            'meta_description' => '',
+        ],
+        'ta' => [
+            'title' => '',
+            'excerpt' => '',
+            'content' => '',
+            'audio_url' => '',
+            'meta_title' => '',
+            'meta_description' => '',
+        ],
+    ];
 
     // Image fields
     public $featured_image = null;
@@ -50,9 +84,9 @@ class BlogManager extends Component
         'categoryFilter' => ['except' => ''],
     ];
 
-    public function updatedTitle($value): void
+    public function updatedTranslationsEnTitle($value): void
     {
-        if (empty($this->postId)) {
+        if (empty($this->postId) && empty($this->slug)) {
             $this->slug = Str::slug($value);
         }
     }
@@ -70,24 +104,54 @@ class BlogManager extends Component
         $post = BlogPost::with('products')->findOrFail($id);
 
         $this->postId = $post->id;
-        $this->title = $post->title;
         $this->slug = $post->slug;
         $this->category = $post->category;
         $this->author_name = $post->author_name;
         $this->author_title = $post->author_title ?? 'Chief Ayurvedic Consultant';
         $this->read_time = $post->read_time ?? '5 min read';
-        $this->excerpt = $post->excerpt ?? '';
-        $this->content = $post->content;
-        $this->is_published = (bool) $post->is_published;
+        $this->status = $post->status ?: ($post->is_published ? 'published' : 'draft');
         $this->published_at = $post->published_at ? $post->published_at->format('Y-m-d\TH:i') : null;
-        $this->meta_title = $post->meta_title ?? '';
-        $this->meta_description = $post->meta_description ?? '';
+
+        // Structured Translations Mapping
+        $existingTrans = $post->translations ?? [];
+        foreach (['en', 'ml', 'hi', 'ta'] as $loc) {
+            if (!empty($existingTrans[$loc])) {
+                $this->translations[$loc] = array_merge([
+                    'title' => '',
+                    'excerpt' => '',
+                    'content' => '',
+                    'audio_url' => '',
+                    'meta_title' => '',
+                    'meta_description' => '',
+                ], $existingTrans[$loc]);
+            } else {
+                $this->translations[$loc] = [
+                    'title' => $loc === 'en' ? ($post->title ?? '') : '',
+                    'excerpt' => $loc === 'en' ? ($post->excerpt ?? '') : '',
+                    'content' => $loc === 'en' ? ($post->content ?? '') : '',
+                    'audio_url' => '',
+                    'meta_title' => $loc === 'en' ? ($post->meta_title ?? '') : '',
+                    'meta_description' => $loc === 'en' ? ($post->meta_description ?? '') : '',
+                ];
+            }
+        }
+
+        // If English is empty but legacy columns have content
+        if (empty($this->translations['en']['title']) && !empty($post->title)) {
+            $this->translations['en']['title'] = $post->title;
+            $this->translations['en']['excerpt'] = $post->excerpt ?? '';
+            $this->translations['en']['content'] = $post->content ?? '';
+            $this->translations['en']['meta_title'] = $post->meta_title ?? '';
+            $this->translations['en']['meta_description'] = $post->meta_description ?? '';
+        }
+
         $this->existing_featured_image = $post->featured_image;
         if ($post->featured_image && (str_starts_with($post->featured_image, 'http://') || str_starts_with($post->featured_image, 'https://'))) {
             $this->image_url = $post->featured_image;
         }
 
         $this->product_ids = $post->products->pluck('id')->toArray();
+        $this->activeLocaleTab = 'en';
         $this->isFormOpen = true;
     }
 
@@ -95,29 +159,33 @@ class BlogManager extends Component
     {
         $this->reset([
             'postId',
-            'title',
             'slug',
             'category',
             'author_name',
             'author_title',
             'read_time',
-            'excerpt',
-            'content',
-            'is_published',
+            'status',
             'published_at',
-            'meta_title',
-            'meta_description',
             'featured_image',
             'existing_featured_image',
             'image_url',
             'product_ids',
             'productSearch',
+            'activeLocaleTab',
         ]);
+
+        $this->translations = [
+            'en' => ['title' => '', 'excerpt' => '', 'content' => '', 'audio_url' => '', 'meta_title' => '', 'meta_description' => ''],
+            'ml' => ['title' => '', 'excerpt' => '', 'content' => '', 'audio_url' => '', 'meta_title' => '', 'meta_description' => ''],
+            'hi' => ['title' => '', 'excerpt' => '', 'content' => '', 'audio_url' => '', 'meta_title' => '', 'meta_description' => ''],
+            'ta' => ['title' => '', 'excerpt' => '', 'content' => '', 'audio_url' => '', 'meta_title' => '', 'meta_description' => ''],
+        ];
+
         $this->category = 'Wellness Tips';
         $this->author_name = 'Dr. Sajeev Dev';
         $this->author_title = 'Chief Ayurvedic Consultant';
         $this->read_time = '5 min read';
-        $this->is_published = true;
+        $this->status = 'published';
         $this->resetErrorBag();
     }
 
@@ -130,13 +198,15 @@ class BlogManager extends Component
     public function togglePublish(int $id): void
     {
         $post = BlogPost::findOrFail($id);
-        $post->is_published = !$post->is_published;
+        $newStatus = $post->status === 'published' ? 'draft' : 'published';
+        $post->status = $newStatus;
+        $post->is_published = ($newStatus === 'published');
         if ($post->is_published && !$post->published_at) {
             $post->published_at = now();
         }
         $post->save();
 
-        session()->flash('success', 'Article status updated successfully.');
+        session()->flash('success', 'Article status updated to ' . ucfirst($newStatus) . '.');
     }
 
     public function delete(int $id): void
@@ -162,23 +232,35 @@ class BlogManager extends Component
         }
     }
 
+    public function setLocaleTab(string $locale): void
+    {
+        if (in_array($locale, ['en', 'ml', 'hi', 'ta'])) {
+            $this->activeLocaleTab = $locale;
+        }
+    }
+
+    public function hasLocaleContent(string $locale): bool
+    {
+        return !empty($this->translations[$locale]['title']) || !empty($this->translations[$locale]['content']);
+    }
+
     public function save(): void
     {
         $this->validate([
-            'title' => 'required|string|max:255',
+            'translations.en.title' => 'required|string|max:255',
+            'translations.en.content' => 'required|string',
             'slug' => 'required|string|max:255|unique:blog_posts,slug,' . ($this->postId ?? 'NULL'),
             'category' => 'required|string|max:100',
             'author_name' => 'required|string|max:100',
             'author_title' => 'nullable|string|max:100',
             'read_time' => 'nullable|string|max:50',
-            'excerpt' => 'nullable|string|max:600',
-            'content' => 'required|string',
-            'is_published' => 'boolean',
+            'status' => 'required|in:published,draft,archived',
             'published_at' => 'nullable|date',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:255',
             'featured_image' => 'nullable|image|max:10240',
             'image_url' => 'nullable|url|max:500',
+        ], [
+            'translations.en.title.required' => 'English Article Title is required.',
+            'translations.en.content.required' => 'English Article Content is required.',
         ]);
 
         $finalImagePath = $this->existing_featured_image;
@@ -190,21 +272,43 @@ class BlogManager extends Component
             $finalImagePath = $this->image_url;
         }
 
+        // Clean translations array: preserve filled locales
+        $cleanTranslations = [];
+        foreach (['en', 'ml', 'hi', 'ta'] as $loc) {
+            $t = $this->translations[$loc];
+            if (!empty($t['title']) || !empty($t['content']) || $loc === 'en') {
+                $cleanTranslations[$loc] = [
+                    'locale' => $loc,
+                    'title' => trim($t['title'] ?? ''),
+                    'excerpt' => trim($t['excerpt'] ?? ''),
+                    'content' => trim($t['content'] ?? ''),
+                    'audio_url' => trim($t['audio_url'] ?? '') ?: null,
+                    'meta_title' => trim($t['meta_title'] ?? '') ?: trim($t['title'] ?? ''),
+                    'meta_description' => trim($t['meta_description'] ?? '') ?: Str::limit(strip_tags($t['excerpt'] ?? $t['content'] ?? ''), 160),
+                ];
+            }
+        }
+
+        $isPublished = ($this->status === 'published');
+        $primary = $cleanTranslations['en'] ?? reset($cleanTranslations);
+
         $post = BlogPost::updateOrCreate(
             ['id' => $this->postId],
             [
-                'title' => $this->title,
+                'title' => $primary['title'] ?? 'Untitled Article',
                 'slug' => Str::slug($this->slug),
                 'category' => $this->category,
                 'author_name' => $this->author_name,
                 'author_title' => $this->author_title,
                 'read_time' => $this->read_time ?: '5 min read',
-                'excerpt' => $this->excerpt,
-                'content' => $this->content,
-                'is_published' => $this->is_published,
-                'published_at' => $this->published_at ? $this->published_at : ($this->is_published ? now() : null),
-                'meta_title' => $this->meta_title ?: $this->title,
-                'meta_description' => $this->meta_description ?: Str::limit(strip_tags($this->excerpt ?: $this->content), 160),
+                'excerpt' => $primary['excerpt'] ?? '',
+                'content' => $primary['content'] ?? '',
+                'translations' => $cleanTranslations,
+                'status' => $this->status,
+                'is_published' => $isPublished,
+                'published_at' => $this->published_at ? $this->published_at : ($isPublished ? now() : null),
+                'meta_title' => $primary['meta_title'] ?? $primary['title'],
+                'meta_description' => $primary['meta_description'] ?? Str::limit(strip_tags($primary['excerpt'] ?? $primary['content']), 160),
                 'featured_image' => $finalImagePath,
             ]
         );
@@ -213,7 +317,7 @@ class BlogManager extends Component
         $post->products()->sync($this->product_ids);
 
         $this->closeForm();
-        session()->flash('success', $this->postId ? 'Article updated successfully!' : 'Article created successfully!');
+        session()->flash('success', $this->postId ? 'Article updated with multilingual content successfully!' : 'Article published successfully!');
     }
 
     public function render()
@@ -237,9 +341,15 @@ class BlogManager extends Component
         }
 
         if ($this->statusFilter === 'published') {
-            $query->where('is_published', true);
+            $query->where(function ($q) {
+                $q->where('status', 'published')->orWhere('is_published', true);
+            });
         } elseif ($this->statusFilter === 'draft') {
-            $query->where('is_published', false);
+            $query->where(function ($q) {
+                $q->where('status', 'draft')->orWhere('is_published', false);
+            });
+        } elseif ($this->statusFilter === 'archived') {
+            $query->where('status', 'archived');
         }
 
         $posts = $query->orderBy('created_at', 'desc')->paginate(10);
@@ -259,6 +369,6 @@ class BlogManager extends Component
             'search' => $this->search,
             'categoryFilter' => $this->categoryFilter,
             'statusFilter' => $this->statusFilter,
-        ])->layout('components.layouts.admin', ['header' => 'Blog & Wellness Guides']);
+        ])->layout('components.layouts.admin', ['header' => 'Blog & Multilingual Guides']);
     }
 }

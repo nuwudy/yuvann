@@ -10,6 +10,7 @@ use Livewire\Component;
 class BlogDetail extends Component
 {
     public BlogPost $post;
+    public string $defaultLocale = 'en';
 
     public function mount(string $slug): void
     {
@@ -17,6 +18,14 @@ class BlogDetail extends Component
             ->with(['products.variants'])
             ->where('slug', $slug)
             ->firstOrFail();
+
+        $available = $this->post->getAvailableLocales();
+        $requested = request()->query('lang');
+        if ($requested && in_array($requested, $available)) {
+            $this->defaultLocale = $requested;
+        } else {
+            $this->defaultLocale = in_array('en', $available) ? 'en' : ($available[0] ?? 'en');
+        }
     }
 
     /**
@@ -57,9 +66,28 @@ class BlogDetail extends Component
             $relatedPosts = $relatedPosts->merge($extra);
         }
 
+        $availableLocales = $this->post->getAvailableLocales();
+        
+        // Structured translations payload with complete fallback
+        $translations = $this->post->translations ?? [];
+        if (empty($translations['en'])) {
+            $translations['en'] = [
+                'locale' => 'en',
+                'title' => $this->post->title,
+                'excerpt' => $this->post->excerpt,
+                'content' => $this->post->content,
+                'audio_url' => null,
+                'meta_title' => $this->post->meta_title,
+                'meta_description' => $this->post->meta_description,
+            ];
+        }
+
         return view('livewire.blog-detail', [
             'post' => $this->post,
             'relatedPosts' => $relatedPosts,
+            'availableLocales' => $availableLocales,
+            'defaultLocale' => $this->defaultLocale,
+            'translations' => $translations,
         ])->layout('components.layouts.app', [
             'title' => ($this->post->meta_title ?: $this->post->title) . ' | Yuvann Wellness',
             'metaDescription' => $this->post->meta_description ?: $this->post->excerpt,
