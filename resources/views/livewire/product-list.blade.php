@@ -1,6 +1,6 @@
-<div x-data="{ notification: null }" 
+<div x-data="{ notification: null, mobileFilterOpen: false }" 
      @notify.window="notification = $event.detail[0]; setTimeout(() => notification = null, 3000)"
-     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+     class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
      
     <!-- Toast Notification -->
     <div class="fixed bottom-5 right-5 z-50 transition-all duration-300" 
@@ -10,7 +10,7 @@
          x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
          x-transition:leave="transition ease-in duration-100"
          x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
+         x-transition:leave-end="opacity-0" 
          style="display: none;">
         <div class="bg-brand-green-800 text-white px-4 py-3 rounded-xl shadow-lg border border-brand-gold-500/30 flex items-center gap-2.5">
             <span class="text-brand-gold-400">🌿</span>
@@ -18,35 +18,251 @@
         </div>
     </div>
 
-    <!-- Shop Heading -->
-    <div class="text-left border-b border-brand-green-100 pb-6 mb-8">
-        <h1 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900">Ayurvedic Remedies & Foods</h1>
-        <p class="text-xs sm:text-sm text-brand-green-700/70 mt-1.5">Scientifically formulated, naturally sourced organic products for your holistic well-being.</p>
+    <!-- Shop Heading & Prominent Search Header -->
+    <div class="border-b border-brand-green-100 pb-5 mb-6 text-left">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <span class="text-[10px] font-bold tracking-widest text-brand-gold-600 uppercase bg-brand-gold-50 px-2.5 py-1 rounded-full border border-brand-gold-200">Official Yuvann Store</span>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-brand-green-900 mt-1.5">Ayurvedic Remedies & Foods</h1>
+                <p class="text-xs sm:text-sm text-brand-green-700/70 mt-1">Scientifically formulated, naturally sourced organic products for your holistic well-being.</p>
+            </div>
+            
+            <!-- Quick Active Count or Reset (Desktop) -->
+            @php
+                $activeCount = ($body_part ? 1 : 0) + ($category ? 1 : 0) + ($maxPrice < 10000 ? 1 : 0) + (!empty($search) ? 1 : 0);
+            @endphp
+            @if($activeCount > 0)
+                <button type="button" wire:click="resetFilters" 
+                        class="hidden md:inline-flex items-center gap-1.5 text-xs text-brand-gold-700 hover:text-brand-green-900 font-bold bg-brand-gold-50/70 hover:bg-brand-gold-100 px-3 py-1.5 rounded-lg border border-brand-gold-200 transition-colors">
+                    <span>Reset All Filters</span>
+                    <span class="w-4 h-4 rounded-full bg-brand-gold-500 text-brand-green-950 text-[10px] flex items-center justify-center font-black">{{ $activeCount }}</span>
+                </button>
+            @endif
+        </div>
+
+        <!-- Prominent Search Bar (Full Width & Instantaneous) -->
+        <div class="mt-5">
+            <div class="relative flex items-center shadow-xs rounded-2xl bg-white border border-brand-green-200/90 focus-within:border-brand-gold-500 focus-within:ring-2 focus-within:ring-brand-gold-400/25 transition-all">
+                <span class="pl-4 pr-2 text-brand-green-800/70 pointer-events-none">
+                    <svg class="w-5 h-5 text-brand-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </span>
+                <input type="text" 
+                       wire:model.live.debounce.300ms="search" 
+                       placeholder="Search any product, herb, oil, veachoc, or health concern (e.g. sleep, iron, gut)..." 
+                       class="w-full py-3.5 sm:py-4 pr-10 bg-transparent text-xs sm:text-sm font-medium text-brand-green-950 placeholder-brand-green-700/50 focus:outline-none">
+                
+                @if(!empty($search))
+                    <button type="button" wire:click="$set('search', '')" 
+                            class="absolute right-3.5 p-1 rounded-full text-gray-400 hover:text-brand-green-900 hover:bg-brand-green-50 text-xs font-bold transition-all" 
+                            title="Clear search">
+                        ✕
+                    </button>
+                @endif
+            </div>
+        </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <!-- Mobile Fast Controls Bar (Zero Real Estate Waste - Products Visible Instantly) -->
+    <div class="lg:hidden mb-5 space-y-3">
+        <!-- Horizontal Scrollable Quick Category Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1.5 pt-0.5 no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
+            <button type="button" 
+                    wire:click="$set('category', '')" 
+                    class="shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-2xs {{ empty($category) ? 'bg-brand-green-900 text-brand-gold-300 ring-2 ring-brand-gold-400/40 shadow-xs' : 'bg-white text-brand-green-800 border border-brand-green-200 hover:border-brand-gold-300' }}">
+                ✨ All Products
+            </button>
+            @foreach($categories as $cat)
+                <button type="button" 
+                        wire:click="$set('category', '{{ $cat->slug }}')" 
+                        class="shrink-0 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all shadow-2xs {{ $category === $cat->slug ? 'bg-brand-green-900 text-brand-gold-300 ring-2 ring-brand-gold-400/40 shadow-xs' : 'bg-white text-brand-green-800 border border-brand-green-200 hover:border-brand-gold-300' }}">
+                    {{ $cat->name }}
+                </button>
+            @endforeach
+        </div>
+
+        <!-- Mobile Filter Action Row -->
+        <div class="flex items-center justify-between gap-2 pt-1 bg-white p-2.5 rounded-2xl border border-brand-green-100 shadow-2xs">
+            <!-- Open Filter Drawer Button -->
+            <button type="button" 
+                    @click="mobileFilterOpen = true"
+                    class="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold bg-brand-green-900 text-white shadow-xs hover:bg-brand-green-800 transition-all border border-brand-gold-500/30">
+                <svg class="w-4 h-4 text-brand-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                </svg>
+                <span>Filter & Care</span>
+                @php
+                    $mobileFilterBadge = ($body_part ? 1 : 0) + ($category ? 1 : 0) + ($maxPrice < 10000 ? 1 : 0);
+                @endphp
+                @if($mobileFilterBadge > 0)
+                    <span class="w-4 h-4 rounded-full bg-brand-gold-500 text-brand-green-950 text-[10px] font-black flex items-center justify-center">
+                        {{ $mobileFilterBadge }}
+                    </span>
+                @endif
+            </button>
+
+            <!-- Mobile Sort Dropdown & Count -->
+            <div class="flex items-center gap-2">
+                <select wire:model.live="sort" 
+                        class="bg-brand-green-50 border border-brand-green-200 rounded-xl py-2 px-2.5 text-xs font-semibold text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500">
+                    <option value="latest">Latest</option>
+                    <option value="featured">Best Sellers</option>
+                    <option value="price_asc">Price: Low-High</option>
+                    <option value="price_desc">Price: High-Low</option>
+                </select>
+
+                <span class="text-[11px] font-bold text-brand-green-900 whitespace-nowrap pr-1">
+                    {{ $products->total() }} items
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Slide-Over Filter Drawer (Accessible on-demand, takes 0 screen space by default) -->
+    <div x-show="mobileFilterOpen" 
+         x-cloak
+         class="fixed inset-0 z-50 overflow-hidden" 
+         style="display: none;"
+         aria-labelledby="slide-over-title" 
+         role="dialog" 
+         aria-modal="true">
         
-        <!-- Sidebar Filters -->
-        <aside class="space-y-6 lg:col-span-1">
-            <!-- Search Widget -->
-            <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
-                <h3 class="font-serif text-sm font-semibold text-brand-green-900 mb-3 uppercase tracking-wider">Search</h3>
-                <div class="relative">
-                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search (e.g. sushupti, veachoc, oil)..." 
-                           class="w-full bg-brand-green-50/50 border border-brand-green-100 rounded-xl py-2 pl-3 pr-8 text-xs focus:outline-none focus:ring-1 focus:ring-brand-gold-500 text-brand-green-900">
-                    @if(!empty($search))
-                        <button type="button" wire:click="$set('search', '')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-green-900 text-xs font-bold p-1 cursor-pointer" title="Clear search">✕</button>
+        <!-- Backdrop Overlay -->
+        <div x-show="mobileFilterOpen" 
+             x-transition:enter="ease-in-out duration-300" 
+             x-transition:enter-start="opacity-0" 
+             x-transition:enter-end="opacity-100" 
+             x-transition:leave="ease-in-out duration-300" 
+             x-transition:leave-start="opacity-100" 
+             x-transition:leave-end="opacity-0" 
+             @click="mobileFilterOpen = false"
+             class="fixed inset-0 bg-brand-green-950/60 backdrop-blur-xs transition-opacity"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-8 sm:pl-10">
+            <div x-show="mobileFilterOpen" 
+                 x-transition:enter="transform transition ease-in-out duration-300" 
+                 x-transition:enter-start="translate-x-full" 
+                 x-transition:enter-end="translate-x-0" 
+                 x-transition:leave="transform transition ease-in-out duration-300" 
+                 x-transition:leave-start="translate-x-0" 
+                 x-transition:leave-end="translate-x-full" 
+                 class="w-screen max-w-md bg-white shadow-2xl flex flex-col text-left">
+                
+                <!-- Drawer Header -->
+                <div class="p-4 sm:p-5 bg-brand-green-900 text-white flex items-center justify-between border-b border-brand-green-800">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-brand-gold-400 text-xl">🌿</span>
+                        <div>
+                            <h2 class="font-serif text-base font-bold text-white tracking-wide">Filter & Refine</h2>
+                            <p class="text-[11px] text-brand-gold-300/80">Tailor products to your body & wellness goals</p>
+                        </div>
+                    </div>
+                    <button type="button" 
+                            @click="mobileFilterOpen = false" 
+                            class="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors">
+                        ✕
+                    </button>
+                </div>
+
+                <!-- Drawer Body (Scrollable) -->
+                <div class="flex-1 overflow-y-auto p-5 space-y-6">
+                    <!-- Targeted Body Care Widget -->
+                    @if(isset($bodyParts) && $bodyParts->count() > 0)
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-serif text-xs font-bold text-brand-green-900 uppercase tracking-wider flex items-center gap-1.5">
+                                <span>🧘</span> Targeted Body Care
+                            </h3>
+                            @if($body_part)
+                                <button type="button" wire:click="$set('body_part', '')" class="text-[11px] text-brand-gold-700 hover:underline font-bold">Clear</button>
+                            @endif
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 max-h-52 overflow-y-auto pr-1">
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all {{ empty($body_part) ? 'bg-brand-green-900 text-white border-brand-green-900 font-bold shadow-xs' : 'bg-gray-50/60 border-gray-200 text-brand-green-900 hover:bg-white' }}">
+                                <input type="radio" name="mobile_bp" wire:model.live="body_part" value="" class="sr-only">
+                                <span>All Body Areas</span>
+                            </label>
+                            @foreach($bodyParts as $bp)
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all {{ $body_part === $bp->slug ? 'bg-brand-green-900 text-white border-brand-green-900 font-bold shadow-xs' : 'bg-gray-50/60 border-gray-200 text-brand-green-900 hover:bg-white' }}">
+                                    <input type="radio" name="mobile_bp" wire:model.live="body_part" value="{{ $bp->slug }}" class="sr-only">
+                                    <span class="truncate">{{ $bp->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
                     @endif
+
+                    <!-- Categories Widget -->
+                    <div class="pt-4 border-t border-brand-green-100">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-serif text-xs font-bold text-brand-green-900 uppercase tracking-wider flex items-center gap-1.5">
+                                <span>🏷️</span> Categories
+                            </h3>
+                            @if($category)
+                                <button type="button" wire:click="$set('category', '')" class="text-[11px] text-brand-gold-700 hover:underline font-bold">Clear</button>
+                            @endif
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 max-h-56 overflow-y-auto pr-1">
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all {{ empty($category) ? 'bg-brand-green-900 text-white border-brand-green-900 font-bold shadow-xs' : 'bg-gray-50/60 border-gray-200 text-brand-green-900 hover:bg-white' }}">
+                                <input type="radio" name="mobile_cat" wire:model.live="category" value="" class="sr-only">
+                                <span>All Products</span>
+                            </label>
+                            @foreach($categories as $cat)
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all {{ $category === $cat->slug ? 'bg-brand-green-900 text-white border-brand-green-900 font-bold shadow-xs' : 'bg-gray-50/60 border-gray-200 text-brand-green-900 hover:bg-white' }}">
+                                    <input type="radio" name="mobile_cat" wire:model.live="category" value="{{ $cat->slug }}" class="sr-only">
+                                    <span class="truncate">{{ $cat->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- Max Price Slider Widget -->
+                    <div class="pt-4 border-t border-brand-green-100">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-serif text-xs font-bold text-brand-green-900 uppercase tracking-wider">Max Price Range</h3>
+                            <span class="text-xs font-black text-brand-green-950 bg-brand-gold-100 px-2 py-0.5 rounded-md border border-brand-gold-300">₹{{ $maxPrice }}</span>
+                        </div>
+                        <input type="range" min="50" max="10000" step="50" wire:model.live="maxPrice" 
+                               class="w-full h-2 bg-brand-green-100 rounded-lg appearance-none cursor-pointer accent-brand-green-800">
+                        <div class="flex justify-between text-[10px] text-brand-green-700/60 mt-1.5 font-medium">
+                            <span>₹50</span>
+                            <span>₹10,000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drawer Sticky Footer -->
+                <div class="p-4 bg-brand-green-50/80 border-t border-brand-green-100 flex items-center gap-3">
+                    <button type="button" 
+                            wire:click="resetFilters" 
+                            class="flex-1 py-3 px-3 rounded-xl text-xs font-bold text-brand-green-900 bg-white border border-brand-green-200 hover:bg-brand-green-50 transition-all text-center">
+                        Reset All
+                    </button>
+                    <button type="button" 
+                            @click="mobileFilterOpen = false" 
+                            class="flex-1 py-3 px-3 rounded-xl text-xs font-black text-brand-green-950 bg-gradient-to-r from-brand-gold-400 to-brand-gold-500 hover:from-brand-gold-500 hover:to-brand-gold-600 transition-all text-center shadow-sm">
+                        Show {{ $products->total() }} Products
+                    </button>
                 </div>
             </div>
+        </div>
+    </div>
 
+    <!-- Main Grid Container -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <!-- Desktop Sidebar Filters (Hidden on Mobile, Visible on lg Screens) -->
+        <aside class="hidden lg:block lg:col-span-1 space-y-6">
             <!-- Targeted Body Care Widget -->
             @if(isset($bodyParts) && $bodyParts->count() > 0)
             <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
                 <div class="flex items-center justify-between mb-3">
-                    <h3 class="font-serif text-sm font-semibold text-brand-green-900 uppercase tracking-wider">Targeted Body Care</h3>
+                    <h3 class="font-serif text-sm font-semibold text-brand-green-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <span>🧘</span> Targeted Body Care
+                    </h3>
                     @if($body_part)
-                        <button wire:click="$set('body_part', '')" class="text-[10px] text-brand-gold-600 hover:underline font-semibold">Clear</button>
+                        <button type="button" wire:click="$set('body_part', '')" class="text-[10px] text-brand-gold-600 hover:underline font-semibold">Clear</button>
                     @endif
                 </div>
                 <div class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
@@ -68,8 +284,10 @@
 
             <!-- Categories Widget -->
             <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
-                <h3 class="font-serif text-sm font-semibold text-brand-green-900 mb-3 uppercase tracking-wider">Categories</h3>
-                <div class="space-y-2">
+                <h3 class="font-serif text-sm font-semibold text-brand-green-900 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                    <span>🏷️</span> Categories
+                </h3>
+                <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
                     <label class="flex items-center gap-2.5 text-xs text-brand-green-800 font-medium cursor-pointer">
                         <input type="radio" name="category_filter" wire:model.live="category" value="" 
                                class="text-brand-green-800 focus:ring-brand-gold-500 h-4.5 w-4.5 border-brand-green-200">
@@ -100,13 +318,13 @@
             </div>
 
             <!-- Reset Filters -->
-            <button wire:click="resetFilters" 
+            <button type="button" wire:click="resetFilters" 
                     class="w-full py-2.5 px-4 bg-brand-green-50 hover:bg-brand-green-100 text-brand-green-800 text-xs font-semibold rounded-xl border border-brand-green-100 transition-all">
                 Reset All Filters
             </button>
         </aside>
 
-        <!-- Product Grid Content -->
+        <!-- Product Grid Content (Appears Immediately on Mobile) -->
         <section class="lg:col-span-3">
             <!-- Toolbar -->
             <div class="bg-white px-5 py-4 rounded-2xl border border-brand-green-100/60 shadow-sm mb-6 space-y-3">
@@ -118,7 +336,7 @@
                             Showing <span class="font-bold text-brand-green-900">{{ $products->total() }}</span> Ayurvedic products
                         @endif
                     </p>
-                    <div class="flex items-center gap-2">
+                    <div class="hidden sm:flex items-center gap-2">
                         <label for="sort_select" class="text-xs text-brand-green-700/80 font-medium">Sort by:</label>
                         <select id="sort_select" wire:model.live="sort" 
                                 class="bg-brand-green-50 border border-brand-green-100 rounded-xl py-1 px-3 text-xs font-medium text-brand-green-900 focus:outline-none">
