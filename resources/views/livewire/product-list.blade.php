@@ -18,6 +18,15 @@
         </div>
     </div>
 
+    @php 
+        $shop = $shop ?? ''; 
+        $shops = $shops ?? collect(); 
+        $body_part = $body_part ?? ''; 
+        $category = $category ?? ''; 
+        $search = $search ?? ''; 
+        $maxPrice = $maxPrice ?? 10000; 
+    @endphp
+
     <!-- Shop Heading & Prominent Search Header -->
     <div class="border-b border-brand-green-100 pb-5 mb-6 text-left">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -29,7 +38,7 @@
             
             <!-- Quick Active Count or Reset (Desktop) -->
             @php
-                $activeCount = ($body_part ? 1 : 0) + ($category ? 1 : 0) + ($maxPrice < 10000 ? 1 : 0) + (!empty($search) ? 1 : 0);
+                $activeCount = ($body_part ? 1 : 0) + ($category ? 1 : 0) + ($shop ? 1 : 0) + ($maxPrice < 10000 ? 1 : 0) + (!empty($search) ? 1 : 0);
             @endphp
             @if($activeCount > 0)
                 <button type="button" wire:click="resetFilters" 
@@ -93,7 +102,7 @@
                 </svg>
                 <span>Filter & Care</span>
                 @php
-                    $mobileFilterBadge = ($body_part ? 1 : 0) + ($category ? 1 : 0) + ($maxPrice < 10000 ? 1 : 0);
+                    $mobileFilterBadge = ($body_part ? 1 : 0) + ($category ? 1 : 0) + ($shop ? 1 : 0) + ($maxPrice < 10000 ? 1 : 0);
                 @endphp
                 @if($mobileFilterBadge > 0)
                     <span class="w-4 h-4 rounded-full bg-brand-gold-500 text-brand-green-950 text-[10px] font-black flex items-center justify-center">
@@ -217,6 +226,35 @@
                         </div>
                     </div>
 
+                    <!-- Partner Shops Widget (Mobile) -->
+                    @if(isset($shops) && $shops->count() > 0)
+                    <div class="pt-4 border-t border-brand-green-100">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-serif text-xs font-bold text-brand-green-900 uppercase tracking-wider flex items-center gap-1.5">
+                                <span>🏪</span> Partner Shops & Brands
+                            </h3>
+                            @if($shop)
+                                <button type="button" wire:click="$set('shop', '')" class="text-[11px] text-brand-gold-700 hover:underline font-bold">Clear</button>
+                            @endif
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 max-h-52 overflow-y-auto pr-1">
+                            <label class="flex items-center gap-2 p-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all {{ empty($shop) ? 'bg-brand-green-900 text-white border-brand-green-900 font-bold shadow-xs' : 'bg-gray-50/60 border-gray-200 text-brand-green-900 hover:bg-white' }}">
+                                <input type="radio" name="mobile_shop" wire:model.live="shop" value="" class="sr-only">
+                                <span>All Partner Shops</span>
+                            </label>
+                            @foreach($shops as $s)
+                                <label class="flex items-center gap-2 p-2.5 rounded-xl border text-xs font-medium cursor-pointer transition-all {{ $shop === $s->slug ? 'bg-brand-green-900 text-white border-brand-green-900 font-bold shadow-xs' : 'bg-gray-50/60 border-gray-200 text-brand-green-900 hover:bg-white' }}">
+                                    <input type="radio" name="mobile_shop" wire:model.live="shop" value="{{ $s->slug }}" class="sr-only">
+                                    @if($s->profile_pic)
+                                        <img src="{{ \Illuminate\Support\Facades\Storage::url($s->profile_pic) }}" alt="{{ $s->name }}" class="w-4 h-4 rounded-full object-contain shrink-0 bg-white">
+                                    @endif
+                                    <span class="truncate">{{ $s->name }}</span>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+
                     <!-- Max Price Slider Widget -->
                     <div class="pt-4 border-t border-brand-green-100">
                         <div class="flex justify-between items-center mb-2">
@@ -303,6 +341,37 @@
                 </div>
             </div>
 
+            <!-- Partner Shops & Brands Widget (Desktop) -->
+            @if(isset($shops) && $shops->count() > 0)
+            <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-serif text-sm font-semibold text-brand-green-900 uppercase tracking-wider flex items-center gap-1.5">
+                        <span>🏪</span> Partner Shops
+                    </h3>
+                    @if($shop)
+                        <button type="button" wire:click="$set('shop', '')" class="text-[10px] text-brand-gold-600 hover:underline font-semibold">Clear</button>
+                    @endif
+                </div>
+                <div class="space-y-1.5 max-h-56 overflow-y-auto pr-1">
+                    <label class="flex items-center gap-2.5 text-xs text-brand-green-800 font-medium cursor-pointer p-1 rounded-lg hover:bg-brand-green-50/50 transition-colors">
+                        <input type="radio" name="shop_filter" wire:model.live="shop" value="" 
+                               class="text-brand-green-800 focus:ring-brand-gold-500 h-4 w-4 border-brand-green-200">
+                        <span>All Partner Shops</span>
+                    </label>
+                    @foreach($shops as $s)
+                        <label class="flex items-center gap-2.5 text-xs text-brand-green-800 font-medium cursor-pointer p-1 rounded-lg hover:bg-brand-green-50/50 transition-colors">
+                            <input type="radio" name="shop_filter" wire:model.live="shop" value="{{ $s->slug }}" 
+                                   class="text-brand-green-800 focus:ring-brand-gold-500 h-4 w-4 border-brand-green-200">
+                            @if($s->profile_pic)
+                                <img src="{{ \Illuminate\Support\Facades\Storage::url($s->profile_pic) }}" alt="{{ $s->name }}" class="w-4 h-4 rounded-full object-contain bg-white border border-gray-200 shrink-0">
+                            @endif
+                            <span class="truncate">{{ $s->name }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
             <!-- Price Slider Widget -->
             <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
                 <div class="flex justify-between items-center mb-3">
@@ -349,7 +418,7 @@
                 </div>
 
                 <!-- Active Filter Chips -->
-                @if($body_part || $category || !empty($search))
+                @if($body_part || $category || $shop || !empty($search))
                     <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-brand-green-100/50">
                         <span class="text-[10px] text-brand-green-700/60 font-semibold uppercase">Active Filters:</span>
                         
@@ -366,6 +435,14 @@
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-green-100 text-brand-green-900 border border-brand-green-200">
                                 <span>Category: {{ $selectedCat?->name ?? $category }}</span>
                                 <button type="button" wire:click="$set('category', '')" class="text-brand-green-800 hover:text-red-600 font-bold">&times;</button>
+                            </span>
+                        @endif
+
+                        @if($shop)
+                            @php $selectedShop = $shops->firstWhere('slug', $shop); @endphp
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-brand-green-950 border border-emerald-300 shadow-2xs">
+                                <span>🏪 Shop: {{ $selectedShop?->name ?? $shop }}</span>
+                                <button type="button" wire:click="$set('shop', '')" class="text-brand-green-800 hover:text-red-600 font-bold">&times;</button>
                             </span>
                         @endif
 
@@ -415,8 +492,13 @@
 
                             <!-- Info Container -->
                             <div class="p-3 sm:p-5 flex-grow flex flex-col text-left">
-                                <div class="flex items-center justify-between gap-2">
+                                <div class="flex items-center justify-between gap-1.5 flex-wrap">
                                     <span class="text-[8px] sm:text-[9px] font-semibold text-brand-gold-600 uppercase tracking-wider line-clamp-1 leading-snug">{{ $product->categories->pluck('name')->join(' • ') }}</span>
+                                    @if($product->shop)
+                                        <span wire:click="$set('shop', '{{ $product->shop->slug }}')" class="text-[8px] sm:text-[9px] font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-1.5 py-0.2 rounded border border-emerald-200 transition-colors shrink-0 cursor-pointer" title="Filter by shop: {{ $product->shop->name }}">
+                                            🏪 {{ $product->shop->name }}
+                                        </span>
+                                    @endif
                                 </div>
                                 <h3 class="font-serif text-xs sm:text-base font-bold text-brand-green-900 mt-1 hover:text-brand-green-700 transition-colors line-clamp-2 leading-tight min-h-[2rem] sm:min-h-0">
                                     <a href="/products/{{ $product->slug }}">{{ $product->name }}</a>

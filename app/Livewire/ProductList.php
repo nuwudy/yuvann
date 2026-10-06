@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\BodyPart;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Shop;
 use App\Services\CartService;
 use App\Services\ProductSearchService;
 use Livewire\Component;
@@ -17,6 +18,7 @@ class ProductList extends Component
     public string $search = '';
     public string $category = '';
     public string $body_part = '';
+    public string $shop = '';
     public float $maxPrice = 10000;
     public string $sort = 'latest';
 
@@ -24,6 +26,7 @@ class ProductList extends Component
         'search' => ['except' => ''],
         'category' => ['except' => ''],
         'body_part' => ['except' => ''],
+        'shop' => ['except' => ''],
         'maxPrice' => ['except' => 10000],
         'sort' => ['except' => 'latest'],
     ];
@@ -43,6 +46,11 @@ class ProductList extends Component
         $this->resetPage();
     }
 
+    public function updatingShop(): void
+    {
+        $this->resetPage();
+    }
+
     public function updatingMaxPrice(): void
     {
         $this->resetPage();
@@ -55,7 +63,7 @@ class ProductList extends Component
 
     public function resetFilters(): void
     {
-        $this->reset(['search', 'category', 'body_part', 'maxPrice', 'sort']);
+        $this->reset(['search', 'category', 'body_part', 'shop', 'maxPrice', 'sort']);
         $this->resetPage();
     }
 
@@ -75,7 +83,7 @@ class ProductList extends Component
 
     public function render()
     {
-        $query = Product::with(['categories', 'reviews', 'bodyParts', 'variants'])->where('is_active', true);
+        $query = Product::with(['categories', 'reviews', 'bodyParts', 'variants', 'shop'])->where('is_active', true);
 
         // Smart, Typo-Tolerant Search Filter (Includes phonetic transliteration & fuzzy Levenshtein)
         if (!empty($this->search)) {
@@ -93,6 +101,13 @@ class ProductList extends Component
         if (!empty($this->body_part)) {
             $query->whereHas('bodyParts', function($q) {
                 $q->where('slug', $this->body_part);
+            });
+        }
+
+        // Partner Shop / Brand Filter
+        if (!empty($this->shop)) {
+            $query->whereHas('shop', function($q) {
+                $q->where('slug', $this->shop);
             });
         }
 
@@ -132,6 +147,7 @@ class ProductList extends Component
             'products' => $query->paginate(9),
             'categories' => Category::where('is_active', true)->get(),
             'bodyParts' => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
+            'shops' => Shop::where('is_active', true)->orderBy('name', 'asc')->get(),
         ])->layout('components.layouts.app');
     }
 }

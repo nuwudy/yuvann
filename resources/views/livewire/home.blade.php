@@ -99,7 +99,38 @@
             <p class="text-brand-green-50 text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed drop-shadow opacity-0 animate-[fadeInUp_1s_ease-out_0.4s_forwards]">
                 India’s trusted destination for doctor-guided, holistic wellness and natural care.
             </p>
-            <div class="pt-8 flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
+
+            <!-- Prominent Hero Search Bar (Visible with High Prominence on PCs & Mobile) -->
+            <div class="pt-2 max-w-2xl mx-auto w-full opacity-0 animate-[fadeInUp_1s_ease-out_0.5s_forwards]">
+                <form action="/products" method="GET" class="relative flex items-center shadow-2xl rounded-2xl bg-white/95 backdrop-blur-md p-1.5 sm:p-2 border-2 border-brand-gold-400/80 hover:border-brand-gold-300 transition-all focus-within:ring-4 focus-within:ring-brand-gold-400/30">
+                    <span class="pl-3 sm:pl-4 pr-2 text-brand-green-800">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-brand-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" name="search" 
+                           placeholder="Search remedies, oils, veachoc, superfoods, shops..." 
+                           class="w-full py-2.5 sm:py-3.5 pr-3 text-xs sm:text-base font-medium text-brand-green-950 placeholder-brand-green-800/60 bg-transparent focus:outline-none">
+                    <button type="submit" 
+                            class="px-5 sm:px-8 py-2.5 sm:py-3.5 bg-gradient-to-r from-brand-gold-500 via-brand-gold-400 to-brand-gold-500 hover:from-brand-gold-400 hover:to-brand-gold-300 text-brand-green-950 font-black text-xs sm:text-sm rounded-xl shadow-md hover:shadow-lg transition-all flex items-center gap-1.5 shrink-0 tracking-wide">
+                        <span>Search</span>
+                        <span class="hidden sm:inline">&rarr;</span>
+                    </button>
+                </form>
+
+                <!-- Popular Quick Searches Under Search Bar -->
+                <div class="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap mt-3 text-[11px] sm:text-xs text-white/95">
+                    <span class="text-brand-gold-300 font-bold uppercase tracking-wider text-[10px]">Popular:</span>
+                    <a href="/products?search=veachoc" class="bg-black/40 hover:bg-brand-gold-500 hover:text-brand-green-950 px-2.5 py-0.5 rounded-full border border-white/20 transition-all font-medium">VeaChoc</a>
+                    <a href="/products?search=sushupti" class="bg-black/40 hover:bg-brand-gold-500 hover:text-brand-green-950 px-2.5 py-0.5 rounded-full border border-white/20 transition-all font-medium">Sushupti</a>
+                    <a href="/products?search=moringa" class="bg-black/40 hover:bg-brand-gold-500 hover:text-brand-green-950 px-2.5 py-0.5 rounded-full border border-white/20 transition-all font-medium">Moringa</a>
+                    <a href="/products?search=oil" class="bg-black/40 hover:bg-brand-gold-500 hover:text-brand-green-950 px-2.5 py-0.5 rounded-full border border-white/20 transition-all font-medium">Hair Oil</a>
+                    <a href="/products?search=iron" class="bg-black/40 hover:bg-brand-gold-500 hover:text-brand-green-950 px-2.5 py-0.5 rounded-full border border-white/20 transition-all font-medium">Iron</a>
+                    <a href="/products?shop=veachoc" class="bg-brand-gold-400 text-brand-green-950 font-bold hover:bg-brand-gold-300 px-2.5 py-0.5 rounded-full transition-all">🏪 VeaChoc Shop</a>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center opacity-0 animate-[fadeInUp_1s_ease-out_0.6s_forwards]">
                 <a href="/migraine-treatment" class="px-7 py-3.5 bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 text-sm font-extrabold rounded-full shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2 border-2 border-brand-gold-300 animate-pulse">
                     <span>⚡</span>
                     <span>മൈഗ്രെയ്ൻ ഒറ്റമൂലി ചികിത്സ</span>
