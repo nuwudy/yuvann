@@ -6,6 +6,7 @@ use App\Models\BodyPart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\CartService;
+use App\Services\ProductSearchService;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -76,16 +77,9 @@ class ProductList extends Component
     {
         $query = Product::with(['categories', 'reviews', 'bodyParts', 'variants'])->where('is_active', true);
 
-        // Search Filter (Includes product name, description, SKU, and tagged body parts)
+        // Smart, Typo-Tolerant Search Filter (Includes phonetic transliteration & fuzzy Levenshtein)
         if (!empty($this->search)) {
-            $query->where(function($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('short_description', 'like', '%' . $this->search . '%')
-                  ->orWhere('sku', 'like', '%' . $this->search . '%')
-                  ->orWhereHas('bodyParts', function($bp) {
-                      $bp->where('name', 'like', '%' . $this->search . '%');
-                  });
-            });
+            ProductSearchService::apply($query, $this->search);
         }
 
         // Category Filter
@@ -113,21 +107,25 @@ class ProductList extends Component
             });
         });
 
-        // Sorting
-        switch ($this->sort) {
-            case 'price_asc':
-                $query->orderByRaw('COALESCE(sale_price, price) ASC');
-                break;
-            case 'price_desc':
-                $query->orderByRaw('COALESCE(sale_price, price) DESC');
-                break;
-            case 'featured':
-                $query->orderBy('is_featured', 'desc')->orderBy('created_at', 'desc');
-                break;
-            case 'latest':
-            default:
-                $query->orderBy('created_at', 'desc');
-                break;
+        // Sorting: When search query is active and sort is 'latest', retain relevance rank
+        if (!empty($this->search) && $this->sort === 'latest') {
+            // Already ordered by search relevance!
+        } else {
+            switch ($this->sort) {
+                case 'price_asc':
+                    $query->orderByRaw('COALESCE(sale_price, price) ASC');
+                    break;
+                case 'price_desc':
+                    $query->orderByRaw('COALESCE(sale_price, price) DESC');
+                    break;
+                case 'featured':
+                    $query->orderBy('is_featured', 'desc')->orderBy('created_at', 'desc');
+                    break;
+                case 'latest':
+                default:
+                    $query->orderBy('created_at', 'desc');
+                    break;
+            }
         }
 
         return view('livewire.product-list', [

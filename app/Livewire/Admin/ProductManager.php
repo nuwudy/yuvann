@@ -8,6 +8,7 @@ use App\Models\MediaItem;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Services\ImageService;
+use App\Services\ProductSearchService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -572,11 +573,7 @@ class ProductManager extends Component
         $products = Product::query()
             ->with(['categories', 'bodyParts', 'shop'])
             ->when(!empty($this->search), function ($q) {
-                $q->where(function ($sub) {
-                    $sub->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('sku', 'like', '%' . $this->search . '%')
-                        ->orWhere('short_description', 'like', '%' . $this->search . '%');
-                });
+                ProductSearchService::apply($q, $this->search);
             })
             ->when(!empty($this->categoryFilter), function ($q) {
                 $q->whereHas('categories', function ($query) {

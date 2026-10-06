@@ -32,8 +32,11 @@
             <div class="bg-white p-5 rounded-2xl border border-brand-green-100/60 shadow-sm text-left">
                 <h3 class="font-serif text-sm font-semibold text-brand-green-900 mb-3 uppercase tracking-wider">Search</h3>
                 <div class="relative">
-                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Type keywords (e.g. hair, skin)..." 
-                           class="w-full bg-brand-green-50/50 border border-brand-green-100 rounded-xl py-2 px-3 text-xs focus:outline-none focus:ring-1 focus:ring-brand-gold-500 text-brand-green-900">
+                    <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search (e.g. sushupti, veachoc, oil)..." 
+                           class="w-full bg-brand-green-50/50 border border-brand-green-100 rounded-xl py-2 pl-3 pr-8 text-xs focus:outline-none focus:ring-1 focus:ring-brand-gold-500 text-brand-green-900">
+                    @if(!empty($search))
+                        <button type="button" wire:click="$set('search', '')" class="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-brand-green-900 text-xs font-bold p-1 cursor-pointer" title="Clear search">✕</button>
+                    @endif
                 </div>
             </div>
 
@@ -109,7 +112,11 @@
             <div class="bg-white px-5 py-4 rounded-2xl border border-brand-green-100/60 shadow-sm mb-6 space-y-3">
                 <div class="flex flex-wrap items-center justify-between gap-4">
                     <p class="text-xs text-brand-green-700/80 font-medium">
-                        Showing <span class="font-bold text-brand-green-900">{{ $products->total() }}</span> Ayurvedic products
+                        @if(!empty($search))
+                            Showing <span class="font-bold text-brand-green-900">{{ $products->total() }}</span> results for <span class="font-bold text-brand-green-900 font-serif">"{{ $search }}"</span>
+                        @else
+                            Showing <span class="font-bold text-brand-green-900">{{ $products->total() }}</span> Ayurvedic products
+                        @endif
                     </p>
                     <div class="flex items-center gap-2">
                         <label for="sort_select" class="text-xs text-brand-green-700/80 font-medium">Sort by:</label>
