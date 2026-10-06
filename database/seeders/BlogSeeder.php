@@ -16,6 +16,369 @@ class BlogSeeder extends Seeder
     {
         $articles = [
             [
+                'title' => 'Why Iron Nutrition Matters: Common Signs of Low Iron & The Story of VeaChoc',
+                'slug' => 'why-iron-nutrition-matters-veachoc-story',
+                'excerpt' => 'Iron deficiency is one of the world’s most common nutrient gaps. Discover the 5 vital signs of low iron, how purposeful chocolate snacking bridges the gap, and the true founder story behind VeaChoc.',
+                'category' => 'Nutrition & Immunity',
+                'featured_image' => 'https://images.unsplash.com/photo-1548907040-4baa42d10919?q=80&w=1200&auto=format&fit=crop',
+                'author_name' => 'Abdul Jaleel & Dr. Sajeev Dev',
+                'author_title' => 'Founder, VeaChoc & Chief Consultant',
+                'read_time' => '6 min read',
+                'status' => 'published',
+                'is_published' => true,
+                'published_at' => now(),
+                'meta_title' => 'Iron Deficiency Signs & The VeaChoc Story | Yuvann Wellness',
+                'meta_description' => 'Learn the common signs of iron deficiency, why iron-rich chocolate provides joyful nutrition, and how VeaChoc was born to fight anaemia in India.',
+                'content' => <<<'HTML'
+<p class="lead">Iron deficiency is one of the world’s most common nutrient gaps, affecting hundreds of millions of women, adolescents, and children. While only a healthcare professional can diagnose a deficiency through clinical evaluation, understanding the common warning signs of low iron intake is the first step toward restoring daily vitality.</p>
+
+<h2>5 Common Signs Associated with Low Iron Intake</h2>
+
+<h3>1. Constant Fatigue</h3>
+<p>If you feel completely drained even after a full night’s rest, iron may play a decisive role. Iron is essential for synthesizing hemoglobin, the red blood cell protein that carries vital oxygen to your tissues, organs, and brain.</p>
+
+<h3>2. Pale or Dull Skin</h3>
+<p>Low iron may contribute to decreased blood oxygen delivery and capillary circulation, which can cause skin tone to appear visibly pale, dull, or sallow.</p>
+
+<h3>3. Brittle Nails or Hair Shedding</h3>
+<p>When the body faces an iron deficit, it prioritizes oxygen strictly for vital organs. Non-vital structures like nail beds and hair follicles receive reduced nutritional support, resulting in accelerated shedding and fragile, ridged nails.</p>
+
+<h3>4. Feeling Cold Often</h3>
+<p>Reduced oxygen circulation directly impairs internal cellular thermoregulation, leading to heightened sensitivity to cold, especially in the hands and feet.</p>
+
+<h3>5. Trouble Concentrating & Brain Fog</h3>
+<p>Iron influences fundamental cognitive performance, including attention span, memory recall, and mental clarity. An oxygen-deprived brain struggles with sustained intellectual work.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌿 Supporting Iron Intake Through Everyday Foods:</strong>
+    <p>Include nutrient-dense foods such as dark leafy greens (moringa, spinach), beans, legumes, lean meats, and fortified foods. In holistic nutrition, pairing iron with natural Vitamin C dramatically elevates gut absorption.</p>
+</div>
+
+<h2>Why Iron-Rich Chocolate Helps: Snacking With Purpose</h2>
+<p>In a fast-paced world, snacking is often a hurried grab-and-go decision. But what if your favorite sweet indulgence could also actively support your daily nutrient goals? That is where <strong>iron-rich chocolate</strong> makes all the difference.</p>
+
+<p>Unlike ordinary confectionery loaded with empty sugar, iron-rich chocolate blends taste with functional nutrition. Powered by pure cocoa, fortified minerals, and superfood ingredients, it delivers meaningful nutritional value without the metallic aftertaste or digestive discomfort common to conventional iron pills.</p>
+
+<h3>Benefits of Choosing Iron-Rich Chocolate:</h3>
+<ul>
+    <li><strong>Convenient Source of Iron:</strong> Delivers daily bioavailable iron in an enjoyable format.</li>
+    <li><strong>Satisfies Sweet Cravings:</strong> Replaces calorie-dense, nutrient-poor snacks with purposeful indulgence.</li>
+    <li><strong>Pairs with a Balanced Lifestyle:</strong> Seamlessly integrates into your busy day with zero pill fatigue.</li>
+    <li><strong>Perfect Anywhere:</strong> Ideal for the office desk, gym bag, college backpack, or handbag.</li>
+</ul>
+
+<h3>Who Is It Ideal For?</h3>
+<ul>
+    <li><strong>Students:</strong> Needing steady mental focus and cognitive stamina during exams.</li>
+    <li><strong>Working Professionals:</strong> Juggling long hours, screen time, and high daily stress.</li>
+    <li><strong>Mothers:</strong> In need of an easy, wholesome midday treat to combat physical exhaustion.</li>
+    <li><strong>Fitness Enthusiasts:</strong> Seeking healthier, nutrient-functional snacks.</li>
+</ul>
+
+<!-- Responsive YouTube Video Feature -->
+<div class="my-8 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 aspect-video w-full bg-black">
+    <iframe class="w-full h-full" src="https://www.youtube.com/embed/wOq-UyOv_BQ" title="VeaChoc Story - The Journey That Changed Everything" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<h2>The Story of VeaChoc: Born From Love, Built for Humanity</h2>
+
+<h3>The Personal Journey That Changed Everything</h3>
+<p>In the early 2000s, my wife was diagnosed with severe anemia caused by polycystic ovary condition (PCOD). Prescribed supplements caused severe digestive discomfort, nausea, and cramping. Nothing truly worked. I watched her grow weaker each passing day, feeling completely helpless. What began as a personal struggle would later become a mission to help millions understand the importance of iron nutrition.</p>
+
+<h3>When Compassion Changed Everything</h3>
+<p>After consulting over fifty doctors, we met <strong>Dr. Pushpalatha</strong>. While others advised removing both ovaries, she preserved one through a careful, compassionate, and ethical approach. She didn’t just perform surgery—she protected my wife’s future and our family's dreams.</p>
+
+<h3>When Awareness Was Missing</h3>
+<p>Iron deficiency was everywhere. But lack of awareness resulted in widespread ignorance. Fatigue was dismissed as laziness. Pain was normalized. Millions continued suffering silently, often without understanding their basic iron nutrition needs.</p>
+
+<h3>One Question Changed My Direction</h3>
+<p>At a business seminar at <strong>IIM Bangalore</strong>, the founder of iD Fresh Food, <strong>PC Musthafa</strong>, asked the audience: <em>“What vacuum are you creating in society?”</em> That question changed everything. <strong>Iron deficiency was the vacuum.</strong></p>
+
+<h3>It Wasn’t About Availability</h3>
+<p>Iron-rich supplements already existed, but we needed an approach that people could more easily include in everyday life. People avoided pills because they were unpleasant and hard to sustain. We needed something people would willingly adopt—joyful nutrition.</p>
+
+<h3>Belief Needed Proof & Dedication</h3>
+<p>Investors were excited, but they wanted traction and proof. Without vanity numbers, we focused on building credibility through scientific rigor. The research was demanding and continuous. We especially acknowledge researcher <strong>Ms. Anjum Subhani</strong>, who remained part of the 24/7 research cycle even through her pregnancy. Veachoc was built with commitment and sacrifice.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌟 More Than a Product:</strong>
+    <p>One of our very first users was a pregnant woman with dangerously low hemoglobin facing imminent surgical complications. Within weeks of consistent nutritional support, her levels improved significantly—and a planned surgical delivery was no longer required. That was the moment we knew: <strong>This was more than chocolate. This is saving lives.</strong></p>
+</div>
+
+<h3>Our Vision & Promise: An Anaemia-Free India</h3>
+<p>Through grants, institutional support, and incubation programs, Veachoc gained recognition. But awards were never the goal. <strong>Impact was.</strong> We envision a future where iron nutrition feels simple, enjoyable, and accessible to every household.</p>
+
+<blockquote class="border-l-4 border-brand-gold-500 pl-4 py-2 italic my-6 text-brand-green-900 bg-brand-green-50/40 rounded-r-xl">
+    "What began as a personal struggle has become an unyielding mission to fight iron deficiency. We will continue innovating. We will continue researching. We will continue serving. Because no one should suffer silently."
+    <br><strong class="not-italic text-sm text-brand-green-950 mt-2 block">— Abdul Jaleel, Founder, Veachoc</strong>
+</blockquote>
+HTML
+                ,
+                'translations' => [
+                    'en' => [
+                        'locale' => 'en',
+                        'title' => 'Why Iron Nutrition Matters: Common Signs of Low Iron & The Story of VeaChoc',
+                        'excerpt' => 'Iron deficiency is one of the world’s most common nutrient gaps. Discover the 5 vital signs of low iron, how purposeful chocolate snacking bridges the gap, and the true founder story behind VeaChoc.',
+                        'content' => <<<'HTML'
+<p class="lead">Iron deficiency is one of the world’s most common nutrient gaps, affecting hundreds of millions of women, adolescents, and children. While only a healthcare professional can diagnose a deficiency through clinical evaluation, understanding the common warning signs of low iron intake is the first step toward restoring daily vitality.</p>
+
+<h2>5 Common Signs Associated with Low Iron Intake</h2>
+
+<h3>1. Constant Fatigue</h3>
+<p>If you feel completely drained even after a full night’s rest, iron may play a decisive role. Iron is essential for synthesizing hemoglobin, the red blood cell protein that carries vital oxygen to your tissues, organs, and brain.</p>
+
+<h3>2. Pale or Dull Skin</h3>
+<p>Low iron may contribute to decreased blood oxygen delivery and capillary circulation, which can cause skin tone to appear visibly pale, dull, or sallow.</p>
+
+<h3>3. Brittle Nails or Hair Shedding</h3>
+<p>When the body faces an iron deficit, it prioritizes oxygen strictly for vital organs. Non-vital structures like nail beds and hair follicles receive reduced nutritional support, resulting in accelerated shedding and fragile, ridged nails.</p>
+
+<h3>4. Feeling Cold Often</h3>
+<p>Reduced oxygen circulation directly impairs internal cellular thermoregulation, leading to heightened sensitivity to cold, especially in the hands and feet.</p>
+
+<h3>5. Trouble Concentrating & Brain Fog</h3>
+<p>Iron influences fundamental cognitive performance, including attention span, memory recall, and mental clarity. An oxygen-deprived brain struggles with sustained intellectual work.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌿 Supporting Iron Intake Through Everyday Foods:</strong>
+    <p>Include nutrient-dense foods such as dark leafy greens (moringa, spinach), beans, legumes, lean meats, and fortified foods. In holistic nutrition, pairing iron with natural Vitamin C dramatically elevates gut absorption.</p>
+</div>
+
+<h2>Why Iron-Rich Chocolate Helps: Snacking With Purpose</h2>
+<p>In a fast-paced world, snacking is often a hurried grab-and-go decision. But what if your favorite sweet indulgence could also actively support your daily nutrient goals? That is where <strong>iron-rich chocolate</strong> makes all the difference.</p>
+
+<p>Unlike ordinary confectionery loaded with empty sugar, iron-rich chocolate blends taste with functional nutrition. Powered by pure cocoa, fortified minerals, and superfood ingredients, it delivers meaningful nutritional value without the metallic aftertaste or digestive discomfort common to conventional iron pills.</p>
+
+<h3>Benefits of Choosing Iron-Rich Chocolate:</h3>
+<ul>
+    <li><strong>Convenient Source of Iron:</strong> Delivers daily bioavailable iron in an enjoyable format.</li>
+    <li><strong>Satisfies Sweet Cravings:</strong> Replaces calorie-dense, nutrient-poor snacks with purposeful indulgence.</li>
+    <li><strong>Pairs with a Balanced Lifestyle:</strong> Seamlessly integrates into your busy day with zero pill fatigue.</li>
+    <li><strong>Perfect Anywhere:</strong> Ideal for the office desk, gym bag, college backpack, or handbag.</li>
+</ul>
+
+<!-- Responsive YouTube Video Feature -->
+<div class="my-8 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 aspect-video w-full bg-black">
+    <iframe class="w-full h-full" src="https://www.youtube.com/embed/wOq-UyOv_BQ" title="VeaChoc Story - The Journey That Changed Everything" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<h2>The Story of VeaChoc: Born From Love, Built for Humanity</h2>
+
+<h3>The Personal Journey That Changed Everything</h3>
+<p>In the early 2000s, my wife was diagnosed with severe anemia caused by polycystic ovary condition (PCOD). Prescribed supplements caused severe digestive discomfort, nausea, and cramping. Nothing truly worked. I watched her grow weaker each passing day, feeling completely helpless. What began as a personal struggle would later become a mission to help millions understand the importance of iron nutrition.</p>
+
+<h3>When Compassion Changed Everything</h3>
+<p>After consulting over fifty doctors, we met <strong>Dr. Pushpalatha</strong>. While others advised removing both ovaries, she preserved one through a careful, compassionate, and ethical approach. She didn’t just perform surgery—she protected my wife’s future and our family's dreams.</p>
+
+<h3>When Awareness Was Missing</h3>
+<p>Iron deficiency was everywhere. But lack of awareness resulted in widespread ignorance. Fatigue was dismissed as laziness. Pain was normalized. Millions continued suffering silently, often without understanding their basic iron nutrition needs.</p>
+
+<h3>One Question Changed My Direction</h3>
+<p>At a business seminar at <strong>IIM Bangalore</strong>, the founder of iD Fresh Food, <strong>PC Musthafa</strong>, asked the audience: <em>“What vacuum are you creating in society?”</em> That question changed everything. <strong>Iron deficiency was the vacuum.</strong></p>
+
+<h3>It Wasn’t About Availability</h3>
+<p>Iron-rich supplements already existed, but we needed an approach that people could more easily include in everyday life. People avoided pills because they were unpleasant and hard to sustain. We needed something people would willingly adopt—joyful nutrition.</p>
+
+<h3>Belief Needed Proof & Dedication</h3>
+<p>Investors were excited, but they wanted traction and proof. Without vanity numbers, we focused on building credibility through scientific rigor. The research was demanding and continuous. We especially acknowledge researcher <strong>Ms. Anjum Subhani</strong>, who remained part of the 24/7 research cycle even through her pregnancy. Veachoc was built with commitment and sacrifice.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌟 More Than a Product:</strong>
+    <p>One of our very first users was a pregnant woman with dangerously low hemoglobin facing imminent surgical complications. Within weeks of consistent nutritional support, her levels improved significantly—and a planned surgical delivery was no longer required. That was the moment we knew: <strong>This was more than chocolate. This is saving lives.</strong></p>
+</div>
+
+<h3>Our Vision & Promise: An Anaemia-Free India</h3>
+<p>Through grants, institutional support, and incubation programs, Veachoc gained recognition. But awards were never the goal. <strong>Impact was.</strong> We envision a future where iron nutrition feels simple, enjoyable, and accessible to every household.</p>
+
+<blockquote class="border-l-4 border-brand-gold-500 pl-4 py-2 italic my-6 text-brand-green-900 bg-brand-green-50/40 rounded-r-xl">
+    "What began as a personal struggle has become an unyielding mission to fight iron deficiency. We will continue innovating. We will continue researching. We will continue serving. Because no one should suffer silently."
+    <br><strong class="not-italic text-sm text-brand-green-950 mt-2 block">— Abdul Jaleel, Founder, Veachoc</strong>
+</blockquote>
+HTML
+                        ,
+                        'audio_url' => null,
+                        'meta_title' => 'Iron Deficiency Signs & The VeaChoc Story | Yuvann Wellness',
+                        'meta_description' => 'Learn the common signs of iron deficiency, why iron-rich chocolate provides joyful nutrition, and how VeaChoc was born to fight anaemia in India.',
+                    ],
+                    'ml' => [
+                        'locale' => 'ml',
+                        'title' => 'അയൺ കുറവ് എങ്ങനെ തിരിച്ചറിയാം? വീചോക്കിന്റെ (VeaChoc) പിറവിക്ക് പിന്നിലെ കഥ',
+                        'excerpt' => 'ലോകത്തിൽ ഏറ്റവും കൂടുതലായി കാണപ്പെടുന്ന പോഷകക്കുറവാണ് അയൺ അഥവാ ഇരുമ്പിന്റെ കുറവ്. അയൺ കുറവിന്റെ 5 പ്രധാന ലക്ഷണങ്ങളും വീചോക്ക് ചോക്ലേറ്റിന്റെ പിറവിക്ക് പിന്നിലെ ഹൃദയസ്പർശിയായ കഥയും അറിയാം.',
+                        'content' => <<<'HTML'
+<p class="lead">ലോകമെമ്പാടും കോടിക്കണക്കിന് സ്ത്രീകളെയും കുട്ടികളെയും ബാധിക്കുന്ന ഏറ്റവും പ്രധാനപ്പെട്ട ആരോഗ്യപ്രശ്നങ്ങളിലൊന്നാണ് ഇരുമ്പിന്റെ കുറവ് (Iron Deficiency). ലക്ഷണങ്ങൾ മനസ്സിലാക്കി ആവശ്യമായ പോഷണം നൽകുക എന്നത് ഊർജ്ജസ്വലമായ ജീവിതത്തിന് അത്യന്താപേക്ഷിതമാണ്.</p>
+
+<h2>ശരീരത്തിൽ അയൺ കുറവാണെന്ന് സൂചിപ്പിക്കുന്ന 5 പ്രധാന ലക്ഷണങ്ങൾ</h2>
+
+<h3>1. നിരന്തരമായ ക്ഷീണം</h3>
+<p>നന്നായി ഉറങ്ങിയാലും രാവിലെ എഴുന്നേൽക്കുമ്പോൾ കടുത്ത ക്ഷീണവും തളർച്ചയും അനുഭവപ്പെടുന്നത് രക്തത്തിൽ ഹീമോഗ്ലോബിന്റെ അളവ് കുറവായതുകൊണ്ടാകാം. ശരീരത്തിലെ കോശങ്ങളിലേക്ക് ഓക്സിജൻ എത്തിക്കുന്നത് ഹീമോഗ്ലോബിനാണ്.</p>
+
+<h3>2. വിളറിയതോ മങ്ങിയതോ ആയ ചർമ്മം</h3>
+<p>രക്തയോട്ടം കുറയുന്നതും ഓക്സിജൻ്റെ അളവ് കുറയുന്നതും മൂലം മുഖവും ചർമ്മവും സ്വാഭാവികമായ തിളക്കം നഷ്ടപ്പെട്ട് വിളറി വെളുത്തതായി കാണപ്പെടുന്നു.</p>
+
+<h3>3. പൊട്ടുന്ന നഖങ്ങളും മുടികൊഴിച്ചിലും</h3>
+<p>ശരീരത്തിൽ അയൺ കുറയുമ്പോൾ, ലഭ്യമായ ഓക്സിജൻ ഹൃദയത്തിലേക്കും തലച്ചോറിലേക്കും മാത്രമായി ചുരുങ്ങുന്നു. ഇത് നഖങ്ങൾ ദുർബലമാകാനും മുടി അമിതമായി കൊഴിയാനും കാരണമാകുന്നു.</p>
+
+<h3>4. അമിതമായി തണുപ്പ് തോന്നുക</h3>
+<p>രക്തയോട്ടവും ശരീരതാപനിലയും കൃത്യമായി നിലനിർത്താൻ അയൺ അത്യാവശ്യമാണ്. അയൺ കുറഞ്ഞാൽ കൈകാലുകളിൽ എപ്പോഴും തണുപ്പ് അനുഭവപ്പെടാം.</p>
+
+<h3>5. ഏകാഗ്രതക്കുറവും ഓർമ്മക്കുറവും</h3>
+<p>തലച്ചോറിന്റെ പ്രവർത്തനങ്ങൾക്കും ചിന്താശേഷിക്കും ഓക്സിജൻ അത്യാവശ്യമാണ്. ഇരുമ്പിന്റെ കുറവ് ഏകാഗ്രതക്കുറവിലേക്കും മാനസികമായ മടുപ്പിലേക്കും നയിക്കുന്നു.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌿 ഭക്ഷണത്തിലൂടെയുള്ള അയൺ പോഷണം:</strong>
+    <p>മുരിങ്ങയില, ചീര, പയറുവർഗ്ഗങ്ങൾ, റാഗി, ഡ്രൈ ഫ്രൂട്ട്സ് എന്നിവ ഭക്ഷണത്തിൽ ഉൾപ്പെടുത്തുക. നെല്ലിക്ക പോലുള്ള വിറ്റാമിൻ സി അടങ്ങിയ ഭക്ഷണങ്ങൾക്കൊപ്പം കഴിക്കുമ്പോൾ അയൺ ശരീരം വേഗത്തിൽ ആഗിരണം ചെയ്യുന്നു.</p>
+</div>
+
+<h2>എന്തുകൊണ്ട് അയൺ അടങ്ങിയ ചോക്ലേറ്റ്? ലക്ഷ്യബോധമുള്ള ലഘുഭക്ഷണം</h2>
+<p>തിരക്കുപിടിച്ച ജീവിതത്തിൽ നാം കഴിക്കുന്ന ലഘുഭക്ഷണങ്ങൾ വെറും മധുരപലഹാരങ്ങളാവാതെ പോഷകപ്രദമായാലോ? അവിടെയാണ് <strong>വീചോക്ക് (VeaChoc)</strong> പ്രസക്തമാകുന്നത്.</p>
+<p>സാധാരണ ഗുളികകൾ കഴിക്കുമ്പോൾ ഉണ്ടാകുന്ന ദഹനപ്രശ്നങ്ങളോ അരുചിയോ ഇല്ലാതെ, കൊക്കോയുടെ ഗുണങ്ങളും വിറ്റാമിനുകളും അയണും ചേർത്ത സ്വാദിഷ്ടമായ ചോക്ലേറ്റാണിത്. ഇത് മധുരത്തോടുള്ള ആഗ്രഹം ശമിപ്പിക്കുന്നതോടൊപ്പം ദൈനംദിന അയൺ ആവശ്യങ്ങൾ നിറവേറ്റുകയും ചെയ്യുന്നു.</p>
+
+<!-- യൂട്യൂബ് വീഡിയോ ഫീച്ചർ -->
+<div class="my-8 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 aspect-video w-full bg-black">
+    <iframe class="w-full h-full" src="https://www.youtube.com/embed/wOq-UyOv_BQ" title="വീചോക്കിന്റെ കഥ - Abdul Jaleel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<h2>വീചോക്കിന്റെ കഥ: സ്നേഹത്തിൽ നിന്നും പിറന്ന ജീവരക്ഷാ ദൗത്യം</h2>
+
+<h3>എന്റെ ജീവിതം മാറ്റിമറിച്ച അനുഭവം</h3>
+<p>2000-കളുടെ തുടക്കത്തിൽ എന്റെ പ്രിയപത്നിക്ക് പി.സി.ഒ.ഡി (PCOD) മൂലമുണ്ടായ കടുത്ത അനീമിയ പിടിപെട്ടു. ഡോക്ടർമാർ നൽകിയ അയൺ സപ്ലിമെന്റുകൾ അവൾക്ക് കടുത്ത വയറുവേദനയും അസ്വസ്ഥതകളും ഉണ്ടാക്കി. ഓരോ ദിവസവും അവൾ തളർന്നുപോകുന്നത് കണ്ട് നിസ്സഹായനായി നിൽക്കാനേ എനിക്ക് കഴിഞ്ഞുള്ളൂ. എന്നാൽ, ആ വ്യക്തിപരമായ വേദന പിന്നീട് ലക്ഷക്കണക്കിന് ആളുകൾക്ക് ആശ്വാസമേകുന്ന ഒരു വലിയ ദൗത്യമായി മാറി.</p>
+
+<h3>കാരുണ്യം ജീവിതം തിരികെ നൽകിയപ്പോൾ</h3>
+<p>അമ്പതിലധികം ഡോക്ടർമാരെ സമീപിച്ച ശേഷമാണ് ഞങ്ങൾ <strong>ഡോ. പുഷ്പലതയെ</strong> കാണുന്നത്. രണ്ട് അണ്ഡാശയങ്ങളും നീക്കം ചെയ്യണമെന്ന് മറ്റ് ഡോക്ടർമാർ നിർദ്ദേശിച്ചപ്പോൾ, ഡോ. പുഷ്പലത ധീരവും ധാർമ്മികവുമായ ഒരു തീരുമാനത്തിലൂടെ ഒരു അണ്ഡാശയം സംരക്ഷിച്ചു. അവർ ശസ്ത്രക്രിയ നടത്തുക മാത്രമല്ല ചെയ്തത്, എന്റെ ഭാര്യയുടെ ഭാവിയെയും അമ്മയാകാനുള്ള സ്വപ്നത്തെയുമാണ് കാത്തുസൂക്ഷിച്ചത്.</p>
+
+<h3>ഐ.ഐ.എം ബാംഗ്ലൂരിലെ ആ ഒരു ചോദ്യം</h3>
+<p>ഐ.ഐ.എം ബാംഗ്ലൂരിൽ നടന്ന സെമിനാറിൽ വെച്ച് iD Fresh സ്ഥാപകൻ <strong>പി.സി മുസ്തഫ</strong> ചോദിച്ചു: <em>"സമൂഹത്തിൽ നിങ്ങൾ എന്ത് വിടവാണ് നികത്താൻ ശ്രമിക്കുന്നത്?"</em> ആ ചോദ്യം എന്റെ ചിന്തകളെ മാറ്റിമറിച്ചു. <strong>ഇന്ത്യയിലെ കോടിക്കണക്കിന് ആളുകളെ ബാധിക്കുന്ന അനീമിയ ആയിരുന്നു ആ വിടവ്.</strong> മരുന്നുകളോടുള്ള മടുപ്പ് മാറ്റി ആളുകൾ സന്തോഷത്തോടെ സ്വീകരിക്കുന്ന പോഷണം നൽകുക എന്നതായിരുന്നു എന്റെ ലക്ഷ്യം.</p>
+
+<h3>സമർപ്പണവും ഗവേഷണവും</h3>
+<p>വർഷങ്ങൾ നീണ്ട കഠിനമായ ശാസ്ത്രീയ ഗവേഷണങ്ങളിലൂടെയാണ് വീചോക്ക് രൂപപ്പെട്ടത്. സ്വന്തം ഗർഭകാലത്തും രാപകലില്ലാതെ ഗവേഷണത്തിൽ ഒപ്പം നിന്ന ശാസ്ത്രജ്ഞ <strong>അഞ്ജും സുബ്ഹാനിയുടെ</strong> പങ്ക് നന്ദിയോടെ സ്മരിക്കുന്നു.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌟 ഒരു ഉൽപ്പന്നത്തിനപ്പുറം:</strong>
+    <p>ഞങ്ങളുടെ ആദ്യ ഉപഭോക്താക്കളിൽ ഒരാൾ രക്തത്തിൽ ഹീമോഗ്ലോബിന്റെ അളവ് അപകടകരമാംവിധം കുറഞ്ഞ ഒരു ഗർഭിണിയായിരുന്നു. ദിവസങ്ങൾക്കുള്ളിൽ അവരുടെ രക്തത്തിലെ അളവ് വർദ്ധിക്കുകയും സാധാരണ പ്രസവം സാധ്യമാവുകയും ചെയ്തു. അന്നാണ് ഞങ്ങൾ തിരിച്ചറിഞ്ഞത്—ഇത് വെറുമൊരു ചോക്ലേറ്റല്ല, മറിച്ച് ജീവിതങ്ങൾ രക്ഷിക്കുന്ന അമൃതമാണെന്ന്!</p>
+</div>
+
+<blockquote class="border-l-4 border-brand-gold-500 pl-4 py-2 italic my-6 text-brand-green-900 bg-brand-green-50/40 rounded-r-xl">
+    "ഒരു ഭർത്താവിന്റെ നിസ്സഹായാവസ്ഥയിൽ നിന്ന് തുടങ്ങിയതാണ് ഈ യാത്ര. എന്നാൽ ഇന്ന് അനീമിയ മുക്ത ഭാരതത്തിനായുള്ള പോരാട്ടമാണിത്. ഒരു പെൺകുട്ടിയും അമ്മയും നിശബ്ദമായി സഹിക്കേണ്ടി വരരുത്."
+    <br><strong class="not-italic text-sm text-brand-green-950 mt-2 block">— അബ്ദുൾ ജലീൽ, സ്ഥാപകൻ, വീചോക്ക് (VeaChoc)</strong>
+</blockquote>
+HTML
+                        ,
+                        'audio_url' => null,
+                        'meta_title' => 'അയൺ കുറവ് ലക്ഷണങ്ങളും വീചോക്ക് കഥയും | Yuvann',
+                        'meta_description' => 'ശരീരത്തിൽ അയൺ കുറയുന്നതിന്റെ പ്രധാന ലക്ഷണങ്ങളും വീചോക്ക് എന്ന പോഷക ചോക്ലേറ്റിന്റെ പിറവിക്ക് പിന്നിലെ കഥയും വായിക്കാം.',
+                    ],
+                    'hi' => [
+                        'locale' => 'hi',
+                        'title' => 'आयरन की कमी के 5 लक्षण और वीचॉक (VeaChoc) की प्रेरणादायक कहानी',
+                        'excerpt' => 'आयरन की कमी दुनिया की सबसे आम पोषण समस्याओं में से एक है। जानिए इसके मुख्य लक्षण, पोषक चॉकलेट का महत्व और वीचॉक की स्थापना की भावुक कहानी।',
+                        'content' => <<<'HTML'
+<p class="lead">आयरन की कमी दुनिया भर में करोड़ों महिलाओं और बच्चों को प्रभावित करने वाली एक गंभीर समस्या है। थकान और कमजोरी को नजरअंदाज न करें—लक्षणों को पहचानकर सही पोषण अपनाना ही स्वस्थ जीवन की कुंजी है।</p>
+
+<h2>आयरन की कमी के 5 सामान्य लक्षण</h2>
+
+<h3>1. लगातार थकान और कमजोरी</h3>
+<p>पूरी नींद लेने के बाद भी थकावट महसूस होना हीमोग्लोबिन की कमी का संकेत हो सकता है। आयरन रक्त में ऑक्सीजन पहुंचाने वाले हीमोग्लोबिन के निर्माण के लिए आवश्यक है।</p>
+
+<h3>2. त्वचा का पीला या बेजान पड़ना</h3>
+<p>शरीर में रक्त और ऑक्सीजन के संचार में कमी के कारण चेहरे और त्वचा की प्राकृतिक चमक गायब हो जाती है और त्वचा पीली दिखने लगती है।</p>
+
+<h3>3. कमजोर नाखून और बालों का झड़ना</h3>
+<p>आयरन की कमी होने पर शरीर जरूरी अंगों को प्राथमिकता देता है, जिससे बालों की जड़ों और नाखूनों को पर्याप्त पोषण नहीं मिलता और बाल तेजी से झड़ने लगते हैं।</p>
+
+<h3>4. अधिक ठंड लगना</h3>
+<p>कोशिकाओं तक ऑक्सीजन कम पहुंचने से शरीर का तापमान संतुलन प्रभावित होता है, जिससे हाथ और पैरों में हमेशा ठंड महसूस होती है।</p>
+
+<h3>5. एकाग्रता में कमी और दिमागी थकान</h3>
+<p>मस्तिष्क की कार्यप्रणाली के लिए ऑक्सीजन अत्यंत जरूरी है। आयरन की कमी से ध्यान केंद्रित करने में कठिनाई होती है।</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌿 आहार के माध्यम से आयरन:</strong>
+    <p>सहजन (मोरिंगा), पालक, दालें, बीन्स, और रागी का सेवन करें। विटामिन सी (जैसे आंवला) के साथ लेने पर शरीर आयरन को बेहतर तरीके से अवशोषित करता है।</p>
+</div>
+
+<h2>आयरन युक्त चॉकलेट: उद्देश्यपूर्ण पोषण</h2>
+<p>व्यस्त दिनचर्या में हम अक्सर साधारण स्नैक्स खाते हैं। लेकिन अगर आपकी पसंदीदा चॉकलेट ही आपकी दैनिक आयरन की जरूरत को पूरा करे तो? <strong>वीचॉक (VeaChoc)</strong> स्वाद और पोषण का एक अनोखा संगम है, जो कड़वी गोलियों के बिना शरीर को जरूरी आयरन प्रदान करता है।</p>
+
+<!-- यूट्यूब वीडियो -->
+<div class="my-8 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 aspect-video w-full bg-black">
+    <iframe class="w-full h-full" src="https://www.youtube.com/embed/wOq-UyOv_BQ" title="वीचॉक की कहानी - Abdul Jaleel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<h2>वीचॉक की कहानी: प्यार से उपजा, मानवता के लिए समर्पित</h2>
+<p>2000 के दशक की शुरुआत में मेरी पत्नी को पीसीओडी (PCOD) के कारण गंभीर एनीमिया हो गया। दवाओं से पेट में दर्द और ऐंठन होती थी। उन्हें हर दिन कमजोर होते देख मैं बेबस महसूस करता था। 50 से अधिक डॉक्टरों से परामर्श के बाद <strong>डॉ. पुष्पलता</strong> ने एक संवेदनशील दृष्टिकोण से उनका इलाज किया और भविष्य को बचाया।</p>
+
+<p>आईआईएम बैंगलोर में iD Fresh के संस्थापक <strong>पीसी मुस्तफा</strong> ने एक सवाल पूछा: <em>"आप समाज में कौन सा शून्य भर रहे हैं?"</em> उसी सवाल ने वीचॉक को जन्म दिया। हमने कड़वी गोलियों के बजाय आनंददायक पोषण (Joyful Nutrition) विकसित करने का संकल्प लिया। वर्षों के वैज्ञानिक शोध और त्याग के बाद वीचॉक तैयार हुआ।</p>
+
+<blockquote class="border-l-4 border-brand-gold-500 pl-4 py-2 italic my-6 text-brand-green-900 bg-brand-green-50/40 rounded-r-xl">
+    "एक पति के दर्द से शुरू हुआ यह सफर आज एनीमिया-मुक्त भारत का मिशन बन चुका है। क्योंकि किसी को भी चुपचाप दर्द नहीं सहना चाहिए।"
+    <br><strong class="not-italic text-sm text-brand-green-950 mt-2 block">— अब्दुल जलील, संस्थापक, वीचॉक (VeaChoc)</strong>
+</blockquote>
+HTML
+                        ,
+                        'audio_url' => null,
+                        'meta_title' => 'आयरन की कमी के लक्षण और वीचॉक कहानी | Yuvann',
+                        'meta_description' => 'जानिए आयरन की कमी के मुख्य लक्षण और स्वास्थ्यवर्धक चॉकलेट वीचॉक के निर्माण की कहानी।',
+                    ],
+                    'ta' => [
+                        'locale' => 'ta',
+                        'title' => 'இரும்புச்சத்து குறைபாட்டின் 5 அறிகுறிகளும் வீச்சாக் (VeaChoc) உருவான கதையும்',
+                        'excerpt' => 'இரும்புச்சத்து குறைபாடு உலகளவில் மிகவும் பொதுவான ஊட்டச்சத்துக் குறைபாடு. இதன் 5 முக்கிய அறிகுறிகளையும், வீச்சாக் ஊட்டச்சத்து சாக்லேட் உருவான கதையையும் அறிந்துகொள்ளுங்கள்.',
+                        'content' => <<<'HTML'
+<p class="lead">உலகளவில் கோடிக்கணக்கான பெண்களையும் குழந்தைகளையும் பாதிக்கும் பொதுவான குறைபாடு இரும்புச்சத்து குறைபாடு (Iron Deficiency) ஆகும். உடல் சோர்வை அலட்சியப்படுத்தாமல், சரியான ஊட்டச்சத்தை உட்கொள்வது ஆரோக்கியமான வாழ்க்கைக்கு வழிகோலும்.</p>
+
+<h2>இரும்புச்சத்து குறைபாட்டை உணர்த்தும் 5 பொதுவான அறிகுறிகள்</h2>
+
+<h3>1. தொடர் உடல் சோர்வு</h3>
+<p>முழுமையான தூக்கத்திற்குப் பிறகும் ஆற்றல் இல்லாதது போல உணர்ந்தால், அது இரத்தத்தில் ஹீமோகுளோபின் குறைபாட்டின் அறிகுறியாக இருக்கலாம்.</p>
+
+<h3>2. வெளிர் நிறத் தோல்</h3>
+<p>இரத்த ஓட்டமும் ஆக்ஸிஜனும் குறைவதால் முகம் மற்றும் தோல் இயற்கையான பொலிவை இழந்து வெளிறிக் காணப்படும்.</p>
+
+<h3>3. உடையும் நகங்களும் முடி உதிர்வும்</h3>
+<p>இரும்புச்சத்து குறையும் போது, உடல் முக்கியமான உறுப்புகளுக்கு மட்டுமே ஆக்ஸிஜனை முன்னுரிமைப்படுத்துகிறது. இதனால் முடி உதிர்தலும் நகங்கள் உடைவதும் ஏற்படும்.</p>
+
+<h3>4. அடிக்கடி குளிர் உணர்வு ஏற்படுதல்</h3>
+<p>இரத்த ஓட்டம் குறையும் போது உடலின் வெப்பநிலை சீராக்கம் பாதிக்கப்பட்டு, கைகள் மற்றும் கால்களில் குளிர்ச்சி ஏற்படும்.</p>
+
+<h3>5. கவனச்சிதறல் மற்றும் மூளைச் சோர்வு</h3>
+<p>மூளையின் சுறுசுறுப்பிற்கும் நினைவுத்திறனுக்கும் ஆக்ஸிஜன் அவசியம். இரும்புச்சத்து குறைபாடு கவனக்குறைவை ஏற்படுத்துகிறது.</p>
+
+<div class="ayurveda-tip-box">
+    <strong>🌿 உணவின் மூலம் இரும்புச்சத்து:</strong>
+    <p>முருங்கைக்கீரை, கீரை வகைகள், பயறு வகைகள், ராகி மற்றும் நெல்லிக்காய் போன்ற வைட்டமின் சி நிறைந்த உணவுகளை சேர்த்துக்கொள்ளுங்கள்.</p>
+</div>
+
+<h2>இரும்புச்சத்து நிறைந்த சாக்லேட் ஏன் சிறந்தது?</h2>
+<p>மருந்துகளின் கசப்பும் பக்கவிளைவுகளும் இல்லாமல், இயற்கையான கோகோ மற்றும் அத்தியாவசிய தாதுக்களுடன் சுவையாக அன்றாட இரும்புச்சத்தைப் பெற <strong>வீச்சாக் (VeaChoc)</strong> உதவுகிறது.</p>
+
+<!-- யூடியூப் வீடியோ -->
+<div class="my-8 rounded-2xl overflow-hidden shadow-lg border border-brand-green-100 aspect-video w-full bg-black">
+    <iframe class="w-full h-full" src="https://www.youtube.com/embed/wOq-UyOv_BQ" title="வீச்சாக் கதை - Abdul Jaleel" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<h2>வீச்சாக் கதை: அன்பில் பிறந்து, மனிதநேயத்திற்காக உருவானது</h2>
+<p>2000-களின் தொடக்கத்தில் எனது மனைவிக்கு பிசிஓடி (PCOD) காரணமாக கடுமையான இரத்த சோகை ஏற்பட்டது. மருந்துகள் பலனளிக்காமல் அவர் சோர்வடைவதைக் கண்டு நான் தவித்தேன். 50-க்கும் மேற்பட்ட மருத்துவர்களைப் பார்த்த பின், <strong>டாக்டர் புஷ்பலதா</strong> கருணையுடன் சிகிச்சை அளித்து எனது மனைவியின் எதிர்காலத்தைப் பாதுகாத்தார்.</p>
+
+<p>ஐஐஎம் பெங்களூருவில் iD Fresh நிறுவனர் <strong>பி.சி. முஸ்தபா</strong> கேட்ட கேள்வி: <em>"சமூகத்தில் நீங்கள் என்ன வெற்றிடத்தை நிரப்புகிறீர்கள்?"</em> அந்த கேள்விதான் வீச்சாக் பிறக்கக் காரணமாக அமைந்தது. பல வருட தீவிர அறிவியல் ஆராய்ச்சியின் விளைவாக வீச்சாக் உருவானது.</p>
+
+<blockquote class="border-l-4 border-brand-gold-500 pl-4 py-2 italic my-6 text-brand-green-900 bg-brand-green-50/40 rounded-r-xl">
+    "ஒரு கணவரின் வேதனையில் இருந்து தொடங்கிய இந்தப் பயணம் இன்று இரத்த சோகையற்ற பாரதத்திற்கான இயக்கமாக மாறியுள்ளது."
+    <br><strong class="not-italic text-sm text-brand-green-950 mt-2 block">— அப்துல் ஜலீல், நிறுவனர், வீச்சாக் (VeaChoc)</strong>
+</blockquote>
+HTML
+                        ,
+                        'audio_url' => null,
+                        'meta_title' => 'இரும்புச்சத்து குறைபாட்டின் அறிகுறிகள் | Yuvann',
+                        'meta_description' => 'இரும்புச்சத்து குறைபாட்டின் 5 முக்கிய அறிகுறிகளையும் வீச்சாக் சாக்லேட்டின் கதையையும் படியுங்கள்.',
+                    ],
+                ],
+                'product_slugs' => [
+                    'veachoc-sugar-free-rakthapushti-chocolate',
+                    'veachoc-rakthapushti-dark-chocolate-iron-vitamin-c-blood-builder-supplement',
+                    'veachoc-milk-chocolate-daily-iron-delicious-iron-supplement-with-seeds-nuts-vitamin-c'
+                ]
+            ],
+            [
                 'title' => '5 Ayurvedic Morning Rituals for Daily Vitality & Digestion',
                 'slug' => '5-ayurvedic-morning-rituals-vitality-digestion',
                 'excerpt' => 'Discover ancient Dinacharya (daily routine) principles formulated to ignite your Agni (digestive fire), clear metabolic toxins, and sustain vibrant all-day vitality.',
