@@ -230,5 +230,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VeachocRakthapushtiDarkChocolateTranslationSeeder::class);
         $this->call(VeachocWhiteChocolateTranslationSeeder::class);
         $this->call(VeachocMilkChocolateTranslationSeeder::class);
+        $this->call(VeachocSugarFreeChocolateTranslationSeeder::class);
     }
 }
