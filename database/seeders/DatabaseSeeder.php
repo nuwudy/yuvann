@@ -228,5 +228,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EatBestAbcMaltTranslationSeeder::class);
         $this->call(EatbestBlackRiceKanjiMixTranslationSeeder::class);
         $this->call(VeachocRakthapushtiDarkChocolateTranslationSeeder::class);
+        $this->call(VeachocWhiteChocolateTranslationSeeder::class);
     }
 }
