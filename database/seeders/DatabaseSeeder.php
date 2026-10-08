@@ -225,5 +225,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RuthuSanthiOilTranslationSeeder::class);
         $this->call(SushuptiPlusTranslationSeeder::class);
+        $this->call(EatBestAbcMaltTranslationSeeder::class);
     }
 }
