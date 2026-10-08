@@ -308,10 +308,10 @@
                         </div>
 
                         <!-- Audio Player Button -->
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-2 flex-shrink-0">
                             <button type="button" 
                                     @click="toggleAudio()"
-                                    class="group relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shadow-sm cursor-pointer border"
+                                    class="group relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shadow-sm cursor-pointer border whitespace-nowrap flex-shrink-0"
                                     :class="audioState === 'playing' 
                                         ? 'bg-brand-gold-400 text-brand-green-950 border-brand-gold-300 shadow-brand-gold-400/30 ring-2 ring-brand-gold-400/50' 
                                         : (audioState === 'paused' 
@@ -674,10 +674,10 @@ document.addEventListener('alpine:init', () => {
         activeTab: 'benefits',
 
         speechLabels: {
-            'en': { listen: "Listen to Doctor's Guide", playing: 'Playing audio...', paused: 'Paused', stop: 'Stop' },
-            'ml': { listen: 'ഡോക്ടറുടെ നിർദ്ദേശം കേൾക്കുക', playing: 'ഓഡിയോ കേൾക്കുന്നു...', paused: 'നിർത്തിവെച്ചു', stop: 'നിർത്തുക' },
-            'hi': { listen: 'डॉक्टर की सलाह सुनें', playing: 'ऑडियो चल रहा है...', paused: 'रुका हुआ', stop: 'रोकें' },
-            'ta': { listen: 'மருத்துவர் வழிகாட்டலைக் கேளுங்கள்', playing: 'ஆடியோ ஒலிக்கிறது...', paused: 'இடைநிறுத்தப்பட்டது', stop: 'நிறுத்து' },
+            'en': { listen: "Listen audio", playing: 'Playing audio...', paused: 'Paused', stop: 'Stop' },
+            'ml': { listen: 'ഓഡിയോ കേൾക്കുക', playing: 'ഓഡിയോ കേൾക്കുന്നു...', paused: 'നിർത്തിവെച്ചു', stop: 'നിർത്തുക' },
+            'hi': { listen: 'ऑडियो सुनें', playing: 'ऑडियो चल रहा है...', paused: 'रुका हुआ', stop: 'रोकें' },
+            'ta': { listen: 'ஆடியோ கேளுங்கள்', playing: 'ஆடியோ ஒலிக்கிறது...', paused: 'இடைநிறுத்தப்பட்டது', stop: 'நிறுத்து' },
         },
 
         init() {
