@@ -238,5 +238,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AliyaWildHoneyTranslationSeeder::class);
         $this->call(AliyaPureGheeTranslationSeeder::class);
         $this->call(AliyaRoyalJellyCapsulesTranslationSeeder::class);
+        $this->call(AliyaNellikkaHoneyTranslationSeeder::class);
     }
 }
