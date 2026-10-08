@@ -340,35 +340,115 @@
                     </div>
                 </div>
 
-                <!-- Descriptive Information (Tabs content fields) -->
+                <!-- Multilingual Content & Regional Audio (English, Malayalam, Hindi, Tamil) -->
                 <div class="space-y-4 border-t border-brand-green-100/60 pt-6">
-                    <div>
-                        <h4 class="font-serif text-sm font-bold text-brand-green-900">Product Tabs Description (for PDP layout)</h4>
-                        <p class="text-[11px] text-brand-green-700/60 mt-0.5">💡 Tip: Use <code>Title: Description</code> or bullet points for each item. They will automatically display with clean spacing and highlighted bold headings on the product page.</p>
-                    </div>
-                    
-                    <!-- Key Benefits -->
-                    <div>
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Key Benefits (Optional)</label>
-                        <textarea wire:model="benefits" rows="3" placeholder="• Benefit 1&#10;• Benefit 2..." 
-                                  class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('benefits') border-red-400 @enderror"></textarea>
-                        @error('benefits') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h4 class="font-serif text-sm font-bold text-brand-green-900 flex items-center gap-2">
+                                <span>🌐</span>
+                                <span>Multilingual Content & Regional Voice Audio</span>
+                            </h4>
+                            <p class="text-[11px] text-brand-green-700/60 mt-0.5">Author product title, description, benefits, ingredients & directions in 4 languages with zero-dependency browser TTS.</p>
+                        </div>
+
+                        <!-- Language Selector Pill Tabs -->
+                        <div class="inline-flex p-1 bg-brand-green-50 rounded-xl border border-brand-green-200">
+                            @foreach([
+                                'en' => ['label' => 'English', 'flag' => '🇬🇧'],
+                                'ml' => ['label' => 'മലയാളം', 'flag' => '🌴'],
+                                'hi' => ['label' => 'हिन्दी', 'flag' => '🇮🇳'],
+                                'ta' => ['label' => 'தமிழ்', 'flag' => '🌺'],
+                            ] as $locKey => $locMeta)
+                                <button type="button" 
+                                        wire:click="setLocaleTab('{{ $locKey }}')"
+                                        class="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer {{ $activeLocaleTab === $locKey ? 'bg-brand-green-800 text-white shadow-xs' : 'text-brand-green-800 hover:bg-brand-green-100' }}">
+                                    <span>{{ $locMeta['flag'] }}</span>
+                                    <span>{{ $locMeta['label'] }}</span>
+                                </button>
+                            @endforeach
+                        </div>
                     </div>
 
-                    <!-- Ingredients -->
-                    <div>
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">Ingredients & Ayurvedic Breakdown (Optional)</label>
-                        <textarea wire:model="ingredients" rows="3" placeholder="• Herb 1 (Botanical Name) - Qty&#10;• Herb 2..." 
-                                  class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('ingredients') border-red-400 @enderror"></textarea>
-                        @error('ingredients') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
-                    </div>
+                    <!-- Active Language Fields -->
+                    <div class="bg-brand-green-50/20 border border-brand-green-100/80 rounded-2xl p-4 sm:p-5 space-y-4">
+                        <div class="flex items-center justify-between border-b border-brand-green-100/60 pb-3">
+                            <span class="text-xs font-bold text-brand-green-900 flex items-center gap-1.5">
+                                <span>Editing Content for:</span>
+                                <span class="px-2.5 py-0.5 rounded-md bg-brand-gold-100 text-brand-green-950 font-bold text-xs border border-brand-gold-300">
+                                    @if($activeLocaleTab === 'en') 🇬🇧 English @elseif($activeLocaleTab === 'ml') 🌴 Malayalam (മലയാളം) @elseif($activeLocaleTab === 'hi') 🇮🇳 Hindi (हिन्दी) @else 🌺 Tamil (தமிழ்) @endif
+                                </span>
+                            </span>
+                            <span class="text-[11px] text-brand-green-700/60">
+                                @if($activeLocaleTab === 'en')
+                                    Default store language
+                                @else
+                                    Leave blank to automatically fall back to English on store
+                                @endif
+                            </span>
+                        </div>
 
-                    <!-- Usage / Directions -->
-                    <div>
-                        <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1.5">How to Use / Directions (Optional)</label>
-                        <textarea wire:model="usage" rows="3" placeholder="Directions for safe topical or oral administration..." 
-                                  class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('usage') border-red-400 @enderror"></textarea>
-                        @error('usage') <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> @enderror
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                            <!-- Localized Title -->
+                            <div class="md:col-span-12">
+                                <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1">
+                                    Product Title ({{ strtoupper($activeLocaleTab) }})
+                                </label>
+                                <input type="text" wire:model="translations.{{ $activeLocaleTab }}.name" 
+                                       placeholder="{{ $activeLocaleTab === 'en' ? 'Product title in English' : ($activeLocaleTab === 'ml' ? 'ഉദാ: ഋതു ശാന്തി തൈലം' : ($activeLocaleTab === 'hi' ? 'उदा: ऋतु शांति तेल' : 'உதா: ருது சாந்தி தைலம்')) }}"
+                                       class="w-full bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500">
+                            </div>
+
+                            <!-- Localized Short Description -->
+                            <div class="md:col-span-12">
+                                <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1">
+                                    Short Description ({{ strtoupper($activeLocaleTab) }})
+                                </label>
+                                <textarea wire:model="translations.{{ $activeLocaleTab }}.short_description" rows="2" 
+                                          placeholder="Brief summary for product card..." 
+                                          class="w-full bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500"></textarea>
+                            </div>
+
+                            <!-- Key Benefits -->
+                            <div class="md:col-span-12">
+                                <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1">
+                                    Key Benefits ({{ strtoupper($activeLocaleTab) }})
+                                </label>
+                                <textarea wire:model="translations.{{ $activeLocaleTab }}.benefits" rows="3" 
+                                          placeholder="• Benefit 1&#10;• Benefit 2..." 
+                                          class="w-full bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500"></textarea>
+                            </div>
+
+                            <!-- Ingredients -->
+                            <div class="md:col-span-12">
+                                <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1">
+                                    Ingredients & Ayurvedic Formulation ({{ strtoupper($activeLocaleTab) }})
+                                </label>
+                                <textarea wire:model="translations.{{ $activeLocaleTab }}.ingredients" rows="3" 
+                                          placeholder="• Herb 1 - Botanical Name / Action&#10;• Herb 2..." 
+                                          class="w-full bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500"></textarea>
+                            </div>
+
+                            <!-- Directions / Usage -->
+                            <div class="md:col-span-12">
+                                <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1">
+                                    How to Use / Directions ({{ strtoupper($activeLocaleTab) }})
+                                </label>
+                                <textarea wire:model="translations.{{ $activeLocaleTab }}.usage" rows="3" 
+                                          placeholder="Application method, massage instructions, frequency..." 
+                                          class="w-full bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500"></textarea>
+                            </div>
+
+                            <!-- Studio Audio URL (Optional) -->
+                            <div class="md:col-span-12">
+                                <label class="block text-[10px] font-bold text-brand-green-900 uppercase mb-1">
+                                    Custom Audio Recording URL (Optional, leave blank to use browser TTS)
+                                </label>
+                                <input type="text" wire:model="translations.{{ $activeLocaleTab }}.audio_url" 
+                                       placeholder="https://... (Optional custom audio file)"
+                                       class="w-full bg-white border border-brand-green-100 rounded-xl py-2 px-3 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500">
+                                <p class="text-[10px] text-brand-green-700/60 mt-1">If blank, Yuvann's native browser TTS engine will read the product title, benefits, and directions aloud.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

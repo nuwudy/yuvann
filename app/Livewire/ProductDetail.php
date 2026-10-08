@@ -144,12 +144,47 @@ class ProductDetail extends Component
     public function render()
     {
         // Decode description JSON if it's stored as JSON string
-        $details = is_string($this->product->description) 
+        $defaultDesc = is_string($this->product->description) 
             ? json_decode($this->product->description, true) 
             : $this->product->description;
 
+        $translations = $this->product->translations ?? [];
+        if (empty($translations['en'])) {
+            $translations['en'] = [
+                'locale' => 'en',
+                'name' => $this->product->name,
+                'short_description' => $this->product->short_description ?? '',
+                'benefits' => $defaultDesc['benefits'] ?? '',
+                'ingredients' => $defaultDesc['ingredients'] ?? '',
+                'usage' => $defaultDesc['usage'] ?? '',
+                'audio_url' => null,
+            ];
+        }
+
+        $availableLocales = $this->product->available_locales;
+
+        // Parse formatted section items for each language
+        $parsedTranslations = [];
+        foreach (['en', 'ml', 'hi', 'ta'] as $loc) {
+            $data = !empty($translations[$loc]) && (!empty($translations[$loc]['name']) || !empty($translations[$loc]['benefits']))
+                ? $translations[$loc]
+                : $translations['en'];
+
+            $parsedTranslations[$loc] = [
+                'locale' => $loc,
+                'name' => !empty($data['name']) ? $data['name'] : $this->product->name,
+                'short_description' => !empty($data['short_description']) ? $data['short_description'] : ($this->product->short_description ?? ''),
+                'benefits' => $this->formatSectionContent($data['benefits'] ?? ($defaultDesc['benefits'] ?? '')),
+                'ingredients' => $this->formatSectionContent($data['ingredients'] ?? ($defaultDesc['ingredients'] ?? '')),
+                'usage' => $this->formatSectionContent($data['usage'] ?? ($defaultDesc['usage'] ?? '')),
+                'audio_url' => $data['audio_url'] ?? null,
+            ];
+        }
+
         return view('livewire.product-detail', [
-            'details' => $details ?? [],
+            'details' => $defaultDesc ?? [],
+            'translations' => $parsedTranslations,
+            'availableLocales' => $availableLocales,
         ])->layout('components.layouts.app', [
             'title' => $this->product->name . ' | Yuvann - Rebalancing you',
         ]);

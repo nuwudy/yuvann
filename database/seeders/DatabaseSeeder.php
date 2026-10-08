@@ -222,5 +222,7 @@ class DatabaseSeeder extends Seeder
             );
             $product->categories()->sync([$cat->id]);
         }
+
+        $this->call(RuthuSanthiOilTranslationSeeder::class);
     }
 }

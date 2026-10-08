@@ -55,6 +55,22 @@ class ProductManager extends Component
     public string $ingredients = '';
     public string $usage = '';
 
+    // Multilingual Translation fields (English, Malayalam, Hindi, Tamil)
+    public string $activeLocaleTab = 'en';
+    public array $translations = [
+        'en' => ['name' => '', 'short_description' => '', 'benefits' => '', 'ingredients' => '', 'usage' => '', 'audio_url' => ''],
+        'ml' => ['name' => '', 'short_description' => '', 'benefits' => '', 'ingredients' => '', 'usage' => '', 'audio_url' => ''],
+        'hi' => ['name' => '', 'short_description' => '', 'benefits' => '', 'ingredients' => '', 'usage' => '', 'audio_url' => ''],
+        'ta' => ['name' => '', 'short_description' => '', 'benefits' => '', 'ingredients' => '', 'usage' => '', 'audio_url' => ''],
+    ];
+
+    public function setLocaleTab(string $locale): void
+    {
+        if (in_array($locale, ['en', 'ml', 'hi', 'ta'])) {
+            $this->activeLocaleTab = $locale;
+        }
+    }
+
     // File Upload fields
     public $featured_image = null;
     public $new_gallery_images = [];
@@ -140,6 +156,20 @@ class ProductManager extends Component
         $this->existing_gallery_images = $product->gallery_images ?? [];
         $this->existing_product_video = $product->product_video;
 
+        // Populate Multilingual Translations
+        $existingTranslations = $product->translations ?? [];
+        foreach (['en', 'ml', 'hi', 'ta'] as $loc) {
+            $this->translations[$loc] = [
+                'name' => $existingTranslations[$loc]['name'] ?? ($loc === 'en' ? $product->name : ''),
+                'short_description' => $existingTranslations[$loc]['short_description'] ?? ($loc === 'en' ? ($product->short_description ?? '') : ''),
+                'benefits' => $existingTranslations[$loc]['benefits'] ?? ($loc === 'en' ? ($desc['benefits'] ?? '') : ''),
+                'ingredients' => $existingTranslations[$loc]['ingredients'] ?? ($loc === 'en' ? ($desc['ingredients'] ?? '') : ''),
+                'usage' => $existingTranslations[$loc]['usage'] ?? ($loc === 'en' ? ($desc['usage'] ?? '') : ''),
+                'audio_url' => $existingTranslations[$loc]['audio_url'] ?? '',
+            ];
+        }
+        $this->activeLocaleTab = 'en';
+
         $this->isFormOpen = true;
     }
 
@@ -152,6 +182,13 @@ class ProductManager extends Component
             'existing_featured_image', 'existing_gallery_images',
             'product_video', 'existing_product_video',
         ]);
+        $this->activeLocaleTab = 'en';
+        $this->translations = [
+            'en' => ['name' => '', 'short_description' => '', 'benefits' => '', 'ingredients' => '', 'usage' => '', 'audio_url' => ''],
+            'ml' => ['name' => '', 'short_description' => '', 'benefits' => '', 'ingredients' => '', 'usage' => '', 'audio_url' => ''],
+            'hi' => ['name' => '', 'short_description' => '', 'benefits' => '', 'ingredients' => '', 'usage' => '', 'audio_url' => ''],
+            'ta' => ['name' => '', 'short_description' => '', 'benefits' => '', 'ingredients' => '', 'usage' => '', 'audio_url' => ''],
+        ];
         $this->resetErrorBag();
     }
 
@@ -268,30 +305,53 @@ class ProductManager extends Component
             $featuredImagePath = '/images/yuvann-share.jpg';
         }
 
-            $orderVal = (!empty($this->featured_order) && is_numeric($this->featured_order) && (int) $this->featured_order > 0)
-                ? (int) $this->featured_order
-                : null;
+        // Compile multilingual translations
+        $cleanTranslations = [];
+        // Ensure English translation is synced with primary form values
+        $this->translations['en']['name'] = !empty($this->translations['en']['name']) ? $this->translations['en']['name'] : $this->name;
+        $this->translations['en']['short_description'] = !empty($this->translations['en']['short_description']) ? $this->translations['en']['short_description'] : $this->short_description;
+        $this->translations['en']['benefits'] = !empty($this->translations['en']['benefits']) ? $this->translations['en']['benefits'] : $this->benefits;
+        $this->translations['en']['ingredients'] = !empty($this->translations['en']['ingredients']) ? $this->translations['en']['ingredients'] : $this->ingredients;
+        $this->translations['en']['usage'] = !empty($this->translations['en']['usage']) ? $this->translations['en']['usage'] : $this->usage;
 
-            $productData = [
-                'name' => $this->name,
-                'slug' => $this->slug,
-                'shop_id' => $this->shop_id ?: null,
-                'sku' => $this->sku,
-                'short_description' => $this->short_description,
-                'price' => $this->price,
-                'sale_price' => $this->sale_price ?: null,
-                'stock_quantity' => $this->stock_quantity,
-                'unit_size' => $this->unit_size,
-                'badge' => $this->badge ?: null,
-                'featured_image' => $featuredImagePath,
-                'gallery_images' => $galleryPaths,
-                'product_video' => $videoPath,
-                'description' => json_encode($descriptionData),
-                'is_active' => (bool) $this->is_active,
-                'is_featured' => (bool) $this->is_featured || ($orderVal !== null),
-                'is_free_shipping' => (bool) $this->is_free_shipping,
-                'featured_order' => $orderVal,
+        foreach (['en', 'ml', 'hi', 'ta'] as $loc) {
+            $t = $this->translations[$loc] ?? [];
+            $cleanTranslations[$loc] = [
+                'locale' => $loc,
+                'name' => trim($t['name'] ?? ''),
+                'short_description' => trim($t['short_description'] ?? ''),
+                'benefits' => $this->normalizeTabText($t['benefits'] ?? ''),
+                'ingredients' => $this->normalizeTabText($t['ingredients'] ?? ''),
+                'usage' => $this->normalizeTabText($t['usage'] ?? ''),
+                'audio_url' => !empty($t['audio_url']) ? trim($t['audio_url']) : null,
             ];
+        }
+
+        $orderVal = (!empty($this->featured_order) && is_numeric($this->featured_order) && (int) $this->featured_order > 0)
+            ? (int) $this->featured_order
+            : null;
+
+        $productData = [
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'shop_id' => $this->shop_id ?: null,
+            'sku' => $this->sku,
+            'short_description' => $this->short_description,
+            'price' => $this->price,
+            'sale_price' => $this->sale_price ?: null,
+            'stock_quantity' => $this->stock_quantity,
+            'unit_size' => $this->unit_size,
+            'badge' => $this->badge ?: null,
+            'featured_image' => $featuredImagePath,
+            'gallery_images' => $galleryPaths,
+            'product_video' => $videoPath,
+            'description' => json_encode($descriptionData),
+            'is_active' => (bool) $this->is_active,
+            'is_featured' => (bool) $this->is_featured || ($orderVal !== null),
+            'is_free_shipping' => (bool) $this->is_free_shipping,
+            'featured_order' => $orderVal,
+            'translations' => $cleanTranslations,
+        ];
 
         if (\Illuminate\Support\Facades\Schema::hasColumn('products', 'category_id') && !empty($this->category_ids)) {
             $productData['category_id'] = $this->category_ids[0];

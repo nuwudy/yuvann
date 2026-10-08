@@ -37,7 +37,10 @@
     @include('components.seo.product-schema', ['product' => $product])
 @endsection
 
-<div x-data="{ notification: null }" 
+<div x-data="productDetailReader({
+        translations: {{ Js::from($translations) }},
+        availableLocales: {{ Js::from($availableLocales) }}
+     })" 
      @notify.window="notification = $event.detail[0]; setTimeout(() => notification = null, 3000)"
      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
      
@@ -254,7 +257,7 @@
             </div>
 
             <!-- Title & Price -->
-            <div class="space-y-2">
+            <div class="space-y-3">
                 <div class="flex flex-wrap items-center gap-2">
                     <span class="text-xs font-bold text-brand-gold-600 uppercase tracking-widest">{{ $product->categories->pluck('name')->join(', ') }}</span>
                     @if($product->bodyParts->count() > 0)
@@ -269,7 +272,108 @@
                         </div>
                     @endif
                 </div>
-                <h1 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900 leading-tight">{{ $product->name }}</h1>
+
+                <!-- Multilingual Language Switcher & Doctor's Regional Audio Bar -->
+                @if(count($availableLocales) > 1 || !empty($translations['ml']['name']) || !empty($translations['hi']['name']) || !empty($translations['ta']['name']))
+                <div class="p-3 sm:p-4 rounded-2xl bg-gradient-to-br from-brand-green-900 via-brand-green-950 to-brand-green-900 text-white shadow-lg border border-brand-gold-500/30 space-y-2.5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <!-- Language Switcher -->
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-brand-gold-300 mr-1 flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5 text-brand-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                                </svg>
+                                <span>Language:</span>
+                            </span>
+                            <div class="inline-flex p-0.5 rounded-xl bg-white/10 border border-white/10 backdrop-blur-sm gap-1">
+                                @foreach($availableLocales as $loc)
+                                    @php
+                                        $locMeta = [
+                                            'en' => ['native' => 'English', 'flag' => '🇬🇧', 'fontClass' => 'font-sans'],
+                                            'ml' => ['native' => 'മലയാളം', 'flag' => '🌴', 'fontClass' => 'font-["Noto_Sans_Malayalam",sans-serif]'],
+                                            'hi' => ['native' => 'हिन्दी', 'flag' => '🇮🇳', 'fontClass' => 'font-["Noto_Sans_Devanagari",sans-serif]'],
+                                            'ta' => ['native' => 'தமிழ்', 'flag' => '🌺', 'fontClass' => 'font-["Noto_Sans_Tamil",sans-serif]'],
+                                        ][$loc] ?? ['native' => strtoupper($loc), 'flag' => '🌐', 'fontClass' => 'font-sans'];
+                                    @endphp
+                                    <button type="button" 
+                                            @click="switchLocale('{{ $loc }}')"
+                                            :class="activeLocale === '{{ $loc }}' ? 'bg-brand-gold-400 text-brand-green-950 font-black shadow-xs ring-1 ring-brand-gold-300' : 'text-brand-green-100 hover:text-white hover:bg-white/10 font-medium'"
+                                            class="px-2.5 py-1 rounded-lg text-xs transition-all flex items-center gap-1 cursor-pointer whitespace-nowrap {{ $locMeta['fontClass'] }}"
+                                            title="View in {{ $locMeta['native'] }}">
+                                        <span>{{ $locMeta['flag'] }}</span>
+                                        <span>{{ $locMeta['native'] }}</span>
+                                    </button>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Audio Player Button -->
+                        <div class="flex items-center gap-2">
+                            <button type="button" 
+                                    @click="toggleAudio()"
+                                    class="group relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 shadow-sm cursor-pointer border"
+                                    :class="audioState === 'playing' 
+                                        ? 'bg-brand-gold-400 text-brand-green-950 border-brand-gold-300 shadow-brand-gold-400/30 ring-2 ring-brand-gold-400/50' 
+                                        : (audioState === 'paused' 
+                                            ? 'bg-amber-100 text-amber-950 border-amber-300' 
+                                            : 'bg-white/15 hover:bg-brand-gold-400 text-white hover:text-brand-green-950 border-white/20 hover:border-brand-gold-400')">
+                                <template x-if="audioState === 'idle'">
+                                    <span class="flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5 text-brand-gold-300 group-hover:text-brand-green-950 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    </span>
+                                </template>
+                                <template x-if="audioState === 'playing'">
+                                    <span class="flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5 text-brand-green-950" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                        </svg>
+                                        <span class="flex items-center gap-0.5 h-2.5">
+                                            <span class="w-0.5 bg-brand-green-950 rounded-full animate-bounce h-1.5" style="animation-delay: 0.1s"></span>
+                                            <span class="w-0.5 bg-brand-green-950 rounded-full animate-bounce h-2.5" style="animation-delay: 0.2s"></span>
+                                            <span class="w-0.5 bg-brand-green-950 rounded-full animate-bounce h-1.5" style="animation-delay: 0.3s"></span>
+                                        </span>
+                                    </span>
+                                </template>
+                                <template x-if="audioState === 'paused'">
+                                    <span class="flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5 text-amber-950" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                    </span>
+                                </template>
+                                <span x-text="getAudioLabel()" class="tracking-wide text-xs"></span>
+                            </button>
+
+                            <!-- Stop button -->
+                            <button type="button" 
+                                    x-show="audioState !== 'idle'" 
+                                    @click="stopAudio()"
+                                    class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-red-500/80 text-white/90 hover:text-white border border-white/20 transition-all flex items-center gap-1 cursor-pointer"
+                                    title="Stop audio">
+                                <svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
+                                <span class="hidden sm:inline" x-text="getStopLabel()">Stop</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Voice indicator bar -->
+                    <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-brand-green-100/70">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full" :class="audioState === 'playing' ? 'bg-emerald-400 animate-pulse' : 'bg-gray-400'"></span>
+                            <span x-text="activeAudioBadge"></span>
+                        </div>
+                        <div class="text-[9px] text-brand-gold-300 font-mono tracking-wider">
+                            YUVANN NATIVE AUDIO
+                        </div>
+                    </div>
+                </div>
+                @endif
+
+                <h1 class="text-3xl sm:text-4xl font-serif font-bold text-brand-green-900 leading-tight" x-text="currentTranslation.name">
+                    {{ $product->name }}
+                </h1>
                 
                 @if($product->review_count > 0)
                     <div class="flex items-center gap-2 pt-1 pb-2">
@@ -332,7 +436,7 @@
             </div>
 
             <!-- Short Description -->
-            <p class="text-sm text-brand-green-800/80 leading-relaxed border-t border-brand-green-100/60 pt-4">
+            <p class="text-sm text-brand-green-800/80 leading-relaxed border-t border-brand-green-100/60 pt-4" x-text="currentTranslation.short_description">
                 {{ $product->short_description }}
             </p>
 
@@ -393,21 +497,21 @@
             @endif
 
             <!-- Tabs Segment (Alpine.js) -->
-            <div class="border-t border-brand-green-100/60 pt-6" x-data="{ activeTab: 'benefits' }">
+            <div class="border-t border-brand-green-100/60 pt-6">
                 <!-- Tab Headers -->
                 <div class="flex border-b border-brand-green-100/50 gap-4 sm:gap-8">
                     <button @click="activeTab = 'benefits'" 
-                            class="pb-3 text-xs sm:text-sm font-semibold focus:outline-none transition-all uppercase tracking-wider border-b-2"
+                            class="pb-3 text-xs sm:text-sm font-semibold focus:outline-none transition-all uppercase tracking-wider border-b-2 cursor-pointer"
                             :class="activeTab === 'benefits' ? 'border-brand-gold-500 text-brand-green-900' : 'border-transparent text-brand-green-700/50 hover:text-brand-green-800'">
                         Benefits
                     </button>
                     <button @click="activeTab = 'ingredients'" 
-                            class="pb-3 text-xs sm:text-sm font-semibold focus:outline-none transition-all uppercase tracking-wider border-b-2"
+                            class="pb-3 text-xs sm:text-sm font-semibold focus:outline-none transition-all uppercase tracking-wider border-b-2 cursor-pointer"
                             :class="activeTab === 'ingredients' ? 'border-brand-gold-500 text-brand-green-900' : 'border-transparent text-brand-green-700/50 hover:text-brand-green-800'">
                         Ingredients
                     </button>
                     <button @click="activeTab = 'usage'" 
-                            class="pb-3 text-xs sm:text-sm font-semibold focus:outline-none transition-all uppercase tracking-wider border-b-2"
+                            class="pb-3 text-xs sm:text-sm font-semibold focus:outline-none transition-all uppercase tracking-wider border-b-2 cursor-pointer"
                             :class="activeTab === 'usage' ? 'border-brand-gold-500 text-brand-green-900' : 'border-transparent text-brand-green-700/50 hover:text-brand-green-800'">
                         Directions
                     </button>
@@ -417,68 +521,68 @@
                 <div class="py-4 text-xs sm:text-sm text-brand-green-800/80 leading-relaxed font-medium">
                     <!-- Benefits Panel -->
                     <div x-show="activeTab === 'benefits'" x-transition>
-                        @php $benefitItems = $this->formatSectionContent($details['benefits'] ?? ''); @endphp
-                        @if(!empty($benefitItems))
+                        <template x-if="currentTranslation.benefits && currentTranslation.benefits.length > 0">
                             <div class="space-y-3.5">
-                                @foreach($benefitItems as $item)
+                                <template x-for="(item, idx) in currentTranslation.benefits" :key="'b-' + idx">
                                     <div class="flex items-start gap-2.5">
                                         <span class="text-brand-gold-600 mt-0.5 flex-shrink-0 text-xs">🌿</span>
                                         <div class="text-left leading-relaxed">
-                                            @if($item['title'])
-                                                <strong class="text-brand-green-950 font-bold">{{ $item['title'] }}:</strong>
-                                            @endif
-                                            <span>{{ $item['content'] }}</span>
+                                            <template x-if="item.title">
+                                                <strong class="text-brand-green-950 font-bold" x-text="item.title + ':'"></strong>
+                                            </template>
+                                            <span x-text="item.content"></span>
                                         </div>
                                     </div>
-                                @endforeach
+                                </template>
                             </div>
-                        @else
+                        </template>
+                        <template x-if="!currentTranslation.benefits || currentTranslation.benefits.length === 0">
                             <p class="whitespace-pre-line text-left text-brand-green-700/60">Clinical benefits documentation coming soon.</p>
-                        @endif
+                        </template>
                     </div>
 
                     <!-- Ingredients Panel -->
                     <div x-show="activeTab === 'ingredients'" x-transition style="display: none;">
-                        @php $ingredientItems = $this->formatSectionContent($details['ingredients'] ?? ''); @endphp
-                        @if(!empty($ingredientItems))
+                        <template x-if="currentTranslation.ingredients && currentTranslation.ingredients.length > 0">
                             <div class="space-y-3.5">
-                                @foreach($ingredientItems as $item)
+                                <template x-for="(item, idx) in currentTranslation.ingredients" :key="'i-' + idx">
                                     <div class="flex items-start gap-2.5">
                                         <span class="text-brand-gold-600 mt-0.5 flex-shrink-0 text-xs">🌱</span>
                                         <div class="text-left leading-relaxed">
-                                            @if($item['title'])
-                                                <strong class="text-brand-green-950 font-bold">{{ $item['title'] }}:</strong>
-                                            @endif
-                                            <span>{{ $item['content'] }}</span>
+                                            <template x-if="item.title">
+                                                <strong class="text-brand-green-950 font-bold" x-text="item.title + ':'"></strong>
+                                            </template>
+                                            <span x-text="item.content"></span>
                                         </div>
                                     </div>
-                                @endforeach
+                                </template>
                             </div>
-                        @else
+                        </template>
+                        <template x-if="!currentTranslation.ingredients || currentTranslation.ingredients.length === 0">
                             <p class="whitespace-pre-line text-left text-brand-green-700/60">Pure clinical-grade herbs formulate this remedy.</p>
-                        @endif
+                        </template>
                     </div>
 
-                    <!-- Usage Panel -->
+                    <!-- Usage / Directions Panel -->
                     <div x-show="activeTab === 'usage'" x-transition style="display: none;">
-                        @php $usageItems = $this->formatSectionContent($details['usage'] ?? ''); @endphp
-                        @if(!empty($usageItems))
+                        <template x-if="currentTranslation.usage && currentTranslation.usage.length > 0">
                             <div class="space-y-3.5">
-                                @foreach($usageItems as $item)
+                                <template x-for="(item, idx) in currentTranslation.usage" :key="'u-' + idx">
                                     <div class="flex items-start gap-2.5">
                                         <span class="text-brand-gold-600 mt-0.5 flex-shrink-0 text-xs">✨</span>
                                         <div class="text-left leading-relaxed">
-                                            @if($item['title'])
-                                                <strong class="text-brand-green-950 font-bold">{{ $item['title'] }}:</strong>
-                                            @endif
-                                            <span>{{ $item['content'] }}</span>
+                                            <template x-if="item.title">
+                                                <strong class="text-brand-green-950 font-bold" x-text="item.title + ':'"></strong>
+                                            </template>
+                                            <span x-text="item.content"></span>
                                         </div>
                                     </div>
-                                @endforeach
+                                </template>
                             </div>
-                        @else
+                        </template>
+                        <template x-if="!currentTranslation.usage || currentTranslation.usage.length === 0">
                             <p class="whitespace-pre-line text-left text-brand-green-700/60">Refer to primary packaging or consult Dr. Sajeev Dev for directions.</p>
-                        @endif
+                        </template>
                     </div>
                 </div>
             </div>
@@ -557,3 +661,165 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.data('productDetailReader', (config) => ({
+        translations: config.translations || {},
+        activeLocale: 'en',
+        availableLocales: config.availableLocales || ['en'],
+        audioState: 'idle', // 'idle' | 'playing' | 'paused'
+        activeAudioBadge: 'Ready to listen',
+        notification: null,
+        activeTab: 'benefits',
+
+        speechLabels: {
+            'en': { listen: "Listen to Doctor's Guide", playing: 'Playing audio...', paused: 'Paused', stop: 'Stop' },
+            'ml': { listen: 'ഡോക്ടറുടെ നിർദ്ദേശം കേൾക്കുക', playing: 'ഓഡിയോ കേൾക്കുന്നു...', paused: 'നിർത്തിവെച്ചു', stop: 'നിർത്തുക' },
+            'hi': { listen: 'डॉक्टर की सलाह सुनें', playing: 'ऑडियो चल रहा है...', paused: 'रुका हुआ', stop: 'रोकें' },
+            'ta': { listen: 'மருத்துவர் வழிகாட்டலைக் கேளுங்கள்', playing: 'ஆடியோ ஒலிக்கிறது...', paused: 'இடைநிறுத்தப்பட்டது', stop: 'நிறுத்து' },
+        },
+
+        init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            if (langParam && this.availableLocales.includes(langParam)) {
+                this.activeLocale = langParam;
+            }
+
+            if (window.YuvannTTS) {
+                window.YuvannTTS.onStateChange((detail) => {
+                    this.audioState = detail.state;
+                    const labels = this.speechLabels[this.activeLocale] || this.speechLabels.en;
+                    if (detail.state === 'playing') {
+                        this.activeAudioBadge = labels.playing;
+                    } else if (detail.state === 'paused') {
+                        this.activeAudioBadge = labels.paused;
+                    } else if (detail.finished) {
+                        this.activeAudioBadge = 'Audio finished';
+                        this.audioState = 'idle';
+                    } else if (detail.error) {
+                        this.activeAudioBadge = 'Audio unavailable';
+                        this.audioState = 'idle';
+                    } else {
+                        this.activeAudioBadge = 'Ready to listen';
+                    }
+                });
+            }
+        },
+
+        get currentTranslation() {
+            return this.translations[this.activeLocale] || this.translations['en'] || {
+                name: '{{ addslashes($product->name) }}',
+                short_description: '{{ addslashes($product->short_description ?? '') }}',
+                benefits: [],
+                ingredients: [],
+                usage: [],
+                audio_url: null
+            };
+        },
+
+        switchLocale(locale) {
+            if (this.activeLocale === locale) return;
+            this.stopAudio();
+            this.activeLocale = locale;
+
+            try {
+                const url = new URL(window.location);
+                url.searchParams.set('lang', locale);
+                window.history.replaceState({}, '', url);
+            } catch (e) {}
+        },
+
+        getAudioLabel() {
+            const labels = this.speechLabels[this.activeLocale] || this.speechLabels.en;
+            if (this.audioState === 'playing') return labels.playing;
+            if (this.audioState === 'paused') return labels.paused;
+            return labels.listen;
+        },
+
+        getStopLabel() {
+            return (this.speechLabels[this.activeLocale] || this.speechLabels.en).stop;
+        },
+
+        toggleAudio() {
+            if (this.audioState === 'playing') {
+                this.pauseAudio();
+            } else if (this.audioState === 'paused') {
+                this.resumeAudio();
+            } else {
+                this.playAudio();
+            }
+        },
+
+        playAudio() {
+            const trans = this.currentTranslation;
+
+            // Formulate authentic spoken doctor guide
+            let speech = (trans.name ? trans.name + '. ' : '');
+            if (trans.short_description) speech += trans.short_description + '. ';
+
+            if (trans.benefits && trans.benefits.length > 0) {
+                const bHead = this.activeLocale === 'ml' ? 'ഗുണങ്ങൾ: ' : (this.activeLocale === 'hi' ? 'मुख्य लाभ: ' : (this.activeLocale === 'ta' ? 'நன்மைகள்: ' : 'Key Benefits: '));
+                speech += bHead;
+                trans.benefits.forEach(b => {
+                    speech += (b.title ? b.title + ': ' : '') + b.content + '. ';
+                });
+            }
+
+            if (trans.usage && trans.usage.length > 0) {
+                const uHead = this.activeLocale === 'ml' ? 'ഉപയോഗിക്കേണ്ട വിധം: ' : (this.activeLocale === 'hi' ? 'उपयोग विधि: ' : (this.activeLocale === 'ta' ? 'பயன்படுத்தும் முறை: ' : 'Directions: '));
+                speech += uHead;
+                trans.usage.forEach(u => {
+                    speech += (u.title ? u.title + ': ' : '') + u.content + '. ';
+                });
+            }
+
+            if (window.YuvannTTS) {
+                window.YuvannTTS.play({
+                    text: speech,
+                    locale: this.activeLocale,
+                    audioUrl: trans.audio_url || null
+                });
+            } else if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(speech);
+                utter.lang = this.activeLocale;
+                this.audioState = 'playing';
+                utter.onend = () => { this.audioState = 'idle'; };
+                utter.onerror = () => { this.audioState = 'idle'; };
+                window.speechSynthesis.speak(utter);
+            }
+        },
+
+        pauseAudio() {
+            if (window.YuvannTTS) {
+                window.YuvannTTS.pause();
+            } else if (window.speechSynthesis) {
+                window.speechSynthesis.pause();
+                this.audioState = 'paused';
+            }
+        },
+
+        resumeAudio() {
+            if (window.YuvannTTS) {
+                window.YuvannTTS.resume();
+            } else if (window.speechSynthesis) {
+                window.speechSynthesis.resume();
+                this.audioState = 'playing';
+            }
+        },
+
+        stopAudio() {
+            if (window.YuvannTTS) {
+                window.YuvannTTS.stop();
+            }
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+            this.audioState = 'idle';
+            this.activeAudioBadge = 'Ready to listen';
+        }
+    }));
+});
+</script>

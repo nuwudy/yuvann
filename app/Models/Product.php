@@ -32,6 +32,7 @@ class Product extends Model
         'is_featured',
         'is_free_shipping',
         'featured_order',
+        'translations',
     ];
 
     protected function casts(): array
@@ -45,6 +46,7 @@ class Product extends Model
             'is_featured' => 'boolean',
             'is_free_shipping' => 'boolean',
             'featured_order' => 'integer',
+            'translations' => 'array',
         ];
     }
 
@@ -266,5 +268,50 @@ class Product extends Model
 
         // 6. Fallback to dynamic share image route (which dynamically serves / converts to JPEG)
         return route('product.share-image', ['slug' => $this->slug]);
+    }
+
+    /**
+     * Get structured translations with fallback to base product attributes.
+     */
+    public function getTranslation(?string $locale = 'en'): array
+    {
+        $locale = $locale ?: 'en';
+        $translations = $this->translations ?? [];
+
+        if (!empty($translations[$locale]) && (!empty($translations[$locale]['name']) || !empty($translations[$locale]['benefits']))) {
+            return $translations[$locale];
+        }
+
+        if (!empty($translations['en'])) {
+            return $translations['en'];
+        }
+
+        $desc = is_string($this->description) ? json_decode($this->description, true) : $this->description;
+        return [
+            'locale' => 'en',
+            'name' => $this->name,
+            'short_description' => $this->short_description ?? '',
+            'benefits' => $desc['benefits'] ?? '',
+            'ingredients' => $desc['ingredients'] ?? '',
+            'usage' => $desc['usage'] ?? '',
+            'audio_url' => null,
+        ];
+    }
+
+    /**
+     * Get list of locales that have content available.
+     */
+    public function getAvailableLocalesAttribute(): array
+    {
+        $locales = ['en'];
+        $translations = $this->translations ?? [];
+
+        foreach (['ml', 'hi', 'ta'] as $loc) {
+            if (!empty($translations[$loc]) && (!empty($translations[$loc]['name']) || !empty($translations[$loc]['benefits']) || !empty($translations[$loc]['short_description']))) {
+                $locales[] = $loc;
+            }
+        }
+
+        return array_unique($locales);
     }
 }
