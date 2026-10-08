@@ -16,10 +16,11 @@ class VeachocMilkChocolateTranslationSeeder extends Seeder
     {
         $slug = 'veachoc-milk-chocolate-rakthapushti-organic-blood-builder-supplement-with-iron-vitamin-c';
 
-        $product = Product::where('slug', $slug)
-            ->orWhere('slug', 'like', '%veachoc-milk%')
+        $matchingProducts = Product::where('slug', $slug)
             ->orWhere('sku', 'VCH-RKP-MLK-CHOC-10')
-            ->first();
+            ->orWhere('slug', 'like', '%veachoc-milk%')
+            ->orWhere('id', 76)
+            ->get();
 
         $enTitle = 'VeaChoc Milk Chocolate RakthaPushti – Organic Blood Builder Supplement with Iron & Vitamin C (10 PCs)';
         $enShortDesc = 'Delicious milk cocoa functional chocolate infused with bioavailable plant iron, Vitamin C, superfood seeds, whole grains, and nuts to boost hemoglobin, enhance memory, and conquer iron deficiency naturally without digestive side effects.';
@@ -119,14 +120,22 @@ class VeachocMilkChocolateTranslationSeeder extends Seeder
             'usage' => $enUsage,
         ];
 
-        if ($product) {
-            $product->update([
-                'name' => $enTitle,
-                'short_description' => $enShortDesc,
-                'description' => json_encode($descriptionData),
-                'translations' => $translations,
-            ]);
-            $this->command?->info("Updated existing VeaChoc Milk Chocolate RakthaPushti (#{$product->id}) with full multilingual content.");
+        $bodyPartSlugs = ['whole-body', 'head'];
+        $bodyPartIds = BodyPart::whereIn('slug', $bodyPartSlugs)->pluck('id')->toArray();
+
+        if ($matchingProducts->isNotEmpty()) {
+            foreach ($matchingProducts as $product) {
+                $product->update([
+                    'name' => $enTitle,
+                    'short_description' => $enShortDesc,
+                    'description' => json_encode($descriptionData),
+                    'translations' => $translations,
+                ]);
+                if (!empty($bodyPartIds)) {
+                    $product->bodyParts()->syncWithoutDetaching($bodyPartIds);
+                }
+                $this->command?->info("Updated VeaChoc Milk Chocolate (#{$product->id}, slug: {$product->slug}) with full multilingual content.");
+            }
         } else {
             $cat = Category::firstOrCreate(
                 ['slug' => 'superfoods'],
@@ -152,14 +161,10 @@ class VeachocMilkChocolateTranslationSeeder extends Seeder
             ]);
 
             $product->categories()->syncWithoutDetaching([$cat->id]);
+            if (!empty($bodyPartIds)) {
+                $product->bodyParts()->syncWithoutDetaching($bodyPartIds);
+            }
             $this->command?->info("Created new VeaChoc Milk Chocolate RakthaPushti (#{$product->id}) with full multilingual content.");
-        }
-
-        // Attach targeted body care areas: Whole Body, Head & Mind
-        $bodyPartSlugs = ['whole-body', 'head'];
-        $bodyPartIds = BodyPart::whereIn('slug', $bodyPartSlugs)->pluck('id')->toArray();
-        if (!empty($bodyPartIds)) {
-            $product->bodyParts()->syncWithoutDetaching($bodyPartIds);
         }
     }
 }
