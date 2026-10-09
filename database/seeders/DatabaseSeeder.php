@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
                 'description' => json_encode([
                     'benefits' => "• Relieves severe abdominal cramps during menstruation.\n• Soothes muscular spasm and backaches.\n• Formulated with 100% natural herbs with zero artificial fragrances.\n• Safe for long-term topical application.",
                     'ingredients' => "• Sesame Oil base (Tila Taila)\n• Shatavari (Asparagus racemosus)\n• Ashwagandha (Withania somnifera)\n• Devadaru (Cedrus deodara)\n• camphor (for natural cooling & pain relief)",
-                    'usage' => "Apply 10-15 ml of warm Ruthu Santhi Oil over the lower abdomen, lower back, and thighs. Massage gently in circular motions. Leave it for 30 minutes, then rinse with warm water. For best results, start using 2-3 days before the onset of the menstrual cycle.",
+                    'usage' => "Gently and thoroughly massage Ruthu Santhi Oil on the lower abdomen in downward strokes (from top to bottom) for 3 to 5 minutes. After 30 minutes, you may take a bath with lukewarm water if desired (or leave it on overnight for sustained comfort). For best results, start using it 2–3 days prior to the onset of your menstrual period.",
                 ]),
                 'price' => 350.00,
                 'sale_price' => 299.00,
