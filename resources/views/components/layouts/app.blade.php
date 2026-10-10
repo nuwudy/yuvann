@@ -334,6 +334,7 @@
                     <ul class="space-y-2.5 text-xs text-brand-green-100/70">
                         <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
                         <li><a href="/products" class="hover:text-white transition-colors">Browse Store</a></li>
+                        <li><a href="{{ route('wholesale') }}" class="text-brand-gold-400 hover:text-white font-semibold transition-colors flex items-center gap-1.5"><span>🏢</span> Wholesale & B2B Orders</a></li>
                         <li><a href="/you-are-money" class="text-brand-gold-400 hover:text-white font-semibold transition-colors">📖 Book: You Are Money</a></li>
                         <li><a href="/migraine-treatment" class="text-brand-gold-400 hover:text-white font-semibold transition-colors">⚡ Migraine Ottamooli Treatment</a></li>
                         <li><a href="/blog" class="hover:text-white transition-colors">Wellness Journal & Tips</a></li>
@@ -366,6 +367,19 @@
                             </svg>
                             <a href="mailto:infoyuvann@gmail.com" class="hover:text-white transition-colors">infoyuvann@gmail.com</a>
                         </li>
+                        <li class="pt-3 mt-1 border-t border-brand-green-800">
+                            <span class="text-xs font-bold text-brand-gold-400 block mb-1">Wholesale Products Enquiries:</span>
+                            <div class="space-y-1 text-xs">
+                                <a href="tel:+917736609299" class="flex items-center gap-2 hover:text-white transition-colors">
+                                    <span class="text-brand-gold-500">📞</span>
+                                    <span>Call: 7736609299</span>
+                                </a>
+                                <a href="https://wa.me/919447365545" target="_blank" class="flex items-center gap-2 hover:text-white transition-colors text-emerald-400 font-medium">
+                                    <span class="text-emerald-400">💬</span>
+                                    <span>9447365545 (WhatsApp)</span>
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -376,6 +390,8 @@
                     <strong>Wellness & Educational Disclaimer:</strong> The information provided on this website is for educational and holistic lifestyle guidance purposes only and is not intended to substitute professional medical advice, clinical diagnosis, or medical treatment. Consult with Traditional Vaidhyan Dr. Sajeev Dev or a qualified medical physician regarding specific health conditions, or before starting any dietary regimens or herbal supplements.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4 text-xs text-brand-green-100/60 pt-2 pb-2">
+                    <a href="{{ route('wholesale') }}" class="text-brand-gold-400 hover:text-white font-semibold transition-colors">Wholesale Enquiries</a>
+                    <span class="text-brand-green-700">|</span>
                     <a href="{{ route('terms') }}" class="hover:text-white transition-colors">Terms & Conditions</a>
                     <span class="text-brand-green-700">|</span>
                     <a href="{{ route('privacy') }}" class="hover:text-white transition-colors">Privacy Policy</a>

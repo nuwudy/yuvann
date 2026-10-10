@@ -48,7 +48,7 @@ Route::get('/order-success/{order_number}', function ($order_number) {
 // Sitemap XML route
 Route::get('/sitemap.xml', function () {
     $urls = collect();
-    $static = ['/', '/products', '/you-are-money', '/blog', '/migraine-treatment', '/contact', '/terms', '/privacy', '/refund', '/shipping'];
+    $static = ['/', '/products', '/you-are-money', '/blog', '/migraine-treatment', '/wholesale', '/contact', '/terms', '/privacy', '/refund', '/shipping'];
     foreach ($static as $uri) {
         $urls->push(url($uri));
     }
@@ -70,6 +70,10 @@ Route::view('/privacy', 'pages.privacy')->name('privacy');
 Route::view('/refund', 'pages.refund')->name('refund');
 Route::view('/shipping', 'pages.shipping')->name('shipping');
 Route::view('/contact', 'pages.contact')->name('contact');
+Route::view('/wholesale', 'pages.wholesale')->name('wholesale');
+Route::get('/wholesale-enquiries', function () {
+    return redirect()->route('wholesale');
+});
 Route::view('/dr-sajeev-dev', 'pages.dr-sajeev-dev')->name('dr-sajeev-dev');
 Route::view('/migraine-treatment', 'pages.migraine-treatment')->name('migraine.treatment');
 
