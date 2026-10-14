@@ -249,6 +249,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SkinRichBloodPurifierSyrupTranslationSeeder::class);
         $this->call(VanatheeramRobustaCoffeeTranslationSeeder::class);
         $this->call(VanatheeramBlackPepperTranslationSeeder::class);
-        $this->call(VanatheeramRawForestHoneyTranslationSeeder::class);
+        $this->call(VanatheeramCheruthenTranslationSeeder::class);
     }
 }

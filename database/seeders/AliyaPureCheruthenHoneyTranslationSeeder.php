@@ -18,7 +18,10 @@ class AliyaPureCheruthenHoneyTranslationSeeder extends Seeder
 
         $matchingProducts = Product::where('slug', $slug)
             ->orWhere('sku', 'ALY-CHR-HNY-RAW-1000')
-            ->orWhere('slug', 'like', '%cheruthen%')
+            ->orWhere(function ($q) {
+                $q->where('slug', 'like', '%aliya%')
+                  ->where('slug', 'like', '%cheruthen%');
+            })
             ->orWhere(function ($q) {
                 $q->where('id', 77)
                   ->where('slug', 'like', '%honey%');
