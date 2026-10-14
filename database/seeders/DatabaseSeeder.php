@@ -251,5 +251,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VanatheeramBlackPepperTranslationSeeder::class);
         $this->call(VanatheeramCheruthenTranslationSeeder::class);
         $this->call(VanatheeramVanthenTranslationSeeder::class);
+        $this->call(VanatheeramEucalyptusOilTranslationSeeder::class);
     }
 }
