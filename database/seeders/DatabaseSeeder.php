@@ -247,5 +247,6 @@ class DatabaseSeeder extends Seeder
         $this->call(WonderHennaTranslationSeeder::class);
         $this->call(AshwasPainReliefOilTranslationSeeder::class);
         $this->call(SkinRichBloodPurifierSyrupTranslationSeeder::class);
+        $this->call(VanatheeramRobustaCoffeeTranslationSeeder::class);
     }
 }
