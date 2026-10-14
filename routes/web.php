@@ -95,6 +95,8 @@ Route::middleware(['auth'])
         Route::get('/categories', CategoryManager::class);
         Route::get('/targeted-body-care', \App\Livewire\Admin\BodyPartManager::class);
         Route::get('/orders', OrderList::class);
+        Route::get('/orders/{order}/print', [\App\Http\Controllers\Admin\OrderPrintController::class, 'print'])->name('admin.orders.print');
+        Route::get('/orders/{order}/pdf', [\App\Http\Controllers\Admin\OrderPrintController::class, 'pdf'])->name('admin.orders.pdf');
         Route::get('/media', MediaLibrary::class);
         Route::get('/reviews', ReviewManager::class);
         Route::get('/blog', BlogManager::class);

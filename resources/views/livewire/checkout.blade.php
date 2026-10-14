@@ -49,31 +49,69 @@
                         <label for="phone" class="block text-xs font-bold text-brand-green-900 uppercase mb-2">WhatsApp Phone Number *</label>
                         <input type="text" id="phone" wire:model="customer_phone" placeholder="e.g. 9876543210" 
                                class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('customer_phone') border-red-400 @enderror">
-                        <span class="text-[9px] text-brand-green-700/50 mt-1 block">Used to initiate confirmation messaging.</span>
+                        <span class="text-[9px] text-brand-green-700/50 mt-1 block">Used for order tracking & confirmation messaging.</span>
                         @error('customer_phone') 
                             <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> 
                         @enderror
                     </div>
 
-                    <!-- Customer Email -->
+                    <!-- Alternate Contact Number -->
                     <div>
-                        <label for="email" class="block text-xs font-bold text-brand-green-900 uppercase mb-2">Email Address (Optional)</label>
-                        <input type="email" id="email" wire:model="customer_email" placeholder="johndoe@example.com" 
-                               class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('customer_email') border-red-400 @enderror">
-                        @error('customer_email') 
+                        <label for="alternate_phone" class="block text-xs font-bold text-brand-green-900 uppercase mb-2">Alternate Contact No. (Optional)</label>
+                        <input type="text" id="alternate_phone" wire:model="alternate_phone" placeholder="e.g. 9447000000" 
+                               class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('alternate_phone') border-red-400 @enderror">
+                        <span class="text-[9px] text-brand-green-700/50 mt-1 block">Helpful for delivery partner in case primary phone is busy.</span>
+                        @error('alternate_phone') 
                             <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> 
                         @enderror
                     </div>
                 </div>
 
+                <!-- Customer Email -->
+                <div>
+                    <label for="email" class="block text-xs font-bold text-brand-green-900 uppercase mb-2">Email Address (Optional)</label>
+                    <input type="email" id="email" wire:model="customer_email" placeholder="johndoe@example.com" 
+                           class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('customer_email') border-red-400 @enderror">
+                    @error('customer_email') 
+                        <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> 
+                    @enderror
+                </div>
+
                 <!-- Shipping Address -->
                 <div>
                     <label for="address" class="block text-xs font-bold text-brand-green-900 uppercase mb-2">Full Shipping Address *</label>
-                    <textarea id="address" wire:model="shipping_address" rows="4" placeholder="House/Flat No., Street Name, Landmark, City, State, Pincode" 
+                    <textarea id="address" wire:model="shipping_address" rows="3" placeholder="House/Flat No., Building Name, Street, Locality, City/Town, State" 
                               class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('shipping_address') border-red-400 @enderror"></textarea>
                     @error('shipping_address') 
                         <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> 
                     @enderror
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Postal PIN Code (Mandatory) -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="pincode" class="block text-xs font-bold text-brand-green-900 uppercase">PIN Code *</label>
+                            <span class="text-[9px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">Mandatory for Shipping</span>
+                        </div>
+                        <input type="text" id="pincode" wire:model="pincode" maxlength="6" placeholder="e.g. 673121" 
+                               class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 font-mono tracking-wider focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('pincode') border-red-400 @enderror">
+                        <span class="text-[9px] text-brand-green-700/50 mt-1 block">6-digit postal code required for postal/courier booking.</span>
+                        @error('pincode') 
+                            <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> 
+                        @enderror
+                    </div>
+
+                    <!-- Landmark (Optional) -->
+                    <div>
+                        <label for="landmark" class="block text-xs font-bold text-brand-green-900 uppercase mb-2">Nearby Landmark (Optional)</label>
+                        <input type="text" id="landmark" wire:model="landmark" placeholder="e.g. Near Temple / Opp. Higher Secondary School" 
+                               class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('landmark') border-red-400 @enderror">
+                        <span class="text-[9px] text-brand-green-700/50 mt-1 block">Helps delivery agent easily locate your address.</span>
+                        @error('landmark') 
+                            <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> 
+                        @enderror
+                    </div>
                 </div>
 
                 <!-- Notes -->

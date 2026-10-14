@@ -94,6 +94,16 @@
                             <td class="px-5 py-4">
                                 <div class="font-semibold text-brand-green-900">{{ $order->customer_name }}</div>
                                 <div class="text-[10px] text-brand-green-700/60 font-mono">{{ $order->customer_phone }}</div>
+                                @if($order->alternate_phone)
+                                    <div class="text-[9px] text-brand-green-700/80 font-mono">Alt: {{ $order->alternate_phone }}</div>
+                                @endif
+                                @if($order->pincode)
+                                    <div class="mt-1">
+                                        <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-50 text-amber-900 border border-amber-200">
+                                            📮 PIN: {{ $order->pincode }}
+                                        </span>
+                                    </div>
+                                @endif
                             </td>
                             <td class="px-5 py-4">
                                 @if($order->payment_method === 'whatsapp')
@@ -125,7 +135,17 @@
                                 </span>
                             </td>
                             <td class="px-5 py-4 text-right">
-                                <div class="inline-flex items-center gap-2 justify-end">
+                                <div class="inline-flex items-center gap-1.5 justify-end">
+                                    <!-- Print Shipping Slip -->
+                                    <a href="{{ route('admin.orders.print', $order->id) }}" target="_blank"
+                                       title="Print Shipping Slip & Invoice"
+                                       class="inline-flex items-center gap-1 px-2 py-1.5 rounded-lg text-[10px] font-bold text-brand-green-900 bg-brand-green-50 hover:bg-brand-green-100 border border-brand-green-200 shadow-2xs transition-all hover:scale-105 shrink-0 whitespace-nowrap">
+                                        <svg class="w-3 h-3 text-brand-green-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                                        </svg>
+                                        <span>Print</span>
+                                    </a>
+
                                     <!-- 1-Click WhatsApp to Order Handler -->
                                     <a href="{{ $this->getWhatsAppFulfillmentUrl($order) }}" target="_blank"
                                        title="1-Click WhatsApp to Order Handler ({{ $orderWhatsAppNumber }})"
@@ -186,14 +206,43 @@
              x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
             
             <div class="px-6 py-5 border-b border-brand-green-100 bg-brand-green-900 text-white flex justify-between items-center">
-                <h3 class="text-base font-serif font-bold text-brand-gold-100">
-                    Order details: {{ $selectedOrder?->order_number }}
-                </h3>
-                <button wire:click="closeDetails" class="text-brand-green-100 hover:text-brand-gold-400 focus:outline-none p-1 rounded-full hover:bg-brand-green-800 transition-colors">
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                <div class="flex items-center gap-3">
+                    <h3 class="text-base font-serif font-bold text-brand-gold-100">
+                        Order: {{ $selectedOrder?->order_number }}
+                    </h3>
+                    @if($selectedOrder?->pincode)
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-brand-gold-400 text-brand-green-950 font-mono">
+                            PIN: {{ $selectedOrder->pincode }}
+                        </span>
+                    @endif
+                </div>
+                <div class="flex items-center gap-2">
+                    @if($selectedOrder)
+                        <a href="{{ route('admin.orders.print', $selectedOrder->id) }}" target="_blank"
+                           title="Print Shipping Slip & Invoice"
+                           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/15">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                            </svg>
+                            <span>Print Slip</span>
+                        </a>
+
+                        <a href="{{ route('admin.orders.pdf', $selectedOrder->id) }}"
+                           title="Download PDF Invoice"
+                           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-gold-400 hover:bg-brand-gold-300 text-brand-green-950 transition-colors shadow-2xs">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            <span>Download PDF</span>
+                        </a>
+                    @endif
+
+                    <button wire:click="closeDetails" class="text-brand-green-100 hover:text-brand-gold-400 focus:outline-none p-1 rounded-full hover:bg-brand-green-800 transition-colors">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             @if($selectedOrder)
@@ -218,14 +267,33 @@
                         <div class="space-y-1">
                             <span class="text-[9px] font-bold text-brand-green-700/60 uppercase">Customer Info</span>
                             <div class="text-xs font-bold text-brand-green-900">{{ $selectedOrder->customer_name }}</div>
-                            <div class="text-xs text-brand-green-800 font-mono">{{ $selectedOrder->customer_phone }}</div>
+                            <div class="text-xs text-brand-green-800 font-mono">📞 {{ $selectedOrder->customer_phone }}</div>
+                            @if($selectedOrder->alternate_phone)
+                                <div class="text-[11px] text-brand-green-700 font-mono">
+                                    <span class="font-bold text-emerald-800">Alt Phone:</span> {{ $selectedOrder->alternate_phone }}
+                                </div>
+                            @endif
                             @if($selectedOrder->customer_email)
-                                <div class="text-xs text-brand-green-800">{{ $selectedOrder->customer_email }}</div>
+                                <div class="text-xs text-brand-green-800">✉️ {{ $selectedOrder->customer_email }}</div>
                             @endif
                         </div>
-                        <div class="space-y-1">
-                            <span class="text-[9px] font-bold text-brand-green-700/60 uppercase">Shipping Address</span>
+                        <div class="space-y-1.5">
+                            <span class="text-[9px] font-bold text-brand-green-700/60 uppercase">Shipping Destination</span>
                             <div class="text-xs font-medium text-brand-green-900 leading-relaxed">{{ $selectedOrder->shipping_address }}</div>
+                            @if($selectedOrder->landmark)
+                                <div class="text-[11px] text-amber-900 bg-amber-50/80 p-1.5 rounded-lg border border-amber-200 leading-tight">
+                                    <strong>🏷️ Landmark:</strong> {{ $selectedOrder->landmark }}
+                                </div>
+                            @endif
+                            @if($selectedOrder->pincode)
+                                <div class="pt-1">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-bold bg-brand-green-900 text-brand-gold-200 font-mono tracking-wider shadow-2xs">
+                                        📮 PIN CODE: {{ $selectedOrder->pincode }}
+                                    </span>
+                                </div>
+                            @else
+                                <div class="text-[10px] text-amber-700 font-semibold">⚠️ No PIN code recorded</div>
+                            @endif
                         </div>
                         <div class="space-y-1">
                             <span class="text-[9px] font-bold text-brand-green-700/60 uppercase">Payment & Chat</span>

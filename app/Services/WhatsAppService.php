@@ -110,12 +110,22 @@ class WhatsAppService
         $lines[] = "🌿 *YUVANN WELLNESS - ORDER #{$order->order_number}*";
         $lines[] = "--------------------------------------";
         $lines[] = "👤 *Customer:* " . $order->customer_name;
-        $lines[] = "📞 *Phone:* " . $order->customer_phone;
+        $lines[] = "📞 *Primary Phone:* " . $order->customer_phone;
+        if (!empty($order->alternate_phone)) {
+            $lines[] = "📱 *Alt Contact No:* " . $order->alternate_phone;
+        }
         if (!empty($order->customer_email)) {
             $lines[] = "✉️ *Email:* " . $order->customer_email;
         }
+        $lines[] = "";
         $lines[] = "📍 *Shipping Address:*";
         $lines[] = $order->shipping_address;
+        if (!empty($order->landmark)) {
+            $lines[] = "🏷️ *Landmark:* " . $order->landmark;
+        }
+        if (!empty($order->pincode)) {
+            $lines[] = "📮 *PIN Code:* " . $order->pincode;
+        }
         $lines[] = "";
         $lines[] = "📦 *Ordered Items:*";
 

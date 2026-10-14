@@ -112,11 +112,21 @@ class OrderList extends Component
         $msg .= "🆔 *Order ID:* {$order->order_number}\n";
         $msg .= "📅 *Date:* " . $order->created_at->format('d-M-Y H:i') . "\n";
         $msg .= "👤 *Customer:* {$order->customer_name}\n";
-        $msg .= "📱 *Customer Phone:* {$order->customer_phone}\n";
+        $msg .= "📱 *Primary Phone:* {$order->customer_phone}\n";
+        if ($order->alternate_phone) {
+            $msg .= "📞 *Alt Contact No:* {$order->alternate_phone}\n";
+        }
         if ($order->customer_email) {
             $msg .= "✉️ *Email:* {$order->customer_email}\n";
         }
-        $msg .= "\n📍 *Delivery Address:*\n{$order->shipping_address}\n\n";
+        $msg .= "\n📍 *Delivery Address:*\n{$order->shipping_address}\n";
+        if ($order->landmark) {
+            $msg .= "🏷️ *Landmark:* {$order->landmark}\n";
+        }
+        if ($order->pincode) {
+            $msg .= "📮 *PIN CODE:* {$order->pincode} ⚠️ (Mandatory for Courier)\n";
+        }
+        $msg .= "\n";
 
         $paymentType = ($order->payment_method === 'whatsapp') ? 'WhatsApp Order' : 'Razorpay Online';
         $msg .= "💳 *Payment:* {$paymentType}\n";

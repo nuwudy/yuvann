@@ -15,18 +15,29 @@ class Checkout extends Component
 {
     public string $customer_name = '';
     public string $customer_phone = '';
+    public string $alternate_phone = '';
     public string $customer_email = '';
     public string $shipping_address = '';
+    public string $pincode = '';
+    public string $landmark = '';
     public string $notes = '';
     public string $payment_method = 'razorpay'; // 'razorpay' or 'whatsapp'
 
     protected array $rules = [
         'customer_name' => 'required|string|min:3|max:100',
         'customer_phone' => 'required|string|min:10|max:15',
+        'alternate_phone' => 'nullable|string|min:10|max:15',
         'customer_email' => 'nullable|email|max:100',
         'shipping_address' => 'required|string|min:10|max:500',
+        'pincode' => 'required|string|regex:/^[0-9]{6}$/',
+        'landmark' => 'nullable|string|max:150',
         'notes' => 'nullable|string|max:500',
         'payment_method' => 'required|in:razorpay,whatsapp',
+    ];
+
+    protected array $messages = [
+        'pincode.required' => 'Postal PIN Code is mandatory for courier and postal shipping.',
+        'pincode.regex' => 'Please enter a valid 6-digit Indian PIN Code (e.g. 673121).',
     ];
 
     public function mount(): void
@@ -63,8 +74,11 @@ class Checkout extends Component
                 'order_number' => $orderNumber,
                 'customer_name' => $this->customer_name,
                 'customer_phone' => $this->customer_phone,
+                'alternate_phone' => $this->alternate_phone ?: null,
                 'customer_email' => $this->customer_email ?: null,
                 'shipping_address' => $this->shipping_address,
+                'pincode' => trim($this->pincode),
+                'landmark' => $this->landmark ?: null,
                 'notes' => $this->notes ?: null,
                 'total_amount' => $totalAmount,
                 'shipping_amount' => $shippingAmount,
