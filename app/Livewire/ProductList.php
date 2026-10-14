@@ -83,7 +83,22 @@ class ProductList extends Component
 
     public function render()
     {
-        $query = Product::with(['categories', 'reviews', 'bodyParts', 'variants', 'shop'])->where('is_active', true);
+        $cardColumns = [
+            'id', 'name', 'slug', 'short_description', 'price', 'sale_price', 'sku',
+            'stock_quantity', 'unit_size', 'badge', 'featured_image',
+            'is_active', 'is_featured', 'featured_order', 'is_free_shipping',
+            'created_at', 'shop_id'
+        ];
+
+        $query = Product::select($cardColumns)
+            ->with([
+                'categories:id,name,slug',
+                'reviews:id,product_id,rating,is_approved',
+                'bodyParts:id,name,slug',
+                'variants:id,product_id,unit_size,price,sale_price,sku,stock_quantity,is_active',
+                'shop:id,name,slug,profile_pic'
+            ])
+            ->where('is_active', true);
 
         // Smart, Typo-Tolerant Search Filter (Includes phonetic transliteration & fuzzy Levenshtein)
         if (!empty($this->search)) {
@@ -141,10 +156,7 @@ class ProductList extends Component
                     break;
                 case 'latest':
                 default:
-                    // Display products on priority basis (featured_order: 1, 2, 3...) first, then newest
-                    $query->orderByRaw('CASE WHEN featured_order IS NOT NULL AND featured_order > 0 THEN 0 ELSE 1 END')
-                          ->orderBy('featured_order', 'asc')
-                          ->orderBy('created_at', 'desc');
+                    $query->latest('id');
                     break;
             }
         }

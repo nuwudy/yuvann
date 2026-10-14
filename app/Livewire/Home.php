@@ -27,31 +27,68 @@ class Home extends Component
 
     public function render()
     {
-        $allActiveProducts = Product::with(['categories', 'reviews', 'variants'])
+        $cardColumns = [
+            'id', 'name', 'slug', 'short_description', 'price', 'sale_price', 'sku',
+            'stock_quantity', 'unit_size', 'badge', 'featured_image',
+            'is_active', 'is_featured', 'featured_order', 'is_free_shipping',
+            'created_at', 'shop_id'
+        ];
+
+        // 1. Curated "Hand-Picked" & Ticker Products (Top 10-12 priority/featured)
+        $featured = Product::select($cardColumns)
+            ->with([
+                'categories:id,name,slug',
+                'variants:id,product_id,unit_size,price,sale_price,sku,stock_quantity,is_active',
+            ])
             ->where('is_active', true)
+            ->where(function ($q) {
+                $q->where('is_featured', true)
+                  ->orWhere('featured_order', '>', 0);
+            })
+            ->orderByRaw('CASE WHEN featured_order IS NOT NULL AND featured_order > 0 THEN 0 ELSE 1 END')
+            ->orderBy('featured_order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->take(12)
             ->get();
 
-        $prioritySorted = $allActiveProducts->sort(function ($a, $b) {
-            $orderA = ($a->featured_order !== null && (int) $a->featured_order > 0) ? (int) $a->featured_order : PHP_INT_MAX;
-            $orderB = ($b->featured_order !== null && (int) $b->featured_order > 0) ? (int) $b->featured_order : PHP_INT_MAX;
-            if ($orderA !== $orderB) {
-                return $orderA <=> $orderB;
-            }
-            if ($a->is_featured !== $b->is_featured) {
-                return $b->is_featured <=> $a->is_featured;
-            }
-            return $b->created_at <=> $a->created_at;
-        })->values();
-
-        $featured = $prioritySorted->filter(fn($p) => ($p->featured_order !== null && (int) $p->featured_order > 0) || $p->is_featured)->values();
         if ($featured->isEmpty()) {
-            $featured = $prioritySorted->take(10)->values();
+            $featured = Product::select($cardColumns)
+                ->with([
+                    'categories:id,name,slug',
+                    'variants:id,product_id,unit_size,price,sale_price,sku,stock_quantity,is_active',
+                ])
+                ->where('is_active', true)
+                ->latest('id')
+                ->take(12)
+                ->get();
         }
+
+        // 2. True "Latest Arrivals" — Newly created additions first!
+        $latest = Product::select($cardColumns)
+            ->with([
+                'categories:id,name,slug',
+                'variants:id,product_id,unit_size,price,sale_price,sku,stock_quantity,is_active',
+            ])
+            ->where('is_active', true)
+            ->latest('id')
+            ->take(10)
+            ->get();
+
+        // 3. Trending Products — Fast random selection
+        $trending = Product::select($cardColumns)
+            ->with([
+                'categories:id,name,slug',
+                'variants:id,product_id,unit_size,price,sale_price,sku,stock_quantity,is_active',
+            ])
+            ->where('is_active', true)
+            ->inRandomOrder()
+            ->take(8)
+            ->get();
 
         return view('livewire.home', [
             'featuredProducts' => $featured,
-            'trendingProducts' => $allActiveProducts->shuffle()->take(8)->values(),
-            'latestProducts'   => $prioritySorted->take(8)->values(),
+            'trendingProducts' => $trending,
+            'latestProducts'   => $latest,
             'bodyParts'        => BodyPart::where('is_active', true)->orderBy('sort_order', 'asc')->get(),
             'categories'       => Category::where('is_active', true)->get(),
             'shops'            => \App\Models\Shop::where('is_active', true)->get(),

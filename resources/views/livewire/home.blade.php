@@ -269,7 +269,7 @@
                             <!-- Image with Hover Reveal -->
                             <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl">
                                 <a href="/products/{{ $product->slug }}">
-                                    <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="absolute inset-0 h-full w-full object-cover group-hover/card:scale-105 transition-transform duration-700">
+                                    <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover group-hover/card:scale-105 transition-transform duration-700">
                                 </a>
                                 
                                 <!-- Desktop Quick Add Overlay -->
@@ -510,7 +510,7 @@
                             <!-- Image with Hover Reveal -->
                             <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl">
                                 <a href="/products/{{ $product->slug }}">
-                                    <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="absolute inset-0 h-full w-full object-cover group-hover/card:scale-105 transition-transform duration-700">
+                                    <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover group-hover/card:scale-105 transition-transform duration-700">
                                 </a>
                                 
                                 <!-- Desktop Quick Add Overlay -->
@@ -653,7 +653,7 @@
                             <!-- Image with Hover Reveal -->
                             <div class="h-80 w-full bg-brand-green-50 relative overflow-hidden rounded-t-xl">
                                 <a href="/products/{{ $product->slug }}">
-                                    <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" class="absolute inset-0 h-full w-full object-cover group-hover/card:scale-105 transition-transform duration-700">
+                                    <img src="{{ $product->featured_image_url }}" alt="{{ $product->name }}" loading="lazy" decoding="async" class="absolute inset-0 h-full w-full object-cover group-hover/card:scale-105 transition-transform duration-700">
                                 </a>
                                 
                                 <!-- Desktop Quick Add Overlay -->
