@@ -69,9 +69,13 @@
 
                 <!-- Customer Email -->
                 <div>
-                    <label for="email" class="block text-xs font-bold text-brand-green-900 uppercase mb-2">Email Address (Optional)</label>
-                    <input type="email" id="email" wire:model="customer_email" placeholder="johndoe@example.com" 
+                    <div class="flex items-center justify-between mb-2">
+                        <label for="email" class="block text-xs font-bold text-brand-green-900 uppercase">Email Address *</label>
+                        <span class="text-[9px] font-bold text-brand-green-800 bg-brand-green-50 px-2 py-0.5 rounded-full border border-brand-green-200">Order Confirmation & Invoice</span>
+                    </div>
+                    <input type="email" id="email" wire:model="customer_email" required placeholder="name@example.com" 
                            class="w-full bg-brand-green-50/30 border border-brand-green-100 rounded-xl py-2.5 px-3.5 text-xs text-brand-green-900 focus:outline-none focus:ring-1 focus:ring-brand-gold-500 @error('customer_email') border-red-400 @enderror">
+                    <span class="text-[9px] text-brand-green-700/60 mt-1 block">Your order summary, confirmation, and receipt will be sent to this email.</span>
                     @error('customer_email') 
                         <p class="text-[10px] text-red-600 mt-1 font-semibold">{{ $message }}</p> 
                     @enderror

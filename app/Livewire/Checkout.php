@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Mail\OrderConfirmationMail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -9,6 +10,8 @@ use App\Models\Setting;
 use App\Services\CartService;
 use App\Services\WhatsAppService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class Checkout extends Component
@@ -27,7 +30,7 @@ class Checkout extends Component
         'customer_name' => 'required|string|min:3|max:100',
         'customer_phone' => 'required|string|min:10|max:15',
         'alternate_phone' => 'nullable|string|min:10|max:15',
-        'customer_email' => 'nullable|email|max:100',
+        'customer_email' => 'required|email|max:100',
         'shipping_address' => 'required|string|min:10|max:500',
         'pincode' => 'required|string|regex:/^[0-9]{6}$/',
         'landmark' => 'nullable|string|max:150',
@@ -36,6 +39,8 @@ class Checkout extends Component
     ];
 
     protected array $messages = [
+        'customer_email.required' => 'Please provide an email address to receive your order confirmation & receipt.',
+        'customer_email.email' => 'Please enter a valid email address (e.g. name@example.com).',
         'pincode.required' => 'Postal PIN Code is mandatory for courier and postal shipping.',
         'pincode.regex' => 'Please enter a valid 6-digit Indian PIN Code (e.g. 673121).',
     ];
@@ -127,8 +132,11 @@ class Checkout extends Component
                         WhatsAppService::sendOrderNotification($order->customer_phone, $order, false);
                     }
                 } catch (\Exception $e) {
-                    \Illuminate\Support\Facades\Log::error('WhatsApp notification failed: ' . $e->getMessage());
+                    Log::error('WhatsApp notification failed: ' . $e->getMessage());
                 }
+
+                // Send Order Confirmation Email (non-blocking)
+                $this->sendOrderEmailConfirmation($order);
 
                 $waUrl = WhatsAppService::buildOrderWhatsAppUrl($order);
 
@@ -204,6 +212,9 @@ class Checkout extends Component
                 } catch (\Exception $e) {
                     \Illuminate\Support\Facades\Log::error('WhatsApp notification failed: ' . $e->getMessage());
                 }
+
+                // Send Order Confirmation Email (non-blocking)
+                $this->sendOrderEmailConfirmation($order);
                 
                 // Redirect to success page
                 return redirect()->to('/order-success/' . $order->order_number);
@@ -238,5 +249,23 @@ class Checkout extends Component
             'freeShippingThreshold' => $freeShippingThreshold,
             'totalAmount' => $totalAmount,
         ])->layout('components.layouts.app');
+    }
+
+    /**
+     * Send order confirmation email to customer with a BCC copy to admin.
+     */
+    protected function sendOrderEmailConfirmation(Order $order): void
+    {
+        if (empty($order->customer_email)) {
+            return;
+        }
+
+        try {
+            Mail::to($order->customer_email)
+                ->bcc('info@yuvann.com')
+                ->send(new OrderConfirmationMail($order));
+        } catch (\Throwable $e) {
+            Log::error('Order confirmation email failed for order ' . $order->order_number . ': ' . $e->getMessage());
+        }
     }
 }
