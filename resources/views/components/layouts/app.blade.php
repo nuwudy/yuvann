@@ -365,7 +365,7 @@
                             <svg class="w-4 h-4 text-brand-gold-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                             </svg>
-                            <a href="mailto:infoyuvann@gmail.com" class="hover:text-white transition-colors">infoyuvann@gmail.com</a>
+                            <a href="mailto:info@yuvann.com" class="hover:text-white transition-colors">info@yuvann.com</a>
                         </li>
                         <li class="pt-3 mt-1 border-t border-brand-green-800">
                             <span class="text-xs font-bold text-brand-gold-400 block mb-1">Wholesale Products Enquiries:</span>

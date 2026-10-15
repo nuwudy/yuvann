@@ -20,13 +20,13 @@
             <p>You will receive a Shipment Confirmation email/SMS once your order has shipped containing your tracking number(s). The tracking number will be active within 24 hours.</p>
 
             <h2>4. Damages</h2>
-            <p>Yuvann Wellness is not liable for any products damaged or lost during shipping. If you received your order damaged, please contact the shipment carrier to file a claim. Please save all packaging materials and damaged goods before filing a claim. However, you can also notify us at infoyuvann@gmail.com with photographic evidence within 48 hours, and we will try to assist you.</p>
+            <p>Yuvann Wellness is not liable for any products damaged or lost during shipping. If you received your order damaged, please contact the shipment carrier to file a claim. Please save all packaging materials and damaged goods before filing a claim. However, you can also notify us at info@yuvann.com with photographic evidence within 48 hours, and we will try to assist you.</p>
 
             <h2>5. International Shipping Policy</h2>
             <p>We currently do not ship outside of India.</p>
             
             <h2>6. Contact Us</h2>
-            <p>If you have any questions about our shipping policy, please contact us at infoyuvann@gmail.com.</p>
+            <p>If you have any questions about our shipping policy, please contact us at info@yuvann.com.</p>
         </div>
     </div>
 </x-layouts.app>

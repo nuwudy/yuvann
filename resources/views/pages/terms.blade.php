@@ -29,7 +29,7 @@
             <p>These Terms shall be governed and construed in accordance with the laws of Kerala, India, without regard to its conflict of law provisions.</p>
 
             <h2>7. Contact Us</h2>
-            <p>If you have any questions about these Terms, please contact us at infoyuvann@gmail.com.</p>
+            <p>If you have any questions about these Terms, please contact us at info@yuvann.com.</p>
         </div>
     </div>
 </x-layouts.app>

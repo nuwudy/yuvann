@@ -42,7 +42,7 @@
                         </div>
                         <div class="ml-3 text-base text-brand-green-800">
                             <p class="font-medium">Email</p>
-                            <p class="mt-1"><a href="mailto:infoyuvann@gmail.com" class="hover:text-brand-gold-600 transition-colors">infoyuvann@gmail.com</a></p>
+                            <p class="mt-1"><a href="mailto:info@yuvann.com" class="hover:text-brand-gold-600 transition-colors">info@yuvann.com</a></p>
                         </div>
                     </div>
                 </div>

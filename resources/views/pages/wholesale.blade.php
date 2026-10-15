@@ -400,7 +400,7 @@
 
                     <div class="mt-4 pt-4 border-t border-gray-100 text-center">
                         <p class="text-[11px] text-gray-500">
-                            Or dial directly: <a href="tel:+917736609299" class="font-bold text-brand-green-900 hover:text-brand-gold-600">7736609299</a> | Email: <a href="mailto:infoyuvann@gmail.com" class="text-brand-green-900 hover:text-brand-gold-600">infoyuvann@gmail.com</a>
+                            Or dial directly: <a href="tel:+917736609299" class="font-bold text-brand-green-900 hover:text-brand-gold-600">7736609299</a> | Email: <a href="mailto:info@yuvann.com" class="text-brand-green-900 hover:text-brand-gold-600">info@yuvann.com</a>
                         </p>
                     </div>
 

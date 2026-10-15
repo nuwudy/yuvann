@@ -6,7 +6,7 @@
             <p>Last updated: {{ date('F j, Y') }}</p>
 
             <h2>1. Order Cancellation</h2>
-            <p>You can cancel your order within 24 hours of placing it, provided the order has not been dispatched. To cancel your order, please contact us immediately at infoyuvann@gmail.com or call us at +91 7736609299 with your order number.</p>
+            <p>You can cancel your order within 24 hours of placing it, provided the order has not been dispatched. To cancel your order, please contact us immediately at info@yuvann.com or call us at +91 7736609299 with your order number.</p>
             <p>If the order has already been dispatched, we unfortunately cannot accept cancellation.</p>
 
             <h2>2. Refunds</h2>
@@ -24,7 +24,7 @@
             <p>For payments made via Razorpay, the refund will be credited to the original source account.</p>
 
             <h2>4. Contact Us</h2>
-            <p>If you have any questions on how to return your item to us or regarding our refund policy, contact us at infoyuvann@gmail.com.</p>
+            <p>If you have any questions on how to return your item to us or regarding our refund policy, contact us at info@yuvann.com.</p>
         </div>
     </div>
 </x-layouts.app>

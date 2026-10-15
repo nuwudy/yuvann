@@ -34,7 +34,7 @@
             <p>We will only retain your personal data for as long as reasonably necessary to fulfil the purposes we collected it for, including for the purposes of satisfying any legal, regulatory, tax, accounting or reporting requirements.</p>
 
             <h2>6. Contact Details</h2>
-            <p>If you have any questions about this privacy policy or our privacy practices, please contact us at infoyuvann@gmail.com.</p>
+            <p>If you have any questions about this privacy policy or our privacy practices, please contact us at info@yuvann.com.</p>
         </div>
     </div>
 </x-layouts.app>
