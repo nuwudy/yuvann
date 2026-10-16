@@ -255,7 +255,7 @@
                                 Yuvann Wellness Concepts
                             </p>
                             <p style="margin: 0 0 10px 0;">
-                                Wayanad, Kerala, India &bull; Phone: +91 7736609299
+                                Royale Plaza, Aluva - 683101, Kerala, India &bull; Phone: +91 7736609299
                             </p>
                             <p style="margin: 0; font-size: 11px; color: #87a692;">
                                 &copy; {{ date('Y') }} Yuvann Wellness. All rights reserved. &bull; <a href="https://yuvann.com" style="color: #e2cb92; text-decoration: none;">yuvann.com</a>

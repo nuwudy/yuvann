@@ -18,7 +18,7 @@
                         </div>
                         <div class="ml-3 text-base text-brand-green-800">
                             <p class="font-medium">Address</p>
-                            <p class="mt-1">Kerala, India</p>
+                            <p class="mt-1">Royale Plaza, Aluva - 683101, Kerala, India</p>
                         </div>
                     </div>
                     
