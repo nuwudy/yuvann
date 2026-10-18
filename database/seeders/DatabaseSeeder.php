@@ -254,5 +254,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VanatheeramEucalyptusOilTranslationSeeder::class);
         $this->call(VanatheeramAromaticTurmericTranslationSeeder::class);
         $this->call(VanatheeramDryGingerTranslationSeeder::class);
+        $this->call(MaharshiF27ExtractTranslationSeeder::class);
     }
 }
