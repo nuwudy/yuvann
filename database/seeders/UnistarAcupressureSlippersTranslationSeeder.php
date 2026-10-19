@@ -279,14 +279,29 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
         ];
 
         foreach ($variants as $variantData) {
-            ProductVariant::updateOrCreate(
-                [
-                    'product_id' => $product->id,
-                    'unit_size' => $variantData['unit_size'],
-                ],
-                $variantData
-            );
+            $existingVariant = ProductVariant::where('sku', $variantData['sku'])
+                ->orWhere(function ($q) use ($product, $variantData) {
+                    $q->where('product_id', $product->id)
+                      ->whereIn('unit_size', [
+                          $variantData['unit_size'],
+                          str_replace(' ', '', $variantData['unit_size']),
+                          str_replace('inch', ' inch', $variantData['unit_size']),
+                      ]);
+                })
+                ->first();
+
+            if ($existingVariant) {
+                $existingVariant->update(array_merge($variantData, ['product_id' => $product->id]));
+            } else {
+                ProductVariant::create(array_merge($variantData, ['product_id' => $product->id]));
+            }
         }
+
+        // Clean up any stray variants for this product with legacy non-standard formatting
+        $validSkus = collect($variants)->pluck('sku')->all();
+        ProductVariant::where('product_id', $product->id)
+            ->whereNotIn('sku', $validSkus)
+            ->delete();
 
         $this->command?->info("Successfully seeded 6 size variants for Unistar Acupressure Slippers Product #{$product->id}.");
     }
