@@ -256,5 +256,6 @@ class DatabaseSeeder extends Seeder
         $this->call(VanatheeramDryGingerTranslationSeeder::class);
         $this->call(MaharshiF27ExtractTranslationSeeder::class);
         $this->call(UnistarAcupressureSlippersTranslationSeeder::class);
+        $this->call(UnistarAcupressureBlueSlippersTranslationSeeder::class);
     }
 }

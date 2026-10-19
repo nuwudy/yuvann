@@ -192,7 +192,7 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
         $productData = [
             'name' => $enTitle,
             'slug' => $primarySlug,
-            'sku' => 'UNI-ACU-BLU-SLP-9',
+            'sku' => 'UNI-ACU-BLK-SLP-9',
             'price' => 399.00,
             'sale_price' => 375.00,
             'stock_quantity' => 120,
@@ -224,7 +224,7 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
             $product->bodyParts()->syncWithoutDetaching($bodyPartIds);
         }
 
-        // 6 Size Variants requested:
+        // 6 Size Variants for Black Slippers:
         // 9 inch (default), 8 inch, 7 inch, 6 inch, 5 inch, 10 inch
         // All ₹399 MRP, ₹375 Sale Price (Save 6%)
         $variants = [
@@ -232,7 +232,7 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
                 'unit_size' => '9 inch',
                 'price' => 399.00,
                 'sale_price' => 375.00,
-                'sku' => 'UNI-ACU-BLU-SLP-9',
+                'sku' => 'UNI-ACU-BLK-SLP-9',
                 'stock_quantity' => 20,
                 'is_active' => true,
             ],
@@ -240,7 +240,7 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
                 'unit_size' => '8 inch',
                 'price' => 399.00,
                 'sale_price' => 375.00,
-                'sku' => 'UNI-ACU-BLU-SLP-8',
+                'sku' => 'UNI-ACU-BLK-SLP-8',
                 'stock_quantity' => 20,
                 'is_active' => true,
             ],
@@ -248,7 +248,7 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
                 'unit_size' => '7 inch',
                 'price' => 399.00,
                 'sale_price' => 375.00,
-                'sku' => 'UNI-ACU-BLU-SLP-7',
+                'sku' => 'UNI-ACU-BLK-SLP-7',
                 'stock_quantity' => 20,
                 'is_active' => true,
             ],
@@ -256,7 +256,7 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
                 'unit_size' => '6 inch',
                 'price' => 399.00,
                 'sale_price' => 375.00,
-                'sku' => 'UNI-ACU-BLU-SLP-6',
+                'sku' => 'UNI-ACU-BLK-SLP-6',
                 'stock_quantity' => 20,
                 'is_active' => true,
             ],
@@ -264,7 +264,7 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
                 'unit_size' => '5 inch',
                 'price' => 399.00,
                 'sale_price' => 375.00,
-                'sku' => 'UNI-ACU-BLU-SLP-5',
+                'sku' => 'UNI-ACU-BLK-SLP-5',
                 'stock_quantity' => 20,
                 'is_active' => true,
             ],
@@ -272,17 +272,19 @@ class UnistarAcupressureSlippersTranslationSeeder extends Seeder
                 'unit_size' => '10 inch',
                 'price' => 399.00,
                 'sale_price' => 375.00,
-                'sku' => 'UNI-ACU-BLU-SLP-10',
+                'sku' => 'UNI-ACU-BLK-SLP-10',
                 'stock_quantity' => 20,
                 'is_active' => true,
             ],
         ];
 
         foreach ($variants as $variantData) {
-            $existingVariant = ProductVariant::where('sku', $variantData['sku'])
-                ->orWhere(function ($q) use ($product, $variantData) {
-                    $q->where('product_id', $product->id)
-                      ->whereIn('unit_size', [
+            $bluSkuEquivalent = str_replace('UNI-ACU-BLK-', 'UNI-ACU-BLU-', $variantData['sku']);
+            $existingVariant = ProductVariant::where('product_id', $product->id)
+                ->where(function ($q) use ($variantData, $bluSkuEquivalent) {
+                    $q->where('sku', $variantData['sku'])
+                      ->orWhere('sku', $bluSkuEquivalent)
+                      ->orWhereIn('unit_size', [
                           $variantData['unit_size'],
                           str_replace(' ', '', $variantData['unit_size']),
                           str_replace('inch', ' inch', $variantData['unit_size']),
